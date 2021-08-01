@@ -15,4 +15,10 @@
         <!-- Customize your theme here. -->
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="normalRoboto14Regular" parent="Theme.AppCompat">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
 </resources>
