@@ -21,7 +21,15 @@
         android:id="@+id/dashFragment"
         android:name="com.baljeet.expirytracker.Dash.DashFragment"
         android:label="fragment_dash"
-        tools:layout="@layout/fragment_dash" />
+        tools:layout="@layout/fragment_dash" >
+        <action
+            android:id="@+id/action_dashFragment_to_addProduct"
+            app:destination="@id/addProduct"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.baljeet.expirytracker.calendar.CalendarFragment"
@@ -32,4 +40,9 @@
         android:name="com.baljeet.expirytracker.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/addProduct"
+        android:name="com.baljeet.expirytracker.product.AddProduct"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" />
 </navigation>

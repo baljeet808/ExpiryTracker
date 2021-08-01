@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import com.baljeet.expirytracker.R
 
 class AddProduct : Fragment() {
@@ -15,7 +16,7 @@ class AddProduct : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_product, container, false)
 
-
+        view.findViewById<ImageButton>(R.id.close_btn).setOnClickListener { activity?.onBackPressed() }
 
         return view
     }

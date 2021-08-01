@@ -79,6 +79,7 @@
         />
 
     <Button
+        android:id="@+id/add_product_button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
