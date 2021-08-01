@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Expiry Tracker</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alerts">Alerts</string>
+    <string name="btn_text">Save your product</string>
+    <string name="let_s_keep_it_fresh">Keep it fresh</string>
+    <string name="image">image</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="settings">Settings</string>
+    <string name="date">27th June</string>
+    <string name="date_variable">%1$dth %2$s</string>
+    <string name="greeting_text">Good morning, Brenda</string>
+    <string name="greeting_variable">Good %1$s, %2$s</string>
+    <string name="status_dashboard">All of your products looks fresh, good job</string>
+    <string name="status_dashboard_var">%1$s</string>
+    <string name="strawberries">Strawberries</string>
+    <string name="bought_on_sample">Bought On : 25th June</string>
+    <string name="slogan">Lets keep everything fresh</string>
+    <string name="add_here">Add here</string>
+</resources>
