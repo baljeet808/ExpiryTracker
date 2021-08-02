@@ -20,4 +20,7 @@
     <string name="slogan">Lets keep everything fresh</string>
     <string name="add_here">Add here</string>
     <string name="add_product">Add Product</string>
+    <string name="product_category">Product Category</string>
+    <string name="choose_a_category">Choose Category</string>
+    <string name="choose_title">Choose %1$s</string>
 </resources>

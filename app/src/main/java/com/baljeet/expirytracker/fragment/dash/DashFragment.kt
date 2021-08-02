@@ -1,4 +1,4 @@
-package com.baljeet.expirytracker.Dash
+package com.baljeet.expirytracker.fragment.dash
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
