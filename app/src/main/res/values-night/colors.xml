@@ -21,4 +21,5 @@
     <color name="text_dialog_color">#93ABD3</color>
     <color name="theme_peach">#FF5252</color>
     <color name="theme_peach_light">#FC6681</color>
+    <color name="tab_background">#343F56</color>
 </resources>

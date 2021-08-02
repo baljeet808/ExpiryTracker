@@ -6,15 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.baljeet.expirytracker.R
+import com.baljeet.expirytracker.fragment.shared.SelectFrom
+import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
+import com.baljeet.expirytracker.listAdapters.PagerCustomAdapter
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class AddProduct : Fragment() {
 
-    private lateinit var chooseCategory : TextInputEditText
-    private lateinit var chooseCategoryLayout : TextInputLayout
+    private lateinit var viewPager : ViewPager
+    private lateinit var tabLayout : TabLayout
+
+    private val viewModel : SelectFromViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,14 +33,26 @@ class AddProduct : Fragment() {
 
         view.findViewById<ImageButton>(R.id.close_btn).setOnClickListener { activity?.onBackPressed() }
 
-        chooseCategory = view.findViewById(R.id.choose_category_edittext)
-        chooseCategoryLayout = view.findViewById(R.id.choose_category_layout)
 
-        chooseCategory.setOnClickListener {
-            Navigation.findNavController(requireView()).navigate(R.id.action_addProduct_to_selectFrom)
-        }
+        viewPager = view.findViewById(R.id.tabs_host)
+        tabLayout = view.findViewById(R.id.tab_layout)
+        setUpPager()
 
         return view
+    }
+
+    fun setUpPager(){
+        val selectCategory = SelectFrom.newInstance("Category")
+        val selectName = SelectFrom.newInstance("Name")
+
+        tabLayout.setupWithViewPager(viewPager)
+
+        val pagerAdapter = PagerCustomAdapter(childFragmentManager,0)
+        pagerAdapter.addFragment(selectCategory,"Category")
+        pagerAdapter.addFragment(selectName,"Name")
+
+        viewPager.adapter = pagerAdapter
+        viewPager.currentItem =0
     }
 
 }

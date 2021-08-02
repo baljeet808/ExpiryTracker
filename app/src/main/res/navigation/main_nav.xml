@@ -44,18 +44,5 @@
         android:id="@+id/addProduct"
         android:name="com.baljeet.expirytracker.fragment.product.AddProduct"
         android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product" >
-        <action
-            android:id="@+id/action_addProduct_to_selectFrom"
-            app:destination="@id/selectFrom"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_left_in"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/selectFrom"
-        android:name="com.baljeet.expirytracker.fragment.shared.SelectFrom"
-        android:label="fragment_select_from"
-        tools:layout="@layout/fragment_select_from" />
+        tools:layout="@layout/fragment_add_product" />
 </navigation>

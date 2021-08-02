@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:padding="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:src="@drawable/hevron_right_24"
+            android:rotation="90"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,21 +36,14 @@
             android:textAllCaps="false"
             android:textStyle="bold"
             android:letterSpacing="0.12"
+            android:textSize="18sp"
             android:textAppearance="@style/normalRoboto14Regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/underline_view"
-            android:layout_width="0dp"
-            android:layout_height="4dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/window_top_bar"
-            app:layout_constraintEnd_toEndOf="@id/title_text"
-            app:layout_constraintStart_toStartOf="@id/title_text"
-            app:layout_constraintTop_toBottomOf="@id/title_text" />
+
 
         <View
             android:layout_width="match_parent"
@@ -77,30 +71,38 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/choose_category_layout"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/product_category"
-        android:layout_marginTop="20dp"
-        android:textColorHint="@color/text_dialog_color"
-        android:background="@color/main_background"
+        android:layout_height="7dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/tab_background"
         app:layout_constraintTop_toBottomOf="@id/top_bar"
         app:layout_constraintStart_toEndOf="@id/guideline1"
-        app:layout_constraintEnd_toStartOf="@id/guideline3">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/choose_category_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/normalRoboto14Regular"
-            android:textColor="@color/text_dialog_color"
-            android:textSize="16sp"
-            android:editable="false"
-            android:drawableEnd="@drawable/hevron_right_24"
-            android:drawableTint="@color/text_dialog_color"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintEnd_toStartOf="@id/guideline3"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="5dp"
+        app:tabRippleColor="@color/text_dialog_color"
+        app:tabUnboundedRipple="true"
+        app:tabIndicatorColor="@color/text_dialog_color"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabTextAppearance="@style/normalRoboto14Regular"
+        app:tabTextColor="@color/text_color"
+        />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tabs_host"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+
+
 
 
     <androidx.constraintlayout.widget.Guideline
