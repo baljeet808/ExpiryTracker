@@ -24,6 +24,18 @@ class SelectFromViewModel: ViewModel() {
     fun addProduct(product : Product){productList.add(product)}
     fun removeProduct(product: Product){productList.remove(product)}
     fun getProducts(): ArrayList<Product>{return productList}
+    fun getProductsByCategory(category : Category):ArrayList<Product>{
+        productList.clear()
+        when(category.categoryId){
+            1->{
+                productList.addAll(getFruits())
+            }
+            2->{
+                productList.addAll(getVegetables())
+            }
+        }
+        return productList
+    }
     init {
         addToCategories(getDefaultCategories())
         productList.addAll(getFruits())
@@ -133,6 +145,73 @@ class SelectFromViewModel: ViewModel() {
         defaultCategories.add(packedFood)
 
         return defaultCategories
+    }
+
+    private fun getVegetables(): ArrayList<Product>{
+        val products = ArrayList<Product>()
+        val broccoli = Product(
+            1,
+            "Broccoli",
+            2,
+            Image(
+                1,
+                "broccoli",
+                "broccoli",
+                "broccoli"
+            )
+        )
+        val potato = Product(
+            2,
+            "Potato",
+            2,
+            Image(
+                1,
+                "potato",
+                "potato",
+                "potato"
+            )
+        )
+        val peas = Product(
+            3,
+            "Peas",
+            2,
+            Image(
+                1,
+                "peas",
+                "peas",
+                "peas"
+            )
+        )
+        val bellPepper = Product(
+            4,
+            "Bell Pepper",
+            2,
+            Image(
+                1,
+                "bell_yellow_pepper",
+                "bell_yellow_pepper",
+                "bell_yellow_pepper"
+            )
+        )
+        val tomato = Product(
+            5,
+            "Tomato",
+            2,
+            Image(
+                1,
+                "tomato",
+                "tomato",
+                "tomato"
+            )
+        )
+
+
+        products.add(broccoli)
+        products.add(potato)
+        products.add(bellPepper)
+        products.add(peas)
+        products.add(tomato)
+        return products
     }
 
     private fun getFruits(): ArrayList<Product>{

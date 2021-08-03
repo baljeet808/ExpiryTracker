@@ -88,6 +88,22 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         nameRecycler.adapter = nameAdapter
 
 
+
+        customEditBox.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus){
+                selectedItemIcon.visibility = View.GONE
+                customBox.isEndIconVisible = true
+                optionsRecycler.visibility = View.VISIBLE
+            }
+        }
+        customNameEditBox.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus){
+                selectedNameIcon.visibility = View.GONE
+                customNameBox.isEndIconVisible = true
+                nameRecycler.visibility = View.VISIBLE
+            }
+        }
+
         customEditBox.doOnTextChanged { _, _, _, _ ->
             completedCheck1.visibility = View.GONE
             nameLayout.visibility = View.GONE
@@ -95,11 +111,14 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             nameAdapter.refreshAll(null)
             optionsRecycler.visibility = View.VISIBLE
             adapter.refreshAll(null)
+            selectedItemIcon.visibility = View.GONE
+            selectedNameIcon.visibility = View.GONE
         }
         customNameEditBox.doOnTextChanged { _, _, _, _ ->
             completedCheck2.visibility = View.GONE
             nameRecycler.visibility = View.VISIBLE
             nameAdapter.refreshAll(null)
+            selectedNameIcon.visibility = View.GONE
         }
 
         return view
@@ -121,6 +140,8 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                 customEditBox.setText(categories[position].categoryName)
                 viewModel.setSelectedCategory(categories[position])
                 selectedItemIcon.visibility = View.VISIBLE
+                customBox.isEndIconVisible = false
+                customNameBox.isEndIconVisible = false
                 selectedItemIcon.setImageDrawable(
                     AppCompatResources.getDrawable(
                         requireContext(),
@@ -135,6 +156,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     optionsRecycler.visibility = View.GONE
                     nameLayout.visibility = View.VISIBLE
                     nameRecycler.visibility = View.VISIBLE
+                    nameAdapter.updateProducts(viewModel.getProductsByCategory(categories[position]))
                     completedCheck1.visibility = View.VISIBLE
                 }, 200)
             } else {
@@ -148,6 +170,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                 customNameEditBox.setText(products[position].name)
                 viewModel.setSelectedProduct(products[position])
                 selectedNameIcon.visibility = View.VISIBLE
+                customNameBox.isEndIconVisible = false
                 selectedNameIcon.setImageDrawable(
                     AppCompatResources.getDrawable(
                         requireContext(),

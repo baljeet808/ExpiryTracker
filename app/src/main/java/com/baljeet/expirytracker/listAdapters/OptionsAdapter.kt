@@ -85,6 +85,13 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateProducts(list : ArrayList<Product>){
+        productList?.clear()
+        productList?.addAll(list)
+        notifyDataSetChanged()
+    }
+
     inner class MyViewHolder(itemView: View, listener : OnOptionSelectedListener,context : Context) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
             val card : MaterialCardView = itemView.findViewById(R.id.option_card)
             val optionImage : ImageView = itemView.findViewById(R.id.option_image)
