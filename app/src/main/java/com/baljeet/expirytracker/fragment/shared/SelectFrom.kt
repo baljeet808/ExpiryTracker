@@ -1,10 +1,16 @@
 package com.baljeet.expirytracker.fragment.shared
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
+import android.widget.ViewAnimator
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,22 +18,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.baljeet.expirytracker.model.Category
+import com.baljeet.expirytracker.model.Product
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 private const val ARG_TITLE = "Category"
 
-class SelectFrom : Fragment(),OptionsAdapter.OnOptionSelectedListener {
+class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
 
-    private lateinit var customBox : TextInputLayout
-    private lateinit var customEditBox : TextInputEditText
-    private lateinit var titleText : TextView
-    private lateinit var optionsRecycler : RecyclerView
-    private lateinit var adapter : OptionsAdapter
+    private lateinit var customBox: TextInputLayout
+    private lateinit var customNameBox: TextInputLayout
+    private lateinit var customEditBox: TextInputEditText
+    private lateinit var customNameEditBox: TextInputEditText
+    private lateinit var optionsRecycler: RecyclerView
+    private lateinit var nameRecycler: RecyclerView
+    private lateinit var selectedItemIcon: ImageView
+    private lateinit var selectedNameIcon: ImageView
+    private lateinit var adapter: OptionsAdapter
+    private lateinit var nameAdapter: OptionsAdapter
+    private lateinit var completedCheck1: ImageView
+    private lateinit var completedCheck2: ImageView
+    private lateinit var nameLayout: ConstraintLayout
     private val categories = ArrayList<Category>()
+    private val products = ArrayList<Product>()
 
-    private val viewModel : SelectFromViewModel by activityViewModels()
-
+    private val viewModel: SelectFromViewModel by activityViewModels()
     private var title: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,25 +56,52 @@ class SelectFrom : Fragment(),OptionsAdapter.OnOptionSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_select_from, container, false)
+        val view = inflater.inflate(R.layout.fragment_select_from, container, false)
 
         customEditBox = view.findViewById(R.id.custom_edittext)
+        customNameEditBox = view.findViewById(R.id.custom_name_edittext)
         customBox = view.findViewById(R.id.custom_box_layout)
-        customBox.hint = resources.getString(R.string.product_var,title)
-        titleText = view.findViewById(R.id.title_text)
-        titleText.text = resources.getString(R.string.choose_title,title)
+        customNameBox = view.findViewById(R.id.custom_name_box_layout)
         optionsRecycler = view.findViewById(R.id.options_recycler)
-        optionsRecycler.layoutManager = GridLayoutManager(requireContext(),3)
+        nameRecycler = view.findViewById(R.id.name_options_recycler)
+        optionsRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+        nameRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+        selectedItemIcon = view.findViewById(R.id.selected_category_icon)
+        selectedNameIcon = view.findViewById(R.id.selected_name_icon)
+
+        nameLayout = view.findViewById(R.id.name_layout)
+        completedCheck1 = view.findViewById(R.id.completed_check)
+        completedCheck2 = view.findViewById(R.id.completed2_check)
 
 
 
-        adapter = if(title.equals("Category")){
-            categories.addAll(viewModel.getAllCategories())
-            OptionsAdapter(categories,requireContext(),null,this,null)
-        }else{
-            OptionsAdapter(null,requireContext(),null,this,null)
-        }
+        nameLayout.visibility = View.GONE
+        completedCheck1.visibility = View.GONE
+        optionsRecycler.visibility = View.VISIBLE
+
+        categories.addAll(viewModel.getAllCategories())
+        adapter = OptionsAdapter(categories, requireContext(), null, this, null)
         optionsRecycler.adapter = adapter
+
+        products.addAll(viewModel.getProducts())
+        nameAdapter = OptionsAdapter(null,requireContext(),null,this,products)
+        nameRecycler.adapter = nameAdapter
+
+
+        customEditBox.doOnTextChanged { _, _, _, _ ->
+            completedCheck1.visibility = View.GONE
+            nameLayout.visibility = View.GONE
+            completedCheck2.visibility = View.GONE
+            nameAdapter.refreshAll(null)
+            optionsRecycler.visibility = View.VISIBLE
+            adapter.refreshAll(null)
+        }
+        customNameEditBox.doOnTextChanged { _, _, _, _ ->
+            completedCheck2.visibility = View.GONE
+            nameRecycler.visibility = View.VISIBLE
+            nameAdapter.refreshAll(null)
+        }
+
         return view
     }
 
@@ -73,14 +115,60 @@ class SelectFrom : Fragment(),OptionsAdapter.OnOptionSelectedListener {
             }
     }
 
-    override fun onOptionSelected(position: Int, visibility: Int) {
-        if(visibility == View.GONE){
-            customEditBox.setText(categories[position].categoryName)
-            viewModel.setSelectedCategory(categories[position])
+    override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory : Boolean) {
+        if(optionIsCategory) {
+            if (checkVisibility == View.GONE) {
+                customEditBox.setText(categories[position].categoryName)
+                viewModel.setSelectedCategory(categories[position])
+                selectedItemIcon.visibility = View.VISIBLE
+                selectedItemIcon.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        resources.getIdentifier(
+                            categories[position].categoryIcon.imageUrl,
+                            "drawable",
+                            requireContext().packageName
+                        )
+                    )
+                )
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    optionsRecycler.visibility = View.GONE
+                    nameLayout.visibility = View.VISIBLE
+                    nameRecycler.visibility = View.VISIBLE
+                    completedCheck1.visibility = View.VISIBLE
+                }, 200)
+            } else {
+                customEditBox.text?.clear()
+                viewModel.setSelectedCategory(null)
+                selectedItemIcon.visibility = View.GONE
+                completedCheck1.visibility = ViewAnimator.GONE
+            }
+        }else{
+            if (checkVisibility == View.GONE) {
+                customNameEditBox.setText(products[position].name)
+                viewModel.setSelectedProduct(products[position])
+                selectedNameIcon.visibility = View.VISIBLE
+                selectedNameIcon.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        resources.getIdentifier(
+                            products[position].image?.imageUrl,
+                            "drawable",
+                            requireContext().packageName
+                        )
+                    )
+                )
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    nameRecycler.visibility = View.GONE
+                    completedCheck2.visibility = View.VISIBLE
+                }, 200)
+            } else {
+                customNameEditBox.text?.clear()
+                viewModel.setSelectedProduct(null)
+                selectedNameIcon.visibility = View.GONE
+                completedCheck2.visibility = ViewAnimator.GONE
+            }
         }
-        else{
-            customEditBox.text?.clear()
-            viewModel.setSelectedCategory(null)
-        }
+
     }
 }

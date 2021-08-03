@@ -43,13 +43,11 @@ class AddProduct : Fragment() {
 
     fun setUpPager(){
         val selectCategory = SelectFrom.newInstance("Category")
-        val selectName = SelectFrom.newInstance("Name")
 
         tabLayout.setupWithViewPager(viewPager)
 
         val pagerAdapter = PagerCustomAdapter(childFragmentManager,0)
         pagerAdapter.addFragment(selectCategory,"Category")
-        pagerAdapter.addFragment(selectName,"Name")
 
         viewPager.adapter = pagerAdapter
         viewPager.currentItem =0

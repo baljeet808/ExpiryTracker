@@ -11,13 +11,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.model.Category
+import com.baljeet.expirytracker.model.Product
 import com.google.android.material.card.MaterialCardView
 
 class OptionsAdapter(private val categoryList : ArrayList<Category>?,
                      private val context: Context,
                      private var selectedCategory : Int?,
                      private val optionClickListener : OnOptionSelectedListener,
-                     private val nameList : ArrayList<String>?) : RecyclerView.Adapter<OptionsAdapter.MyViewHolder>() {
+                     private val productList : ArrayList<Product>?) : RecyclerView.Adapter<OptionsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -49,6 +50,20 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
                 )
             )
         }
+        productList?.let {
+            val product = productList[position]
+            holder.title.text = product.name
+            holder.optionImage.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    context,
+                    context.resources.getIdentifier(
+                        product.image?.imageUrl,
+                        "drawable",
+                        context.packageName
+                    )
+                )
+            )
+        }
         selectedCategory?.let {
             if(it == position) {
                 holder.check.visibility = View.VISIBLE
@@ -61,11 +76,11 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
 
     override fun getItemCount(): Int {
         categoryList?.let { return categoryList.size }
-        nameList?.let { return nameList.size }
+        productList?.let { return productList.size }
         return 0
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun refreshAll(position : Int){
+    fun refreshAll(position: Int?){
         selectedCategory = position
         notifyDataSetChanged()
     }
@@ -83,7 +98,7 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
             }
 
         override fun onClick(v: View?) {
-            optionListener.onOptionSelected(adapterPosition,check.visibility)
+            optionListener.onOptionSelected(adapterPosition,check.visibility,categoryList != null)
             if(check.visibility == View.GONE) {
                 check.visibility = View.VISIBLE
                 card.strokeWidth = 7
@@ -101,6 +116,6 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
     }
 
     interface OnOptionSelectedListener{
-        fun onOptionSelected(position : Int,visibility : Int)
+        fun onOptionSelected(position : Int,checkVisibility : Int,optionIsCategory : Boolean)
     }
 }
