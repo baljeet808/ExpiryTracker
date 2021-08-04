@@ -39,6 +39,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private lateinit var completedCheck1: ImageView
     private lateinit var completedCheck2: ImageView
     private lateinit var nameLayout: ConstraintLayout
+    private lateinit var dateLayout: ConstraintLayout
+
+    private lateinit var categoryClickView : View
+    private lateinit var nameClickView : View
     private val categories = ArrayList<Category>()
     private val products = ArrayList<Product>()
 
@@ -70,6 +74,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         selectedNameIcon = view.findViewById(R.id.selected_name_icon)
 
         nameLayout = view.findViewById(R.id.name_layout)
+        dateLayout = view.findViewById(R.id.date_layout)
         completedCheck1 = view.findViewById(R.id.completed_check)
         completedCheck2 = view.findViewById(R.id.completed2_check)
 
@@ -89,10 +94,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
 
 
 
-        customEditBox.setOnFocusChangeListener { v, hasFocus ->
+        /*customEditBox.setOnFocusChangeListener { v, hasFocus ->
             if(hasFocus){
                 selectedItemIcon.visibility = View.GONE
                 customBox.isEndIconVisible = true
+                customBox.setEndIconActivated(true)
                 optionsRecycler.visibility = View.VISIBLE
             }
         }
@@ -102,24 +108,36 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                 customNameBox.isEndIconVisible = true
                 nameRecycler.visibility = View.VISIBLE
             }
-        }
+        }*/
 
         customEditBox.doOnTextChanged { _, _, _, _ ->
-            completedCheck1.visibility = View.GONE
-            nameLayout.visibility = View.GONE
-            completedCheck2.visibility = View.GONE
-            nameAdapter.refreshAll(null)
-            optionsRecycler.visibility = View.VISIBLE
-            adapter.refreshAll(null)
-            selectedItemIcon.visibility = View.GONE
-            selectedNameIcon.visibility = View.GONE
+
         }
         customNameEditBox.doOnTextChanged { _, _, _, _ ->
+
+        }
+
+        categoryClickView = view.findViewById(R.id.category_click_view)
+        categoryClickView.setOnClickListener {
+            completedCheck1.visibility = View.GONE
+            optionsRecycler.visibility = View.VISIBLE
+            /*nameLayout.visibility = View.GONE
+            dateLayout.visibility = View.GONE
+            completedCheck2.visibility = View.GONE
+            nameAdapter.refreshAll(null)
+            adapter.refreshAll(null)
+            selectedItemIcon.visibility = View.GONE
+            selectedNameIcon.visibility = View.GONE*/
+        }
+        nameClickView = view.findViewById(R.id.name_click_view)
+        nameClickView.setOnClickListener {
             completedCheck2.visibility = View.GONE
             nameRecycler.visibility = View.VISIBLE
+            /*dateLayout.visibility = View.GONE
             nameAdapter.refreshAll(null)
-            selectedNameIcon.visibility = View.GONE
+            selectedNameIcon.visibility = View.GONE*/
         }
+
 
         return view
     }
@@ -157,7 +175,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     nameLayout.visibility = View.VISIBLE
                     nameRecycler.visibility = View.VISIBLE
                     nameAdapter.updateProducts(viewModel.getProductsByCategory(categories[position]))
+                    nameAdapter.refreshAll(null)
                     completedCheck1.visibility = View.VISIBLE
+                    completedCheck2.visibility = View.GONE
+                    customNameEditBox.text?.clear()
+                    selectedNameIcon.visibility = View.GONE
                 }, 200)
             } else {
                 customEditBox.text?.clear()
@@ -184,6 +206,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                 Handler(Looper.getMainLooper()).postDelayed(Runnable {
                     nameRecycler.visibility = View.GONE
                     completedCheck2.visibility = View.VISIBLE
+                    dateLayout.visibility = View.VISIBLE
                 }, 200)
             } else {
                 customNameEditBox.text?.clear()
