@@ -19,12 +19,28 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.baljeet.expirytracker.model.Category
 import com.baljeet.expirytracker.model.Product
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.datetime.Month
+import java.util.*
+import kotlin.collections.ArrayList
 
 private const val ARG_TITLE = "Category"
 
 class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
+
+    private  val constraintsBuilder =
+        CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.now())
+
+    private val datePicker1 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme).
+    setCalendarConstraints(constraintsBuilder.build()).setTitleText("Select Date").build()
+    private val datePicker2 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme).
+    setCalendarConstraints(constraintsBuilder.build()).setTitleText("Select Date").build()
+
 
     private lateinit var customBox: TextInputLayout
     private lateinit var customNameBox: TextInputLayout
@@ -40,6 +56,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private lateinit var completedCheck2: ImageView
     private lateinit var nameLayout: ConstraintLayout
     private lateinit var dateLayout: ConstraintLayout
+    private lateinit var expiryEdittext : TextInputEditText
+    private lateinit var mfgEdittext : TextInputEditText
+    private lateinit var mfgClickView: View
+    private lateinit var expiryClickView: View
 
     private lateinit var categoryClickView : View
     private lateinit var nameClickView : View
@@ -93,6 +113,26 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         nameRecycler.adapter = nameAdapter
 
 
+        expiryClickView = view.findViewById(R.id.expiry_click_view)
+        mfgClickView = view.findViewById(R.id.mfg_click_view)
+
+        expiryEdittext = view.findViewById(R.id.expiry_date_edittext)
+        mfgEdittext = view.findViewById(R.id.mfg_date_edittext)
+
+        expiryClickView.setOnClickListener {  datePicker2.show(childFragmentManager,"tag1") }
+        mfgClickView.setOnClickListener {  datePicker1.show(childFragmentManager,"tag2") }
+
+        datePicker2.addOnPositiveButtonClickListener {
+            val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            cal.time = Date(it)
+            expiryEdittext.setText(resources.getString(R.string.date_string,cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH),cal.get(Calendar.YEAR)))
+        }
+
+        datePicker1.addOnPositiveButtonClickListener {
+            val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            cal.time = Date(it)
+            mfgEdittext.setText(resources.getString(R.string.date_string,cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH),cal.get(Calendar.YEAR)))
+        }
 
         /*customEditBox.setOnFocusChangeListener { v, hasFocus ->
             if(hasFocus){

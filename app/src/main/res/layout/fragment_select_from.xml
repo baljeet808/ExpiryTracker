@@ -269,7 +269,7 @@
                 android:layout_marginTop="25dp"
                 android:animateLayoutChanges="true"
                 android:background="@color/main_background"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@id/name_layout">
 
                 <TextView
@@ -307,6 +307,7 @@
                     app:layout_constraintEnd_toEndOf="@id/title_date_text"
                     app:layout_constraintStart_toStartOf="@id/title_date_text"
                     app:layout_constraintTop_toBottomOf="@id/title_date_text" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/mfg_date_layout"
@@ -360,6 +361,27 @@
                         android:textColor="@color/text_dialog_color"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/mfg_click_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="@id/mfg_date_layout"
+                    app:layout_constraintEnd_toEndOf="@id/mfg_date_layout"
+                    app:layout_constraintTop_toTopOf="@id/mfg_date_layout"
+                    app:layout_constraintBottom_toBottomOf="@id/mfg_date_layout"
+                    />
+                <View
+                    android:id="@+id/expiry_click_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="@id/expiry_date_layout"
+                    app:layout_constraintEnd_toEndOf="@id/expiry_date_layout"
+                    app:layout_constraintTop_toTopOf="@id/expiry_date_layout"
+                    app:layout_constraintBottom_toBottomOf="@id/expiry_date_layout"
+                    />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline51"
