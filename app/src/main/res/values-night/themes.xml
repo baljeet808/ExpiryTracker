@@ -23,9 +23,9 @@
     </style>
 
     <style name="datePickerTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/main_background</item>
-        <item name="colorOnPrimary">@color/window_top_bar</item>
-        <item name="colorSurface">@color/text_dialog_color</item>
+        <item name="colorPrimary">@color/text_dialog_color</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="colorSurface">@color/main_background</item>
         <item name="android:headerMonthTextAppearance">@style/Theme.ExpiryTracker</item>
         <item name="android:headerDayOfMonthTextAppearance">@style/Theme.ExpiryTracker</item>
         <item name="android:headerYearTextAppearance">@style/Theme.ExpiryTracker</item>

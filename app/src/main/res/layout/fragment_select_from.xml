@@ -59,7 +59,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/title_text"
                     app:layout_constraintStart_toEndOf="@id/title_text"
                     app:layout_constraintTop_toTopOf="@id/title_text"
-                    app:tint="@color/text_dialog_color" />
+                    app:tint="@color/text_dialog_color"
+                    android:contentDescription="@string/image" />
 
                 <View
                     android:id="@+id/underline_view"
@@ -151,6 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
+                android:visibility="gone"
                 android:animateLayoutChanges="true"
                 android:background="@color/main_background"
                 app:layout_constraintTop_toBottomOf="@id/category_layout">
@@ -179,7 +181,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/title_name_text"
                     app:layout_constraintStart_toEndOf="@id/title_name_text"
                     app:layout_constraintTop_toTopOf="@id/title_name_text"
-                    app:tint="@color/text_dialog_color" />
+                    app:tint="@color/text_dialog_color"
+                    android:contentDescription="@string/image" />
 
                 <View
                     android:id="@+id/underline2_view"
@@ -269,7 +272,7 @@
                 android:layout_marginTop="25dp"
                 android:animateLayoutChanges="true"
                 android:background="@color/main_background"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/name_layout">
 
                 <TextView
@@ -296,7 +299,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/title_date_text"
                     app:layout_constraintStart_toEndOf="@id/title_date_text"
                     app:layout_constraintTop_toTopOf="@id/title_date_text"
-                    app:tint="@color/text_dialog_color" />
+                    app:tint="@color/text_dialog_color"
+                    android:contentDescription="@string/image" />
 
                 <View
                     android:id="@+id/underline3_view"
