@@ -32,6 +32,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="month_name_format" parent="TextAppearance.AppCompat">
+
+    </style>
 
     <style name="datePickerTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/text_dialog_color</item>

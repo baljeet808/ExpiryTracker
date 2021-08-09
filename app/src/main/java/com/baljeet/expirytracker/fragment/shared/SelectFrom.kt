@@ -19,8 +19,6 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.baljeet.expirytracker.model.Category
 import com.baljeet.expirytracker.model.Product
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -32,14 +30,10 @@ private const val ARG_TITLE = "Category"
 
 class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
 
-    private  val constraintsBuilder =
-        CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointForward.now())
-
-    private val datePicker1 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme).
-    setCalendarConstraints(constraintsBuilder.build()).setTitleText("Select Date").build()
-    private val datePicker2 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme).
-    setCalendarConstraints(constraintsBuilder.build()).setTitleText("Select Date").build()
+    private val datePicker1 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
+        .setTitleText("Manufactured Date").build()
+    private val datePicker2 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
+        .setTitleText("Expiry Date").build()
 
 
     private lateinit var customBox: TextInputLayout
@@ -54,6 +48,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private lateinit var nameAdapter: OptionsAdapter
     private lateinit var completedCheck1: ImageView
     private lateinit var completedCheck2: ImageView
+    private lateinit var completedCheck3: ImageView
     private lateinit var nameLayout: ConstraintLayout
     private lateinit var dateLayout: ConstraintLayout
     private lateinit var expiryEdittext : TextInputEditText
@@ -97,8 +92,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         dateLayout = view.findViewById(R.id.date_layout)
         completedCheck1 = view.findViewById(R.id.completed_check)
         completedCheck2 = view.findViewById(R.id.completed2_check)
-
-
+        completedCheck3 = view.findViewById(R.id.completed3_check)
 
         nameLayout.visibility = View.GONE
         completedCheck1.visibility = View.GONE
@@ -122,33 +116,31 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         expiryClickView.setOnClickListener {  datePicker2.show(childFragmentManager,"tag1") }
         mfgClickView.setOnClickListener {  datePicker1.show(childFragmentManager,"tag2") }
 
-        datePicker2.addOnPositiveButtonClickListener {
+        datePicker2.addOnPositiveButtonClickListener { its->
             val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-            cal.time = Date(it)
-            expiryEdittext.setText(resources.getString(R.string.date_string,cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH),cal.get(Calendar.YEAR)))
+            cal.time = Date(its)
+            expiryEdittext.setText(resources.getString(R.string.date_string_with_month_name,
+                                                        Month.of(cal.get(Calendar.MONTH)+1).name.substring(0,3),
+                                                        cal.get(Calendar.DAY_OF_MONTH),
+                                                        cal.get(Calendar.YEAR)))
+            mfgEdittext.text?.let {
+                if(it.isNotEmpty()){
+                    completedCheck3.visibility = View.VISIBLE
+                }}
         }
 
-        datePicker1.addOnPositiveButtonClickListener {
+        datePicker1.addOnPositiveButtonClickListener { its ->
             val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-            cal.time = Date(it)
-            mfgEdittext.setText(resources.getString(R.string.date_string,cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH),cal.get(Calendar.YEAR)))
+            cal.time = Date(its)
+            mfgEdittext.setText(resources.getString(R.string.date_string_with_month_name,
+                Month.of(cal.get(Calendar.MONTH)+1).name.substring(0,3),
+                cal.get(Calendar.DAY_OF_MONTH),
+                cal.get(Calendar.YEAR)))
+            expiryEdittext.text?.let {
+                if(it.isNotEmpty()){
+                    completedCheck3.visibility = View.VISIBLE
+                }}
         }
-
-        /*customEditBox.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus){
-                selectedItemIcon.visibility = View.GONE
-                customBox.isEndIconVisible = true
-                customBox.setEndIconActivated(true)
-                optionsRecycler.visibility = View.VISIBLE
-            }
-        }
-        customNameEditBox.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus){
-                selectedNameIcon.visibility = View.GONE
-                customNameBox.isEndIconVisible = true
-                nameRecycler.visibility = View.VISIBLE
-            }
-        }*/
 
         customEditBox.doOnTextChanged { _, _, _, _ ->
 
@@ -161,21 +153,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         categoryClickView.setOnClickListener {
             completedCheck1.visibility = View.GONE
             optionsRecycler.visibility = View.VISIBLE
-            /*nameLayout.visibility = View.GONE
-            dateLayout.visibility = View.GONE
-            completedCheck2.visibility = View.GONE
-            nameAdapter.refreshAll(null)
-            adapter.refreshAll(null)
-            selectedItemIcon.visibility = View.GONE
-            selectedNameIcon.visibility = View.GONE*/
         }
         nameClickView = view.findViewById(R.id.name_click_view)
         nameClickView.setOnClickListener {
             completedCheck2.visibility = View.GONE
             nameRecycler.visibility = View.VISIBLE
-            /*dateLayout.visibility = View.GONE
-            nameAdapter.refreshAll(null)
-            selectedNameIcon.visibility = View.GONE*/
         }
 
 
@@ -210,7 +192,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                         )
                     )
                 )
-                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                Handler(Looper.getMainLooper()).postDelayed({
                     optionsRecycler.visibility = View.GONE
                     nameLayout.visibility = View.VISIBLE
                     nameRecycler.visibility = View.VISIBLE
@@ -218,6 +200,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     nameAdapter.refreshAll(null)
                     completedCheck1.visibility = View.VISIBLE
                     completedCheck2.visibility = View.GONE
+                    completedCheck3.visibility = View.GONE
                     customNameEditBox.text?.clear()
                     selectedNameIcon.visibility = View.GONE
                 }, 200)
@@ -243,9 +226,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                         )
                     )
                 )
-                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                Handler(Looper.getMainLooper()).postDelayed({
                     nameRecycler.visibility = View.GONE
                     completedCheck2.visibility = View.VISIBLE
+                    completedCheck3.visibility = View.GONE
                     dateLayout.visibility = View.VISIBLE
                 }, 200)
             } else {

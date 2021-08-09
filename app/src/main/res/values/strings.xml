@@ -31,4 +31,5 @@
     <string name="manufactured_date">Manufactured Date</string>
     <string name="expiry_date">Expiry Date</string>
     <string name="date_string">%1$d/%2$d/%3$d</string>
+    <string name="date_string_with_month_name">%1$s. %2$d, %3$d</string>
 </resources>
