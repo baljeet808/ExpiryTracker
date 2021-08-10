@@ -415,6 +415,24 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <Button
+                android:id="@+id/add_product_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                app:layout_constraintStart_toEndOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/date_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:backgroundTint="@color/window_top_bar"
+                android:textAllCaps="false"
+                android:letterSpacing="0.12"
+                android:textColor="@color/main_background"
+                android:textSize="18sp"
+                android:text="@string/add_here"
+                android:fontFamily="@font/roboto_medium"/>
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline1"
