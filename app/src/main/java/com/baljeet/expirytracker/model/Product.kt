@@ -1,8 +1,13 @@
 package com.baljeet.expirytracker.model
 
+import kotlinx.datetime.LocalDateTime
+
+
 data class Product(
     var productId : Int,
     var name : String,
-    var categoryId: Int?,
-    var image: Image?
+    var category: Category,
+    var image: Image?,
+    var mfgDate : LocalDateTime,
+    var expiryDate : LocalDateTime
 )
