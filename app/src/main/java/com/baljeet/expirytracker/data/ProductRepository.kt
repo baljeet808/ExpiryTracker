@@ -2,7 +2,7 @@ package com.baljeet.expirytracker.data
 
 import androidx.lifecycle.LiveData
 
-class AppRepository(private val productDao : ProductsDao) {
+class ProductRepository(private val productDao : ProductsDao) {
 
     val readAllData : LiveData<List<Product>> = productDao.readAllProducts()
 

@@ -39,62 +39,135 @@ class SelectFromViewModel: ViewModel() {
         productList.addAll(getFruits())
     }
 
-    private fun getImages():ArrayList<Image>{
+    fun getImages():ArrayList<Image>{
         val images = ArrayList<Image>()
         images.add(Image(
-            0,
+            1,
             "fruits",
             "fruits",
             "fruits"
         ))
         images.add(Image(
-            0,
+            2,
             "vegetable",
             "vegetables",
             "vegetables"
         ))
         images.add(Image(
-            0,
+            3,
             "meat",
             "meat",
             "meat"
         ))
         images.add(Image(
-            0,
+            4,
             "document",
             "document",
             "document"
         ))
         images.add(Image(
-            0,
+            5,
             "subscription",
             "subscription",
             "subscription"
         ))
         images.add(Image(
-            0,
+            6,
             "packed_food",
             "packed_food",
             "packed_food"
         ))
         images.add(Image(
-            0,
+            7,
             "liquor",
             "liquor",
             "liquor"
         ))
         images.add(Image(
-            0,
+            8,
             "drinks",
             "drinks",
             "drinks"
         ))
         images.add(Image(
-            0,
+            9,
             "fast_food",
             "fast_food",
             "fast_food"
         ))
+        images.add(Image(
+            10,
+            "apple",
+            "apple",
+            "Apple"
+        ))
+        images.add(Image(
+            11,
+            "banana",
+            "banana",
+            "Banana"
+        ))
+        images.add(Image(
+            12,
+            "grapes",
+            "grapes",
+            "Grapes"
+        ))
+        images.add(Image(
+            13,
+            "orange",
+            "orange",
+            "Orange"
+        ))
+        images.add(Image(
+            14,
+            "pineapple",
+            "pineapple",
+            "Pineapple"
+        ))
+        images.add(Image(
+            15,
+            "red_grapes",
+            "red_grapes",
+            "Red Grapes"
+        ))
+        images.add(Image(
+            16,
+            "potato",
+            "potato",
+            "Potato"
+        ))
+        images.add(Image(
+            17,
+            "peas",
+            "peas",
+            "Peas"
+        ))
+        images.add(Image(
+            18,
+            "broccoli",
+            "broccoli",
+            "Broccoli"
+        ))
+        images.add(Image(
+            19,
+            "bell_yellow_pepper",
+            "bell_yellow_pepper",
+            "bell yellow pepper"
+        ))
+        images.add(Image(
+            20,
+            "tomato",
+            "tomato",
+            "Tomato"
+        ))
+        images.add(Image(
+            21,
+            "strawberries",
+            "strawberries",
+            "Strawberries"
+        ))
+
 
         return images
     }
@@ -105,47 +178,47 @@ class SelectFromViewModel: ViewModel() {
         val fruits = Category(
             0,
             "Fruit",
-            0
+            1
         )
         val vegetables = Category(
             0,
             "Vegetable",
-            0
+            2
         )
         val meat = Category(
             0,
             "Meat",
-            0
+            3
         )
         val document = Category(
             0,
             "Document",
-            0
+            4
         )
         val subscription = Category(
             0,
             "Subscription",
-            0
+            5
         )
         val packedFood = Category(
             0,
             "Packed Food",
-            0
+            6
         )
         val liquor = Category(
             0,
             "Liquor",
-            0
+            7
         )
         val drinks = Category(
             0,
             "Drinkable",
-            0
+            8
         )
         val fastFood = Category(
             0,
             "Fast Food",
-            0
+            9
         )
         defaultCategories.add(fruits)
         defaultCategories.add(vegetables)
@@ -160,32 +233,40 @@ class SelectFromViewModel: ViewModel() {
         return defaultCategories
     }
 
+    fun getAllProducts():ArrayList<Product>{
+        val products = ArrayList<Product>()
+        products.addAll(getFruits())
+        products.addAll(getVegetables())
+
+        return products
+    }
+
     private fun getVegetables(): ArrayList<Product>{
         val products = ArrayList<Product>()
         val broccoli = Product(
             0,
             "Broccoli",
-            0,0
+            2,0
         )
         val potato = Product(
             0,
             "Potato",
-            0,0
+            2,0
         )
         val peas = Product(
             0,
             "Peas",
-            0,0
+            2,0
         )
         val bellPepper = Product(
             0,
             "Bell Pepper",
-            0,0
+            2,0
         )
         val tomato = Product(
             0,
             "Tomato",
-            0,0
+            2,0
         )
 
 
@@ -203,37 +284,37 @@ class SelectFromViewModel: ViewModel() {
         val banana = Product(
             0,
             "Banana",
-            0,
+            1,
             0
         )
         val pineApple = Product(
             0,
             "Pineapple",
-            0,
+            1,
             0
         )
         val grapes = Product(
             0,
             "Grapes",
-            0,
+            1,
             0
         )
         val orange = Product(
             0,
             "Orange",
-            0,
+            1,
             0
         )
         val apple = Product(
             0,
             "Apple",
-            0,
+            1,
             0
         )
         val redGrapes = Product(
             0,
             "Red Grapes",
-            0,0
+            1,0
         )
 
         products.add(redGrapes)
