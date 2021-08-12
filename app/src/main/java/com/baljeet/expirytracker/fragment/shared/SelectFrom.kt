@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
@@ -17,8 +18,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
-import com.baljeet.expirytracker.model.Category
-import com.baljeet.expirytracker.model.Product
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Product
+import com.baljeet.expirytracker.data.ProductViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -55,6 +57,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private lateinit var mfgEdittext : TextInputEditText
     private lateinit var mfgClickView: View
     private lateinit var expiryClickView: View
+    private lateinit var addProductBtn : Button
 
     private lateinit var categoryClickView : View
     private lateinit var nameClickView : View
@@ -62,6 +65,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private val products = ArrayList<Product>()
 
     private val viewModel: SelectFromViewModel by activityViewModels()
+    private val productVM : ProductViewModel by activityViewModels()
     private var title: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,6 +121,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         mfgClickView.setOnClickListener {  datePicker1.show(childFragmentManager,"tag2") }
 
         datePicker2.addOnPositiveButtonClickListener { its->
+            viewModel.setExpiryDate(its)
             val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
             cal.time = Date(its)
             expiryEdittext.setText(resources.getString(R.string.date_string_with_month_name,
@@ -130,6 +135,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         }
 
         datePicker1.addOnPositiveButtonClickListener { its ->
+            viewModel.setMfgDate(its)
             val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
             cal.time = Date(its)
             mfgEdittext.setText(resources.getString(R.string.date_string_with_month_name,
@@ -160,6 +166,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             nameRecycler.visibility = View.VISIBLE
         }
 
+        addProductBtn = view.findViewById(R.id.add_product_button)
+        addProductBtn.setOnClickListener{
+            activity?.onBackPressed()
+        }
 
         return view
     }
@@ -186,7 +196,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     AppCompatResources.getDrawable(
                         requireContext(),
                         resources.getIdentifier(
-                            categories[position].categoryIcon.imageUrl,
+                            "liquor",
                             "drawable",
                             requireContext().packageName
                         )
@@ -196,7 +206,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     optionsRecycler.visibility = View.GONE
                     nameLayout.visibility = View.VISIBLE
                     nameRecycler.visibility = View.VISIBLE
-                    nameAdapter.updateProducts(viewModel.getProductsByCategory(categories[position]))
+                    nameAdapter.updateProducts(viewModel.getProductsByCategory())
                     nameAdapter.refreshAll(null)
                     completedCheck1.visibility = View.VISIBLE
                     completedCheck2.visibility = View.GONE
@@ -220,7 +230,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     AppCompatResources.getDrawable(
                         requireContext(),
                         resources.getIdentifier(
-                            products[position].image?.imageUrl,
+                            "liquor",
                             "drawable",
                             requireContext().packageName
                         )

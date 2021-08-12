@@ -1,15 +1,17 @@
 package com.baljeet.expirytracker.fragment.shared
 
 import androidx.lifecycle.ViewModel
-import com.baljeet.expirytracker.model.Category
-import com.baljeet.expirytracker.model.Image
-import com.baljeet.expirytracker.model.Product
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Image
+import com.baljeet.expirytracker.data.Product
 
 class SelectFromViewModel: ViewModel() {
 
+    private var expiryDate : Long? = null
+    private var mfgDate : Long? = null
 
-    private var selectedCategory :Category? =  null
-    private var selectedProduct :Product? =  null
+    private var selectedCategory : Category? =  null
+    private var selectedProduct : Product? =  null
     private val categoryList  = ArrayList<Category>()
     fun getAllCategories(): ArrayList<Category>{return categoryList}
     private fun addToCategories(categories : ArrayList<Category>){categoryList.addAll(categories)}
@@ -20,20 +22,16 @@ class SelectFromViewModel: ViewModel() {
 
     private val productList = ArrayList<Product>()
     fun setSelectedProduct (product: Product?){ selectedProduct = product }
-    fun getSelectedProduct():Product?{return selectedProduct}
+    fun getSelectedProduct(): Product?{return selectedProduct}
     fun addProduct(product : Product){productList.add(product)}
     fun removeProduct(product: Product){productList.remove(product)}
     fun getProducts(): ArrayList<Product>{return productList}
-    fun getProductsByCategory(category : Category):ArrayList<Product>{
+    fun getProductsByCategory():ArrayList<Product>{
         productList.clear()
-        when(category.categoryId){
-            1->{
+
                 productList.addAll(getFruits())
-            }
-            2->{
                 productList.addAll(getVegetables())
-            }
-        }
+
         return productList
     }
     init {
@@ -41,98 +39,113 @@ class SelectFromViewModel: ViewModel() {
         productList.addAll(getFruits())
     }
 
+    private fun getImages():ArrayList<Image>{
+        val images = ArrayList<Image>()
+        images.add(Image(
+            0,
+            "fruits",
+            "fruits",
+            "fruits"
+        ))
+        images.add(Image(
+            0,
+            "vegetable",
+            "vegetables",
+            "vegetables"
+        ))
+        images.add(Image(
+            0,
+            "meat",
+            "meat",
+            "meat"
+        ))
+        images.add(Image(
+            0,
+            "document",
+            "document",
+            "document"
+        ))
+        images.add(Image(
+            0,
+            "subscription",
+            "subscription",
+            "subscription"
+        ))
+        images.add(Image(
+            0,
+            "packed_food",
+            "packed_food",
+            "packed_food"
+        ))
+        images.add(Image(
+            0,
+            "liquor",
+            "liquor",
+            "liquor"
+        ))
+        images.add(Image(
+            0,
+            "drinks",
+            "drinks",
+            "drinks"
+        ))
+        images.add(Image(
+            0,
+            "fast_food",
+            "fast_food",
+            "fast_food"
+        ))
+
+        return images
+    }
+
     private fun getDefaultCategories(): ArrayList<Category>{
         val defaultCategories = ArrayList<Category>()
 
         val fruits = Category(
-            1,
+            0,
             "Fruit",
-            Image(
-                1,
-                "fruits",
-                "fruits",
-                "fruits"
-            )
+            0
         )
         val vegetables = Category(
-            2,
+            0,
             "Vegetable",
-            Image(
-                2,
-                "vegetable",
-                "vegetables",
-                "vegetables"
-            )
+            0
         )
         val meat = Category(
-            3,
+            0,
             "Meat",
-            Image(
-                3,
-                "meat",
-                "meat",
-                "meat"
-            )
+            0
         )
         val document = Category(
-            4,
+            0,
             "Document",
-            Image(
-                4,
-                "document",
-                "document",
-                "document"
-            )
+            0
         )
         val subscription = Category(
-            5,
+            0,
             "Subscription",
-            Image(
-                5,
-                "subscription",
-                "subscription",
-                "subscription"
-            )
+            0
         )
         val packedFood = Category(
-            6,
+            0,
             "Packed Food",
-            Image(
-                6,
-                "packed_food",
-                "packed_food",
-                "packed_food"
-            )
+            0
         )
         val liquor = Category(
-            7,
+            0,
             "Liquor",
-            Image(
-                7,
-                "liquor",
-                "liquor",
-                "liquor"
-            )
+            0
         )
         val drinks = Category(
-            8,
+            0,
             "Drinkable",
-            Image(
-                8,
-                "drinks",
-                "drinks",
-                "drinks"
-            )
+            0
         )
         val fastFood = Category(
-            9,
+            0,
             "Fast Food",
-            Image(
-                9,
-                "fast_food",
-                "fast_food",
-                "fast_food"
-            )
+            0
         )
         defaultCategories.add(fruits)
         defaultCategories.add(vegetables)
@@ -150,59 +163,29 @@ class SelectFromViewModel: ViewModel() {
     private fun getVegetables(): ArrayList<Product>{
         val products = ArrayList<Product>()
         val broccoli = Product(
-            1,
+            0,
             "Broccoli",
-            2,
-            Image(
-                1,
-                "broccoli",
-                "broccoli",
-                "broccoli"
-            )
+            0,0
         )
         val potato = Product(
-            2,
+            0,
             "Potato",
-            2,
-            Image(
-                1,
-                "potato",
-                "potato",
-                "potato"
-            )
+            0,0
         )
         val peas = Product(
-            3,
+            0,
             "Peas",
-            2,
-            Image(
-                1,
-                "peas",
-                "peas",
-                "peas"
-            )
+            0,0
         )
         val bellPepper = Product(
-            4,
+            0,
             "Bell Pepper",
-            2,
-            Image(
-                1,
-                "bell_yellow_pepper",
-                "bell_yellow_pepper",
-                "bell_yellow_pepper"
-            )
+            0,0
         )
         val tomato = Product(
-            5,
+            0,
             "Tomato",
-            2,
-            Image(
-                1,
-                "tomato",
-                "tomato",
-                "tomato"
-            )
+            0,0
         )
 
 
@@ -218,70 +201,39 @@ class SelectFromViewModel: ViewModel() {
         val products = ArrayList<Product>()
 
         val banana = Product(
-            1,
+            0,
             "Banana",
-            1,
-            Image(
-                1,
-                "banana",
-                "banana",
-                "banana"
-            )
+            0,
+            0
         )
         val pineApple = Product(
-            1,
+            0,
             "Pineapple",
-            1,
-            Image(
-                1,
-                "pineapple",
-                "pineapple",
-                "pineapple"
-            )
+            0,
+            0
         )
         val grapes = Product(
-            1,
+            0,
             "Grapes",
-            1,
-            Image(
-                1,
-                "grapes",
-                "grapes",
-                "grapes"
-            )
+            0,
+            0
         )
         val orange = Product(
-            1,
+            0,
             "Orange",
-            1,
-            Image(
-                1,
-                "orange",
-                "orange",
-                "orange"
-            )
+            0,
+            0
         )
         val apple = Product(
-            1,
+            0,
             "Apple",
-            1,
-            Image(
-                1,
-                "apple",
-                "apple",
-                "apple"
-            )
+            0,
+            0
         )
         val redGrapes = Product(
-            1,
+            0,
             "Red Grapes",
-            1,
-            Image(
-                1,
-                "red_grapes",
-                "red_grapes",
-                "red grapes"
-            )
+            0,0
         )
 
         products.add(redGrapes)
@@ -293,5 +245,19 @@ class SelectFromViewModel: ViewModel() {
 
 
         return products
+    }
+
+    fun setExpiryDate(its: Long?) {
+            expiryDate = its
+    }
+    fun getExpiryDate():Long?{
+        return expiryDate
+    }
+
+    fun setMfgDate(its: Long?) {
+        mfgDate = its
+    }
+    fun getMfgDate():Long?{
+        return mfgDate
     }
 }

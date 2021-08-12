@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.model.Category
-import com.baljeet.expirytracker.model.Product
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Product
 import com.google.android.material.card.MaterialCardView
 
 class OptionsAdapter(private val categoryList : ArrayList<Category>?,
@@ -43,7 +43,7 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
                 AppCompatResources.getDrawable(
                     context,
                     context.resources.getIdentifier(
-                        category.categoryIcon.imageUrl,
+                        "liquor",
                         "drawable",
                         context.packageName
                     )
@@ -57,7 +57,7 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
                 AppCompatResources.getDrawable(
                     context,
                     context.resources.getIdentifier(
-                        product.image?.imageUrl,
+                        "liquor",
                         "drawable",
                         context.packageName
                     )
