@@ -176,47 +176,47 @@ class SelectFromViewModel: ViewModel() {
         val defaultCategories = ArrayList<Category>()
 
         val fruits = Category(
-            0,
+            1,
             "Fruit",
             1
         )
         val vegetables = Category(
-            0,
+            2,
             "Vegetable",
             2
         )
         val meat = Category(
-            0,
+            3,
             "Meat",
             3
         )
         val document = Category(
-            0,
+            4,
             "Document",
             4
         )
         val subscription = Category(
-            0,
+            5,
             "Subscription",
             5
         )
         val packedFood = Category(
-            0,
+            6,
             "Packed Food",
             6
         )
         val liquor = Category(
-            0,
+            7,
             "Liquor",
             7
         )
         val drinks = Category(
-            0,
+            8,
             "Drinkable",
             8
         )
         val fastFood = Category(
-            0,
+            9,
             "Fast Food",
             9
         )
@@ -246,27 +246,27 @@ class SelectFromViewModel: ViewModel() {
         val broccoli = Product(
             0,
             "Broccoli",
-            2,0
+            2,18
         )
         val potato = Product(
             0,
             "Potato",
-            2,0
+            2,16
         )
         val peas = Product(
             0,
             "Peas",
-            2,0
+            2,17
         )
         val bellPepper = Product(
             0,
             "Bell Pepper",
-            2,0
+            2,19
         )
         val tomato = Product(
             0,
             "Tomato",
-            2,0
+            2,20
         )
 
 
@@ -285,36 +285,36 @@ class SelectFromViewModel: ViewModel() {
             0,
             "Banana",
             1,
-            0
+            11
         )
         val pineApple = Product(
             0,
             "Pineapple",
-            1,
+            14,
             0
         )
         val grapes = Product(
             0,
             "Grapes",
             1,
-            0
+            12
         )
         val orange = Product(
             0,
             "Orange",
             1,
-            0
+            13
         )
         val apple = Product(
             0,
             "Apple",
             1,
-            0
+            10
         )
         val redGrapes = Product(
             0,
             "Red Grapes",
-            1,0
+            1,15
         )
 
         products.add(redGrapes)
