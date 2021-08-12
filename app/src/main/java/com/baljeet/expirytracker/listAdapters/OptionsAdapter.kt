@@ -74,6 +74,21 @@ class OptionsAdapter(private val categoryList : ArrayList<Category>?,
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setCategories(list : List<Category>){
+
+        categoryList?.clear()
+        categoryList?.addAll(list)
+        notifyDataSetChanged()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun setProducts(products : List<Product>){
+
+        productList?.clear()
+        productList?.addAll(products)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         categoryList?.let { return categoryList.size }
         productList?.let { return productList.size }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CategoryViewModel(application: Application):AndroidViewModel(application) {
-    private val readAllCategories : LiveData<List<Category>>
+    val readAllCategories : LiveData<List<Category>>
     private val repository : CategoryRepository
 
     init {

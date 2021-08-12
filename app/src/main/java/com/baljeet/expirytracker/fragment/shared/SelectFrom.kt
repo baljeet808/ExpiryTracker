@@ -1,5 +1,6 @@
 package com.baljeet.expirytracker.fragment.shared
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,10 +18,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
+import com.baljeet.expirytracker.data.*
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
-import com.baljeet.expirytracker.data.Category
-import com.baljeet.expirytracker.data.Product
-import com.baljeet.expirytracker.data.ProductViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -65,6 +64,8 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private val products = ArrayList<Product>()
 
     private val viewModel: SelectFromViewModel by activityViewModels()
+    private val categoryVM : CategoryViewModel by activityViewModels()
+    private val imageVM : ImageViewModel by activityViewModels()
     private val productVM : ProductViewModel by activityViewModels()
     private var title: String? = null
 
@@ -75,6 +76,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -102,14 +104,19 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         completedCheck1.visibility = View.GONE
         optionsRecycler.visibility = View.VISIBLE
 
-        categories.addAll(viewModel.getAllCategories())
         adapter = OptionsAdapter(categories, requireContext(), null, this, null)
         optionsRecycler.adapter = adapter
+        categoryVM.readAllCategories.observe(viewLifecycleOwner, {
+            categories.addAll(it)
+            adapter.setCategories(it)
+        })
 
-        products.addAll(viewModel.getProducts())
         nameAdapter = OptionsAdapter(null,requireContext(),null,this,products)
         nameRecycler.adapter = nameAdapter
-
+        productVM.readAllData.observe(viewLifecycleOwner, {
+            products.addAll(it)
+            nameAdapter.setProducts(it)
+        })
 
         expiryClickView = view.findViewById(R.id.expiry_click_view)
         mfgClickView = view.findViewById(R.id.mfg_click_view)
@@ -131,6 +138,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             mfgEdittext.text?.let {
                 if(it.isNotEmpty()){
                     completedCheck3.visibility = View.VISIBLE
+                    addProductBtn.visibility = View.VISIBLE
                 }}
         }
 
@@ -145,6 +153,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             expiryEdittext.text?.let {
                 if(it.isNotEmpty()){
                     completedCheck3.visibility = View.VISIBLE
+                    addProductBtn.visibility = View.VISIBLE
                 }}
         }
 
@@ -206,7 +215,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     optionsRecycler.visibility = View.GONE
                     nameLayout.visibility = View.VISIBLE
                     nameRecycler.visibility = View.VISIBLE
-                    nameAdapter.updateProducts(viewModel.getProductsByCategory())
+                    productVM.getProductByCategoryId(viewModel.getSelectedCategory()?.categoryId!!)
+                    productVM.productsByCategory.observe(viewLifecycleOwner, {
+                        nameAdapter.setProducts(it)
+                    })
                     nameAdapter.refreshAll(null)
                     completedCheck1.visibility = View.VISIBLE
                     completedCheck2.visibility = View.GONE

@@ -35,7 +35,7 @@ class DashFragment : Fragment() {
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_dashFragment_to_addProduct)
         }
-       // seedData()
+        seedData()
 
         return view
     }
@@ -47,16 +47,14 @@ class DashFragment : Fragment() {
     }
 
     private fun addAllCategories(){
-        for(category in selectVM.getAllCategories()){
+        for(category in selectVM.getDefaultCategories()){
             categoryVM.addCategory(category)
         }
     }
 
     private fun addAllProducts(){
         for(product in selectVM.getAllProducts()){
-            productVM.addProduct(
-                product
-            )
+            productVM.addProduct(product)
         }
     }
 

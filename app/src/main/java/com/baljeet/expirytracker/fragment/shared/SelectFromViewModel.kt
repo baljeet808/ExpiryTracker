@@ -168,11 +168,10 @@ class SelectFromViewModel: ViewModel() {
             "Strawberries"
         ))
 
-
         return images
     }
 
-    private fun getDefaultCategories(): ArrayList<Category>{
+    fun getDefaultCategories(): ArrayList<Category>{
         val defaultCategories = ArrayList<Category>()
 
         val fruits = Category(
@@ -244,27 +243,27 @@ class SelectFromViewModel: ViewModel() {
     private fun getVegetables(): ArrayList<Product>{
         val products = ArrayList<Product>()
         val broccoli = Product(
-            0,
+            1,
             "Broccoli",
             2,18
         )
         val potato = Product(
-            0,
+            2,
             "Potato",
             2,16
         )
         val peas = Product(
-            0,
+            3,
             "Peas",
             2,17
         )
         val bellPepper = Product(
-            0,
+            4,
             "Bell Pepper",
             2,19
         )
         val tomato = Product(
-            0,
+            5,
             "Tomato",
             2,20
         )
@@ -282,37 +281,37 @@ class SelectFromViewModel: ViewModel() {
         val products = ArrayList<Product>()
 
         val banana = Product(
-            0,
+            6,
             "Banana",
             1,
             11
         )
         val pineApple = Product(
-            0,
+            7,
             "Pineapple",
-            14,
-            0
+            1,
+            14
         )
         val grapes = Product(
-            0,
+            8,
             "Grapes",
             1,
             12
         )
         val orange = Product(
-            0,
+            9,
             "Orange",
             1,
             13
         )
         val apple = Product(
-            0,
+            10,
             "Apple",
             1,
             10
         )
         val redGrapes = Product(
-            0,
+            11,
             "Red Grapes",
             1,15
         )

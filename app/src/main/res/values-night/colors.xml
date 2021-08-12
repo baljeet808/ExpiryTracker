@@ -9,6 +9,7 @@
 
     <color name="main_background">#171717</color>
     <color name="window_top_bar">#30475E</color>
+    <color name="theme_blue">#6272a4</color>
     <color name="status_bar">#171717</color>
     <color name="bottom_icon_checked">#93ABD3</color>
     <color name="bottom_icon_unchecked">#30475E</color>
