@@ -4,25 +4,27 @@ import androidx.lifecycle.ViewModel
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Product
+import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 class SelectFromViewModel: ViewModel() {
 
     private var expiryDate : Long? = null
     private var mfgDate : Long? = null
 
-    private var selectedCategory : Category? =  null
-    private var selectedProduct : Product? =  null
+    private var selectedCategory : CategoryAndImage? =  null
+    private var selectedProduct : ProductAndImage? =  null
     private val categoryList  = ArrayList<Category>()
     fun getAllCategories(): ArrayList<Category>{return categoryList}
     private fun addToCategories(categories : ArrayList<Category>){categoryList.addAll(categories)}
     fun addSingleCategory(category : Category){categoryList.add(category)}
     fun removeSingleCategory(category : Category){categoryList.remove(category)}
-    fun setSelectedCategory(category: Category?){selectedCategory = category}
-    fun getSelectedCategory(): Category?{return selectedCategory}
+    fun setSelectedCategory(category: CategoryAndImage?){selectedCategory = category}
+    fun getSelectedCategory(): CategoryAndImage?{return selectedCategory}
 
     private val productList = ArrayList<Product>()
-    fun setSelectedProduct (product: Product?){ selectedProduct = product }
-    fun getSelectedProduct(): Product?{return selectedProduct}
+    fun setSelectedProduct (product: ProductAndImage?){ selectedProduct = product }
+    fun getSelectedProduct(): ProductAndImage?{return selectedProduct}
     fun addProduct(product : Product){productList.add(product)}
     fun removeProduct(product: Product){productList.remove(product)}
     fun getProducts(): ArrayList<Product>{return productList}

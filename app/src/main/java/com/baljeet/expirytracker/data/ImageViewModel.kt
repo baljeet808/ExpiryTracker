@@ -3,6 +3,7 @@ package com.baljeet.expirytracker.data
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,6 +12,7 @@ class ImageViewModel(application : Application): AndroidViewModel(application) {
 
     private val readAllImages : LiveData<List<Image>>
     private val repository : ImageRepository
+    var imageById :MutableLiveData<Image> = MutableLiveData()
 
     init {
         val imageDao = AppDatabase.getDatabase(application).imageDao()
@@ -22,5 +24,9 @@ class ImageViewModel(application : Application): AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addImage(image)
         }
+    }
+
+    fun getImageById(id : Int){
+        imageById.postValue(repository.getImageById(id))
     }
 }

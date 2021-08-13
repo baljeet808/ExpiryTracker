@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.data
 
 import androidx.lifecycle.LiveData
+import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 class ProductRepository(private val productDao : ProductsDao) {
 
@@ -14,5 +15,9 @@ class ProductRepository(private val productDao : ProductsDao) {
 
     fun getProductsByCategoryId(id : Int): List<Product>{
        return  productDao.getProductByCategoryId(id)
+    }
+
+    fun readProductWithImagesById(id : Int) : List<ProductAndImage>{
+        return productDao.readProductWithImagesById(id)
     }
 }

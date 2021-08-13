@@ -1,10 +1,8 @@
 package com.baljeet.expirytracker.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 @Dao
 interface ProductsDao {
@@ -18,5 +16,8 @@ interface ProductsDao {
     @Query("SELECT * FROM products WHERE categoryId == :id")
     fun getProductByCategoryId(id : Int) : List<Product>
 
+    @Transaction
+    @Query("SELECT * FROM products WHERE categoryId == :id")
+    fun readProductWithImagesById(id : Int) : List<ProductAndImage>
 
 }

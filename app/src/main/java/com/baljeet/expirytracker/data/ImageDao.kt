@@ -15,4 +15,6 @@ interface ImageDao {
     @Query("SELECT * FROM images ORDER BY imageId ASC")
     fun readAllImage(): LiveData<List<Image>>
 
+    @Query("SELECT * FROM images WHERE imageId == :id")
+    fun getImageById(id : Int): Image
 }

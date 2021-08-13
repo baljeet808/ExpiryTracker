@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.*
+import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
@@ -61,7 +63,9 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private lateinit var categoryClickView : View
     private lateinit var nameClickView : View
     private val categories = ArrayList<Category>()
+    private val categoriesWithImages = ArrayList<CategoryAndImage>()
     private val products = ArrayList<Product>()
+    private val productsWithImages = ArrayList<ProductAndImage>()
 
     private val viewModel: SelectFromViewModel by activityViewModels()
     private val categoryVM : CategoryViewModel by activityViewModels()
@@ -104,19 +108,16 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         completedCheck1.visibility = View.GONE
         optionsRecycler.visibility = View.VISIBLE
 
-        adapter = OptionsAdapter(categories, requireContext(), null, this, null)
+        adapter = OptionsAdapter(categoriesWithImages, requireContext(), null, this, null)
         optionsRecycler.adapter = adapter
-        categoryVM.readAllCategories.observe(viewLifecycleOwner, {
-            categories.addAll(it)
-            adapter.setCategories(it)
+        categoryVM.readAllCategoriesWithImages.observe(viewLifecycleOwner, {
+            categoriesWithImages.clear()
+            categoriesWithImages.addAll(it)
+            adapter.setCategoriesWithImages(it)
         })
 
-        nameAdapter = OptionsAdapter(null,requireContext(),null,this,products)
+        nameAdapter = OptionsAdapter(null,requireContext(),null,this,productsWithImages)
         nameRecycler.adapter = nameAdapter
-        productVM.readAllData.observe(viewLifecycleOwner, {
-            products.addAll(it)
-            nameAdapter.setProducts(it)
-        })
 
         expiryClickView = view.findViewById(R.id.expiry_click_view)
         mfgClickView = view.findViewById(R.id.mfg_click_view)
@@ -196,8 +197,8 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory : Boolean) {
         if(optionIsCategory) {
             if (checkVisibility == View.GONE) {
-                customEditBox.setText(categories[position].categoryName)
-                viewModel.setSelectedCategory(categories[position])
+                customEditBox.setText(categoriesWithImages[position].category.categoryName)
+                viewModel.setSelectedCategory(categoriesWithImages[position])
                 selectedItemIcon.visibility = View.VISIBLE
                 customBox.isEndIconVisible = false
                 customNameBox.isEndIconVisible = false
@@ -205,7 +206,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     AppCompatResources.getDrawable(
                         requireContext(),
                         resources.getIdentifier(
-                            "liquor",
+                            categoriesWithImages[position].image.imageUrl,
                             "drawable",
                             requireContext().packageName
                         )
@@ -215,8 +216,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                     optionsRecycler.visibility = View.GONE
                     nameLayout.visibility = View.VISIBLE
                     nameRecycler.visibility = View.VISIBLE
-                    productVM.getProductByCategoryId(viewModel.getSelectedCategory()?.categoryId!!)
-                    productVM.productsByCategory.observe(viewLifecycleOwner, {
+                    productVM.readProductWithImageById(viewModel.getSelectedCategory()?.category?.categoryId!!)
+                    productVM.productsByCategoryWithImage.observe(viewLifecycleOwner, {
+                        productsWithImages.clear()
+                        productsWithImages.addAll(it)
                         nameAdapter.setProducts(it)
                     })
                     nameAdapter.refreshAll(null)
@@ -234,15 +237,15 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             }
         }else{
             if (checkVisibility == View.GONE) {
-                customNameEditBox.setText(products[position].name)
-                viewModel.setSelectedProduct(products[position])
+                customNameEditBox.setText(productsWithImages[position].product.name)
+                viewModel.setSelectedProduct(productsWithImages[position])
                 selectedNameIcon.visibility = View.VISIBLE
                 customNameBox.isEndIconVisible = false
                 selectedNameIcon.setImageDrawable(
                     AppCompatResources.getDrawable(
                         requireContext(),
                         resources.getIdentifier(
-                            "liquor",
+                            productsWithImages[position].image.imageUrl,
                             "drawable",
                             requireContext().packageName
                         )

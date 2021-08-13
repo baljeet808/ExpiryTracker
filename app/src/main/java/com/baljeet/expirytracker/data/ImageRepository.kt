@@ -8,4 +8,8 @@ class ImageRepository(private val imageDao : ImageDao) {
     suspend fun addImage(image : Image){
         imageDao.addImage(image)
     }
+
+    fun getImageById(id : Int): Image {
+        return imageDao.getImageById(id)
+    }
 }
