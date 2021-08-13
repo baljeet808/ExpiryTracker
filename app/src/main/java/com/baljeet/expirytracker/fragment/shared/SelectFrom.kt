@@ -62,14 +62,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
 
     private lateinit var categoryClickView : View
     private lateinit var nameClickView : View
-    private val categories = ArrayList<Category>()
     private val categoriesWithImages = ArrayList<CategoryAndImage>()
-    private val products = ArrayList<Product>()
     private val productsWithImages = ArrayList<ProductAndImage>()
 
     private val viewModel: SelectFromViewModel by activityViewModels()
     private val categoryVM : CategoryViewModel by activityViewModels()
-    private val imageVM : ImageViewModel by activityViewModels()
     private val productVM : ProductViewModel by activityViewModels()
     private var title: String? = null
 

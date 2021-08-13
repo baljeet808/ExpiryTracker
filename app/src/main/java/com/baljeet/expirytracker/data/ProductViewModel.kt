@@ -13,7 +13,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     val readAllData : LiveData<List<Product>>
     private val repository : ProductRepository
-    var productsByCategory : MutableLiveData<List<Product>> = MutableLiveData()
     var productsByCategoryWithImage : MutableLiveData<List<ProductAndImage>> = MutableLiveData()
 
     init {
@@ -25,12 +24,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     fun addProduct(product: Product){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addProduct(product)
-        }
-    }
-
-    fun getProductByCategoryId(id : Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            productsByCategory.postValue(repository.getProductsByCategoryId(id))
         }
     }
 

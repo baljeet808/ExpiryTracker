@@ -10,8 +10,6 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.Category
-import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.google.android.material.card.MaterialCardView
@@ -87,13 +85,6 @@ class OptionsAdapter(
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setCategories(list: List<Category>) {
-
-        /*categoryList?.clear()
-        categoryList?.addAll(list)
-        notifyDataSetChanged()*/
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setCategoriesWithImages(list : List<CategoryAndImage>){
