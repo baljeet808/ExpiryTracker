@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class TrackerViewModel(application: Application) : AndroidViewModel(application){
 
-    val readAllTracker : LiveData<List<TrackerAndProduct>>
+    val readAllTracker : LiveData<List<TrackerAndProduct>>?
     private val repository : TrackerRepository
     var trackerById : MutableLiveData<TrackerAndProduct> = MutableLiveData()
 

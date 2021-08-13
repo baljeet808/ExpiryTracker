@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
+import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -22,6 +25,7 @@ class DashFragment : Fragment() {
     private val imageVm : ImageViewModel by activityViewModels()
     private val categoryVM : CategoryViewModel by activityViewModels()
     private val selectVM : SelectFromViewModel by activityViewModels()
+    private val trackerVm : TrackerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +38,13 @@ class DashFragment : Fragment() {
         view.findViewById<TextView>(R.id.add_product_button).setOnClickListener {
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_dashFragment_to_addProduct)
+        }
+        trackerVm.readAllTracker?.let {
+            it.observe(viewLifecycleOwner, Observer { its ->
+                if(its.isNotEmpty()){
+                    Toast.makeText(requireContext(),""+its[its.size-1].productAndCategoryAndImage.image.imageName, Toast.LENGTH_SHORT).show()
+                }
+            })
         }
         seedData()
 
