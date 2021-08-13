@@ -1,7 +1,8 @@
-package com.baljeet.expirytracker.data
+package com.baljeet.expirytracker.data.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 
 @Dao

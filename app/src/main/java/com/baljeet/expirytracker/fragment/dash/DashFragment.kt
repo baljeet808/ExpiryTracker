@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.CategoryViewModel
-import com.baljeet.expirytracker.data.ImageViewModel
-import com.baljeet.expirytracker.data.ProductViewModel
+import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
+import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

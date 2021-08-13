@@ -1,10 +1,13 @@
-package com.baljeet.expirytracker.data
+package com.baljeet.expirytracker.data.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.baljeet.expirytracker.data.AppDatabase
+import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import com.baljeet.expirytracker.data.repository.CategoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

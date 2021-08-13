@@ -18,9 +18,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.*
+import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
+import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
+import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
@@ -68,6 +71,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private val viewModel: SelectFromViewModel by activityViewModels()
     private val categoryVM : CategoryViewModel by activityViewModels()
     private val productVM : ProductViewModel by activityViewModels()
+    private val trackerViewModel : TrackerViewModel by activityViewModels()
     private var title: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -175,6 +179,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
 
         addProductBtn = view.findViewById(R.id.add_product_button)
         addProductBtn.setOnClickListener{
+            val tracker = Tracker(0,
+                viewModel.getSelectedProduct()?.product?.productId!!,
+                viewModel.getMfgDate(),
+                viewModel.getExpiryDate())
+            trackerViewModel.addTracker(tracker)
             activity?.onBackPressed()
         }
 
