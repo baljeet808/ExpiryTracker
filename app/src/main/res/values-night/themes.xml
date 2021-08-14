@@ -22,6 +22,10 @@
         <item name="android:textColor">@color/text_color</item>
     </style>
 
+    <style name="circular">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="datePickerTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/text_dialog_color</item>
         <item name="colorOnPrimary">@color/main_background</item>

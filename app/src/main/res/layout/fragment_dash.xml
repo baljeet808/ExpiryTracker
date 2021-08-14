@@ -16,6 +16,7 @@
         android:textColor="@color/text_dialog_color"
         android:layout_marginBottom="10dp"
         android:visibility="gone"
+        tools:visibility="visible"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/guideline_at_top"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start" />
@@ -23,7 +24,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="4dp"
-        android:background="@color/theme_peach_light"
+        android:background="@color/window_top_bar"
         app:layout_constraintStart_toStartOf="@id/greeting_text"
         app:layout_constraintEnd_toEndOf="@id/greeting_text"
         app:layout_constraintTop_toBottomOf="@id/greeting_text"
@@ -41,12 +42,30 @@
             android:textColor="@color/text_dialog_color"
             android:maxLines="3"
             android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintVertical_bias="0.04"
             app:layout_constraintStart_toEndOf="@id/guideline_at_start"
             app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
             app:layout_constraintTop_toBottomOf="@id/guideline_at_top"
             app:layout_constraintBottom_toTopOf="@id/guideline_at_bottom"
             />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tracker_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
+        app:layout_constraintStart_toEndOf="@id/guideline_at_start"
+        app:layout_constraintTop_toBottomOf="@id/status_text"
+        app:layout_constraintBottom_toTopOf="@id/add_product_button"
+        />
+
 
     <TextView
         android:id="@+id/slogal_text"
@@ -62,6 +81,7 @@
         android:shadowColor="#88000000"
         android:layout_marginTop="50dp"
         android:textAlignment="center"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/guideline_at_top"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
@@ -73,6 +93,7 @@
         android:layout_height="300dp"
         android:src="@drawable/illustration"
         app:layout_constraintVertical_bias="0.3"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintTop_toBottomOf="@id/slogal_text"
@@ -86,16 +107,16 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
-        app:layout_constraintTop_toBottomOf="@id/illustration_view"
         android:backgroundTint="@color/theme_blue"
         app:layout_constraintVertical_bias="0.6"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:textAllCaps="false"
         android:letterSpacing="0.12"
+        android:visibility="visible"
         android:textColor="@color/main_background"
         android:textSize="18sp"
-        android:text="@string/add_here"
+        android:text="@string/lets_s_track_a_product"
         android:fontFamily="@font/roboto_medium"/>
 
     <androidx.constraintlayout.widget.Guideline
