@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         android:elevation="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -48,30 +48,18 @@
                 android:letterSpacing="0.12"
                 android:lines="1"
                 android:text="@string/vegetables"
-                android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textAppearance="@style/normalRoboto14Regular"
                 android:textColor="@color/text_dialog_color"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_marginStart="10dp"
+                app:layout_constrainedWidth="true"
+                android:gravity="start"
                 app:layout_constraintStart_toEndOf="@id/product_image"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/product_image" />
 
-            <TextView
-                android:id="@+id/mfg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/normalRoboto14Regular"
-                android:textColor="@color/text_dialog_color"
-                android:textSize="12sp"
-                android:ellipsize="end"
-                android:letterSpacing="0.12"
-                android:lines="1"
-                android:text="@string/manufactured_date_8th_aug_2021"
-                app:layout_constraintStart_toStartOf="@id/product_name"
-                app:layout_constraintTop_toBottomOf="@id/product_name"
-                android:layout_marginTop="10dp"
-                />
+
 
             <TextView
                 android:id="@+id/expiry_date"
@@ -85,14 +73,32 @@
                 android:lines="1"
                 android:text="@string/expiry_date_8th_aug_2021"
                 app:layout_constraintStart_toStartOf="@id/product_name"
-                app:layout_constraintTop_toBottomOf="@id/mfg_date"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product_name"
                 android:layout_marginTop="10dp"
                 />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/item_progressbar"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        app:layout_constraintStart_toStartOf="@id/option_card"
+        app:layout_constraintEnd_toEndOf="@id/option_card"
+        app:layout_constraintTop_toBottomOf="@id/option_card"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        android:progress="20"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/pb_yellow_drawable"
+        android:layout_marginTop="0dp"
+        />
+
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/category_image"

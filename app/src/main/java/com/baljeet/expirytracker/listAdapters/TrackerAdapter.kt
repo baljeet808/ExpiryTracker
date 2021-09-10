@@ -52,13 +52,6 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
                 )
             )
         )
-        val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        cal.time = Date(tracker.tracker.mfgDate!!)
-        holder.mfgDate.text = context.resources.getString(R.string.manufactured_date_var,
-            Month.of(cal.get(Calendar.MONTH)+1).name.substring(0,3),
-            cal.get(Calendar.DAY_OF_MONTH),
-            cal.get(Calendar.YEAR))
-
         val cal2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         cal2.time = Date(tracker.tracker.expiryDate!!)
         holder.expiryDate.text = context.resources.getString(R.string.expiry_date_var,
@@ -76,6 +69,5 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
         val categoryImage : ShapeableImageView = itemView.findViewById(R.id.category_image)
         val productName : TextView = itemView.findViewById(R.id.product_name)
         val expiryDate : TextView = itemView.findViewById(R.id.expiry_date)
-        val mfgDate : TextView = itemView.findViewById(R.id.mfg_date)
     }
 }

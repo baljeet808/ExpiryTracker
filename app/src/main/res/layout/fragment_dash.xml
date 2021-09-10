@@ -156,6 +156,33 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_product_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/track_product"
+        app:icon="@android:drawable/ic_input_add"
+        android:backgroundTint="@color/theme_blue"
+        android:textColor="@color/main_background"
+        app:iconTint="@color/main_background"
+        android:textAlignment="center"
+        android:elevation="4dp"
+        tools:visibility="visible"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
+        app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
+        app:layout_constraintStart_toEndOf="@id/guideline_at_start"
+        />
+    <ImageView
+        android:id="@+id/image_for_animation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/bg_image_for_pulse_animation"
+        app:layout_constraintStart_toStartOf="@id/add_product_fab"
+        app:layout_constraintEnd_toEndOf="@id/add_product_fab"
+        app:layout_constraintTop_toTopOf="@id/add_product_fab"
+        app:layout_constraintBottom_toBottomOf="@id/add_product_fab"
+        />
 
 
     <Button
@@ -171,7 +198,8 @@
         android:textAllCaps="false"
         android:textColor="@color/main_background"
         android:textSize="18sp"
-        android:visibility="visible"
+        android:visibility="gone"
+        tools:visibility="invisible"
         android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
@@ -204,7 +232,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.96" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
