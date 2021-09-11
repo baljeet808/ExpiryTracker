@@ -5,14 +5,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
-import com.google.android.material.card.MaterialCardView
+import com.baljeet.expirytracker.databinding.ItemOptionBinding
 
 class OptionsAdapter(
     private val categoryList: ArrayList<CategoryAndImage>?,
@@ -26,26 +24,24 @@ class OptionsAdapter(
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_option, parent, false)
 
-        return MyViewHolder(view, optionClickListener, context)
+        return MyViewHolder(ItemOptionBinding.inflate(LayoutInflater.from(parent.context),parent,false), optionClickListener, context)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.card.strokeWidth = 2
-        holder.check.visibility = View.GONE
-        holder.title.textSize = 11F
-        holder.card.setCardBackgroundColor(
+        holder.bind.optionCard.strokeWidth = 2
+        holder.bind.optionSelectedCheck.visibility = View.GONE
+        holder.bind.optionTitle.textSize = 11F
+        holder.bind.optionCard.setCardBackgroundColor(
             context.resources.getColor(
-                R.color.main_background,
-                null
+                R.color.main_background, null
             )
         )
         categoryList?.let {
             val category = categoryList[position]
-            holder.title.text = category.category.categoryName
-            holder.optionImage.setImageDrawable(
+            holder.bind.optionTitle.text = category.category.categoryName
+            holder.bind.optionImage.setImageDrawable(
                 AppCompatResources.getDrawable(
                     context,
                     context.resources.getIdentifier(
@@ -58,8 +54,8 @@ class OptionsAdapter(
         }
         productList?.let {
             val product = productList[position]
-            holder.title.text = product.product.name
-            holder.optionImage.setImageDrawable(
+            holder.bind.optionTitle.text = product.product.name
+            holder.bind.optionImage.setImageDrawable(
                 AppCompatResources.getDrawable(
                     context,
                     context.resources.getIdentifier(
@@ -72,15 +68,15 @@ class OptionsAdapter(
         }
         selectedCategory?.let {
             if (it == position) {
-                holder.check.visibility = View.VISIBLE
-                holder.card.strokeWidth = 7
-                holder.card.setCardBackgroundColor(
+                holder.bind.optionSelectedCheck.visibility = View.VISIBLE
+                holder.bind.optionCard.strokeWidth = 7
+                holder.bind.optionCard.setCardBackgroundColor(
                     context.resources.getColor(
                         R.color.card_background,
                         null
                     )
                 )
-                holder.title.textSize = 13F
+                holder.bind.optionTitle.textSize = 13F
             }
         }
     }
@@ -115,32 +111,28 @@ class OptionsAdapter(
 
 
 
-    inner class MyViewHolder(itemView: View, listener: OnOptionSelectedListener, context: Context) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val card: MaterialCardView = itemView.findViewById(R.id.option_card)
-        val optionImage: ImageView = itemView.findViewById(R.id.option_image)
-        val check: ImageView = itemView.findViewById(R.id.option_selected_check)
-        val title: TextView = itemView.findViewById(R.id.option_title)
+    inner class MyViewHolder(val bind : ItemOptionBinding, listener: OnOptionSelectedListener, context: Context) :
+        RecyclerView.ViewHolder(bind.root), View.OnClickListener {
         private val con = context
         private val optionListener = listener
 
         init {
-            card.setOnClickListener(this)
+            bind.optionCard.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            optionListener.onOptionSelected(adapterPosition, check.visibility, categoryList != null)
-            if (check.visibility == View.GONE) {
-                check.visibility = View.VISIBLE
-                card.strokeWidth = 7
-                title.textSize = 13F
-                card.setCardBackgroundColor(con.resources.getColor(R.color.card_background, null))
+            optionListener.onOptionSelected(adapterPosition, bind.optionSelectedCheck.visibility, categoryList != null)
+            if (bind.optionSelectedCheck.visibility == View.GONE) {
+                bind.optionSelectedCheck.visibility = View.VISIBLE
+                bind.optionCard.strokeWidth = 7
+                bind.optionTitle.textSize = 13F
+                bind.optionCard.setCardBackgroundColor(con.resources.getColor(R.color.card_background, null))
                 refreshAll(adapterPosition)
             } else {
-                check.visibility = View.GONE
-                card.strokeWidth = 2
-                title.textSize = 11F
-                card.setCardBackgroundColor(con.resources.getColor(R.color.main_background, null))
+                bind.optionSelectedCheck.visibility = View.GONE
+                bind.optionCard.strokeWidth = 2
+                bind.optionTitle.textSize = 11F
+                bind.optionCard.setCardBackgroundColor(con.resources.getColor(R.color.main_background, null))
             }
         }
 

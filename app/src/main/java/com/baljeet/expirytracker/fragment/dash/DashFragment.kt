@@ -42,6 +42,7 @@ class DashFragment : Fragment() {
         bind = FragmentDashBinding.inflate(inflater,container,false)
         activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
 
+
         bind.addProductFab.setOnClickListener {
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_dashFragment_to_addProduct)

@@ -1,9 +1,10 @@
-package com.baljeet.expirytracker.util
+package com.dwellify.contractorportal.util
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import java.time.LocalDate
 
 object TimeConvertor {
 
@@ -11,10 +12,6 @@ object TimeConvertor {
     fun getTimeFromDateString(date : String, appendAmPm : Boolean) : String?{
         val ldt = convertDateStringToLocalDateTime(date)
         return gettime(ldt?.hour,ldt?.minute,appendAmPm)
-    }
-
-    fun getLocalDateTimeFromLong(value: Long?): LocalDateTime {
-        return  Instant.fromEpochMilliseconds(value!!).toLocalDateTime(TimeZone.currentSystemDefault())
     }
 
     //pass Iso date String and get kotlinx LocalDateTime object back
@@ -30,6 +27,25 @@ object TimeConvertor {
         }catch (e : Exception){
             null
         }
+    }
+
+    fun fromEpochMillisecondsToLocalDateTime(date : Long?): LocalDateTime?{
+        return try{
+            date?.let {
+                Instant.fromEpochMilliseconds(date).toLocalDateTime(TimeZone.currentSystemDefault())
+            }
+        }catch (e : Exception){
+            null
+        }
+    }
+
+    fun fromEpochMillisecondsToInstant(date : Long) : Instant{
+        return Instant.fromEpochMilliseconds(date)
+    }
+
+    fun convertStringToJavaLocalDate(date : String): LocalDate{
+        val mDate = convertDateStringToLocalDateTime(date)
+        return LocalDate.of(mDate!!.year, mDate.month, mDate.dayOfMonth)
     }
 
     // get the formatted time back HH:MM AM/PM
@@ -62,4 +78,7 @@ object TimeConvertor {
         }
         return time
     }
+
+
+
 }
