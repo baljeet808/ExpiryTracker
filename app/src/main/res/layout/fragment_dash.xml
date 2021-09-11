@@ -83,21 +83,50 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/proxima_nova_alt_light"
-            android:text="@string/greeting_text"
+            android:text="@string/morning_greeting_text"
             android:textColor="@color/text_dialog_color"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/guideline6"
             app:layout_constraintStart_toEndOf="@id/guideline5"
             tools:visibility="visible" />
 
+        <!--<TextView
+            android:id="@+id/current_time"
+            android:text="@string/time_sample"
+            android:fontFamily="@font/proxima_nova_alt_light"
+            android:textColor="@color/text_dialog_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/current_Date"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            android:layout_marginBottom="4dp"
+            />-->
+        <TextView
+            android:id="@+id/current_Date"
+            android:text="@string/date_sample"
+            android:fontFamily="@font/proxima_nova_alt_light"
+            android:textColor="@color/text_dialog_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/guideline6"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            />
+
+
+
         <View
             android:layout_width="0dp"
             android:layout_height="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
             android:background="@color/window_top_bar"
-            app:layout_constraintEnd_toEndOf="@id/greeting_text"
+            app:layout_constraintEnd_toEndOf="@id/current_Date"
             app:layout_constraintStart_toStartOf="@id/greeting_text"
             app:layout_constraintTop_toBottomOf="@id/greeting_text" />
 

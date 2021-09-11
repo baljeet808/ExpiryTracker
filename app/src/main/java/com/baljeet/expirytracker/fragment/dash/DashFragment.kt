@@ -20,7 +20,12 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.TrackerAdapter
+import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import java.time.Month
 
 
 class DashFragment : Fragment() {
@@ -42,6 +47,7 @@ class DashFragment : Fragment() {
         bind = FragmentDashBinding.inflate(inflater,container,false)
         activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
 
+        setTimeAndGreetings()
 
         bind.addProductFab.setOnClickListener {
             Navigation.findNavController(requireView())
@@ -146,6 +152,29 @@ class DashFragment : Fragment() {
             handlerAnimation.postDelayed(this,1500)
         }
 
+    }
+
+    private fun setTimeAndGreetings(){
+        val dateTime  = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        bind.currentDate.text = resources.getString(R.string.date_var,
+            Month.of(dateTime.monthNumber).name.substring(0,3),
+            dateTime.dayOfMonth,
+            dateTime.year)
+       // bind.currentTime.text = TimeConvertor.getTime(dateTime.hour,dateTime.minute,true)
+        bind.greetingText.apply {
+            when {
+                dateTime.hour < 12 -> {
+                    text = resources.getString(R.string.morning_greeting_text)
+                }
+                dateTime.hour in 12..15 -> {
+                    text = resources.getString(R.string.afternoon_greeting_text)
+                }
+                dateTime.hour >= 16 -> {
+                    text = resources.getString(R.string.evening_greeting_text)
+                }
+                else -> Unit
+            }
+        }
     }
 
 }

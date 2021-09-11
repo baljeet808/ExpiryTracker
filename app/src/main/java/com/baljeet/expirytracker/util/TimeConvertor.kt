@@ -11,7 +11,7 @@ object TimeConvertor {
     //pass Iso date String and get time string in HH:MM AM/PM format back
     fun getTimeFromDateString(date : String, appendAmPm : Boolean) : String?{
         val ldt = convertDateStringToLocalDateTime(date)
-        return gettime(ldt?.hour,ldt?.minute,appendAmPm)
+        return getTime(ldt?.hour,ldt?.minute,appendAmPm)
     }
 
     //pass Iso date String and get kotlinx LocalDateTime object back
@@ -49,7 +49,7 @@ object TimeConvertor {
     }
 
     // get the formatted time back HH:MM AM/PM
-    fun gettime (hour: Int?, min : Int?, isSuffixEbaled : Boolean) :String?{
+    fun getTime (hour: Int?, min : Int?, isSuffixEnabled : Boolean) :String?{
         var time: String? = null
         if(hour in 12..23){
             if (hour != null) {
@@ -61,18 +61,18 @@ object TimeConvertor {
             }
             if (min != null) {
                 time = if(min<10){
-                    time+":0"+min.toString()+ if(isSuffixEbaled){" PM"}else{""}
+                    time+":0"+min.toString()+ if(isSuffixEnabled){" PM"}else{""}
                 }else{
-                    time+":"+min.toString()+if(isSuffixEbaled){" PM"}else{""}
+                    time+":"+min.toString()+if(isSuffixEnabled){" PM"}else{""}
                 }
             }
 
         }else{
             if (min != null) {
                 time = if(min<10){
-                    hour.toString()+":0"+min.toString()+if(isSuffixEbaled){" AM"}else{""}
+                    hour.toString()+":0"+min.toString()+if(isSuffixEnabled){" AM"}else{""}
                 }else{
-                    hour.toString()+":"+min.toString()+if(isSuffixEbaled){" AM"}else{""}
+                    hour.toString()+":"+min.toString()+if(isSuffixEnabled){" AM"}else{""}
                 }
             }
         }
