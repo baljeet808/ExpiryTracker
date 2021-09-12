@@ -16,6 +16,10 @@ interface TrackerDao {
     fun readAllTracker() : LiveData<List<TrackerAndProduct>>
 
     @Transaction
+    @Query("SELECT * FROM tracker")
+    fun getAllTracker() : List<TrackerAndProduct>
+
+    @Transaction
     @Query("SELECT * FROM tracker where trackerId == :id")
     fun readTrackerById(id: Int) : TrackerAndProduct
 

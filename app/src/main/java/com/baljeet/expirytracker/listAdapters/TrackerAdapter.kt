@@ -68,7 +68,6 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
             val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.mfgDate!!)
             val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.expiryDate!!)
 
-
             val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
             val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC)
 

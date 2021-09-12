@@ -13,6 +13,10 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
         trackerDao.addTracker(tracker)
     }
 
+    fun getAllTracker(): List<TrackerAndProduct>{
+        return trackerDao.getAllTracker()
+    }
+
     fun readTrackerById(id : Int): TrackerAndProduct{
         return trackerDao.readTrackerById(id)
     }

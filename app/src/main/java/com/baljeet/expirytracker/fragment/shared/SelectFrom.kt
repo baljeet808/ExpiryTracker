@@ -1,19 +1,12 @@
 package com.baljeet.expirytracker.fragment.shared
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context.ALARM_SERVICE
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
@@ -29,12 +22,9 @@ import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentSelectFromBinding
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
-import com.baljeet.expirytracker.util.NotificationReceiver
 import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.Month
-import java.util.*
-import kotlin.collections.ArrayList
 
 private const val ARG_TITLE = "Category"
 
@@ -45,8 +35,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
     private val datePicker2 = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
         .setTitleText("Expiry Date").build()
 
-    private lateinit var alarmManager: AlarmManager
-    private lateinit var pendingIntent: PendingIntent
+
 
     private lateinit var adapter: OptionsAdapter
     private lateinit var nameAdapter: OptionsAdapter
@@ -153,43 +142,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
                 viewModel.getSelectedProduct()?.product?.productId!!,
                 viewModel.getMfgDate(),
                 viewModel.getExpiryDate())
-            setReminderForProduct()
             trackerViewModel.addTracker(tracker)
             activity?.onBackPressed()
         }
-        createNotificationChannel()
         return bind.root
     }
-
-    fun setReminderForProduct(){
-        val calendar = Calendar.getInstance()
-        val expiryDate = TimeConvertor.fromEpochMillisecondsToLocalDateTime(viewModel.getExpiryDate())
-        expiryDate?.let{ date ->
-            /*calendar[Calendar.DAY_OF_MONTH] = date.dayOfMonth
-            calendar[Calendar.MONTH] = date.monthNumber
-            calendar[Calendar.YEAR] = date.year*/
-            calendar[Calendar.HOUR_OF_DAY] = 1
-            calendar[Calendar.MINUTE] = 33
-            calendar[Calendar.SECOND] = 0
-            calendar[Calendar.MILLISECOND] = 0
-        }
-        alarmManager = requireContext().getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(requireContext(),NotificationReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(requireContext(),0,intent,PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,AlarmManager.INTERVAL_HOUR,pendingIntent)
-        Toast.makeText(requireContext(),"reminder has been set", Toast.LENGTH_SHORT).show()
-    }
-
-    fun createNotificationChannel(){
-        val name  = "ExpiryTrackerReminderBaljeet"
-        val description = "Channel for ExpiryTracker Reminders"
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("expiryTrackerBaljeet",name, importance)
-        channel.description = description
-        val notificationManager = requireContext().getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
-    }
-
 
     companion object {
         @JvmStatic
