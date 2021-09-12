@@ -28,8 +28,12 @@ import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.TrackerAdapter
 import com.baljeet.expirytracker.util.NotificationReceiver
+import com.baljeet.expirytracker.util.ProductStatus
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -139,6 +143,9 @@ class DashFragment : Fragment() {
                 Toast.makeText(requireContext(),"Alerts enabled", Toast.LENGTH_SHORT).show()
             }
         }
+        CoroutineScope(Dispatchers.Main).launch {
+            bind.statusText.text = ProductStatus.getStatusMessage(requireContext())
+        }
 
         return bind.root
     }
@@ -161,7 +168,7 @@ class DashFragment : Fragment() {
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
         )
-        Toast.makeText(requireContext(), "reminder has been set", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "reminder has been set for  $hour:$minutes", Toast.LENGTH_SHORT).show()
     }
 
     private fun createNotificationChannel() {

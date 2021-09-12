@@ -1,7 +1,6 @@
 package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
@@ -16,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.periodUntil
+import kotlinx.datetime.toLocalDateTime
 import java.time.Month
 import java.util.*
 
@@ -54,10 +54,8 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
             )
         )
 
-        val expiryDate =tracker.tracker.expiryDate?.let { TimeConvertor.fromEpochMillisecondsToLocalDateTime(it) }
-        Log.d("Log for - mfg date ","${TimeConvertor.fromEpochMillisecondsToLocalDateTime(tracker.tracker.mfgDate)}")
+        val expiryDate = TimeConvertor.fromEpochMillisecondsToLocalDateTime(tracker.tracker.expiryDate)
         expiryDate?.let {
-            Log.d("Log expiry date of ${tracker.productAndCategoryAndImage.product.name} - ","$it")
            holder.bind.expiryDate.text = context.resources.getString(R.string.expiry_date_var,
                 Month.of(it.monthNumber).name.substring(0,3),
                 it.dayOfMonth,
@@ -71,11 +69,12 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
             val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
             val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC)
 
-            val progressValue = (periodSpent.days.toFloat()/(totalPeriod.days+1).toFloat())*100
-            Log.d("Log for - product ", tracker.productAndCategoryAndImage.product.name)
-            Log.d("Log for - total period  ","$totalPeriod")
-            Log.d("Log for - spent period  ","$periodSpent")
-            Log.d("Log for - progress  ","$progressValue")
+            val totalHours = totalPeriod.days*24 + totalPeriod.hours
+            val spentHours = periodSpent.days*24 + periodSpent.hours
+
+            val progressValue =
+                (spentHours.toFloat() / totalHours.toFloat()) * 100
+
             holder.bind.itemProgressbar.apply {
                 when {
                     progressValue >= 80 -> {
