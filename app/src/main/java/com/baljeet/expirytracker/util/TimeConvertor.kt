@@ -5,6 +5,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import java.time.LocalDate
+import java.util.*
 
 object TimeConvertor {
 
@@ -32,7 +33,7 @@ object TimeConvertor {
     fun fromEpochMillisecondsToLocalDateTime(date : Long?): LocalDateTime?{
         return try{
             date?.let {
-                Instant.fromEpochMilliseconds(date).toLocalDateTime(TimeZone.currentSystemDefault())
+                Instant.fromEpochMilliseconds(date).toLocalDateTime(TimeZone.UTC)
             }
         }catch (e : Exception){
             null

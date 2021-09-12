@@ -55,8 +55,10 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
         )
 
         val expiryDate =tracker.tracker.expiryDate?.let { TimeConvertor.fromEpochMillisecondsToLocalDateTime(it) }
+        Log.d("Log for - mfg date ","${TimeConvertor.fromEpochMillisecondsToLocalDateTime(tracker.tracker.mfgDate)}")
         expiryDate?.let {
-            holder.bind.expiryDate.text = context.resources.getString(R.string.expiry_date_var,
+            Log.d("Log expiry date of ${tracker.productAndCategoryAndImage.product.name} - ","$it")
+           holder.bind.expiryDate.text = context.resources.getString(R.string.expiry_date_var,
                 Month.of(it.monthNumber).name.substring(0,3),
                 it.dayOfMonth,
                 it.year)
@@ -65,9 +67,14 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
             val today = Clock.System.now()
             val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.mfgDate!!)
             val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.expiryDate!!)
-            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.currentSystemDefault()).days
-            val periodSpent = mfgInstant.periodUntil(today, TimeZone.currentSystemDefault()).days
+
+            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC).days+1
+            val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC).days
             val progressValue = (periodSpent.toFloat()/totalPeriod.toFloat())*100
+            Log.d("Log for - product ", tracker.productAndCategoryAndImage.product.name)
+            Log.d("Log for - total period  ","$totalPeriod")
+            Log.d("Log for - spent period  ","$periodSpent")
+            Log.d("Log for - progress  ","$progressValue")
             holder.bind.itemProgressbar.apply {
                 when {
                     progressValue >= 80 -> {
