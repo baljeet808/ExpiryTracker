@@ -33,8 +33,11 @@ class NotificationReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-       val message = ProductStatus.getStatusMessage(context!!)
-        Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
+       val messages = ProductStatus.getStatusMessage(context!!)
+        var message = ""
+        for(msg in messages){
+            message = message.plus(msg)
+        }
         val builder = NotificationCompat.Builder(context, "expiryTrackerBaljeet")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Update on Your Products \ud83d\ude0e")

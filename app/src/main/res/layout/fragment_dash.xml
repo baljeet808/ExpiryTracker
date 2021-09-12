@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/main_background"
     tools:context=".fragment.dash.DashFragment">
 
@@ -136,9 +137,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/proxima_nova_alt_light"
             android:maxLines="3"
-            android:text="@string/status_dashboard"
+            android:lines="2"
             android:textColor="@color/text_dialog_color"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:visibility="visible"
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
@@ -211,7 +212,7 @@
         app:layout_constraintEnd_toEndOf="@id/add_product_fab"
         app:layout_constraintTop_toTopOf="@id/add_product_fab"
         app:layout_constraintBottom_toBottomOf="@id/add_product_fab"
-        />
+        android:contentDescription="@string/image" />
 
 
     <Button

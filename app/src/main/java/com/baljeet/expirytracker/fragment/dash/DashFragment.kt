@@ -56,6 +56,10 @@ class DashFragment : Fragment() {
     private lateinit var pendingIntent: PendingIntent
     private val calendar = Calendar.getInstance()
 
+    private val messages = ArrayList<String>()
+    var iterator = messages.iterator()
+    var evenNumber = 2
+
     private var handlerAnimation = Handler(Looper.getMainLooper())
 
     private lateinit var bind: FragmentDashBinding
@@ -120,14 +124,16 @@ class DashFragment : Fragment() {
         })
         createNotificationChannel()
 
-        if(!SharedPref.isAlertEnabled){
+        if (!SharedPref.isAlertEnabled) {
             val time = Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
-            setReminderForProducts(time.hour,time.minute)
+            setReminderForProducts(time.hour, time.minute)
             SharedPref.isAlertEnabled = true
         }
+
         bind.greetingText.setOnClickListener {
-            if(SharedPref.isAlertEnabled){
-                alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if (SharedPref.isAlertEnabled) {
+                alarmManager =
+                    requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 val intent = Intent(requireContext(), NotificationReceiver::class.java)
                 pendingIntent = PendingIntent.getBroadcast(
                     requireContext(), 0, intent,
@@ -135,22 +141,23 @@ class DashFragment : Fragment() {
                 )
                 alarmManager.cancel(pendingIntent)
                 SharedPref.isAlertEnabled = false
-                Toast.makeText(requireContext(),"Alerts disabled", Toast.LENGTH_SHORT).show()
-            }else{
-                val time = Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
-                setReminderForProducts(time.hour,time.minute)
+                Toast.makeText(requireContext(), "Alerts disabled", Toast.LENGTH_SHORT).show()
+            } else {
+                val time =
+                    Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
+                setReminderForProducts(time.hour, time.minute)
                 SharedPref.isAlertEnabled = true
-                Toast.makeText(requireContext(),"Alerts enabled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
             }
         }
         CoroutineScope(Dispatchers.Main).launch {
-            bind.statusText.text = ProductStatus.getStatusMessage(requireContext())
+            messages.addAll(ProductStatus.getStatusMessage(requireContext()))
         }
 
         return bind.root
     }
 
-    private fun setReminderForProducts(hour : Int , minutes : Int) {
+    private fun setReminderForProducts(hour: Int, minutes: Int) {
 
 
         calendar[Calendar.HOUR_OF_DAY] = hour
@@ -168,7 +175,11 @@ class DashFragment : Fragment() {
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
         )
-        Toast.makeText(requireContext(), "reminder has been set for  $hour:$minutes", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "reminder has been set for  $hour:$minutes",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun createNotificationChannel() {
@@ -230,9 +241,27 @@ class DashFragment : Fragment() {
                         alpha = 1f
                     }
             }
-            handlerAnimation.postDelayed(this, 1500)
-        }
+            if (messages.size > 1) {
+                if (evenNumber % 2 == 0) {
+                    if (iterator.hasNext()) {
+                        bind.statusText.apply {
+                            animate().alpha(0f).setDuration(1200)
+                                .withEndAction {
+                                    alpha = 1f
+                                    text = iterator.next()
+                                }
+                        }
+                    } else {
+                        iterator = messages.iterator()
+                    }
+                    evenNumber++
+                } else {
+                    evenNumber++
+                }
+                handlerAnimation.postDelayed(this, 1500)
+            }
 
+        }
     }
 
     private fun setTimeAndGreetings() {
@@ -259,5 +288,5 @@ class DashFragment : Fragment() {
             }
         }
     }
-
 }
+
