@@ -68,9 +68,11 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
             val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.mfgDate!!)
             val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.expiryDate!!)
 
-            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC).days+1
-            val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC).days
-            val progressValue = (periodSpent.toFloat()/totalPeriod.toFloat())*100
+
+            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
+            val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC)
+
+            val progressValue = (periodSpent.days.toFloat()/(totalPeriod.days+1).toFloat())*100
             Log.d("Log for - product ", tracker.productAndCategoryAndImage.product.name)
             Log.d("Log for - total period  ","$totalPeriod")
             Log.d("Log for - spent period  ","$periodSpent")
