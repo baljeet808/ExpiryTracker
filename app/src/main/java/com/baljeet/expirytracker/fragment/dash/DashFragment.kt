@@ -150,15 +150,17 @@ class DashFragment : Fragment() {
                 Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
             }
         }
-        CoroutineScope(Dispatchers.Main).launch {
-            messages.addAll(ProductStatus.getStatusMessage(requireContext()))
-        }
-
+        getStatus()
         return bind.root
     }
 
-    private fun setReminderForProducts(hour: Int, minutes: Int) {
+    private fun getStatus(){
+        CoroutineScope(Dispatchers.Main).launch {
+            messages.addAll(ProductStatus.getStatusMessage(requireContext()))
+        }
+    }
 
+    private fun setReminderForProducts(hour: Int, minutes: Int) {
 
         calendar[Calendar.HOUR_OF_DAY] = hour
         calendar[Calendar.MINUTE] = minutes
@@ -230,6 +232,10 @@ class DashFragment : Fragment() {
         handlerAnimation.removeCallbacks(runnable)
     }
 
+    override fun onResume() {
+        super.onResume()
+        runnable.run()
+    }
 
     private var runnable = object : Runnable {
         override fun run() {

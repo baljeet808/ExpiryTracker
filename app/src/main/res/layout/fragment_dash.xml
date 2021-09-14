@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        tools:visibility="gone"
         android:visibility="gone">
 
         <TextView
@@ -74,9 +75,9 @@
         android:id="@+id/tracker_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:animateLayoutChanges="true">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/greeting_text"
@@ -108,18 +109,16 @@
             />-->
         <TextView
             android:id="@+id/current_Date"
-            android:text="@string/date_sample"
-            android:fontFamily="@font/proxima_nova_alt_light"
-            android:textColor="@color/text_dialog_color"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/proxima_nova_alt_light"
+            android:text="@string/date_sample"
+            android:textColor="@color/text_dialog_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/guideline6"
-            app:layout_constraintEnd_toStartOf="@id/guideline7"
-            />
-
+            app:layout_constraintEnd_toStartOf="@id/guideline7" />
 
 
         <View
@@ -135,31 +134,79 @@
             android:id="@+id/status_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/proxima_nova_alt_light"
-            android:maxLines="3"
-            android:lines="2"
+            android:maxLines="2"
+            android:text="@string/hey_there"
+            android:lineSpacingExtra="8dp"
             android:textColor="@color/text_dialog_color"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:visibility="visible"
-            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
             app:layout_constraintTop_toBottomOf="@id/guideline6"
             app:layout_constraintVertical_bias="0.04"
             tools:visibility="visible" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/status_text">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/status_category_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all"
+                android:minWidth="50dp"
+                android:textAlignment="center"
+                app:chipMinHeight="25dp"
+                android:textColor="@color/always_white"
+                app:chipBackgroundColor="@color/window_top_bar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/product_category_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/products"
+                android:minWidth="50dp"
+                android:textAlignment="center"
+                app:chipMinHeight="25dp"
+                android:textColor="@color/always_white"
+                app:chipBackgroundColor="@color/window_top_bar"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/status_category_chip"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/top_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/window_top_bar"
+            app:layout_constraintTop_toBottomOf="@id/category_layout"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tracker_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="2dp"
             android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/status_text"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_line"
             app:layout_constraintVertical_bias="0"
             tools:visibility="visible" />
 
@@ -175,7 +222,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.08" />
+            app:layout_constraintGuide_percent="0.06" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
@@ -190,29 +237,29 @@
         android:id="@+id/add_product_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/track_product"
-        app:icon="@android:drawable/ic_input_add"
         android:backgroundTint="@color/theme_blue"
-        android:textColor="@color/main_background"
-        app:iconTint="@color/main_background"
-        android:textAlignment="center"
         android:elevation="4dp"
-        tools:visibility="visible"
-        app:layout_constraintHorizontal_bias="1"
+        android:text="@string/track_product"
+        android:textAlignment="center"
+        android:textColor="@color/always_white"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/always_white"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
-        />
+        tools:visibility="visible" />
+
     <ImageView
         android:id="@+id/image_for_animation"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/image"
         android:src="@drawable/bg_image_for_pulse_animation"
-        app:layout_constraintStart_toStartOf="@id/add_product_fab"
-        app:layout_constraintEnd_toEndOf="@id/add_product_fab"
-        app:layout_constraintTop_toTopOf="@id/add_product_fab"
         app:layout_constraintBottom_toBottomOf="@id/add_product_fab"
-        android:contentDescription="@string/image" />
+        app:layout_constraintEnd_toEndOf="@id/add_product_fab"
+        app:layout_constraintStart_toStartOf="@id/add_product_fab"
+        app:layout_constraintTop_toTopOf="@id/add_product_fab" />
 
 
     <Button
@@ -222,6 +269,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/theme_blue"
+        android:elevation="5dp"
         android:fontFamily="@font/roboto_medium"
         android:letterSpacing="0.12"
         android:text="@string/lets_s_track_a_product"
@@ -229,12 +277,11 @@
         android:textColor="@color/main_background"
         android:textSize="18sp"
         android:visibility="gone"
-        tools:visibility="invisible"
-        android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.6"
+        tools:visibility="invisible" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_at_start"

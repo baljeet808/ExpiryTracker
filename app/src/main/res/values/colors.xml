@@ -20,6 +20,7 @@
     <color name="progress_ok">#D89216</color>     #FFEFA1
     <color name="progress_bad">#DA0037</color>
     <color name="text_color">#171717</color>
+    <color name="always_white">#EDEDED</color>
     <color name="text_dialog_color">#343F56</color>
     <color name="theme_peach">#FF5252</color>
     <color name="theme_peach_light">#FC6681</color>
