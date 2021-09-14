@@ -27,4 +27,8 @@ object SharedPref {
         set(value)  = sharedPref.edit{
             it.putBoolean("isNightModeOn",value)
         }
+
+    var selectedStatus: String?
+        get() = sharedPref.getString("selectedStatus","All")
+        set(value) = sharedPref.edit { it.putString("selectedStatus",value) }
 }

@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -30,7 +33,9 @@ import com.baljeet.expirytracker.listAdapters.TrackerAdapter
 import com.baljeet.expirytracker.util.NotificationReceiver
 import com.baljeet.expirytracker.util.ProductStatus
 import com.baljeet.expirytracker.util.SharedPref
+import com.baljeet.expirytracker.util.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -105,53 +110,81 @@ class DashFragment : Fragment() {
         }
         seedData()
 
+        bind.statusCategoryChip.apply {
+            setOnClickListener { view->
+                bind.statusCard.isGone = !bind.statusCard.isGone
+                chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+            }
 
-        bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                bind.addProductFab.apply {
-                    //scroll down
-                    if (dy > 30 && isExtended) {
-                        shrink()
+
+            bind.statusChoiceList.setOnCheckedChangeListener { group, checkedId ->
+                when(checkedId){
+                    bind.choiceAll.id->{
+                        text = Status.ALL.status
                     }
-                    //reached the top of list
-                    if (!recyclerView.canScrollVertically(-1)) {
-                        extend()
+                    bind.choiceExpired.id->{
+                        text = Status.EXPIRED.status
+                    }
+                    bind.choiceExpiring.id->{
+                        text = Status.EXPIRING.status
+                    }
+                    bind.choiceFresh.id->{
+                        text = Status.FRESH.status
                     }
                 }
-
+                Handler(Looper.getMainLooper()).postDelayed({
+                    bind.statusCard.isGone = true
+                    chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                },400)
             }
-        })
-        createNotificationChannel()
 
-        if (!SharedPref.isAlertEnabled) {
-            val time = Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
-            setReminderForProducts(time.hour, time.minute)
-            SharedPref.isAlertEnabled = true
-        }
+            bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    bind.addProductFab.apply {
+                        //scroll down
+                        if (dy > 30 && isExtended) {
+                            shrink()
+                        }
+                        //reached the top of list
+                        if (!recyclerView.canScrollVertically(-1)) {
+                            extend()
+                        }
+                    }
 
-        bind.greetingText.setOnClickListener {
-            if (SharedPref.isAlertEnabled) {
-                alarmManager =
-                    requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val intent = Intent(requireContext(), NotificationReceiver::class.java)
-                pendingIntent = PendingIntent.getBroadcast(
-                    requireContext(), 0, intent,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                )
-                alarmManager.cancel(pendingIntent)
-                SharedPref.isAlertEnabled = false
-                Toast.makeText(requireContext(), "Alerts disabled", Toast.LENGTH_SHORT).show()
-            } else {
-                val time =
-                    Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
+                }
+            })
+            createNotificationChannel()
+
+            if (!SharedPref.isAlertEnabled) {
+                val time = Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
                 setReminderForProducts(time.hour, time.minute)
                 SharedPref.isAlertEnabled = true
-                Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
             }
+
+            bind.greetingText.setOnClickListener {
+                if (SharedPref.isAlertEnabled) {
+                    alarmManager =
+                        requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val intent = Intent(requireContext(), NotificationReceiver::class.java)
+                    pendingIntent = PendingIntent.getBroadcast(
+                        requireContext(), 0, intent,
+                        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                    alarmManager.cancel(pendingIntent)
+                    SharedPref.isAlertEnabled = false
+                    Toast.makeText(requireContext(), "Alerts disabled", Toast.LENGTH_SHORT).show()
+                } else {
+                    val time =
+                        Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
+                    setReminderForProducts(time.hour, time.minute)
+                    SharedPref.isAlertEnabled = true
+                    Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
+                }
+            }
+            getStatus()
+            return bind.root
         }
-        getStatus()
-        return bind.root
     }
 
     private fun getStatus(){
@@ -267,6 +300,17 @@ class DashFragment : Fragment() {
                 handlerAnimation.postDelayed(this, 1500)
             }
 
+        }
+    }
+
+    private fun showFilterList(view : String){
+        when(view){
+            "status"->{
+
+            }
+            "categories"->{
+
+            }
         }
     }
 

@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:visibility="gone"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/slogan_text"
@@ -136,9 +136,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/proxima_nova_alt_light"
+            android:lineSpacingExtra="8dp"
             android:maxLines="2"
             android:text="@string/hey_there"
-            android:lineSpacingExtra="8dp"
             android:textColor="@color/text_dialog_color"
             android:textSize="16sp"
             android:visibility="visible"
@@ -161,29 +161,121 @@
                 android:id="@+id/status_category_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/all"
                 android:minWidth="50dp"
+                android:text="@string/all"
                 android:textAlignment="center"
-                app:chipMinHeight="25dp"
                 android:textColor="@color/always_white"
                 app:chipBackgroundColor="@color/window_top_bar"
-                app:layout_constraintTop_toTopOf="parent"
+                app:chipMinHeight="25dp"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.chip.Chip
                 android:id="@+id/product_category_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="@string/products"
+                app:chipMinHeight="25dp"
                 android:minWidth="50dp"
                 android:textAlignment="center"
-                app:chipMinHeight="25dp"
                 android:textColor="@color/always_white"
                 app:chipBackgroundColor="@color/window_top_bar"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="5dp"
                 app:layout_constraintStart_toEndOf="@id/status_category_chip"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/status_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                app:cardCornerRadius="10dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/status_category_chip"
+                app:strokeColor="@color/text_dialog_color"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_background"
+                    android:animateLayoutChanges="true">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/status_choice_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        app:singleSelection="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/choice_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/all"
+                            app:chipMinHeight="25dp"
+                            android:minWidth="50dp"
+                            android:checked="true"
+                            app:checkedIconEnabled="true"
+                            app:checkedIconTint="@color/always_white"
+                            android:textAlignment="center"
+                            android:textColor="@color/always_white"
+                            app:chipBackgroundColor="@color/window_top_bar"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/choice_fresh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fresh"
+                            app:chipMinHeight="25dp"
+                            android:minWidth="50dp"
+                            app:checkedIconEnabled="true"
+                            app:checkedIconTint="@color/always_white"
+                            android:textAlignment="center"
+                            android:textColor="@color/always_white"
+                            app:chipBackgroundColor="@color/window_top_bar"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/choice_expiring"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/expiring"
+                            app:chipMinHeight="25dp"
+                            android:minWidth="50dp"
+                            app:checkedIconEnabled="true"
+                            app:checkedIconTint="@color/always_white"
+                            android:textAlignment="center"
+                            android:textColor="@color/always_white"
+                            app:chipBackgroundColor="@color/window_top_bar"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/choice_expired"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/expired"
+                            app:chipMinHeight="25dp"
+                            android:minWidth="50dp"
+                            app:checkedIconEnabled="true"
+                            app:checkedIconTint="@color/always_white"
+                            android:textAlignment="center"
+                            android:textColor="@color/always_white"
+                            app:chipBackgroundColor="@color/window_top_bar"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            />
+                    </com.google.android.material.chip.ChipGroup>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -191,11 +283,11 @@
             android:id="@+id/top_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginTop="2dp"
             android:background="@color/window_top_bar"
-            app:layout_constraintTop_toBottomOf="@id/category_layout"
-            app:layout_constraintStart_toEndOf="@id/guideline5"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
-            />
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/category_layout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tracker_recycler_view"

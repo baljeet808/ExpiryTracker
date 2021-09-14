@@ -47,4 +47,7 @@
     <string name="all">All</string>
     <string name="products">Products</string>
     <string name="hey_there">Hey there 😀</string>
+    <string name="fresh">Fresh</string>
+    <string name="expiring">Expiring</string>
+    <string name="expired">Expired</string>
 </resources>
