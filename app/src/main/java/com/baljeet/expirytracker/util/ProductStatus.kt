@@ -64,45 +64,36 @@ object ProductStatus {
             if (expired.isNotEmpty()) {
                  when (expired.size) {
                     1 -> {
-                        messages.add("${expired[0].name} has been expired \ud83d\ude22.\n")
+                        messages.add("${expired[0].name} has been expired \ud83d\ude22.")
                     }
                     2 -> {
-                        messages.add("${expired[0].name} and ${expired[1].name} have been expired \ud83d\ude22.\n")
-                    }
-                    3 -> {
-                        messages.add("${expired[0].name}, ${expired[1].name} and ${expired[2].name} have been expired \ud83d\ude22.\n")
+                        messages.add("${expired[0].name} and ${expired[1].name} have been expired \ud83d\ude22.")
                     }
                     else -> {
-                        messages.add("${expired.size} products have been expired \uD83D\uDE10.\n")
+                        messages.add("${expired.size} products have been expired \uD83D\uDE10.")
                     }
                 }
             }
             if (needsAttention.isNotEmpty()) {
                 when (needsAttention.size) {
                     1 -> {
-                        messages.add("Product '${needsAttention[0].name}' needs your attention \uD83D\uDE42.\n")
+                        messages.add("'${needsAttention[0].name}' needs your attention \uD83D\uDE42.")
                     }
                     2 -> {
-                        messages.add("${needsAttention[0].name} and ${needsAttention[1].name} needs your attention \uD83D\uDE42.\n")
-                    }
-                    3 -> {
-                        messages.add("${needsAttention[0].name}, ${needsAttention[1].name} and ${needsAttention[2].name} needs your attention \uD83D\uDE42.\n")
+                        messages.add("${needsAttention[0].name} and ${needsAttention[1].name} needs your attention \uD83D\uDE42.")
                     }
                     else -> {
-                        messages.add("${needsAttention.size} needs your attention \uD83D\uDE42.\n")
+                        messages.add("${needsAttention.size} needs your attention \uD83D\uDE42.")
                     }
                 }
             }
             if (healthy.isNotEmpty()) {
                 when (healthy.size) {
                     1 -> {
-                        messages.add("Your product '${healthy[0].name}' is in good shape \uD83D\uDE00.\nWill keep an eye on it for you")
+                        messages.add("'${healthy[0].name}' is in good shape \uD83D\uDE00.")
                     }
                     2 -> {
-                        messages.add("Your products '${healthy[0].name}' and '${healthy[1].name}' are in good shape \uD83D\uDE00.\nWill keep an eye on them for you")
-                    }
-                    3 -> {
-                        messages.add("${healthy[0].name}, ${healthy[1].name} and ${healthy[2].name} are in good shape.\nTracking them with eagle-eye \ud83d\ude07")
+                        messages.add("'${healthy[0].name}' and '${healthy[1].name}' are in good shape\uD83D\uDE00.")
                     }
                     else -> {
                         messages.add("${healthy.size} products are in good shape \uD83D\uDE00.")
