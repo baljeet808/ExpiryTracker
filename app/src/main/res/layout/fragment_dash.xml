@@ -221,6 +221,7 @@
                             app:chipMinHeight="25dp"
                             android:minWidth="50dp"
                             android:checked="true"
+                            app:checkedIcon="@drawable/check_circle_24"
                             app:checkedIconEnabled="true"
                             app:checkedIconTint="@color/always_white"
                             android:textAlignment="center"
@@ -236,6 +237,7 @@
                             app:chipMinHeight="25dp"
                             android:minWidth="50dp"
                             app:checkedIconEnabled="true"
+                            app:checkedIcon="@drawable/check_circle_24"
                             app:checkedIconTint="@color/always_white"
                             android:textAlignment="center"
                             android:textColor="@color/always_white"
@@ -250,6 +252,7 @@
                             app:chipMinHeight="25dp"
                             android:minWidth="50dp"
                             app:checkedIconEnabled="true"
+                            app:checkedIcon="@drawable/check_circle_24"
                             app:checkedIconTint="@color/always_white"
                             android:textAlignment="center"
                             android:textColor="@color/always_white"
@@ -264,12 +267,49 @@
                             app:chipMinHeight="25dp"
                             android:minWidth="50dp"
                             app:checkedIconEnabled="true"
+                            app:checkedIcon="@drawable/check_circle_24"
                             app:checkedIconTint="@color/always_white"
                             android:textAlignment="center"
                             android:textColor="@color/always_white"
                             app:chipBackgroundColor="@color/window_top_bar"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             />
+                    </com.google.android.material.chip.ChipGroup>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/categories_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                app:cardCornerRadius="10dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/status_category_chip"
+                app:strokeColor="@color/text_dialog_color"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_background"
+                    android:animateLayoutChanges="true">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/categories_choice_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        app:singleSelection="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
                     </com.google.android.material.chip.ChipGroup>
 
 

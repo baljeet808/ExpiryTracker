@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +23,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
+import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
@@ -35,6 +37,7 @@ import com.baljeet.expirytracker.util.ProductStatus
 import com.baljeet.expirytracker.util.SharedPref
 import com.baljeet.expirytracker.util.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,6 +65,7 @@ class DashFragment : Fragment() {
     private val calendar = Calendar.getInstance()
 
     private val messages = ArrayList<String>()
+    private val categories = ArrayList<Category>()
     var iterator = messages.iterator()
     var evenNumber = 2
 
@@ -110,35 +114,7 @@ class DashFragment : Fragment() {
         }
         seedData()
 
-        bind.statusCategoryChip.apply {
-            setOnClickListener { view->
-                bind.statusCard.isGone = !bind.statusCard.isGone
-                chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
-            }
-
-
-            bind.statusChoiceList.setOnCheckedChangeListener { group, checkedId ->
-                when(checkedId){
-                    bind.choiceAll.id->{
-                        text = Status.ALL.status
-                    }
-                    bind.choiceExpired.id->{
-                        text = Status.EXPIRED.status
-                    }
-                    bind.choiceExpiring.id->{
-                        text = Status.EXPIRING.status
-                    }
-                    bind.choiceFresh.id->{
-                        text = Status.FRESH.status
-                    }
-                }
-                Handler(Looper.getMainLooper()).postDelayed({
-                    bind.statusCard.isGone = true
-                    chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                },400)
-            }
-
-            bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     bind.addProductFab.apply {
@@ -154,10 +130,69 @@ class DashFragment : Fragment() {
 
                 }
             })
+
+        bind.statusCategoryChip.apply {
+            setOnClickListener {
+                bind.statusCard.isGone = !bind.statusCard.isGone
+                if (bind.statusCard.isGone) {
+                    chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                } else {
+                    chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+                    bind.productCategoryChip.chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    bind.categoriesCard.isGone = true
+                }
+            }
+
+                 bind.productCategoryChip.apply {
+                    setOnClickListener {
+                        bind.categoriesCard.isGone = !bind.categoriesCard.isGone
+                        if(bind.categoriesCard.isGone){
+                            chipBackgroundColor =
+                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                        } else {
+                            chipBackgroundColor =
+                                ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+                            bind.statusCategoryChip.chipBackgroundColor =
+                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                            bind.statusCard.isGone = true
+                        }
+                    }
+                }
+
+            bind.statusChoiceList.setOnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
+                    bind.choiceAll.id -> {
+                        text = Status.ALL.status
+                    }
+                    bind.choiceExpired.id -> {
+                        text = Status.EXPIRED.status
+                    }
+                    bind.choiceExpiring.id -> {
+                        text = Status.EXPIRING.status
+                    }
+                    bind.choiceFresh.id -> {
+                        text = Status.FRESH.status
+                    }
+                }
+                Handler(Looper.getMainLooper()).postDelayed({
+                    bind.statusCard.isGone = true
+                    chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                }, 400)
+            }
+
+
+
+
+
             createNotificationChannel()
 
             if (!SharedPref.isAlertEnabled) {
-                val time = Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
+                val time = Clock.System.now().plus(Duration.minutes(5))
+                    .toLocalDateTime(TimeZone.currentSystemDefault())
                 setReminderForProducts(time.hour, time.minute)
                 SharedPref.isAlertEnabled = true
             }
@@ -176,18 +211,59 @@ class DashFragment : Fragment() {
                     Toast.makeText(requireContext(), "Alerts disabled", Toast.LENGTH_SHORT).show()
                 } else {
                     val time =
-                        Clock.System.now().plus(Duration.minutes(5)).toLocalDateTime(TimeZone.currentSystemDefault())
+                        Clock.System.now().plus(Duration.minutes(5))
+                            .toLocalDateTime(TimeZone.currentSystemDefault())
                     setReminderForProducts(time.hour, time.minute)
                     SharedPref.isAlertEnabled = true
                     Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
                 }
             }
+            getCategoriesChips()
             getStatus()
             return bind.root
         }
     }
 
-    private fun getStatus(){
+    private fun getCategoriesChips(){
+        categoryVM.readAllCategories?.let {
+            it.observe(viewLifecycleOwner,{ cats->
+                if(!cats.isNullOrEmpty()){
+                   bind.categoriesChoiceList.apply {
+                       categories.clear()
+                       categories.addAll(cats)
+                       for (category in cats){
+                           val chip = Chip(requireContext(),null, R.style.Widget_MaterialComponents_Chip_Choice)
+                           chip.text = category.categoryName
+                           chip.id = category.categoryId
+                           chip.isCheckable = true
+                           chip.isClickable = true
+                           chip.chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                           chip.setTextColor(requireContext().getColor(R.color.always_white))
+                           chip.checkedIcon = AppCompatResources.getDrawable(requireContext(),R.drawable.check_circle_24)
+                           chip.isCheckedIconVisible = true
+                           chip.checkedIconTint = ColorStateList.valueOf(requireContext().getColor(R.color.always_white))
+                           chip.chipMinHeight = 70f
+                           chip.minWidth = 50
+                           chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                           addView(chip)
+                       }
+                   }
+                }
+            })
+        }
+        bind.categoriesChoiceList.setOnCheckedChangeListener { group, checkedId ->
+            val category = categories.first { it.categoryId == checkedId }
+            bind.productCategoryChip.text = category.categoryName
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                bind.categoriesCard.isGone = true
+                bind.productCategoryChip.chipBackgroundColor =
+                    ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+            }, 400)
+        }
+    }
+
+    private fun getStatus() {
         CoroutineScope(Dispatchers.Main).launch {
             messages.addAll(ProductStatus.getStatusMessage(requireContext()))
         }
@@ -303,12 +379,12 @@ class DashFragment : Fragment() {
         }
     }
 
-    private fun showFilterList(view : String){
-        when(view){
-            "status"->{
+    private fun showFilterList(view: String) {
+        when (view) {
+            "status" -> {
 
             }
-            "categories"->{
+            "categories" -> {
 
             }
         }
