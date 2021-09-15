@@ -179,8 +179,7 @@ class DashFragment : Fragment() {
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
                     bind.statusCard.isGone = true
-                    chipBackgroundColor =
-                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                 }, 400)
             }
 
@@ -379,16 +378,6 @@ class DashFragment : Fragment() {
         }
     }
 
-    private fun showFilterList(view: String) {
-        when (view) {
-            "status" -> {
-
-            }
-            "categories" -> {
-
-            }
-        }
-    }
 
     private fun setTimeAndGreetings() {
         val dateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
