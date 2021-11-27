@@ -7,7 +7,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.savedstate.findViewTreeSavedStateRegistryOwner
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
@@ -32,13 +32,9 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.TrackerAdapter
-import com.baljeet.expirytracker.util.NotificationReceiver
-import com.baljeet.expirytracker.util.ProductStatus
-import com.baljeet.expirytracker.util.SharedPref
-import com.baljeet.expirytracker.util.Status
+import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -95,41 +91,33 @@ class DashFragment : Fragment() {
 
         bind.trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        trackerVm.readAllTracker?.let {
+        trackerVm.readAllTracker.let {
             it.observe(viewLifecycleOwner, { its ->
-                if (its.isNullOrEmpty()) {
+                if(its.isEmpty()){
                     noItemView()
-                } else {
-                    bind.trackerLayout.visibility = View.VISIBLE
-                    bind.noTrackerLayout.visibility = View.GONE
-                    bind.addProductFab.visibility = View.VISIBLE
-                    bind.imageForAnimation.visibility = View.VISIBLE
-                    bind.addProductButton.visibility = View.GONE
-                    runnable.run()
-                    val arrayList = ArrayList<TrackerAndProduct>()
-                    arrayList.addAll(its)
-                    bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext())
+                }else{
+                    setDashList(its)
                 }
             })
         }
         seedData()
 
         bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    bind.addProductFab.apply {
-                        //scroll down
-                        if (dy > 30 && isExtended) {
-                            shrink()
-                        }
-                        //reached the top of list
-                        if (!recyclerView.canScrollVertically(-1)) {
-                            extend()
-                        }
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                bind.addProductFab.apply {
+                    //scroll down
+                    if (dy > 30 && isExtended) {
+                        shrink()
                     }
-
+                    //reached the top of list
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        extend()
+                    }
                 }
-            })
+
+            }
+        })
 
         bind.statusCategoryChip.apply {
             setOnClickListener {
@@ -146,46 +134,52 @@ class DashFragment : Fragment() {
                 }
             }
 
-                 bind.productCategoryChip.apply {
-                    setOnClickListener {
-                        bind.categoriesCard.isGone = !bind.categoriesCard.isGone
-                        if(bind.categoriesCard.isGone){
-                            chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                        } else {
-                            chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
-                            bind.statusCategoryChip.chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                            bind.statusCard.isGone = true
-                        }
+
+            bind.productCategoryChip.apply {
+                setOnClickListener {
+                    bind.categoriesCard.isGone = !bind.categoriesCard.isGone
+                    if (bind.categoriesCard.isGone) {
+                        chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    } else {
+                        chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+                        bind.statusCategoryChip.chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                        bind.statusCard.isGone = true
                     }
                 }
+            }
 
-            bind.statusChoiceList.setOnCheckedChangeListener { group, checkedId ->
+            bind.statusChoiceList.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     bind.choiceAll.id -> {
                         text = Status.ALL.status
+                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_ALL
+                        setDashList(trackerVm.filterTrackers())
                     }
                     bind.choiceExpired.id -> {
                         text = Status.EXPIRED.status
+                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_EXPIRED
+                        setDashList(trackerVm.filterTrackers())
                     }
                     bind.choiceExpiring.id -> {
                         text = Status.EXPIRING.status
+                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_EXPIRING
+                        setDashList(trackerVm.filterTrackers())
                     }
                     bind.choiceFresh.id -> {
                         text = Status.FRESH.status
+                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_FRESH
+                        setDashList(trackerVm.filterTrackers())
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
                     bind.statusCard.isGone = true
-                    chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                }, 400)
+                    chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                }, 10)
             }
-
-
-
-
 
             createNotificationChannel()
 
@@ -223,42 +217,78 @@ class DashFragment : Fragment() {
         }
     }
 
-    private fun getCategoriesChips(){
+    private fun setDashList(list : List<TrackerAndProduct>){
+        if (list.isNullOrEmpty()) {
+            bind.noItemText.visibility = View.VISIBLE
+            bind.trackerRecyclerView.visibility = View.GONE
+            if(trackerVm.statusFilter == Constants.PRODUCT_STATUS_ALL){
+                bind.noItemText.text = resources.getString(R.string.no_item_text1,trackerVm.categoryFilter?.categoryName)
+            }else{
+                bind.noItemText.text = resources.getString(R.string.no_item_text,trackerVm.statusFilter,trackerVm.categoryFilter?.categoryName)
+            }
+        } else {
+            bind.trackerLayout.visibility = View.VISIBLE
+            bind.trackerRecyclerView.visibility = View.VISIBLE
+            bind.noItemText.visibility = View.GONE
+            bind.noTrackerLayout.visibility = View.GONE
+            bind.addProductFab.visibility = View.VISIBLE
+            bind.imageForAnimation.visibility = View.VISIBLE
+            bind.addProductButton.visibility = View.GONE
+            runnable.run()
+            val arrayList = ArrayList<TrackerAndProduct>()
+            arrayList.addAll(list)
+            bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext())
+        }
+    }
+
+    private fun getCategoriesChips() {
         categoryVM.readAllCategories?.let {
-            it.observe(viewLifecycleOwner,{ cats->
-                if(!cats.isNullOrEmpty()){
-                   bind.categoriesChoiceList.apply {
-                       categories.clear()
-                       categories.addAll(cats)
-                       for (category in cats){
-                           val chip = Chip(requireContext(),null, R.style.Widget_MaterialComponents_Chip_Choice)
-                           chip.text = category.categoryName
-                           chip.id = category.categoryId
-                           chip.isCheckable = true
-                           chip.isClickable = true
-                           chip.chipBackgroundColor = ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                           chip.setTextColor(requireContext().getColor(R.color.always_white))
-                           chip.checkedIcon = AppCompatResources.getDrawable(requireContext(),R.drawable.check_circle_24)
-                           chip.isCheckedIconVisible = true
-                           chip.checkedIconTint = ColorStateList.valueOf(requireContext().getColor(R.color.always_white))
-                           chip.chipMinHeight = 70f
-                           chip.minWidth = 50
-                           chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
-                           addView(chip)
-                       }
-                   }
+            it.observe(viewLifecycleOwner, { cats ->
+                if (!cats.isNullOrEmpty()) {
+                    bind.categoriesChoiceList.apply {
+                        categories.clear()
+                        categories.addAll(cats)
+                        for (category in cats) {
+                            val chip = Chip(
+                                requireContext(),
+                                null,
+                                R.style.Widget_MaterialComponents_Chip_Choice
+                            )
+                            chip.text = category.categoryName
+                            chip.id = category.categoryId
+                            chip.isCheckable = true
+                            chip.isClickable = true
+                            chip.chipBackgroundColor =
+                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                            chip.setTextColor(requireContext().getColor(R.color.always_white))
+                            chip.checkedIcon = AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.check_circle_24
+                            )
+                            chip.isCheckedIconVisible = true
+                            chip.checkedIconTint =
+                                ColorStateList.valueOf(requireContext().getColor(R.color.always_white))
+                            chip.chipMinHeight = 70f
+                            chip.minWidth = 50
+                            chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                            addView(chip)
+                        }
+                    }
                 }
             })
         }
-        bind.categoriesChoiceList.setOnCheckedChangeListener { group, checkedId ->
+        bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
             val category = categories.first { it.categoryId == checkedId }
             bind.productCategoryChip.text = category.categoryName
+
+            trackerVm.categoryFilter = category
+            setDashList(trackerVm.filterTrackers())
 
             Handler(Looper.getMainLooper()).postDelayed({
                 bind.categoriesCard.isGone = true
                 bind.productCategoryChip.chipBackgroundColor =
                     ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-            }, 400)
+            }, 10)
         }
     }
 

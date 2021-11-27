@@ -94,19 +94,6 @@
             app:layout_constraintStart_toEndOf="@id/guideline5"
             tools:visibility="visible" />
 
-        <!--<TextView
-            android:id="@+id/current_time"
-            android:text="@string/time_sample"
-            android:fontFamily="@font/proxima_nova_alt_light"
-            android:textColor="@color/text_dialog_color"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/current_Date"
-            app:layout_constraintEnd_toStartOf="@id/guideline7"
-            android:layout_marginBottom="4dp"
-            />-->
         <TextView
             android:id="@+id/current_Date"
             android:layout_width="wrap_content"
@@ -324,9 +311,10 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="2dp"
+            android:visibility="gone"
             android:background="@color/window_top_bar"
-            app:layout_constraintEnd_toStartOf="@id/guideline7"
-            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_layout" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -341,6 +329,27 @@
             app:layout_constraintTop_toBottomOf="@id/top_line"
             app:layout_constraintVertical_bias="0"
             tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/no_item_text"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:elevation="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:letterSpacing="0.12"
+            android:maxLines="3"
+            android:shadowColor="#88000000"
+            android:text="@string/slogan"
+            android:textAlignment="center"
+            android:textColor="@color/theme_blue"
+            android:textSize="30sp"
+            android:visibility="gone"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/top_line" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"

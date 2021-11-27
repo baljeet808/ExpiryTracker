@@ -9,25 +9,29 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
 import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.periodUntil
-import kotlinx.datetime.toLocalDateTime
 import java.time.Month
 import java.util.*
 
 
-class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
-                     private val context: Context) : RecyclerView.Adapter<TrackerAdapter.MyViewHolder>() {
+class TrackerAdapter(
+    private val trackerList: ArrayList<TrackerAndProduct>,
+    private val context: Context
+) : RecyclerView.Adapter<TrackerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ):MyViewHolder {
-        return MyViewHolder(DashboardRecyclerItemViewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    ): MyViewHolder {
+        return MyViewHolder(
+            DashboardRecyclerItemViewBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -54,46 +58,55 @@ class TrackerAdapter(private val trackerList : ArrayList<TrackerAndProduct>,
             )
         )
 
-        val expiryDate = TimeConvertor.fromEpochMillisecondsToLocalDateTime(tracker.tracker.expiryDate)
+        val expiryDate =
+            TimeConvertor.fromEpochMillisecondsToLocalDateTime(tracker.tracker.expiryDate)
         expiryDate?.let {
-           holder.bind.expiryDate.text = context.resources.getString(R.string.expiry_date_var,
-                Month.of(it.monthNumber).name.substring(0,3),
+            holder.bind.expiryDate.text = context.resources.getString(
+                R.string.expiry_date_var,
+                Month.of(it.monthNumber).name.substring(0, 3),
                 it.dayOfMonth,
-                it.year)
+                it.year
+            )
         }
-        CoroutineScope(Dispatchers.Main).launch {
-            val today = Clock.System.now()
-            val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.mfgDate!!)
-            val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.expiryDate!!)
 
-            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-            val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC)
+        val today = Clock.System.now()
+        val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.mfgDate!!)
+        val expiryInstant =
+            TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.expiryDate!!)
 
-            val totalHours = totalPeriod.days*24 + totalPeriod.hours
-            val spentHours = periodSpent.days*24 + periodSpent.hours
+        val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
+        val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC)
 
-            val progressValue =
-                (spentHours.toFloat() / totalHours.toFloat()) * 100
+        val totalHours = totalPeriod.days * 24 + totalPeriod.hours
+        val spentHours = periodSpent.days * 24 + periodSpent.hours
 
-            holder.bind.itemProgressbar.apply {
-                when {
-                    progressValue >= 80 -> {
-                        progressDrawable = AppCompatResources.getDrawable(context,R.drawable.pb_red_drawable)
-                    }
-                    progressValue < 80 && progressValue >= 50 ->{
-                        progressDrawable = AppCompatResources.getDrawable(context,R.drawable.pb_yellow_drawable)
-                    }
-                    progressValue < 50 ->{
-                        progressDrawable = AppCompatResources.getDrawable(context,R.drawable.pb_green_drawable)
-                    }
+        val progressValue =
+            (spentHours.toFloat() / totalHours.toFloat()) * 100
+
+        holder.bind.itemProgressbar.apply {
+            when {
+                progressValue >= 80 -> {
+                    progressDrawable =
+                        AppCompatResources.getDrawable(context, R.drawable.pb_red_drawable)
                 }
-                progress = progressValue.toInt()
+                progressValue < 80 && progressValue >= 50 -> {
+                    progressDrawable =
+                        AppCompatResources.getDrawable(context, R.drawable.pb_yellow_drawable)
+                }
+                progressValue < 50 -> {
+                    progressDrawable =
+                        AppCompatResources.getDrawable(context, R.drawable.pb_green_drawable)
+                }
             }
+            progress = progressValue.toInt()
         }
+
     }
 
     override fun getItemCount(): Int {
         return trackerList.size
     }
-    class MyViewHolder(val bind : DashboardRecyclerItemViewBinding) : RecyclerView.ViewHolder(bind.root)
+
+    class MyViewHolder(val bind: DashboardRecyclerItemViewBinding) :
+        RecyclerView.ViewHolder(bind.root)
 }
