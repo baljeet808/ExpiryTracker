@@ -43,11 +43,16 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
         val daysInMonth = yearMonth.lengthOfMonth()
 
         val firstOfMonth = selectedDate.withDayOfMonth(1)
-        val dayOfWeek = firstOfMonth.dayOfWeek.value
+        var dayOfWeek = firstOfMonth.dayOfWeek.value
+        dayOfWeek = if(dayOfWeek == 7){
+            0
+        }else{
+            dayOfWeek
+        }
 
 
         var dateCounter = 1
-        for (i in 0..41) {
+        for (i in 0..(daysInMonth + (dayOfWeek-1))) {
             if (i < dayOfWeek || dateCounter > daysInMonth) {
                 daysInMonthArray.add(DayWithProducts(null, null))
             } else {
