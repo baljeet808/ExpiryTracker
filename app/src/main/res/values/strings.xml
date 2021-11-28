@@ -44,6 +44,8 @@
     <string name="track_product">Track Product</string>
     <string name="time_sample">2:22 AM</string>
     <string name="date_sample">11 Sept, 2021</string>
+    <string name="month_sample">January 2021</string>
+    <string name="month_sample_var">%1$s %2$d</string>
     <string name="all">All</string>
     <string name="products">Products</string>
     <string name="hey_there">Hey there 😀</string>

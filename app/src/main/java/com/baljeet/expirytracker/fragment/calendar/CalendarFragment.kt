@@ -22,6 +22,9 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        bind.apply {
+            nextButton.setOnClickListener {  }
+            previousButton.setOnClickListener {  }
+        }
     }
 }
