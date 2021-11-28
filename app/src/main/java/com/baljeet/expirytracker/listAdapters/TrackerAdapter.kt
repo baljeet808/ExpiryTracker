@@ -9,9 +9,8 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
 import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.Clock
+import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
 import java.time.Month
 import java.util.*
 
@@ -59,7 +58,7 @@ class TrackerAdapter(
         )
 
         val expiryDate =
-            TimeConvertor.fromEpochMillisecondsToLocalDateTime(tracker.tracker.expiryDate)
+            tracker.tracker.expiryDate
         expiryDate?.let {
             holder.bind.expiryDate.text = context.resources.getString(
                 R.string.expiry_date_var,
@@ -68,14 +67,14 @@ class TrackerAdapter(
                 it.year
             )
         }
-
-        val today = Clock.System.now()
-        val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.mfgDate!!)
+        val dateToday = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val today = LocalDate(dateToday.year,dateToday.monthNumber,dateToday.dayOfMonth)
+        val mfgInstant = tracker.tracker.mfgDate!!
         val expiryInstant =
-            TimeConvertor.fromEpochMillisecondsToInstant(tracker.tracker.expiryDate!!)
+            tracker.tracker.expiryDate!!
 
-        val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-        val periodSpent = mfgInstant.periodUntil(today, TimeZone.UTC)
+        val totalPeriod = mfgInstant.periodUntil(expiryInstant)
+        val periodSpent = mfgInstant.periodUntil(today)
 
         val totalHours = totalPeriod.days * 24 + totalPeriod.hours
         val spentHours = periodSpent.days * 24 + periodSpent.hours

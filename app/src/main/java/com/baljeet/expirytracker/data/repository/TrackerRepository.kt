@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.daos.TrackerDao
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
+import kotlinx.datetime.LocalDate
 
 class TrackerRepository(private val trackerDao: TrackerDao) {
 
@@ -19,6 +20,10 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
 
     fun readTrackerById(id : Int): TrackerAndProduct{
         return trackerDao.readTrackerById(id)
+    }
+
+    fun readTrackerByExpiryDate(date : LocalDate): List<TrackerAndProduct>{
+        return trackerDao.readTrackerByDate(date)
     }
 
 }

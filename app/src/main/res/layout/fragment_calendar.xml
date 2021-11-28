@@ -14,17 +14,19 @@
         android:id="@+id/month_name"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/proxima_nova_alt_light"
+        android:gravity="center_horizontal"
         android:text="@string/month_sample"
         android:textColor="@color/text_dialog_color"
+        android:fontFamily="@font/proxima_nova_alt_light"
         android:textSize="20sp"
         android:textStyle="bold"
         android:visibility="visible"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline6"
-        app:layout_constraintStart_toEndOf="@id/guideline5"
         app:layout_constraintEnd_toStartOf="@id/guideline7"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toEndOf="@id/guideline5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551"
         tools:visibility="visible" />
 
     <ImageView
@@ -77,18 +79,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline5"
         app:layout_constraintTop_toBottomOf="@id/top_most_line">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/status_category_chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="50dp"
-            android:text="@string/all"
-            android:textAlignment="center"
-            android:textColor="@color/always_white"
-            app:chipBackgroundColor="@color/window_top_bar"
-            app:chipMinHeight="25dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
         <com.google.android.material.chip.Chip
             android:id="@+id/product_category_chip"
@@ -101,75 +92,10 @@
             android:textAlignment="center"
             android:textColor="@color/always_white"
             app:chipBackgroundColor="@color/window_top_bar"
-            app:layout_constraintStart_toEndOf="@id/status_category_chip"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/status_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            app:cardCornerRadius="10dp"
-            android:visibility="gone"
-            tools:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/status_category_chip"
-            app:strokeColor="@color/text_dialog_color"
-            app:strokeWidth="1dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/main_background"
-                android:animateLayoutChanges="true">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/status_choice_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    app:singleSelection="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/choice_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/all"
-                        app:chipMinHeight="25dp"
-                        android:minWidth="50dp"
-                        android:checked="true"
-                        app:checkedIcon="@drawable/check_circle_24"
-                        app:checkedIconEnabled="true"
-                        app:checkedIconTint="@color/always_white"
-                        android:textAlignment="center"
-                        android:textColor="@color/always_white"
-                        app:chipBackgroundColor="@color/window_top_bar"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/choice_expired"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/expired"
-                        app:chipMinHeight="25dp"
-                        android:minWidth="50dp"
-                        app:checkedIconEnabled="true"
-                        app:checkedIcon="@drawable/check_circle_24"
-                        app:checkedIconTint="@color/always_white"
-                        android:textAlignment="center"
-                        android:textColor="@color/always_white"
-                        app:chipBackgroundColor="@color/progress_bad"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        />
-                </com.google.android.material.chip.ChipGroup>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/categories_card"
             android:layout_width="match_parent"
@@ -178,7 +104,7 @@
             app:cardCornerRadius="10dp"
             android:visibility="gone"
             tools:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/status_category_chip"
+            app:layout_constraintTop_toBottomOf="@id/product_category_chip"
             app:strokeColor="@color/text_dialog_color"
             app:strokeWidth="1dp">
 
@@ -208,6 +134,141 @@
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/month_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@id/category_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintVertical_bias="0"
+        app:cardBackgroundColor="@color/card_background"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:animateLayoutChanges="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/week_letters_layout"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sunday_text"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/monday_text"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tuesday_text"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wednesday_text"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thursday_text"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/friday_text"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/saturday_text"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/text_dialog_color"
+                    android:fontFamily="@font/proxima_nova_scosf_light"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    />
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/month_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@id/week_letters_layout"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 

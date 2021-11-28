@@ -19,6 +19,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,9 +56,9 @@ class DashFragment : Fragment() {
 
     private val productVM: ProductViewModel by activityViewModels()
     private val imageVm: ImageViewModel by activityViewModels()
-    private val categoryVM: CategoryViewModel by activityViewModels()
+    private val categoryVM: CategoryViewModel by viewModels()
     private val selectVM: SelectFromViewModel by activityViewModels()
-    private val trackerVm: TrackerViewModel by activityViewModels()
+    private val trackerVm: TrackerViewModel by viewModels()
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent

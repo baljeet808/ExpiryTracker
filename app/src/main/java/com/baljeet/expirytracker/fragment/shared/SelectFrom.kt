@@ -24,11 +24,7 @@ import com.baljeet.expirytracker.databinding.FragmentSelectFromBinding
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.datetime.Month
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
+import kotlinx.datetime.*
 
 private const val ARG_TITLE = "Category"
 
@@ -62,7 +58,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         }
     }
 
-    @ExperimentalTime
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,9 +90,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         bind.mfgClickView.setOnClickListener {  datePicker1.show(childFragmentManager,"tag2") }
 
         datePicker2.addOnPositiveButtonClickListener { its->
-            val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(Duration.hours(23))
-            viewModel.setExpiryDate(expiryInstant)
-            val expiryDate = expiryInstant.toLocalDateTime(TimeZone.UTC)
+            val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(23, DateTimeUnit.HOUR)
+            val expiryDate = expiryInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+
+            viewModel.setExpiryDate(LocalDate(expiryDate.year,expiryDate.monthNumber,expiryDate.dayOfMonth))
             expiryDate.let {
                 bind.expiryDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
                     Month.of(it.monthNumber).name.substring(0,3),
@@ -112,9 +109,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         }
 
         datePicker1.addOnPositiveButtonClickListener { its ->
-            val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(Duration.hours(23))
-            val mfgDate = mfgInstant.toLocalDateTime(TimeZone.UTC)
-            viewModel.setMfgDate(mfgInstant)
+            val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(23, DateTimeUnit.HOUR)
+            val mfgDate = mfgInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+
+            viewModel.setMfgDate(LocalDate(mfgDate.year,mfgDate.monthNumber,mfgDate.dayOfMonth))
             mfgDate.let {
                 bind.mfgDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
                     Month.of(it.monthNumber).name.substring(0,3),
@@ -147,8 +145,8 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         bind.addProductButton.setOnClickListener{
             val tracker = Tracker(0,
                 viewModel.getSelectedProduct()?.product?.productId!!,
-                viewModel.getMfgDate()?.toEpochMilliseconds(),
-                viewModel.getExpiryDate()?.toEpochMilliseconds())
+                viewModel.getMfgDate(),
+                viewModel.getExpiryDate())
             trackerViewModel.addTracker(tracker)
             activity?.onBackPressed()
         }
