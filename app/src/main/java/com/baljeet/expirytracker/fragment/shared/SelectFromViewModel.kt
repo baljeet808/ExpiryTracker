@@ -6,7 +6,6 @@ import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 
 class SelectFromViewModel: ViewModel() {

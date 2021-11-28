@@ -61,7 +61,7 @@ class DashFragment : Fragment() {
     private val imageVm: ImageViewModel by activityViewModels()
     private val categoryVM: CategoryViewModel by viewModels()
     private val selectVM: SelectFromViewModel by activityViewModels()
-    private val trackerVm: TrackerViewModel by viewModels()
+    private val trackerVm: TrackerViewModel by activityViewModels()
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
@@ -113,7 +113,10 @@ class DashFragment : Fragment() {
                 }
             })
         }
-        seedData()
+        if(!SharedPref.hasBeenSeeded){
+            seedData()
+            SharedPref.hasBeenSeeded = true
+        }
 
         bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -138,14 +141,18 @@ class DashFragment : Fragment() {
                     bind.statusLayout.fadeVisibility(View.VISIBLE,500)
                     bind.categoryLayout.fadeVisibility(View.GONE,500)
                     chipBackgroundColor =
-                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                    bind.productCategoryChip.chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+
+                    setTextColor(requireContext().getColor(R.color.main_background))
+
+                    bind.productCategoryChip.chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
+
                 } else {
                     chipBackgroundColor =
-                        ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
-                    bind.productCategoryChip.chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    setTextColor(requireContext().getColor(R.color.always_white))
                     bind.statusLayout.fadeVisibility(View.GONE,500)
                 }
             }
@@ -157,14 +164,17 @@ class DashFragment : Fragment() {
                         bind.statusLayout.fadeVisibility(View.GONE,500)
                         bind.categoryLayout.fadeVisibility(View.VISIBLE,500)
                         chipBackgroundColor =
-                            ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                        bind.statusCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+
+                        setTextColor(requireContext().getColor(R.color.main_background))
+
+                        bind.statusCategoryChip.chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                        bind.statusCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
                     } else {
                         chipBackgroundColor =
-                            ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
-                        bind.statusCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                        setTextColor(requireContext().getColor(R.color.always_white))
                         bind.categoryLayout.fadeVisibility(View.GONE,500)
                     }
                 }
@@ -192,11 +202,17 @@ class DashFragment : Fragment() {
                         trackerVm.statusFilter = Constants.PRODUCT_STATUS_FRESH
                         setDashList(trackerVm.filterTrackers())
                     }
+                    else->{
+                        text = Status.ALL.status
+                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_ALL
+                        setDashList(trackerVm.filterTrackers())
+                    }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
                     bind.statusLayout.fadeVisibility(View.GONE,500)
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    setTextColor(requireContext().getColor(R.color.always_white))
                 }, 10)
             }
 
@@ -347,19 +363,28 @@ class DashFragment : Fragment() {
             })
         }
         bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
-            val category = categories.first { it.categoryId == checkedId }
-            bind.productCategoryChip.text = category.categoryName
+            val category = categories.firstOrNull { c -> c.categoryId == checkedId }
 
-            trackerVm.categoryFilter = category
-            setDashList(trackerVm.filterTrackers())
-
+            category?.let {
+                bind.productCategoryChip.text = category.categoryName
+                trackerVm.categoryFilter = category
+                setDashList(trackerVm.filterTrackers())
+            }?: kotlin.run {
+                bind.productCategoryChip.text = resources.getString(R.string.products)
+                trackerVm.categoryFilter = Category(0,"Products",0)
+                setDashList(trackerVm.filterTrackers())
+            }
             Handler(Looper.getMainLooper()).postDelayed({
                 bind.categoryLayout.fadeVisibility(View.GONE,500)
                 bind.productCategoryChip.chipBackgroundColor =
                     ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
             }, 10)
         }
     }
+
+
+
 
     private var getStatusJob: Job? = null
     private fun getStatus() {

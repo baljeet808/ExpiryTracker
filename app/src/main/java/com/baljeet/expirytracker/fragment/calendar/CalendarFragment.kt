@@ -12,12 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
-import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentCalendarBinding
 import com.baljeet.expirytracker.listAdapters.CalendarAdapter
 import com.baljeet.expirytracker.model.DayWithProducts
@@ -28,7 +28,6 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
     private lateinit var bind: FragmentCalendarBinding
     private val viewModel: CalendarViewModel by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
-    private val trackerVm: TrackerViewModel by viewModels()
 
     private val categories = ArrayList<Category>()
 
@@ -68,19 +67,22 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
                         bind.categoryLayout.fadeVisibility(View.VISIBLE, 500)
                         bind.productCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+                        bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                     } else {
                         bind.categoryLayout.fadeVisibility(View.GONE, 500)
                         bind.productCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                        bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
                     }
                 }
             }
+            text = viewModel.selectedCategory.categoryName
         }
 
         getCategoriesChips()
     }
 
-    fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
+    private fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
         val transition: Transition = Fade()
         transition.duration = duration
         transition.addTarget(this)

@@ -27,8 +27,8 @@
     <string name="choose_a_category">1.Choose Category</string>
     <string name="choose_title">%1$d. Choose %2$s</string>
     <string name="vegetables">Vegetables</string>
-    <string name="_2_product_name">2.Product Name</string>
-    <string name="product_name">Product Name</string>
+    <string name="_2_product_name">2.Choose Product</string>
+    <string name="product_name">Product</string>
     <string name="set_expiry_date">3.Set Expiry Date</string>
     <string name="manufactured_date">Manufactured Date</string>
     <string name="expiry_date">Expiry Date</string>

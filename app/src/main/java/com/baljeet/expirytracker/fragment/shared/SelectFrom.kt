@@ -168,10 +168,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             if (checkVisibility == View.GONE) {
                 bind.customEdittext.setText(categoriesWithImages[position].category.categoryName)
                 viewModel.setSelectedCategory(categoriesWithImages[position])
-                bind.selectedNameIcon.visibility = View.VISIBLE
+                bind.selectedCategoryIcon.visibility = View.VISIBLE
                 bind.customBoxLayout.isEndIconVisible = false
                 bind.customNameBoxLayout.isEndIconVisible = false
-                bind.selectedNameIcon.setImageDrawable(
+                bind.selectedCategoryIcon.setImageDrawable(
                     AppCompatResources.getDrawable(
                         requireContext(),
                         resources.getIdentifier(
@@ -201,7 +201,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             } else {
                 bind.customEdittext.text?.clear()
                 viewModel.setSelectedCategory(null)
-                bind.selectedNameIcon.visibility = View.GONE
+                bind.selectedCategoryIcon.visibility = View.GONE
                 bind.completedCheck.visibility = ViewAnimator.GONE
             }
         }else{

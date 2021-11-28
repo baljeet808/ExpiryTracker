@@ -155,7 +155,7 @@
             android:layout_marginStart="5dp"
             android:text="@string/products"
             app:chipMinHeight="25dp"
-            android:minWidth="50dp"
+            android:minWidth="60dp"
             android:textAlignment="center"
             android:textColor="@color/always_white"
             app:chipBackgroundColor="@color/window_top_bar"
@@ -168,6 +168,7 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
             app:layout_constraintTop_toBottomOf="@id/status_category_chip">
@@ -276,6 +277,7 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
             app:layout_constraintTop_toBottomOf="@id/status_layout">
@@ -323,28 +325,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-        <View
-            android:id="@+id/top_line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="2dp"
-            android:visibility="gone"
-            android:background="@color/window_top_bar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/category_layout" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tracker_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="2dp"
             android:visibility="visible"
+            android:background="@color/main_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/top_line"
+            app:layout_constraintTop_toBottomOf="@id/category_layout"
             app:layout_constraintVertical_bias="0"
             tools:visibility="visible" />
 
@@ -367,7 +357,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/top_line" />
+            app:layout_constraintTop_toBottomOf="@id/category_layout" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"

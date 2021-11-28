@@ -106,6 +106,7 @@
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/liquor"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/custom_box_layout"
                     app:layout_constraintEnd_toStartOf="@id/guideline4"
                     app:layout_constraintTop_toTopOf="@id/custom_box_layout" />
@@ -237,6 +238,7 @@
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/liquor"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/custom_name_box_layout"
                     app:layout_constraintEnd_toStartOf="@id/guideline6"
                     app:layout_constraintTop_toTopOf="@id/custom_name_box_layout" />
