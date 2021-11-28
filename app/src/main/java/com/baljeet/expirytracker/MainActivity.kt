@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNav : BottomNavigationView
     private lateinit var navController : NavController
 
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         SharedPref.init(this)
         if(SharedPref.isNightModeOn){

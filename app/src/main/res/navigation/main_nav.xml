@@ -3,20 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/splashFragment">
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.baljeet.expirytracker.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_splashFragment_to_dashFragment2"
-            app:destination="@id/dashFragment"
-            app:enterAnim="@anim/slide_1_in_right"
-            app:exitAnim="@anim/slide_2_out_left"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@id/dashFragment">
     <fragment
         android:id="@+id/dashFragment"
         android:name="com.baljeet.expirytracker.fragment.dash.DashFragment"

@@ -10,6 +10,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +19,10 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.savedstate.findViewTreeSavedStateRegistryOwner
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
@@ -35,20 +36,22 @@ import com.baljeet.expirytracker.listAdapters.TrackerAdapter
 import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.Job
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import java.time.Month
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 
 
 class DashFragment : Fragment() {
+
+    private lateinit var disposable: Disposable
 
     private val productVM: ProductViewModel by activityViewModels()
     private val imageVm: ImageViewModel by activityViewModels()
@@ -62,14 +65,19 @@ class DashFragment : Fragment() {
 
     private val messages = ArrayList<String>()
     private val categories = ArrayList<Category>()
-    var iterator = messages.iterator()
-    var evenNumber = 2
-
-    private var handlerAnimation = Handler(Looper.getMainLooper())
 
     private lateinit var bind: FragmentDashBinding
 
-    @ExperimentalTime
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        disposable = Observable.interval(
+            3000, 3000,
+            TimeUnit.MILLISECONDS
+        )
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::setStatus, this::onError)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,9 +101,10 @@ class DashFragment : Fragment() {
 
         trackerVm.readAllTracker.let {
             it.observe(viewLifecycleOwner, { its ->
-                if(its.isEmpty()){
+                if (its.isEmpty()) {
                     noItemView()
-                }else{
+                    disposable.dispose()
+                } else {
                     setDashList(its)
                 }
             })
@@ -184,9 +193,8 @@ class DashFragment : Fragment() {
             createNotificationChannel()
 
             if (!SharedPref.isAlertEnabled) {
-                val time = Clock.System.now().plus(Duration.minutes(5))
-                    .toLocalDateTime(TimeZone.currentSystemDefault())
-                setReminderForProducts(time.hour, time.minute)
+                val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                setReminderForProducts(time.hour, time.minute.plus(5))
                 SharedPref.isAlertEnabled = true
             }
 
@@ -204,9 +212,8 @@ class DashFragment : Fragment() {
                     Toast.makeText(requireContext(), "Alerts disabled", Toast.LENGTH_SHORT).show()
                 } else {
                     val time =
-                        Clock.System.now().plus(Duration.minutes(5))
-                            .toLocalDateTime(TimeZone.currentSystemDefault())
-                    setReminderForProducts(time.hour, time.minute)
+                        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                    setReminderForProducts(time.hour, time.minute.plus(5))
                     SharedPref.isAlertEnabled = true
                     Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
                 }
@@ -217,14 +224,59 @@ class DashFragment : Fragment() {
         }
     }
 
-    private fun setDashList(list : List<TrackerAndProduct>){
+    private fun onError(throwable: Throwable) {
+        Toast.makeText(
+            requireContext(),
+            "${throwable.message} error while syncing new updates",
+            Toast.LENGTH_SHORT
+        ).show()
+        disposable.dispose()
+    }
+
+    private var messageNum = 0
+    private fun setStatus(aLong: Long) {
+        aLong.let {
+            Log.d("Log for - ", it.toString())
+        }
+        bind.imageForAnimation.apply {
+            animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(1200)
+                .withEndAction {
+                    scaleX = 1f
+                    scaleY = 1f
+                    alpha = 1f
+                }
+        }
+        if (messages.size > 0) {
+            bind.statusText.apply {
+                animate().alpha(0f).setDuration(1200)
+                    .withEndAction {
+                        alpha = 1f
+                        text = messages[messageNum]
+                    }
+            }
+            if(messageNum == messages.size-1){
+                messageNum = 0
+            }else{
+                messageNum++
+            }
+        }
+    }
+
+    private fun setDashList(list: List<TrackerAndProduct>) {
         if (list.isNullOrEmpty()) {
             bind.noItemText.visibility = View.VISIBLE
             bind.trackerRecyclerView.visibility = View.GONE
-            if(trackerVm.statusFilter == Constants.PRODUCT_STATUS_ALL){
-                bind.noItemText.text = resources.getString(R.string.no_item_text1,trackerVm.categoryFilter?.categoryName)
-            }else{
-                bind.noItemText.text = resources.getString(R.string.no_item_text,trackerVm.statusFilter,trackerVm.categoryFilter?.categoryName)
+            if (trackerVm.statusFilter == Constants.PRODUCT_STATUS_ALL) {
+                bind.noItemText.text = resources.getString(
+                    R.string.no_item_text1,
+                    trackerVm.categoryFilter?.categoryName
+                )
+            } else {
+                bind.noItemText.text = resources.getString(
+                    R.string.no_item_text,
+                    trackerVm.statusFilter,
+                    trackerVm.categoryFilter?.categoryName
+                )
             }
         } else {
             bind.trackerLayout.visibility = View.VISIBLE
@@ -234,7 +286,7 @@ class DashFragment : Fragment() {
             bind.addProductFab.visibility = View.VISIBLE
             bind.imageForAnimation.visibility = View.VISIBLE
             bind.addProductButton.visibility = View.GONE
-            runnable.run()
+
             val arrayList = ArrayList<TrackerAndProduct>()
             arrayList.addAll(list)
             bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext())
@@ -292,8 +344,14 @@ class DashFragment : Fragment() {
         }
     }
 
+    private var getStatusJob: Job? = null
     private fun getStatus() {
-        CoroutineScope(Dispatchers.Main).launch {
+        getStatusJob?.let {
+            if (it.isActive) {
+                it.cancel()
+            }
+        }
+        getStatusJob = lifecycleScope.launchWhenCreated {
             messages.addAll(ProductStatus.getStatusMessage(requireContext()))
         }
     }
@@ -338,7 +396,7 @@ class DashFragment : Fragment() {
         bind.addProductFab.visibility = View.GONE
         bind.imageForAnimation.visibility = View.GONE
         bind.addProductButton.visibility = View.VISIBLE
-        handlerAnimation.removeCallbacks(runnable)
+        disposable.dispose()
     }
 
     private fun seedData() {
@@ -365,49 +423,32 @@ class DashFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        disposable.dispose()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        handlerAnimation.removeCallbacks(runnable)
+        disposable.dispose()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        disposable.dispose()
     }
 
     override fun onResume() {
         super.onResume()
-        runnable.run()
-    }
-
-    private var runnable = object : Runnable {
-        override fun run() {
-            bind.imageForAnimation.apply {
-                animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(1200)
-                    .withEndAction {
-                        scaleX = 1f
-                        scaleY = 1f
-                        alpha = 1f
-                    }
-            }
-            if (messages.size > 1) {
-                if (evenNumber % 2 == 0) {
-                    if (iterator.hasNext()) {
-                        bind.statusText.apply {
-                            animate().alpha(0f).setDuration(1200)
-                                .withEndAction {
-                                    alpha = 1f
-                                    text = iterator.next()
-                                }
-                        }
-                    } else {
-                        iterator = messages.iterator()
-                    }
-                    evenNumber++
-                } else {
-                    evenNumber++
-                }
-                handlerAnimation.postDelayed(this, 1500)
-            }
-
+        if (disposable.isDisposed) {
+            disposable = Observable.interval(
+                3000, 3000,
+                TimeUnit.MILLISECONDS
+            )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::setStatus, this::onError)
         }
     }
-
 
     private fun setTimeAndGreetings() {
         val dateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
