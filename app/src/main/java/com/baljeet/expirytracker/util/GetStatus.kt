@@ -28,7 +28,7 @@ object GetStatus {
             progressValue < 100 && progressValue >= 50 -> {
                 Constants.PRODUCT_STATUS_EXPIRING
             }
-            progressValue > 0 && progressValue < 50 -> {
+            progressValue > -100 && progressValue < 50 -> {
                 Constants.PRODUCT_STATUS_FRESH
             }
             else->{
