@@ -69,31 +69,29 @@
         app:layout_constraintBottom_toTopOf="@id/guideline6" />
 
 
+    <com.google.android.material.chip.Chip
+        android:id="@+id/product_category_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/products"
+        app:chipMinHeight="25dp"
+        android:minWidth="90dp"
+        android:textAlignment="center"
+        android:textColor="@color/always_white"
+        app:chipBackgroundColor="@color/window_top_bar"
+        app:layout_constraintStart_toEndOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@id/top_most_line" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/category_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/guideline7"
         app:layout_constraintStart_toEndOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/top_most_line">
-
-
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/product_category_chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="@string/products"
-            app:chipMinHeight="25dp"
-            android:minWidth="50dp"
-            android:textAlignment="center"
-            android:textColor="@color/always_white"
-            app:chipBackgroundColor="@color/window_top_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/product_category_chip">
 
 
         <com.google.android.material.card.MaterialCardView
@@ -102,9 +100,9 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             app:cardCornerRadius="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/product_category_chip"
+            app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="@color/text_dialog_color"
             app:strokeWidth="1dp">
 

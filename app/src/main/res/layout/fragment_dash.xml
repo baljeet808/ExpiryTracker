@@ -135,41 +135,42 @@
             app:layout_constraintVertical_bias="0.04"
             tools:visibility="visible" />
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/status_category_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="50dp"
+            android:text="@string/all"
+            android:textAlignment="center"
+            android:textColor="@color/always_white"
+            app:chipBackgroundColor="@color/window_top_bar"
+            app:chipMinHeight="25dp"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/status_text" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/product_category_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/products"
+            app:chipMinHeight="25dp"
+            android:minWidth="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/always_white"
+            app:chipBackgroundColor="@color/window_top_bar"
+            app:layout_constraintStart_toEndOf="@id/status_category_chip"
+            app:layout_constraintTop_toBottomOf="@id/status_text" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/category_layout"
+            android:id="@+id/status_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/status_text">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/status_category_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="50dp"
-                android:text="@string/all"
-                android:textAlignment="center"
-                android:textColor="@color/always_white"
-                app:chipBackgroundColor="@color/window_top_bar"
-                app:chipMinHeight="25dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/product_category_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/products"
-                app:chipMinHeight="25dp"
-                android:minWidth="50dp"
-                android:textAlignment="center"
-                android:textColor="@color/always_white"
-                app:chipBackgroundColor="@color/window_top_bar"
-                app:layout_constraintStart_toEndOf="@id/status_category_chip"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/status_category_chip">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/status_card"
@@ -177,9 +178,9 @@
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 app:cardCornerRadius="10dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/status_category_chip"
+                app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/text_dialog_color"
                 app:strokeWidth="1dp">
 
@@ -267,15 +268,30 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            app:layout_constraintStart_toEndOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/status_layout">
+
+
+
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/categories_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 app:cardCornerRadius="10dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/status_category_chip"
+                app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/text_dialog_color"
                 app:strokeWidth="1dp">
 
@@ -305,6 +321,8 @@
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <View
             android:id="@+id/top_line"

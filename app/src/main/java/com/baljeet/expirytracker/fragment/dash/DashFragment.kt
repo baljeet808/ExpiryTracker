@@ -10,6 +10,9 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.transition.Fade
+import android.transition.Transition
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -131,32 +134,38 @@ class DashFragment : Fragment() {
 
         bind.statusCategoryChip.apply {
             setOnClickListener {
-                bind.statusCard.isGone = !bind.statusCard.isGone
-                if (bind.statusCard.isGone) {
+                if (bind.statusLayout.isGone) {
+                    bind.statusLayout.fadeVisibility(View.VISIBLE,500)
+                    bind.categoryLayout.fadeVisibility(View.GONE,500)
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    bind.productCategoryChip.chipBackgroundColor =
+                        ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                 } else {
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                     bind.productCategoryChip.chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                    bind.categoriesCard.isGone = true
+                    bind.statusLayout.fadeVisibility(View.GONE,500)
                 }
             }
 
 
             bind.productCategoryChip.apply {
                 setOnClickListener {
-                    bind.categoriesCard.isGone = !bind.categoriesCard.isGone
-                    if (bind.categoriesCard.isGone) {
+                    if (bind.categoryLayout.isGone) {
+                        bind.statusLayout.fadeVisibility(View.GONE,500)
+                        bind.categoryLayout.fadeVisibility(View.VISIBLE,500)
                         chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                        bind.statusCategoryChip.chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                     } else {
                         chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                         bind.statusCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                        bind.statusCard.isGone = true
+                        bind.categoryLayout.fadeVisibility(View.GONE,500)
                     }
                 }
             }
@@ -185,7 +194,7 @@ class DashFragment : Fragment() {
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
-                    bind.statusCard.isGone = true
+                    bind.statusLayout.fadeVisibility(View.GONE,500)
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                 }, 10)
@@ -261,6 +270,13 @@ class DashFragment : Fragment() {
                 messageNum++
             }
         }
+    }
+    fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
+        val transition: Transition = Fade()
+        transition.duration = duration
+        transition.addTarget(this)
+        TransitionManager.beginDelayedTransition(this.parent as ViewGroup, transition)
+        this.visibility = visibility
     }
 
     private fun setDashList(list: List<TrackerAndProduct>) {
@@ -338,7 +354,7 @@ class DashFragment : Fragment() {
             setDashList(trackerVm.filterTrackers())
 
             Handler(Looper.getMainLooper()).postDelayed({
-                bind.categoriesCard.isGone = true
+                bind.categoryLayout.fadeVisibility(View.GONE,500)
                 bind.productCategoryChip.chipBackgroundColor =
                     ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
             }, 10)

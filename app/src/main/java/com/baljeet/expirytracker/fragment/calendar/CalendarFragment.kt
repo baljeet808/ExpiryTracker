@@ -2,8 +2,9 @@ package com.baljeet.expirytracker.fragment.calendar
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.transition.Fade
+import android.transition.Transition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,8 @@ import com.google.android.material.chip.Chip
 
 
 class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
-    private lateinit var bind : FragmentCalendarBinding
-    private val viewModel : CalendarViewModel by viewModels()
+    private lateinit var bind: FragmentCalendarBinding
+    private val viewModel: CalendarViewModel by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
     private val trackerVm: TrackerViewModel by viewModels()
 
@@ -44,33 +45,47 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
         bind.apply {
             nextButton.setOnClickListener {
                 viewModel.setNextMonth()
-                monthRecyclerView.adapter = CalendarAdapter(viewModel.getMonth(),requireContext(),this@CalendarFragment)
+                monthRecyclerView.adapter =
+                    CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
                 monthName.text = viewModel.monthYearTextFromDate()
             }
             previousButton.setOnClickListener {
                 viewModel.setPreviousMonth()
-                monthRecyclerView.adapter = CalendarAdapter(viewModel.getMonth(),requireContext(),this@CalendarFragment)
+                monthRecyclerView.adapter =
+                    CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
                 monthName.text = viewModel.monthYearTextFromDate()
             }
             monthName.text = viewModel.monthYearTextFromDate()
-            monthRecyclerView.layoutManager =  GridLayoutManager(requireContext(),7)
-            monthRecyclerView.adapter = CalendarAdapter(viewModel.getMonth(),requireContext(),this@CalendarFragment)
+            monthRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
+            monthRecyclerView.adapter =
+                CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
         }
 
         bind.productCategoryChip.apply {
             setOnClickListener {
-                bind.categoriesCard.isGone = !bind.categoriesCard.isGone
-                if (bind.categoriesCard.isGone) {
-                    chipBackgroundColor =
-                        ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                } else {
-                    chipBackgroundColor =
-                        ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+                bind.categoryLayout.apply {
+                    if (bind.categoryLayout.isGone) {
+                        bind.categoryLayout.fadeVisibility(View.VISIBLE, 500)
+                        bind.productCategoryChip.chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
+                    } else {
+                        bind.categoryLayout.fadeVisibility(View.GONE, 500)
+                        bind.productCategoryChip.chipBackgroundColor =
+                            ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+                    }
                 }
             }
         }
 
         getCategoriesChips()
+    }
+
+    fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
+        val transition: Transition = Fade()
+        transition.duration = duration
+        transition.addTarget(this)
+        TransitionManager.beginDelayedTransition(this.parent as ViewGroup, transition)
+        this.visibility = visibility
     }
 
 
@@ -115,17 +130,19 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
             bind.productCategoryChip.text = category.categoryName
 
             viewModel.selectedCategory = category
-            bind.monthRecyclerView.adapter = CalendarAdapter(viewModel.getMonth(),requireContext(),this@CalendarFragment)
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                bind.categoriesCard.isGone = true
-                bind.productCategoryChip.chipBackgroundColor =
-                    ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-            }, 10)
+            bind.monthRecyclerView.adapter =
+                CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
+            bind.categoryLayout.fadeVisibility(View.GONE, 500)
+            bind.productCategoryChip.chipBackgroundColor =
+                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
         }
     }
 
     override fun openSelectedDate(dayWithProducts: DayWithProducts) {
-        Toast.makeText(requireContext(),"selected date - ${dayWithProducts.date?.dayOfMonth}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "selected date - ${dayWithProducts.date?.dayOfMonth}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
