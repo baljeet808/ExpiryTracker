@@ -48,7 +48,7 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
 
         var dateCounter = 1
         for (i in 0..41) {
-            if (i < dayOfWeek || i > daysInMonth) {
+            if (i < dayOfWeek || dateCounter > daysInMonth) {
                 daysInMonthArray.add(DayWithProducts(null, null))
             } else {
                 val date = kotlinx.datetime.LocalDate(
