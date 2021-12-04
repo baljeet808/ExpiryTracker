@@ -83,7 +83,7 @@
             android:id="@+id/greeting_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/proxima_nova_alt_light"
             android:text="@string/morning_greeting_text"
             android:textColor="@color/text_dialog_color"

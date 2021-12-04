@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.baljeet.expirytracker.settings.SettingsFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment

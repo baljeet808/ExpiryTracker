@@ -62,4 +62,12 @@
     <string name="friday_text">FRI</string>
     <string name="saturday_text">SAT</string>
     <string name="_1">1</string>
+    <string name="become_pro">Become Pro</string>
+    <string name="favourites">Favourites</string>
+    <string name="widgets">Widgets</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="donate">Donate</string>
+    <string name="feedback">Feedback</string>
+    <string name="categories">Categories</string>
+    <string name="notifications">Notifications</string>
 </resources>
