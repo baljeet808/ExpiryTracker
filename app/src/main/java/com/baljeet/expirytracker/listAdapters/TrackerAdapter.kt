@@ -2,8 +2,10 @@ package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
@@ -100,6 +102,12 @@ class TrackerAdapter(
             progress = progressValue.toInt()
         }
 
+        holder.bind.apply {
+            optionCard.setOnClickListener {
+                buttonsLayout.isGone = !buttonsLayout.isGone
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -109,3 +117,4 @@ class TrackerAdapter(
     class MyViewHolder(val bind: DashboardRecyclerItemViewBinding) :
         RecyclerView.ViewHolder(bind.root)
 }
+

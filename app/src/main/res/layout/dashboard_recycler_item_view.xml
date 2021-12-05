@@ -3,20 +3,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_card"
+    android:animateLayoutChanges="true"
     android:layout_margin="5dp"
     android:background="@color/main_background">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/action_card_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/option_card"
+        app:layout_constraintBottom_toBottomOf="@id/option_card"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:cardCornerRadius="12dp"
+        app:strokeColor="@color/text_dialog_color"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="@color/text_dialog_color"
+        >
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:elevation="2dp"
+        android:visibility="gone"
+        tools:visibility="gone"
+        android:animateLayoutChanges="true"
+        app:layout_constraintTop_toTopOf="@id/action_card_background"
+        app:layout_constraintBottom_toBottomOf="@id/action_card_background"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        >
+
+        <ImageView
+            android:id="@+id/mark_used_button"
+            android:src="@drawable/ic_baseline_done_24"
+            app:tint ="@color/main_background"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/image" />
+
+        <ImageView
+            android:id="@+id/delete_button"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            app:tint="@color/main_background"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mark_used_button"
+            android:contentDescription="@string/image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/option_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
         android:elevation="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintEnd_toStartOf="@id/buttons_layout"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constrainedWidth="false"
+        app:cardBackgroundColor="@color/card_background"
         app:strokeColor="@color/text_dialog_color"
         app:strokeWidth="1dp">
 
@@ -64,7 +126,7 @@
 
             <TextView
                 android:id="@+id/expiry_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/normalRoboto14Regular"
                 android:textColor="@color/text_dialog_color"
@@ -74,7 +136,9 @@
                 android:letterSpacing="0.12"
                 android:lines="1"
                 android:text="@string/expiry_date_8th_aug_2021"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toStartOf="@id/product_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/product_name"
                 android:layout_marginTop="10dp"
                 />
@@ -109,16 +173,17 @@
         android:contentDescription="@string/image"
         android:src="@drawable/ic_passion_fruit"
         android:scaleType="fitCenter"
-        android:elevation="2dp"
+        android:elevation="6dp"
         app:strokeWidth="1dp"
         android:padding="5dp"
         app:shapeAppearance="@style/circular"
         app:strokeColor="@color/text_dialog_color"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias=".9"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/option_card"
+        app:layout_constraintEnd_toEndOf="@id/option_card"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
