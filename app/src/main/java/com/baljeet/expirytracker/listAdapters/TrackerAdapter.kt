@@ -102,9 +102,30 @@ class TrackerAdapter(
             progress = progressValue.toInt()
         }
 
+        var i =0
         holder.bind.apply {
             optionCard.setOnClickListener {
                 buttonsLayout.isGone = !buttonsLayout.isGone
+            }
+
+            favoriteButton.setOnClickListener {
+                if(i == 0) {
+                    favoriteButton.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            R.drawable.ic_fav_filled
+                        )
+                    )
+                    i =1
+                }else{
+                    favoriteButton.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            R.drawable.ic_fav_outline
+                        )
+                    )
+                    i=0
+                }
             }
         }
 

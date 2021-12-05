@@ -14,7 +14,7 @@
             app:destination="@id/addProduct"
             app:enterAnim="@anim/slide_up_from_bottom"
             app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/slide_down_from_bottom" />
     </fragment>
     <fragment
