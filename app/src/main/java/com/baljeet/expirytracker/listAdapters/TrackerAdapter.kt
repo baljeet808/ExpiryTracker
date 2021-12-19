@@ -2,7 +2,6 @@ package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
-import com.dwellify.contractorportal.util.TimeConvertor
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import java.time.Month
