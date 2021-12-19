@@ -1,13 +1,10 @@
 package com.baljeet.expirytracker.data.viewmodels
 
 import android.app.Application
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Tracker
@@ -15,14 +12,8 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.GetStatus
-import com.dwellify.contractorportal.util.TimeConvertor
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
 
 class TrackerViewModel(application: Application) : AndroidViewModel(application){
 

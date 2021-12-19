@@ -6,12 +6,12 @@ import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
-import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 
 class SelectFromViewModel: ViewModel() {
 
-    private var expiryDate : LocalDate? = null
-    private var mfgDate : LocalDate? = null
+    private var expiryDate : LocalDateTime? = null
+    private var mfgDate : LocalDateTime? = null
 
     private var selectedCategory : CategoryAndImage? =  null
     private var selectedProduct : ProductAndImage? =  null
@@ -330,17 +330,17 @@ class SelectFromViewModel: ViewModel() {
         return products
     }
 
-    fun setExpiryDate(date: LocalDate) {
+    fun setExpiryDate(date: LocalDateTime) {
             expiryDate = date
     }
-    fun getExpiryDate():LocalDate?{
+    fun getExpiryDate():LocalDateTime?{
         return expiryDate
     }
 
-    fun setMfgDate(date: LocalDate) {
+    fun setMfgDate(date: LocalDateTime) {
         mfgDate = date
     }
-    fun getMfgDate():LocalDate?{
+    fun getMfgDate():LocalDateTime?{
         return mfgDate
     }
 }

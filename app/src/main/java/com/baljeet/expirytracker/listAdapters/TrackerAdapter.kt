@@ -67,14 +67,13 @@ class TrackerAdapter(
                 it.year
             )
         }
-        val dateToday = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val today = LocalDate(dateToday.year,dateToday.monthNumber,dateToday.dayOfMonth)
-        val mfgInstant = tracker.tracker.mfgDate!!
-        val expiryInstant =
-            tracker.tracker.expiryDate!!
+        val dateToday = Clock.System.now()
 
-        val totalPeriod = mfgInstant.periodUntil(expiryInstant)
-        val periodSpent = mfgInstant.periodUntil(today)
+        val mfgInstant = tracker.tracker.mfgDate!!.toInstant(TimeZone.UTC)
+        val expiryInstant = tracker.tracker.expiryDate!!.toInstant(TimeZone.UTC)
+
+        val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
+        val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
 
         val totalHours = totalPeriod.days * 24 + totalPeriod.hours
         val spentHours = periodSpent.days * 24 + periodSpent.hours

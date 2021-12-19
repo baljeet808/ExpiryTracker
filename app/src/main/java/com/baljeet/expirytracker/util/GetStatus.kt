@@ -1,19 +1,20 @@
 package com.baljeet.expirytracker.util
 
 import com.baljeet.expirytracker.data.Tracker
-import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.periodUntil
+import kotlinx.datetime.toInstant
 
 object GetStatus {
 
     fun getStatus(tracker : Tracker): String{
-        val dateToday = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val today = LocalDate(dateToday.year,dateToday.monthNumber,dateToday.dayOfMonth)
-        val mfgInstant = tracker.mfgDate!!
-        val expiryInstant = tracker.expiryDate!!
+        val dateToday = Clock.System.now()
+        val mfgInstant = tracker.mfgDate!!.toInstant(TimeZone.UTC)
+        val expiryInstant = tracker.expiryDate!!.toInstant(TimeZone.UTC)
 
-        val totalPeriod = mfgInstant.periodUntil(expiryInstant)
-        val periodSpent = mfgInstant.periodUntil(today)
+        val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
+        val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
 
         val totalHours = totalPeriod.days * 24 + totalPeriod.hours
         val spentHours = periodSpent.days * 24 + periodSpent.hours

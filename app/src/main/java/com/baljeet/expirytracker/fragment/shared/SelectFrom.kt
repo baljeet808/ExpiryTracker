@@ -93,7 +93,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(23, DateTimeUnit.HOUR)
             val expiryDate = expiryInstant.toLocalDateTime(TimeZone.currentSystemDefault())
 
-            viewModel.setExpiryDate(LocalDate(expiryDate.year,expiryDate.monthNumber,expiryDate.dayOfMonth))
+            viewModel.setExpiryDate(expiryDate)
             expiryDate.let {
                 bind.expiryDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
                     Month.of(it.monthNumber).name.substring(0,3),
@@ -112,7 +112,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(23, DateTimeUnit.HOUR)
             val mfgDate = mfgInstant.toLocalDateTime(TimeZone.currentSystemDefault())
 
-            viewModel.setMfgDate(LocalDate(mfgDate.year,mfgDate.monthNumber,mfgDate.dayOfMonth))
+            viewModel.setMfgDate(mfgDate)
             mfgDate.let {
                 bind.mfgDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
                     Month.of(it.monthNumber).name.substring(0,3),
@@ -146,7 +146,7 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             val tracker = Tracker(0,
                 viewModel.getSelectedProduct()?.product?.productId!!,
                 viewModel.getMfgDate(),
-                viewModel.getExpiryDate())
+                viewModel.getExpiryDate(), null,null,null,null,null)
             trackerViewModel.addTracker(tracker)
             activity?.onBackPressed()
         }

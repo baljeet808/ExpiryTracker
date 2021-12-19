@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
-import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 
 @Dao
 interface TrackerDao {
@@ -26,6 +26,6 @@ interface TrackerDao {
 
     @Transaction
     @Query("SELECT * FROM tracker where expiryDate == :date")
-    fun readTrackerByDate(date: LocalDate) : List<TrackerAndProduct>
+    fun readTrackerByDate(date: LocalDateTime) : List<TrackerAndProduct>
 
 }

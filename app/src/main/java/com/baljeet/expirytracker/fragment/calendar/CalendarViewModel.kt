@@ -9,9 +9,7 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.SharedPref
-import kotlinx.datetime.toJavaLocalDate
-import kotlinx.datetime.toKotlinLocalDate
-import java.time.LocalDate
+import kotlinx.datetime.toKotlinLocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
@@ -27,7 +25,9 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
         repository = TrackerRepository(trackerDao)
     }
 
-    private var selectedDate: LocalDate = LocalDate.now()
+
+    private var selectedDate = java.time.LocalDateTime.now()
+
 
     fun setNextMonth(){
         selectedDate = selectedDate.plusMonths(1)
@@ -56,14 +56,9 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
             if (i < dayOfWeek || dateCounter > daysInMonth) {
                 daysInMonthArray.add(DayWithProducts(null, null))
             } else {
-                val date = kotlinx.datetime.LocalDate(
-                    selectedDate.year,
-                    selectedDate.monthValue,
-                    dateCounter
-                )
+                val date = selectedDate.toKotlinLocalDateTime()
                 val filteredProducts = ArrayList<TrackerAndProduct>()
-                val products =
-                    repository.readTrackerByExpiryDate(date)
+                val products = repository.readTrackerByExpiryDate(date)
                 val trackerProducts = if (selectedCategory.categoryName != "Products") {
                     products.filter { t -> t.productAndCategoryAndImage.categoryAndImage.category.categoryId == selectedCategory.categoryId }
                 } else {

@@ -2,23 +2,22 @@ package com.baljeet.expirytracker.data.convertors
 
 import androidx.room.TypeConverter
 import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.*
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 class DateConverters {
 
     @TypeConverter
-    fun fromLongToLocalDate(value : Long?): LocalDate?{
-        val instant =value?.let {
-             TimeConvertor.fromEpochMillisecondsToInstant(it)
-        }
-        val date = instant?.toLocalDateTime(TimeZone.currentSystemDefault())
-        return date?.let {
-            LocalDate(it.year,it.month,it.dayOfMonth)
+    fun fromLongToLocalDateTime(value : Long?): LocalDateTime?{
+        return value?.let {
+            TimeConvertor.fromEpochMillisecondsToInstant(it).toLocalDateTime(TimeZone.UTC)
         }
     }
 
     @TypeConverter
-    fun fromLocalDateToLong(date : LocalDate): Long {
-        return LocalDateTime(date.year,date.monthNumber,date.dayOfMonth,0,0,0,0).toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+    fun fromLocalDateTimeToLong(date : LocalDateTime): Long {
+        return date.toInstant(TimeZone.UTC).toEpochMilliseconds()
     }
 }
