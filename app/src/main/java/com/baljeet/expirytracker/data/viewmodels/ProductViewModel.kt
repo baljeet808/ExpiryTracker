@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class ProductViewModel(application: Application) : AndroidViewModel(application){
 
-    val readAllData : LiveData<List<Product>>
+    private val readAllData : LiveData<List<Product>>
     private val repository : ProductRepository
     var productsByCategoryWithImage : MutableLiveData<List<ProductAndImage>> = MutableLiveData()
 

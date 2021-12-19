@@ -100,7 +100,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         }
         bind.addProductButton.setOnClickListener {
             Navigation.findNavController(requireView())
-                .navigate(R.id.action_dashFragment_to_addProduct)
+                .navigate(DashFragmentDirections.actionDashFragmentToAddProduct())
         }
 
         bind.trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -263,9 +263,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
     private var messageNum = 0
     private fun setStatus(aLong: Long) {
-        aLong.let {
-            Log.d("Log for - ", it.toString())
-        }
+        Log.d("Log for - ","$aLong")
         bind.imageForAnimation.apply {
             animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(1200)
                 .withEndAction {

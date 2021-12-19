@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
@@ -65,7 +66,7 @@ class TrackerAdapter(
 
         val expiryDate =
             tracker.tracker.expiryDate
-        expiryDate?.let {
+        expiryDate.let {
             holder.bind.expiryDate.text = context.resources.getString(
                 R.string.expiry_date_var,
                 Month.of(it.monthNumber).name.substring(0, 3),
@@ -75,8 +76,8 @@ class TrackerAdapter(
         }
         val dateToday = Clock.System.now()
 
-        val mfgInstant = tracker.tracker.mfgDate!!.toInstant(TimeZone.UTC)
-        val expiryInstant = tracker.tracker.expiryDate!!.toInstant(TimeZone.UTC)
+        val mfgInstant = tracker.tracker.mfgDate.toInstant(TimeZone.UTC)
+        val expiryInstant = tracker.tracker.expiryDate.toInstant(TimeZone.UTC)
 
         val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
         val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
@@ -116,10 +117,13 @@ class TrackerAdapter(
             optionCard.setOnClickListener {
                 buttonsLayout.isGone = !buttonsLayout.isGone
             }
-            favoriteButton.isChecked = tracker.tracker.isFavourite!!
-            favoriteButton.setOnCheckedChangeListener { _, isChecked ->
-                tracker.tracker.isFavourite = isChecked
+
+            favoriteButton.isChecked = tracker.tracker.isFavourite
+            favoriteButton.setOnClickListener {
+                tracker.tracker.isFavourite = !tracker.tracker.isFavourite
+                favoriteButton.isChecked = tracker.tracker.isFavourite
                 updateTrackerListener.updateTracker(tracker.tracker)
+                Toast.makeText(context,"working - ${tracker.tracker.isFavourite}", Toast.LENGTH_SHORT).show()
             }
             markUsedButton.setOnClickListener {
                 markTrackerAsUsedBasedOnProgress(progressValue, tracker.tracker)

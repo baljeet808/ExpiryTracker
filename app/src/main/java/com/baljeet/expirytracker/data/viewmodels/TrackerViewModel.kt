@@ -3,7 +3,6 @@ package com.baljeet.expirytracker.data.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.Category
@@ -21,11 +20,10 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
 
     var filteredProducts = ArrayList<TrackerAndProduct>()
 
-    lateinit var statusFilter : String
+    var statusFilter : String
     var categoryFilter : Category? = null
 
     private val repository : TrackerRepository
-    var trackerById : MutableLiveData<TrackerAndProduct> = MutableLiveData()
 
     init {
         val trackerDao = AppDatabase.getDatabase(application).trackerDao()
@@ -44,12 +42,6 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
     fun updateTracker(tracker: Tracker){
         viewModelScope.launch(Dispatchers.IO){
             repository.updateTracker(tracker)
-        }
-    }
-
-    fun getTrackerById(id: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            trackerById.postValue(repository.readTrackerById(id))
         }
     }
 

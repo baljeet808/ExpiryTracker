@@ -28,13 +28,13 @@
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
-        android:id="@+id/addProduct"
-        android:name="com.baljeet.expirytracker.fragment.product.AddProduct"
-        android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product" />
-    <fragment
         android:id="@+id/analytics"
         android:name="com.baljeet.expirytracker.fragment.analytics.Analytics"
         android:label="fragment_analytics"
         tools:layout="@layout/fragment_analytics" />
+    <fragment
+        android:id="@+id/addProduct"
+        android:name="com.baljeet.expirytracker.fragment.product.AddProduct"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" />
 </navigation>

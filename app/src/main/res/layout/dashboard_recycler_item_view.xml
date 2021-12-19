@@ -153,7 +153,6 @@
         android:id="@+id/favorite_button"
         android:layout_width="28dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/image"
         android:elevation="8dp"
         android:layout_marginStart="8dp"
         android:padding="2dp"

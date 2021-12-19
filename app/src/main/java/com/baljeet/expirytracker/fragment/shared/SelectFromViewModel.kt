@@ -8,173 +8,215 @@ import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 import kotlinx.datetime.LocalDateTime
 
-class SelectFromViewModel: ViewModel() {
+class SelectFromViewModel : ViewModel() {
 
-    private var expiryDate : LocalDateTime? = null
-    private var mfgDate : LocalDateTime? = null
+    private lateinit var expiryDate: LocalDateTime
+    private lateinit var mfgDate: LocalDateTime
 
-    private var selectedCategory : CategoryAndImage? =  null
-    private var selectedProduct : ProductAndImage? =  null
-    private val categoryList  = ArrayList<Category>()
-    fun getAllCategories(): ArrayList<Category>{return categoryList}
-    private fun addToCategories(categories : ArrayList<Category>){categoryList.addAll(categories)}
-    fun addSingleCategory(category : Category){categoryList.add(category)}
-    fun removeSingleCategory(category : Category){categoryList.remove(category)}
-    fun setSelectedCategory(category: CategoryAndImage?){selectedCategory = category}
-    fun getSelectedCategory(): CategoryAndImage?{return selectedCategory}
+    private var selectedCategory: CategoryAndImage? = null
+    private var selectedProduct: ProductAndImage? = null
+    private val categoryList = ArrayList<Category>()
+    private fun addToCategories(categories: ArrayList<Category>) {
+        categoryList.addAll(categories)
+    }
+
+    fun setSelectedCategory(category: CategoryAndImage?) {
+        selectedCategory = category
+    }
+
+    fun getSelectedCategory(): CategoryAndImage? {
+        return selectedCategory
+    }
 
     private val productList = ArrayList<Product>()
-    fun setSelectedProduct (product: ProductAndImage?){ selectedProduct = product }
-    fun getSelectedProduct(): ProductAndImage?{return selectedProduct}
-    fun addProduct(product : Product){productList.add(product)}
-    fun removeProduct(product: Product){productList.remove(product)}
-    fun getProducts(): ArrayList<Product>{return productList}
-    fun getProductsByCategory():ArrayList<Product>{
-        productList.clear()
-
-                productList.addAll(getFruits())
-                productList.addAll(getVegetables())
-
-        return productList
+    fun setSelectedProduct(product: ProductAndImage?) {
+        selectedProduct = product
     }
+
+    fun getSelectedProduct(): ProductAndImage? {
+        return selectedProduct
+    }
+
     init {
         addToCategories(getDefaultCategories())
         productList.addAll(getFruits())
     }
 
-    fun getImages():ArrayList<Image>{
+    fun getImages(): ArrayList<Image> {
         val images = ArrayList<Image>()
-        images.add(Image(
-            1,
-            "fruits",
-            "fruits",
-            "fruits"
-        ))
-        images.add(Image(
-            2,
-            "vegetable",
-            "vegetables",
-            "vegetables"
-        ))
-        images.add(Image(
-            3,
-            "meat",
-            "meat",
-            "meat"
-        ))
-        images.add(Image(
-            4,
-            "document",
-            "document",
-            "document"
-        ))
-        images.add(Image(
-            5,
-            "subscription",
-            "subscription",
-            "subscription"
-        ))
-        images.add(Image(
-            6,
-            "packed_food",
-            "packed_food",
-            "packed_food"
-        ))
-        images.add(Image(
-            7,
-            "liquor",
-            "liquor",
-            "liquor"
-        ))
-        images.add(Image(
-            8,
-            "drinks",
-            "drinks",
-            "drinks"
-        ))
-        images.add(Image(
-            9,
-            "fast_food",
-            "fast_food",
-            "fast_food"
-        ))
-        images.add(Image(
-            10,
-            "apple",
-            "apple",
-            "Apple"
-        ))
-        images.add(Image(
-            11,
-            "banana",
-            "banana",
-            "Banana"
-        ))
-        images.add(Image(
-            12,
-            "grapes",
-            "grapes",
-            "Grapes"
-        ))
-        images.add(Image(
-            13,
-            "orange",
-            "orange",
-            "Orange"
-        ))
-        images.add(Image(
-            14,
-            "pineapple",
-            "pineapple",
-            "Pineapple"
-        ))
-        images.add(Image(
-            15,
-            "red_grapes",
-            "red_grapes",
-            "Red Grapes"
-        ))
-        images.add(Image(
-            16,
-            "potato",
-            "potato",
-            "Potato"
-        ))
-        images.add(Image(
-            17,
-            "peas",
-            "peas",
-            "Peas"
-        ))
-        images.add(Image(
-            18,
-            "broccoli",
-            "broccoli",
-            "Broccoli"
-        ))
-        images.add(Image(
-            19,
-            "bell_yellow_pepper",
-            "bell_yellow_pepper",
-            "bell yellow pepper"
-        ))
-        images.add(Image(
-            20,
-            "tomato",
-            "tomato",
-            "Tomato"
-        ))
-        images.add(Image(
-            21,
-            "strawberries",
-            "strawberries",
-            "Strawberries"
-        ))
+        images.add(
+            Image(
+                1,
+                "fruits",
+                "fruits",
+                "fruits"
+            )
+        )
+        images.add(
+            Image(
+                2,
+                "vegetable",
+                "vegetables",
+                "vegetables"
+            )
+        )
+        images.add(
+            Image(
+                3,
+                "meat",
+                "meat",
+                "meat"
+            )
+        )
+        images.add(
+            Image(
+                4,
+                "document",
+                "document",
+                "document"
+            )
+        )
+        images.add(
+            Image(
+                5,
+                "subscription",
+                "subscription",
+                "subscription"
+            )
+        )
+        images.add(
+            Image(
+                6,
+                "packed_food",
+                "packed_food",
+                "packed_food"
+            )
+        )
+        images.add(
+            Image(
+                7,
+                "liquor",
+                "liquor",
+                "liquor"
+            )
+        )
+        images.add(
+            Image(
+                8,
+                "drinks",
+                "drinks",
+                "drinks"
+            )
+        )
+        images.add(
+            Image(
+                9,
+                "fast_food",
+                "fast_food",
+                "fast_food"
+            )
+        )
+        images.add(
+            Image(
+                10,
+                "apple",
+                "apple",
+                "Apple"
+            )
+        )
+        images.add(
+            Image(
+                11,
+                "banana",
+                "banana",
+                "Banana"
+            )
+        )
+        images.add(
+            Image(
+                12,
+                "grapes",
+                "grapes",
+                "Grapes"
+            )
+        )
+        images.add(
+            Image(
+                13,
+                "orange",
+                "orange",
+                "Orange"
+            )
+        )
+        images.add(
+            Image(
+                14,
+                "pineapple",
+                "pineapple",
+                "Pineapple"
+            )
+        )
+        images.add(
+            Image(
+                15,
+                "red_grapes",
+                "red_grapes",
+                "Red Grapes"
+            )
+        )
+        images.add(
+            Image(
+                16,
+                "potato",
+                "potato",
+                "Potato"
+            )
+        )
+        images.add(
+            Image(
+                17,
+                "peas",
+                "peas",
+                "Peas"
+            )
+        )
+        images.add(
+            Image(
+                18,
+                "broccoli",
+                "broccoli",
+                "Broccoli"
+            )
+        )
+        images.add(
+            Image(
+                19,
+                "bell_yellow_pepper",
+                "bell_yellow_pepper",
+                "bell yellow pepper"
+            )
+        )
+        images.add(
+            Image(
+                20,
+                "tomato",
+                "tomato",
+                "Tomato"
+            )
+        )
+        images.add(
+            Image(
+                21,
+                "strawberries",
+                "strawberries",
+                "Strawberries"
+            )
+        )
 
         return images
     }
 
-    fun getDefaultCategories(): ArrayList<Category>{
+    fun getDefaultCategories(): ArrayList<Category> {
         val defaultCategories = ArrayList<Category>()
 
         val fruits = Category(
@@ -235,7 +277,7 @@ class SelectFromViewModel: ViewModel() {
         return defaultCategories
     }
 
-    fun getAllProducts():ArrayList<Product>{
+    fun getAllProducts(): ArrayList<Product> {
         val products = ArrayList<Product>()
         products.addAll(getFruits())
         products.addAll(getVegetables())
@@ -243,32 +285,32 @@ class SelectFromViewModel: ViewModel() {
         return products
     }
 
-    private fun getVegetables(): ArrayList<Product>{
+    private fun getVegetables(): ArrayList<Product> {
         val products = ArrayList<Product>()
         val broccoli = Product(
             1,
             "Broccoli",
-            2,18
+            2, 18
         )
         val potato = Product(
             2,
             "Potato",
-            2,16
+            2, 16
         )
         val peas = Product(
             3,
             "Peas",
-            2,17
+            2, 17
         )
         val bellPepper = Product(
             4,
             "Bell Pepper",
-            2,19
+            2, 19
         )
         val tomato = Product(
             5,
             "Tomato",
-            2,20
+            2, 20
         )
 
 
@@ -280,7 +322,7 @@ class SelectFromViewModel: ViewModel() {
         return products
     }
 
-    private fun getFruits(): ArrayList<Product>{
+    private fun getFruits(): ArrayList<Product> {
         val products = ArrayList<Product>()
 
         val banana = Product(
@@ -316,7 +358,7 @@ class SelectFromViewModel: ViewModel() {
         val redGrapes = Product(
             11,
             "Red Grapes",
-            1,15
+            1, 15
         )
 
         products.add(redGrapes)
@@ -331,16 +373,18 @@ class SelectFromViewModel: ViewModel() {
     }
 
     fun setExpiryDate(date: LocalDateTime) {
-            expiryDate = date
+        expiryDate = date
     }
-    fun getExpiryDate():LocalDateTime?{
+
+    fun getExpiryDate(): LocalDateTime {
         return expiryDate
     }
 
     fun setMfgDate(date: LocalDateTime) {
         mfgDate = date
     }
-    fun getMfgDate():LocalDateTime?{
+
+    fun getMfgDate(): LocalDateTime {
         return mfgDate
     }
 }
