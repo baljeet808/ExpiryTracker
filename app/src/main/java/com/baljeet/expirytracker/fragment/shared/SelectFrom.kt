@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.SyncStateContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,9 @@ import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.baljeet.expirytracker.util.Constants
 import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.datetime.*
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Month
+import kotlinx.datetime.toLocalDateTime
 
 private const val ARG_TITLE = "Category"
 
@@ -149,7 +150,17 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
             val tracker = Tracker(0,
                 viewModel.getSelectedProduct()?.product?.productId!!,
                 viewModel.getMfgDate(),
-                viewModel.getExpiryDate(), null,null,null,null,null)
+                viewModel.getExpiryDate(),
+                usedWhileOk = false,
+                usedWhileFresh = false,
+                usedNearExpiry = false,
+                gotExpired = false,
+                quantity = null,
+                measuringUnit = null,
+                note = null,
+                isFavourite = null,
+                isArchived = null
+            )
             trackerViewModel.addTracker(tracker)
             activity?.onBackPressed()
         }

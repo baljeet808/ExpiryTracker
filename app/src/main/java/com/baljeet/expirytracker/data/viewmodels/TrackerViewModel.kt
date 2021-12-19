@@ -41,6 +41,12 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun updateTracker(tracker: Tracker){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateTracker(tracker)
+        }
+    }
+
     fun getTrackerById(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
             trackerById.postValue(repository.readTrackerById(id))

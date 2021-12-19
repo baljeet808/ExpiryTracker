@@ -2,22 +2,28 @@ package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
+import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
-import kotlinx.datetime.*
+import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
+import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.periodUntil
+import kotlinx.datetime.toInstant
 import java.time.Month
 import java.util.*
 
 
 class TrackerAdapter(
     private val trackerList: ArrayList<TrackerAndProduct>,
-    private val context: Context
+    private val context: Context,
+    private val updateTrackerListener: UpdateTrackerListener
 ) : RecyclerView.Adapter<TrackerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -83,7 +89,14 @@ class TrackerAdapter(
 
         holder.bind.itemProgressbar.apply {
             when {
-                progressValue >= 80 -> {
+                progressValue >=100->{
+                    progressDrawable =
+                        AppCompatResources.getDrawable(context, R.drawable.pb_red_drawable)
+                    holder.bind.markUsedButton.visibility = View.GONE
+                    tracker.tracker.gotExpired = true
+                    updateTrackerListener.updateTracker(tracker.tracker)
+                }
+                progressValue >= 80 && progressValue <100 -> {
                     progressDrawable =
                         AppCompatResources.getDrawable(context, R.drawable.pb_red_drawable)
                 }
@@ -99,33 +112,39 @@ class TrackerAdapter(
             progress = progressValue.toInt()
         }
 
-        var i =0
         holder.bind.apply {
             optionCard.setOnClickListener {
                 buttonsLayout.isGone = !buttonsLayout.isGone
             }
-
-            favoriteButton.setOnClickListener {
-                if(i == 0) {
-                    favoriteButton.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            context,
-                            R.drawable.ic_fav_filled
-                        )
-                    )
-                    i =1
-                }else{
-                    favoriteButton.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            context,
-                            R.drawable.ic_fav_outline
-                        )
-                    )
-                    i=0
-                }
+            favoriteButton.isChecked = tracker.tracker.isFavourite!!
+            favoriteButton.setOnCheckedChangeListener { _, isChecked ->
+                tracker.tracker.isFavourite = isChecked
+                updateTrackerListener.updateTracker(tracker.tracker)
+            }
+            markUsedButton.setOnClickListener {
+                markTrackerAsUsedBasedOnProgress(progressValue, tracker.tracker)
+            }
+            deleteButton.setOnClickListener {
+                tracker.tracker.isArchived = true
+                updateTrackerListener.updateTracker(tracker.tracker)
             }
         }
 
+    }
+
+    private fun markTrackerAsUsedBasedOnProgress(progressValue : Float, tracker : Tracker){
+        when {
+            progressValue >= 80 && progressValue <100 -> {
+                tracker.usedNearExpiry = true
+            }
+            progressValue < 80 && progressValue >= 50 -> {
+                tracker.usedWhileOk = true
+            }
+            progressValue < 50 -> {
+                tracker.usedWhileFresh = true
+            }
+        }
+        updateTrackerListener.updateTracker(tracker)
     }
 
     override fun getItemCount(): Int {

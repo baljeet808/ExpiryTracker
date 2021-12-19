@@ -12,6 +12,9 @@ interface TrackerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTracker(tracker: Tracker)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateTracker(tracker: Tracker)
+
     @Transaction
     @Query("SELECT * FROM tracker")
     fun readAllTracker() : LiveData<List<TrackerAndProduct>>

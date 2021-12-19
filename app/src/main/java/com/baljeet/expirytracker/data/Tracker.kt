@@ -11,9 +11,23 @@ data class Tracker(
     var productId: Int,
     var mfgDate: LocalDateTime?,
     var expiryDate: LocalDateTime?,
-    var userBeforeExpiry : Boolean?,
+    var usedWhileOk : Boolean?,
+    var usedWhileFresh : Boolean?,
+    var usedNearExpiry : Boolean?,
+    var gotExpired : Boolean?,
     var quantity : Double?,
     var measuringUnit : String?,
     var note : String?,
-    var isFavourite : Boolean?
-)
+    var isFavourite : Boolean?,
+    var isArchived : Boolean?
+){
+
+    init {
+        isFavourite = false
+        gotExpired = false
+        usedWhileFresh = false
+        usedNearExpiry = false
+        usedWhileOk = false
+        isArchived = false
+    }
+}

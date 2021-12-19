@@ -14,6 +14,10 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
         trackerDao.addTracker(tracker)
     }
 
+    suspend fun updateTracker(tracker: Tracker){
+        trackerDao.updateTracker(tracker)
+    }
+
     fun getAllTracker(): List<TrackerAndProduct>{
         return trackerDao.getAllTracker()
     }

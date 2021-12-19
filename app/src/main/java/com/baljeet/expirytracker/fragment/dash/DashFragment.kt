@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
@@ -36,6 +37,7 @@ import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
+import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.TrackerAdapter
 import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -53,7 +55,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
-class DashFragment : Fragment() {
+class DashFragment : Fragment(), UpdateTrackerListener {
 
     private lateinit var disposable: Disposable
 
@@ -113,7 +115,7 @@ class DashFragment : Fragment() {
                 }
             })
         }
-        if(!SharedPref.hasBeenSeeded){
+        if (!SharedPref.hasBeenSeeded) {
             seedData()
             SharedPref.hasBeenSeeded = true
         }
@@ -138,8 +140,8 @@ class DashFragment : Fragment() {
         bind.statusCategoryChip.apply {
             setOnClickListener {
                 if (bind.statusLayout.isGone) {
-                    bind.statusLayout.fadeVisibility(View.VISIBLE,500)
-                    bind.categoryLayout.fadeVisibility(View.GONE,500)
+                    bind.statusLayout.fadeVisibility(View.VISIBLE, 500)
+                    bind.categoryLayout.fadeVisibility(View.GONE, 500)
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
 
@@ -153,7 +155,7 @@ class DashFragment : Fragment() {
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                     setTextColor(requireContext().getColor(R.color.always_white))
-                    bind.statusLayout.fadeVisibility(View.GONE,500)
+                    bind.statusLayout.fadeVisibility(View.GONE, 500)
                 }
             }
 
@@ -161,8 +163,8 @@ class DashFragment : Fragment() {
             bind.productCategoryChip.apply {
                 setOnClickListener {
                     if (bind.categoryLayout.isGone) {
-                        bind.statusLayout.fadeVisibility(View.GONE,500)
-                        bind.categoryLayout.fadeVisibility(View.VISIBLE,500)
+                        bind.statusLayout.fadeVisibility(View.GONE, 500)
+                        bind.categoryLayout.fadeVisibility(View.VISIBLE, 500)
                         chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
 
@@ -175,7 +177,7 @@ class DashFragment : Fragment() {
                         chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                         setTextColor(requireContext().getColor(R.color.always_white))
-                        bind.categoryLayout.fadeVisibility(View.GONE,500)
+                        bind.categoryLayout.fadeVisibility(View.GONE, 500)
                     }
                 }
             }
@@ -202,14 +204,14 @@ class DashFragment : Fragment() {
                         trackerVm.statusFilter = Constants.PRODUCT_STATUS_FRESH
                         setDashList(trackerVm.filterTrackers())
                     }
-                    else->{
+                    else -> {
                         text = Status.ALL.status
                         trackerVm.statusFilter = Constants.PRODUCT_STATUS_ALL
                         setDashList(trackerVm.filterTrackers())
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
-                    bind.statusLayout.fadeVisibility(View.GONE,500)
+                    bind.statusLayout.fadeVisibility(View.GONE, 500)
                     chipBackgroundColor =
                         ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                     setTextColor(requireContext().getColor(R.color.always_white))
@@ -280,14 +282,15 @@ class DashFragment : Fragment() {
                         text = messages[messageNum]
                     }
             }
-            if(messageNum == messages.size-1){
+            if (messageNum == messages.size - 1) {
                 messageNum = 0
-            }else{
+            } else {
                 messageNum++
             }
         }
     }
-    fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
+
+    private fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
         val transition: Transition = Fade()
         transition.duration = duration
         transition.addTarget(this)
@@ -322,7 +325,7 @@ class DashFragment : Fragment() {
 
             val arrayList = ArrayList<TrackerAndProduct>()
             arrayList.addAll(list)
-            bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext())
+            bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext(), this)
         }
     }
 
@@ -369,21 +372,19 @@ class DashFragment : Fragment() {
                 bind.productCategoryChip.text = category.categoryName
                 trackerVm.categoryFilter = category
                 setDashList(trackerVm.filterTrackers())
-            }?: kotlin.run {
+            } ?: kotlin.run {
                 bind.productCategoryChip.text = resources.getString(R.string.products)
-                trackerVm.categoryFilter = Category(0,"Products",0)
+                trackerVm.categoryFilter = Category(0, "Products", 0)
                 setDashList(trackerVm.filterTrackers())
             }
             Handler(Looper.getMainLooper()).postDelayed({
-                bind.categoryLayout.fadeVisibility(View.GONE,500)
+                bind.categoryLayout.fadeVisibility(View.GONE, 500)
                 bind.productCategoryChip.chipBackgroundColor =
                     ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                 bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
             }, 10)
         }
     }
-
-
 
 
     private var getStatusJob: Job? = null
@@ -415,11 +416,11 @@ class DashFragment : Fragment() {
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
         )
-        Toast.makeText(
+       /* Toast.makeText(
             requireContext(),
             "reminder has been set for  $hour:$minutes",
             Toast.LENGTH_SHORT
-        ).show()
+        ).show()*/
     }
 
     private fun createNotificationChannel() {
@@ -515,6 +516,10 @@ class DashFragment : Fragment() {
                 else -> Unit
             }
         }
+    }
+
+    override fun updateTracker(updatedTracker: Tracker) {
+        trackerVm.updateTracker(updatedTracker)
     }
 }
 
