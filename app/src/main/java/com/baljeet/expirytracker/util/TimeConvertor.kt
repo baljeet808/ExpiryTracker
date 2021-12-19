@@ -1,5 +1,6 @@
 package com.dwellify.contractorportal.util
 
+import com.baljeet.expirytracker.util.Constants
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -8,6 +9,8 @@ import java.time.LocalDate
 import java.util.*
 
 object TimeConvertor {
+
+
 
     //pass Iso date String and get time string in HH:MM AM/PM format back
     fun getTimeFromDateString(date : String, appendAmPm : Boolean) : String?{
@@ -20,7 +23,7 @@ object TimeConvertor {
         return try{
             with(date){
                 if(this.isNotEmpty()){
-                    Instant.parse(this).toLocalDateTime(TimeZone.currentSystemDefault())
+                    Instant.parse(this).toLocalDateTime(Constants.TIMEZONE)
                 }else{
                     null
                 }
@@ -33,7 +36,7 @@ object TimeConvertor {
     fun fromEpochMillisecondsToLocalDateTime(date : Long?): LocalDateTime?{
         return try{
             date?.let {
-                Instant.fromEpochMilliseconds(date).toLocalDateTime(TimeZone.UTC)
+                Instant.fromEpochMilliseconds(date).toLocalDateTime(Constants.TIMEZONE)
             }
         }catch (e : Exception){
             null

@@ -9,7 +9,7 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.SharedPref
-import kotlinx.datetime.toKotlinLocalDateTime
+import kotlinx.datetime.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
@@ -56,7 +56,7 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
             if (i < dayOfWeek || dateCounter > daysInMonth) {
                 daysInMonthArray.add(DayWithProducts(null, null))
             } else {
-                val date = selectedDate.toKotlinLocalDateTime()
+                val date = LocalDateTime(selectedDate.year,selectedDate.monthValue,dateCounter,0,0,0,0)
                 val filteredProducts = ArrayList<TrackerAndProduct>()
                 val products = repository.readTrackerByExpiryDate(date)
                 val trackerProducts = if (selectedCategory.categoryName != "Products") {

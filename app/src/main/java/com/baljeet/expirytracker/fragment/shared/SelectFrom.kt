@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.SyncStateContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentSelectFromBinding
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
+import com.baljeet.expirytracker.util.Constants
 import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.*
@@ -90,10 +92,11 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         bind.mfgClickView.setOnClickListener {  datePicker1.show(childFragmentManager,"tag2") }
 
         datePicker2.addOnPositiveButtonClickListener { its->
-            val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(23, DateTimeUnit.HOUR)
-            val expiryDate = expiryInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+            val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
 
-            viewModel.setExpiryDate(expiryDate)
+            val expiryDate = expiryInstant.toLocalDateTime(Constants.TIMEZONE)
+
+            viewModel.setExpiryDate(LocalDateTime(expiryDate.year,expiryDate.monthNumber,expiryDate.dayOfMonth,expiryDate.hour,expiryDate.minute,0,0))
             expiryDate.let {
                 bind.expiryDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
                     Month.of(it.monthNumber).name.substring(0,3),
@@ -109,10 +112,10 @@ class SelectFrom : Fragment(), OptionsAdapter.OnOptionSelectedListener {
         }
 
         datePicker1.addOnPositiveButtonClickListener { its ->
-            val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its).plus(23, DateTimeUnit.HOUR)
-            val mfgDate = mfgInstant.toLocalDateTime(TimeZone.currentSystemDefault())
+            val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
+            val mfgDate = mfgInstant.toLocalDateTime(Constants.TIMEZONE)
 
-            viewModel.setMfgDate(mfgDate)
+            viewModel.setMfgDate(LocalDateTime(mfgDate.year,mfgDate.monthNumber,mfgDate.dayOfMonth,mfgDate.hour,mfgDate.minute,0,0))
             mfgDate.let {
                 bind.mfgDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
                     Month.of(it.monthNumber).name.substring(0,3),
