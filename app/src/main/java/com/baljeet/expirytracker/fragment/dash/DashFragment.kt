@@ -39,6 +39,7 @@ import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.TrackerAdapter
+import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
@@ -59,6 +60,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
     private lateinit var disposable: Disposable
 
+    private lateinit var trackerAdapter : TrackerDiffAdapter
 
     private val productVM: ProductViewModel by activityViewModels()
     private val imageVm: ImageViewModel by activityViewModels()
@@ -105,6 +107,8 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         }
 
         bind.trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        trackerAdapter = TrackerDiffAdapter(requireContext(),this)
+        bind.trackerRecyclerView.adapter = trackerAdapter
 
         trackerVm.readAllTracker.let {
             it.observe(viewLifecycleOwner, { its ->
@@ -323,9 +327,10 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             bind.imageForAnimation.visibility = View.VISIBLE
             bind.addProductButton.visibility = View.GONE
 
-            val arrayList = ArrayList<TrackerAndProduct>()
+            trackerAdapter.submitList(list)
+            /*val arrayList = ArrayList<TrackerAndProduct>()
             arrayList.addAll(list)
-            bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext(), this)
+            bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext(), this)*/
         }
     }
 

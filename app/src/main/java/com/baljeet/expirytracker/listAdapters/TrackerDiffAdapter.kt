@@ -22,7 +22,6 @@ import java.time.Month
 
 class TrackerDiffAdapter(private val context : Context, private val updateTrackerListener :UpdateTrackerListener) : ListAdapter<TrackerAndProduct,TrackerDiffAdapter.MyViewHolder>(DiffUtil()) {
 
-    private var undoNotSelected  = true
     private var isDeleteActionSelected = true
 
     class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<TrackerAndProduct>(){
@@ -122,17 +121,15 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
                     updateTrackerListener.updateTracker(tracker.tracker)
                 }
                 markUsedButton.setOnClickListener {
-                    undoNotSelected = true
                     isDeleteActionSelected = false
-                    showUndoCountDown(holder,tracker.tracker,position,progressValue)
+                    showUndoCountDown(holder,tracker.tracker,progressValue)
                 }
                 deleteButton.setOnClickListener {
-                    undoNotSelected = true
                     isDeleteActionSelected = true
-                    showUndoCountDown(holder,tracker.tracker,position,progressValue)
+                    showUndoCountDown(holder,tracker.tracker,progressValue)
                 }
                 undoButton.setOnClickListener {
-                    undoNotSelected = false
+                    performUndo()
                     hideCountdown(holder)
                 }
 
@@ -141,6 +138,7 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
 
     private fun hideCountdown(holder : MyViewHolder){
         holder.bind.apply {
+            buttonsLayout.visibility = View.GONE
             undoLayout.visibility = View.GONE
             countDownText.visibility = View.GONE
             itemProgressbar.visibility = View.VISIBLE
@@ -152,9 +150,12 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
         }
     }
 
+    private fun performUndo(){
+        timer?.cancel()
+    }
 
-    var timer  : CountDownTimer? = null
-    private fun showUndoCountDown(holder : MyViewHolder, tracker : Tracker, position: Int, progressValue: Float){
+    private var timer  : CountDownTimer? = null
+    private fun showUndoCountDown(holder : MyViewHolder, tracker : Tracker, progressValue: Float){
         var sec = 4
         holder.bind.apply {
             undoLayout.visibility = View.VISIBLE
@@ -172,23 +173,21 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
                     countDownText.text = sec.toString()
                 }
                 override fun onFinish() {
-                    performAction(tracker, position, progressValue)
+                    performAction(tracker, progressValue, holder)
                 }
             }
             (timer as CountDownTimer).start()
         }
     }
 
-    private fun performAction(tracker : Tracker, position: Int, progressValue: Float){
-        if(undoNotSelected) {
-            notifyItemRemoved(position)
+    private fun performAction(tracker : Tracker, progressValue: Float,holder : MyViewHolder){
             if(isDeleteActionSelected) {
                 tracker.isArchived = true
                 updateTrackerListener.updateTracker(tracker)
             }else{
                 markTrackerAsUsedBasedOnProgress(progressValue,tracker)
             }
-        }
+            hideCountdown(holder)
     }
 
     private fun markTrackerAsUsedBasedOnProgress(progressValue : Float, tracker: Tracker){
