@@ -229,8 +229,40 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             }
             getCategoriesChips()
             getStatus()
-            return bind.root
         }
+        trackerVm.favouriteFilter.observe(viewLifecycleOwner, { filter->
+            when(filter){
+                Constants.SHOW_ALL ->{
+                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_half_32))
+                }
+                Constants.SHOW_ONLY_FAVOURITE->{
+                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_round_star_32))
+                }
+                Constants.SHOW_ONLY_NON_FAVOURITE->{
+                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_outline_32))
+                }
+            }
+        })
+        bind.favouriteToggle.apply {
+            setOnClickListener {
+                trackerVm.favouriteFilter.value?.let { filter ->
+                    when (filter) {
+                        Constants.SHOW_ALL -> {
+                            trackerVm.favouriteFilter.postValue(Constants.SHOW_ONLY_FAVOURITE)
+                        }
+                        Constants.SHOW_ONLY_FAVOURITE -> {
+                            trackerVm.favouriteFilter.postValue(Constants.SHOW_ONLY_NON_FAVOURITE)
+                        }
+                        else -> {
+                            trackerVm.favouriteFilter.postValue(Constants.SHOW_ALL)
+                        }
+                    }
+                }?: kotlin.run {
+                    trackerVm.favouriteFilter.postValue(Constants.SHOW_ONLY_FAVOURITE)
+                }
+            }
+        }
+        return bind.root
     }
 
     private fun setDashList(list: List<TrackerAndProduct>) {

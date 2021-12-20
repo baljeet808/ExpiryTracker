@@ -122,6 +122,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/proxima_nova_alt_light"
             android:lineSpacingExtra="8dp"
             android:maxLines="2"
@@ -129,11 +130,25 @@
             android:textColor="@color/text_dialog_color"
             android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@id/favourite_toggle"
             app:layout_constraintStart_toEndOf="@id/guideline5"
             app:layout_constraintTop_toBottomOf="@id/guideline6"
             app:layout_constraintVertical_bias="0.04"
             tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/favourite_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star_half_32"
+            android:background="@android:color/transparent"
+            app:tint="@color/text_dialog_color"
+            app:layout_constraintEnd_toStartOf="@id/guideline7"
+            app:layout_constraintTop_toTopOf="@id/status_text"
+            app:layout_constraintBottom_toBottomOf="@id/status_text"
+            app:layout_constraintStart_toEndOf="@id/status_text"
+            android:contentDescription="@string/image" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/status_chip"
@@ -431,6 +446,8 @@
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
         app:layout_constraintVertical_bias="0.6"
         tools:visibility="invisible" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_at_start"

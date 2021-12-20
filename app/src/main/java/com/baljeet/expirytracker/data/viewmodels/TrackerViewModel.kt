@@ -1,7 +1,6 @@
 package com.baljeet.expirytracker.data.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.Category
@@ -19,21 +18,26 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
     private var readAllTracker : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
     var statusFilter : MutableLiveData<String> = MutableLiveData<String>()
     var categoryFilter : MutableLiveData<Category> = MutableLiveData<Category>()
+    var favouriteFilter : MutableLiveData<Int> = MutableLiveData()
 
     var noTrackerIsActive = false
 
     var filteredTrackers  = MediatorLiveData<List<TrackerAndProduct>>().apply {
         addSource(readAllTracker){ allTracker->
             noTrackerIsActive = checkIfNoTrackerIsActive(allTracker)
-            this.postValue( filterTrackers(allTracker, statusFilter.value?:Constants.PRODUCT_STATUS_ALL,categoryFilter.value?: Category(0,"Products",0)))
+            this.postValue( filterTrackers(favouriteFilter.value?:1,allTracker, statusFilter.value?:Constants.PRODUCT_STATUS_ALL,categoryFilter.value?: Category(0,"Products",0)))
         }
         addSource(statusFilter){ status->
             noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
-            this.postValue(filterTrackers(readAllTracker.value?:ArrayList(), status,categoryFilter.value?:Category(0,"Products",0)))
+            this.postValue(filterTrackers(favouriteFilter.value?:1,readAllTracker.value?:ArrayList(), status,categoryFilter.value?:Category(0,"Products",0)))
         }
         addSource(categoryFilter){ category->
             noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
-            this.postValue(filterTrackers(readAllTracker.value?:ArrayList(), statusFilter.value?:Constants.PRODUCT_STATUS_ALL,category))
+            this.postValue(filterTrackers(favouriteFilter.value?:1,readAllTracker.value?:ArrayList(), statusFilter.value?:Constants.PRODUCT_STATUS_ALL,category))
+        }
+        addSource(favouriteFilter){ favFilter->
+            noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
+            this.postValue(filterTrackers(favFilter,readAllTracker.value?:ArrayList(), statusFilter.value?:Constants.PRODUCT_STATUS_ALL,categoryFilter.value?:Category(0,"Products",0)))
         }
     }
     private fun checkIfNoTrackerIsActive(trackers : List<TrackerAndProduct>): Boolean{
@@ -52,8 +56,8 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private fun filterTrackers(allTracker : List<TrackerAndProduct>, status : String, category : Category ): List<TrackerAndProduct>? {
-        var afterCategoryFilter : List<TrackerAndProduct>? = null
+    private fun filterTrackers(favFilter : Int,allTracker : List<TrackerAndProduct>, status : String, category : Category ): List<TrackerAndProduct>? {
+        var afterAllFilters : List<TrackerAndProduct>? = null
        allTracker.let {
             val afterStatusFiltered = if (status == Constants.PRODUCT_STATUS_ALL) {
                 it
@@ -61,13 +65,26 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
                 it.filter { p -> GetStatus.getStatus(p.tracker) == status }
             }
 
-           afterCategoryFilter = if (category.categoryName == "Products") {
+           val afterCategoryFilter = if (category.categoryName == "Products") {
                 afterStatusFiltered
             } else {
                 afterStatusFiltered.filter { c -> c.productAndCategoryAndImage.categoryAndImage.category.categoryId == category.categoryId }
             }
+
+           afterAllFilters = when (favFilter) {
+               Constants.SHOW_ALL -> {
+                   afterCategoryFilter
+               }
+               Constants.SHOW_ONLY_FAVOURITE -> {
+                   afterCategoryFilter.filter { f -> f.tracker.isFavourite == true }
+               }
+               Constants.SHOW_ONLY_NON_FAVOURITE -> {
+                   afterCategoryFilter.filter { f -> f.tracker.isFavourite == false }
+               }
+               else->afterCategoryFilter
+           }
         }
-        return afterCategoryFilter
+        return afterAllFilters
     }
 
 }
