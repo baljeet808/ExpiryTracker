@@ -101,8 +101,10 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             it.observe(viewLifecycleOwner, { its ->
                 if (trackerVm.noTrackerIsActive) {
                     noItemView()
+                    Log.d("Log for - dash","no item view called")
                     disposable.dispose()
                 } else {
+                    Log.d("Log for - dash","set dash list called")
                     setDashList(its)
                 }
             })
@@ -235,6 +237,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
     private fun setDashList(list: List<TrackerAndProduct>) {
         if (list.isNullOrEmpty()) {
+            Log.d("Log for - dash","no tracker view called")
             bind.noItemText.visibility = View.VISIBLE
             bind.trackerRecyclerView.visibility = View.GONE
             if (trackerVm.statusFilter.value == Constants.PRODUCT_STATUS_ALL) {
@@ -250,6 +253,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 )
             }
         } else {
+            Log.d("Log for - dash","tracker list showing")
             bind.trackerLayout.visibility = View.VISIBLE
             bind.trackerRecyclerView.visibility = View.VISIBLE
             bind.noItemText.visibility = View.GONE
