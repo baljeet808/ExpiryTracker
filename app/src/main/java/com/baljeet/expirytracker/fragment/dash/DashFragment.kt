@@ -109,9 +109,9 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         trackerAdapter = TrackerDiffAdapter(requireContext(),this)
         bind.trackerRecyclerView.adapter = trackerAdapter
 
-        trackerVm.readAllTracker.let {
+        trackerVm.filteredTrackers.let {
             it.observe(viewLifecycleOwner, { its ->
-                if (its.isEmpty()) {
+                if (trackerVm.noTrackerIsActive) {
                     noItemView()
                     disposable.dispose()
                 } else {
@@ -190,28 +190,23 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 when (checkedId) {
                     bind.choiceAll.id -> {
                         text = Status.ALL.status
-                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_ALL
-                        setDashList(trackerVm.filterTrackers())
+                        trackerVm.statusFilter.postValue(Constants.PRODUCT_STATUS_ALL)
                     }
                     bind.choiceExpired.id -> {
                         text = Status.EXPIRED.status
-                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_EXPIRED
-                        setDashList(trackerVm.filterTrackers())
+                        trackerVm.statusFilter.postValue(Constants.PRODUCT_STATUS_EXPIRED)
                     }
                     bind.choiceExpiring.id -> {
                         text = Status.EXPIRING.status
-                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_EXPIRING
-                        setDashList(trackerVm.filterTrackers())
+                        trackerVm.statusFilter .postValue(Constants.PRODUCT_STATUS_EXPIRING)
                     }
                     bind.choiceFresh.id -> {
                         text = Status.FRESH.status
-                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_FRESH
-                        setDashList(trackerVm.filterTrackers())
+                        trackerVm.statusFilter.postValue(Constants.PRODUCT_STATUS_FRESH)
                     }
                     else -> {
                         text = Status.ALL.status
-                        trackerVm.statusFilter = Constants.PRODUCT_STATUS_ALL
-                        setDashList(trackerVm.filterTrackers())
+                        trackerVm.statusFilter.postValue(Constants.PRODUCT_STATUS_ALL)
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -256,6 +251,44 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         }
     }
 
+    private fun setDashList(list: List<TrackerAndProduct>) {
+        if (list.isNullOrEmpty()) {
+            bind.noItemText.visibility = View.VISIBLE
+            bind.trackerRecyclerView.visibility = View.GONE
+            if (trackerVm.statusFilter.value == Constants.PRODUCT_STATUS_ALL) {
+                bind.noItemText.text = resources.getString(
+                    R.string.no_item_text1,
+                    trackerVm.categoryFilter.value?.categoryName
+                )
+            } else {
+                bind.noItemText.text = resources.getString(
+                    R.string.no_item_text,
+                    trackerVm.statusFilter.value?:Constants.PRODUCT_STATUS_ALL,
+                    trackerVm.categoryFilter.value?.categoryName
+                )
+            }
+        } else {
+            bind.trackerLayout.visibility = View.VISIBLE
+            bind.trackerRecyclerView.visibility = View.VISIBLE
+            bind.noItemText.visibility = View.GONE
+            bind.noTrackerLayout.visibility = View.GONE
+            bind.addProductFab.visibility = View.VISIBLE
+            bind.imageForAnimation.visibility = View.VISIBLE
+            bind.addProductButton.visibility = View.GONE
+
+            trackerAdapter.submitList(list)
+
+        }
+    }
+
+    private fun noItemView() {
+        bind.noTrackerLayout.visibility = View.VISIBLE
+        bind.trackerLayout.visibility = View.GONE
+        bind.addProductFab.visibility = View.GONE
+        bind.imageForAnimation.visibility = View.GONE
+        bind.addProductButton.visibility = View.VISIBLE
+        disposable.dispose()
+    }
 
     private fun onError(throwable: Throwable) {
         Toast.makeText(
@@ -301,35 +334,8 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         this.visibility = visibility
     }
 
-    private fun setDashList(list: List<TrackerAndProduct>) {
-        if (list.isNullOrEmpty()) {
-            bind.noItemText.visibility = View.VISIBLE
-            bind.trackerRecyclerView.visibility = View.GONE
-            if (trackerVm.statusFilter == Constants.PRODUCT_STATUS_ALL) {
-                bind.noItemText.text = resources.getString(
-                    R.string.no_item_text1,
-                    trackerVm.categoryFilter?.categoryName
-                )
-            } else {
-                bind.noItemText.text = resources.getString(
-                    R.string.no_item_text,
-                    trackerVm.statusFilter,
-                    trackerVm.categoryFilter?.categoryName
-                )
-            }
-        } else {
-            bind.trackerLayout.visibility = View.VISIBLE
-            bind.trackerRecyclerView.visibility = View.VISIBLE
-            bind.noItemText.visibility = View.GONE
-            bind.noTrackerLayout.visibility = View.GONE
-            bind.addProductFab.visibility = View.VISIBLE
-            bind.imageForAnimation.visibility = View.VISIBLE
-            bind.addProductButton.visibility = View.GONE
 
-            trackerAdapter.submitList(list)
 
-        }
-    }
 
     private fun getCategoriesChips() {
         categoryVM.readAllCategories?.let {
@@ -372,12 +378,10 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
             category?.let {
                 bind.productCategoryChip.text = category.categoryName
-                trackerVm.categoryFilter = category
-                setDashList(trackerVm.filterTrackers())
+                trackerVm.categoryFilter.postValue(category)
             } ?: kotlin.run {
                 bind.productCategoryChip.text = resources.getString(R.string.products)
-                trackerVm.categoryFilter = Category(0, "Products", 0)
-                setDashList(trackerVm.filterTrackers())
+                trackerVm.categoryFilter.postValue(Category(0, "Products", 0))
             }
             Handler(Looper.getMainLooper()).postDelayed({
                 bind.categoryLayout.fadeVisibility(View.GONE, 500)
@@ -387,9 +391,8 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             }, 10)
         }
     }
-
-
     private var getStatusJob: Job? = null
+
     private fun getStatus() {
         getStatusJob?.let {
             if (it.isActive) {
@@ -418,11 +421,6 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
         )
-       /* Toast.makeText(
-            requireContext(),
-            "reminder has been set for  $hour:$minutes",
-            Toast.LENGTH_SHORT
-        ).show()*/
     }
 
     private fun createNotificationChannel() {
@@ -433,15 +431,6 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         channel.description = description
         val notificationManager = requireContext().getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
-    }
-
-    private fun noItemView() {
-        bind.noTrackerLayout.visibility = View.VISIBLE
-        bind.trackerLayout.visibility = View.GONE
-        bind.addProductFab.visibility = View.GONE
-        bind.imageForAnimation.visibility = View.GONE
-        bind.addProductButton.visibility = View.VISIBLE
-        disposable.dispose()
     }
 
     private fun seedData() {
