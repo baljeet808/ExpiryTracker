@@ -24,17 +24,14 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
 
     var filteredTrackers  = MediatorLiveData<List<TrackerAndProduct>>().apply {
         addSource(readAllTracker){ allTracker->
-            Log.d("Log for - dash","read all tracker posted")
             noTrackerIsActive = checkIfNoTrackerIsActive(allTracker)
             this.postValue( filterTrackers(allTracker, statusFilter.value?:Constants.PRODUCT_STATUS_ALL,categoryFilter.value?: Category(0,"Products",0)))
         }
         addSource(statusFilter){ status->
-            Log.d("Log for - dash","status filter posted")
             noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
             this.postValue(filterTrackers(readAllTracker.value?:ArrayList(), status,categoryFilter.value?:Category(0,"Products",0)))
         }
         addSource(categoryFilter){ category->
-            Log.d("Log for - dash","category filter posted")
             noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
             this.postValue(filterTrackers(readAllTracker.value?:ArrayList(), statusFilter.value?:Constants.PRODUCT_STATUS_ALL,category))
         }

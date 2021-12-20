@@ -94,7 +94,6 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
 
             val progressValue =
                 (spentHours.toFloat() / totalHours.toFloat()) * 100
-            Log.d("Log for - progress value of ${tracker.productAndCategoryAndImage.product.name} ","$progressValue")
             itemProgressbar.apply {
                 val layerDrawable = progressDrawable as LayerDrawable
                 val progressDrawableClip = layerDrawable.getDrawable(1)

@@ -101,10 +101,8 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             it.observe(viewLifecycleOwner, { its ->
                 if (trackerVm.noTrackerIsActive) {
                     noItemView()
-                    Log.d("Log for - dash","no item view called")
                     disposable.dispose()
                 } else {
-                    Log.d("Log for - dash","set dash list called")
                     setDashList(its)
                 }
             })
