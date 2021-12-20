@@ -38,7 +38,6 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
-import com.baljeet.expirytracker.listAdapters.TrackerAdapter
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -328,9 +327,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             bind.addProductButton.visibility = View.GONE
 
             trackerAdapter.submitList(list)
-            /*val arrayList = ArrayList<TrackerAndProduct>()
-            arrayList.addAll(list)
-            bind.trackerRecyclerView.adapter = TrackerAdapter(arrayList, requireContext(), this)*/
+
         }
     }
 
