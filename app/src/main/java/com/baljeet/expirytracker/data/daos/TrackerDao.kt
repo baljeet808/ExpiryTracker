@@ -16,12 +16,16 @@ interface TrackerDao {
     suspend fun updateTracker(tracker: Tracker)
 
     @Transaction
-    @Query("SELECT * FROM tracker")
+    @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
     fun readAllTracker() : LiveData<List<TrackerAndProduct>>
 
     @Transaction
     @Query("SELECT * FROM tracker")
     fun getAllTracker() : List<TrackerAndProduct>
+
+    @Transaction
+    @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
+    fun getActiveTracker() : List<TrackerAndProduct>
 
     @Transaction
     @Query("SELECT * FROM tracker where trackerId == :id")

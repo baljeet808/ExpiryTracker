@@ -142,7 +142,8 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                 measuringUnit = null,
                 note = null,
                 isFavourite = false,
-                isArchived = false
+                isArchived = false,
+                isUsed = false
             )
             trackerViewModel.addTracker(tracker)
             activity?.onBackPressed()

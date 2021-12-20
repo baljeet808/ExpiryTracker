@@ -25,4 +25,5 @@
     <color name="theme_peach">#FF5252</color>
     <color name="theme_peach_light">#FC6681</color>
     <color name="tab_background">#343F56</color>
+    <color name="red_orange">#FF5349</color>
 </resources>

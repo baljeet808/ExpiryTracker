@@ -33,9 +33,10 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
         categoryFilter = Category(0,"Products",0)
     }
 
-    fun addTracker(tracker : Tracker){
+
+    fun addTracker(newTracker : Tracker){
         viewModelScope.launch(Dispatchers.IO){
-            repository.addTracker(tracker)
+            repository.addTracker(newTracker)
         }
     }
 

@@ -22,7 +22,7 @@ object ProductStatus {
         val repository = TrackerRepository(trackerDao)
 
         try {
-            repository.getAllTracker().let { trackers ->
+            repository.getActiveTrackers().let { trackers ->
                 expired.clear()
                 needsAttention.clear()
                 healthy.clear()

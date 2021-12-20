@@ -19,5 +19,6 @@ data class Tracker(
     var measuringUnit : String?,
     var note : String?,
     var isFavourite : Boolean,
-    var isArchived : Boolean
+    var isArchived : Boolean,
+    var isUsed : Boolean
 )

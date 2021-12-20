@@ -59,6 +59,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
     private lateinit var disposable: Disposable
 
+
     private val productVM: ProductViewModel by activityViewModels()
     private val imageVm: ImageViewModel by activityViewModels()
     private val categoryVM: CategoryViewModel by viewModels()
@@ -251,6 +252,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             return bind.root
         }
     }
+
 
     private fun onError(throwable: Throwable) {
         Toast.makeText(

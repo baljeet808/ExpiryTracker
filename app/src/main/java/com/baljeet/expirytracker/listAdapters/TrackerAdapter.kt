@@ -1,10 +1,10 @@
 package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +26,9 @@ class TrackerAdapter(
     private val context: Context,
     private val updateTrackerListener: UpdateTrackerListener
 ) : RecyclerView.Adapter<TrackerAdapter.MyViewHolder>() {
+
+    private var undoNotSelected  = true
+    private var isDeleteActionSelected = true
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -67,7 +70,7 @@ class TrackerAdapter(
         val expiryDate =
             tracker.tracker.expiryDate
         expiryDate.let {
-            holder.bind.expiryDate.text = context.resources.getString(
+            holder.bind.expiryDateText.text = context.resources.getString(
                 R.string.expiry_date_var,
                 Month.of(it.monthNumber).name.substring(0, 3),
                 it.dayOfMonth,
@@ -90,14 +93,7 @@ class TrackerAdapter(
 
         holder.bind.itemProgressbar.apply {
             when {
-                progressValue >=100->{
-                    progressDrawable =
-                        AppCompatResources.getDrawable(context, R.drawable.pb_red_drawable)
-                    holder.bind.markUsedButton.visibility = View.GONE
-                    tracker.tracker.gotExpired = true
-                    updateTrackerListener.updateTracker(tracker.tracker)
-                }
-                progressValue >= 80 && progressValue <100 -> {
+                progressValue >= 80 -> {
                     progressDrawable =
                         AppCompatResources.getDrawable(context, R.drawable.pb_red_drawable)
                 }
@@ -123,21 +119,81 @@ class TrackerAdapter(
                 tracker.tracker.isFavourite = !tracker.tracker.isFavourite
                 favoriteButton.isChecked = tracker.tracker.isFavourite
                 updateTrackerListener.updateTracker(tracker.tracker)
-                Toast.makeText(context,"working - ${tracker.tracker.isFavourite}", Toast.LENGTH_SHORT).show()
             }
             markUsedButton.setOnClickListener {
-                markTrackerAsUsedBasedOnProgress(progressValue, tracker.tracker)
+                undoNotSelected = true
+                isDeleteActionSelected = false
+                showUndoCountDown(holder,tracker.tracker,position,progressValue)
             }
             deleteButton.setOnClickListener {
-                tracker.tracker.isArchived = true
-                updateTrackerListener.updateTracker(tracker.tracker)
+                undoNotSelected = true
+                isDeleteActionSelected = true
+                showUndoCountDown(holder,tracker.tracker,position,progressValue)
+            }
+            undoButton.setOnClickListener {
+                undoNotSelected = false
+                hideCountdown(holder)
             }
         }
-
     }
 
-    private fun markTrackerAsUsedBasedOnProgress(progressValue : Float, tracker : Tracker){
+    private fun hideCountdown(holder : MyViewHolder){
+        holder.bind.apply {
+            undoLayout.visibility = View.GONE
+            countDownText.visibility = View.GONE
+            itemProgressbar.visibility = View.VISIBLE
+            openButton.visibility = View.VISIBLE
+            favoriteButton.visibility = View.VISIBLE
+            categoryImage.visibility = View.VISIBLE
+            deleteButton.visibility = View.VISIBLE
+            markUsedButton.visibility = View.VISIBLE
+        }
+    }
+
+
+    private var timer  : CountDownTimer? = null
+    private fun showUndoCountDown(holder : MyViewHolder, tracker : Tracker, position: Int, progressValue: Float){
+        var sec = 4
+        holder.bind.apply {
+            undoLayout.visibility = View.VISIBLE
+            countDownText.visibility = View.VISIBLE
+            itemProgressbar.visibility = View.INVISIBLE
+            openButton.visibility = View.GONE
+            favoriteButton.visibility = View.GONE
+            categoryImage.visibility = View.INVISIBLE
+            deleteButton.visibility = View.GONE
+            markUsedButton.visibility = View.GONE
+            timer?.cancel()
+            timer = object : CountDownTimer(3000, 900) {
+                override fun onTick(millisUntilFinished: Long) {
+                    --sec
+                    countDownText.text = sec.toString()
+                }
+                override fun onFinish() {
+                    performAction(tracker, position, progressValue)
+                }
+            }
+            (timer as CountDownTimer).start()
+        }
+    }
+
+    private fun performAction(tracker : Tracker,position: Int,progressValue: Float){
+        if(undoNotSelected) {
+            notifyItemRemoved(position)
+            if(isDeleteActionSelected) {
+                tracker.isArchived = true
+                updateTrackerListener.updateTracker(tracker)
+            }else{
+                markTrackerAsUsedBasedOnProgress(progressValue,tracker)
+            }
+        }
+    }
+
+    private fun markTrackerAsUsedBasedOnProgress(progressValue : Float, tracker: Tracker){
         when {
+            progressValue >=100->{
+                tracker.gotExpired = true
+            }
             progressValue >= 80 && progressValue <100 -> {
                 tracker.usedNearExpiry = true
             }
@@ -148,6 +204,7 @@ class TrackerAdapter(
                 tracker.usedWhileFresh = true
             }
         }
+        tracker.isUsed = true
         updateTrackerListener.updateTracker(tracker)
     }
 

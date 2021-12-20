@@ -22,6 +22,10 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
         return trackerDao.getAllTracker()
     }
 
+    fun getActiveTrackers():List<TrackerAndProduct>{
+        return trackerDao.getActiveTracker()
+    }
+
     fun readTrackerByExpiryDate(date : LocalDateTime): List<TrackerAndProduct>{
         return trackerDao.readTrackerByDate(date)
     }

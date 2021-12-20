@@ -71,4 +71,7 @@
     <string name="categories">Categories</string>
     <string name="notifications">Notifications</string>
     <string name="analytics">Analytics</string>
+    <string name="undo">Undo</string>
+    <string name="delete">Delete</string>
+    <string name="used">Used</string>
 </resources>
