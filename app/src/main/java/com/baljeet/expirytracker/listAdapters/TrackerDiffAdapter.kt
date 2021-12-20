@@ -167,7 +167,7 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
             deleteButton.visibility = View.GONE
             markUsedButton.visibility = View.GONE
             timer?.cancel()
-            timer = object : CountDownTimer(3000, 900) {
+            timer = object : CountDownTimer(2400, 800) {
                 override fun onTick(millisUntilFinished: Long) {
                     --sec
                     countDownText.text = sec.toString()
