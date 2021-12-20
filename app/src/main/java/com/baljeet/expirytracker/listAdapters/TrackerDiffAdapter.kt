@@ -1,11 +1,15 @@
 package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
+import android.graphics.ColorFilter
+import android.graphics.drawable.LayerDrawable
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -67,8 +71,8 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
                 )
             )
 
-            val expiryDate =
-                tracker.tracker.expiryDate
+            val expiryDate = tracker.tracker.expiryDate
+            val mfgDate = tracker.tracker.mfgDate
             expiryDate.let {
                 expiryDateText.text = context.resources.getString(
                     R.string.expiry_date_var,
@@ -79,8 +83,8 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
             }
             val dateToday = Clock.System.now()
 
-            val mfgInstant = tracker.tracker.mfgDate.toInstant(TimeZone.UTC)
-            val expiryInstant = tracker.tracker.expiryDate.toInstant(TimeZone.UTC)
+            val mfgInstant = mfgDate.toInstant(TimeZone.UTC)
+            val expiryInstant = expiryDate.toInstant(TimeZone.UTC)
 
             val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
             val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
@@ -90,25 +94,24 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
 
             val progressValue =
                 (spentHours.toFloat() / totalHours.toFloat()) * 100
-
+            Log.d("Log for - progress value of ${tracker.productAndCategoryAndImage.product.name} ","$progressValue")
             itemProgressbar.apply {
+                val layerDrawable = progressDrawable as LayerDrawable
+                val progressDrawableClip = layerDrawable.getDrawable(1)
                 when {
                     progressValue >= 80 -> {
-                        progressDrawable =
-                            AppCompatResources.getDrawable(context, R.drawable.pb_red_drawable)
+                        progressDrawableClip.setTint(context.getColor(R.color.progress_bad))
                     }
                     progressValue < 80 && progressValue >= 50 -> {
-                        progressDrawable =
-                            AppCompatResources.getDrawable(context, R.drawable.pb_yellow_drawable)
+                        progressDrawableClip.setTint(context.getColor(R.color.progress_ok))
                     }
                     progressValue < 50 -> {
-                        progressDrawable =
-                            AppCompatResources.getDrawable(context, R.drawable.pb_green_drawable)
+                        progressDrawableClip.setTint(context.getColor(R.color.progress_great))
                     }
                 }
-                progress = progressValue.toInt()
             }
 
+            itemProgressbar.progress  = progressValue.toInt()
 
                 optionCard.setOnClickListener {
                     buttonsLayout.isGone = !buttonsLayout.isGone
@@ -132,7 +135,6 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
                     performUndo()
                     hideCountdown(holder)
                 }
-
         }
     }
 
