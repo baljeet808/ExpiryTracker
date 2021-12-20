@@ -136,7 +136,7 @@
             tools:visibility="visible" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/status_category_chip"
+            android:id="@+id/status_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="80dp"
@@ -159,7 +159,7 @@
             android:textAlignment="center"
             android:textColor="@color/always_white"
             app:chipBackgroundColor="@color/window_top_bar"
-            app:layout_constraintStart_toEndOf="@id/status_category_chip"
+            app:layout_constraintStart_toEndOf="@id/status_chip"
             app:layout_constraintTop_toBottomOf="@id/status_text" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -171,7 +171,7 @@
             tools:visibility="visible"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/status_category_chip">
+            app:layout_constraintTop_toBottomOf="@id/status_chip">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/status_card"
