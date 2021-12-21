@@ -205,6 +205,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor =
                 ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
+            bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
         }
     }
 

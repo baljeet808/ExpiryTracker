@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:animateLayoutChanges="true"
         android:theme="@style/Theme.ExpiryTracker"
         >
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -334,57 +335,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/day_name" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/category_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toStartOf="@id/guideline7111"
-                app:layout_constraintStart_toEndOf="@id/guideline5111"
-                app:layout_constraintTop_toBottomOf="@id/second_top_most_line">
 
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/categories_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    app:cardCornerRadius="10dp"
-                    android:visibility="visible"
-                    tools:visibility="visible"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/text_dialog_color"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/main_background"
-                        android:animateLayoutChanges="true">
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/categories_choice_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
-                            app:singleSelection="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" >
-
-                        </com.google.android.material.chip.ChipGroup>
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline5111"
@@ -400,6 +351,58 @@
                 app:layout_constraintGuide_percent="0.95" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/category_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/guideline71"
+            app:layout_constraintStart_toEndOf="@id/guideline51"
+            app:layout_constraintTop_toBottomOf="@id/day_control_layout">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/categories_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                app:cardCornerRadius="10dp"
+                android:visibility="visible"
+                tools:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/text_dialog_color"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_background"
+                    android:animateLayoutChanges="true">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/categories_choice_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        app:singleSelection="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
+                    </com.google.android.material.chip.ChipGroup>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tracker_recycler_view"
@@ -410,7 +413,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/day_control_layout"
+            app:layout_constraintTop_toBottomOf="@id/category_layout"
             app:layout_constraintVertical_bias="0"
             tools:visibility="visible" />
 
