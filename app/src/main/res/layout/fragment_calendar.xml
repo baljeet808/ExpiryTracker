@@ -7,8 +7,7 @@
     android:id="@+id/calendar_layout"
     android:animateLayoutChanges="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/main_background"
-    tools:context=".fragment.calendar.CalendarFragment">
+    android:background="@color/main_background">
 
     <TextView
         android:id="@+id/month_name"

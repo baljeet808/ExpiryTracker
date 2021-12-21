@@ -8,6 +8,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.databinding.DayItemBinding
+import com.baljeet.expirytracker.interfaces.OnDateSelectedListener
 import com.baljeet.expirytracker.model.DayWithProducts
 
 
@@ -35,7 +36,21 @@ class CalendarAdapter(
         val itemData = daysWithProducts[position]
         itemData.date?.let {
             holder.bind.apply {
-                root.setOnClickListener { dateSelectedListener.openSelectedDate(itemData) }
+                root.setOnClickListener {
+                    dateSelectedListener.openSelectedDate(itemData, position)
+                }
+                if(itemData.isCurrentDate){
+                    currentDayBg.visibility  = View.VISIBLE
+                }else{
+                    currentDayBg.visibility = View.GONE
+                }
+                if(itemData.isSelected){
+                    selectedDayBg.visibility =  View.VISIBLE
+                    dayText.setTextColor(context.getColor(R.color.main_background))
+                }else{
+                    selectedDayBg.visibility = View.GONE
+                    dayText.setTextColor(context.getColor(R.color.text_color))
+                }
                 dayText.text = itemData.date?.dayOfMonth.toString()
                 itemData.products?.let {
                     if (it.isEmpty()) {
@@ -79,7 +94,4 @@ class CalendarAdapter(
         return daysWithProducts.size
     }
 
-    interface OnDateSelectedListener {
-        fun openSelectedDate(dayWithProducts: DayWithProducts)
-    }
 }

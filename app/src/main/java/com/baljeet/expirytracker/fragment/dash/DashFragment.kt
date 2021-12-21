@@ -243,6 +243,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 }
             }
         })
+
         bind.favouriteToggle.apply {
             setOnClickListener {
                 trackerVm.favouriteFilter.value?.let { filter ->

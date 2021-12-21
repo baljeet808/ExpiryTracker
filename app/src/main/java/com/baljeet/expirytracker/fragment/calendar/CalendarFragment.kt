@@ -8,34 +8,78 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
-import com.baljeet.expirytracker.databinding.FragmentCalendarBinding
+import com.baljeet.expirytracker.databinding.FragmentCalendarV1Binding
+import com.baljeet.expirytracker.interfaces.OnDateSelectedListener
+import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.CalendarAdapter
+import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.model.DayWithProducts
+import com.baljeet.expirytracker.util.Constants
 import com.google.android.material.chip.Chip
+import kotlinx.datetime.toJavaLocalDateTime
 
 
-class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
-    private lateinit var bind: FragmentCalendarBinding
+class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListener{
+    private lateinit var bind: FragmentCalendarV1Binding
     private val viewModel: CalendarViewModel by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
-
+    private val daysInMonthArray = ArrayList<DayWithProducts>()
     private val categories = ArrayList<Category>()
+
+    private lateinit var  trackerAdapter : TrackerDiffAdapter
+
+    private lateinit var calendarAdapter : CalendarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bind = FragmentCalendarBinding.inflate(inflater, container, false)
+        bind = FragmentCalendarV1Binding.inflate(inflater, container, false)
+
+        viewModel.favouriteFilter.observe(viewLifecycleOwner, { filter->
+            when(filter){
+                Constants.SHOW_ALL ->{
+                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_half_32))
+                }
+                Constants.SHOW_ONLY_FAVOURITE->{
+                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_round_star_32))
+                }
+                Constants.SHOW_ONLY_NON_FAVOURITE->{
+                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_outline_32))
+                }
+            }
+        })
+
+        bind.favouriteToggle.apply {
+            setOnClickListener {
+                viewModel.favouriteFilter.value?.let { filter ->
+                    when (filter) {
+                        Constants.SHOW_ALL -> {
+                            viewModel.favouriteFilter.postValue(Constants.SHOW_ONLY_FAVOURITE)
+                        }
+                        Constants.SHOW_ONLY_FAVOURITE -> {
+                            viewModel.favouriteFilter.postValue(Constants.SHOW_ONLY_NON_FAVOURITE)
+                        }
+                        else -> {
+                            viewModel.favouriteFilter.postValue(Constants.SHOW_ALL)
+                        }
+                    }
+                }?: kotlin.run {
+                    viewModel.favouriteFilter.postValue(Constants.SHOW_ONLY_FAVOURITE)
+                }
+            }
+        }
+
         return bind.root
     }
 
@@ -44,20 +88,31 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
         bind.apply {
             nextButton.setOnClickListener {
                 viewModel.setNextMonth()
-                monthRecyclerView.adapter =
-                    CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
+                daysInMonthArray.clear()
+                daysInMonthArray.addAll(viewModel.getMonth())
+                calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
+                monthRecyclerView.adapter = calendarAdapter
                 monthName.text = viewModel.monthYearTextFromDate()
             }
             previousButton.setOnClickListener {
                 viewModel.setPreviousMonth()
-                monthRecyclerView.adapter =
-                    CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
+                daysInMonthArray.clear()
+                daysInMonthArray.addAll(viewModel.getMonth())
+                calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
+                monthRecyclerView.adapter =calendarAdapter
                 monthName.text = viewModel.monthYearTextFromDate()
             }
             monthName.text = viewModel.monthYearTextFromDate()
             monthRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
-            monthRecyclerView.adapter =
-                CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
+            daysInMonthArray.clear()
+            daysInMonthArray.addAll(viewModel.getMonth())
+            calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
+            monthRecyclerView.adapter =calendarAdapter
+
+            trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            trackerAdapter = TrackerDiffAdapter(requireContext(),this@CalendarFragment)
+            trackerRecyclerView.adapter = trackerAdapter
+
         }
 
         bind.productCategoryChip.apply {
@@ -78,6 +133,10 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
             }
             text = viewModel.selectedCategory.categoryName
         }
+
+        viewModel.filteredTrackers.observe(viewLifecycleOwner,{ trackers ->
+            trackerAdapter.submitList(trackers)
+        })
 
         getCategoriesChips()
     }
@@ -132,19 +191,28 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnDateSelectedListener {
             bind.productCategoryChip.text = category.categoryName
 
             viewModel.selectedCategory = category
-            bind.monthRecyclerView.adapter =
-                CalendarAdapter(viewModel.getMonth(), requireContext(), this@CalendarFragment)
+            daysInMonthArray.clear()
+            daysInMonthArray.addAll(viewModel.getMonth())
+            calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
+            bind.monthRecyclerView.adapter =calendarAdapter
             bind.categoryLayout.fadeVisibility(View.GONE, 500)
             bind.productCategoryChip.chipBackgroundColor =
                 ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
         }
     }
 
-    override fun openSelectedDate(dayWithProducts: DayWithProducts) {
-        Toast.makeText(
-            requireContext(),
-            "selected date - ${dayWithProducts.date?.dayOfMonth}",
-            Toast.LENGTH_SHORT
-        ).show()
+    override fun openSelectedDate(dayWithProducts: DayWithProducts, selectedDayIndex: Int) {
+        daysInMonthArray[selectedDayIndex].isSelected = true
+        daysInMonthArray[viewModel.selectedDayIndex].isSelected = false
+        calendarAdapter.notifyItemChanged(selectedDayIndex)
+        calendarAdapter.notifyItemChanged(viewModel.selectedDayIndex)
+        viewModel.selectedDayIndex = selectedDayIndex
+        viewModel.selectedDayOfMonth = dayWithProducts.date
+        viewModel.trackersInDay.postValue(dayWithProducts.products)
+        bind.dayName.text = viewModel.dayYearTextFromDate(dayWithProducts.date!!.toJavaLocalDateTime())
+    }
+
+    override fun updateTracker(updatedTracker: Tracker) {
+        TODO("Not yet implemented")
     }
 }
