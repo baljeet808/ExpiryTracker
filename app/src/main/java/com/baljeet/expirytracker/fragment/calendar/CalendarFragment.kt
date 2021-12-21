@@ -151,6 +151,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
 
 
     private fun getCategoriesChips() {
+        viewModel.categoryFilter.value?.let {
+            bind.productCategoryChip.text = it.categoryName
+        }
         categoryVM.readAllCategories?.let {
             it.observe(viewLifecycleOwner, { cats ->
                 if (!cats.isNullOrEmpty()) {
@@ -180,6 +183,10 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                             chip.chipMinHeight = 70f
                             chip.minWidth = 50
                             chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                            chip.isChecked =
+                                viewModel.categoryFilter.value?.let { cat->
+                                    cat.categoryId == category.categoryId
+                                } ?: false
                             addView(chip)
                         }
                     }
@@ -187,15 +194,21 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             })
         }
         bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
-            val category = categories.first { it.categoryId == checkedId }
-            bind.productCategoryChip.text = category.categoryName
+            val category = categories.firstOrNull { c->c.categoryId == checkedId }
+            category?.let {
+                bind.productCategoryChip.text = category.categoryName
+                viewModel.categoryFilter.postValue(category)
+            }?: kotlin.run {
+                bind.productCategoryChip.text = resources.getString(R.string.products)
+                viewModel.categoryFilter.postValue(Category(0, "Products", 0))
+            }
 
-            viewModel.selectedCategory = category
             daysInMonthArray.clear()
             daysInMonthArray.addAll(viewModel.getMonth())
             calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
             bind.monthRecyclerView.adapter =calendarAdapter
-            bind.categoryLayout.fadeVisibility(View.GONE, 500)
+
+            bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor =
                 ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
         }
@@ -213,6 +226,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
     }
 
     override fun updateTracker(updatedTracker: Tracker) {
-        TODO("Not yet implemented")
+        viewModel.updateTracker(updatedTracker)
     }
 }

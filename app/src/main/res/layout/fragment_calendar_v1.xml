@@ -286,34 +286,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
-            <ImageView
-                android:id="@+id/next_day_button"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_round_navigate_next_24"
-                app:tint="@color/text_dialog_color"
-                android:layout_margin="6dp"
-                android:background="@drawable/ripple_bg"
-                app:layout_constraintStart_toEndOf="@id/day_name"
-                app:layout_constraintEnd_toStartOf="@id/guideline711"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/image" />
-
-
-            <ImageView
-                android:id="@+id/previous_day_button"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_round_navigate_previous_24"
-                app:tint="@color/text_dialog_color"
-                android:layout_margin="6dp"
-                android:background="@drawable/ripple_bg"
-                app:layout_constraintEnd_toStartOf="@id/day_name"
-                app:layout_constraintStart_toEndOf="@id/guideline511"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/image" />
 
             <View
                 android:id="@+id/second_top_most_line"

@@ -4,15 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.baljeet.expirytracker.CustomApplication
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.GetStatus
 import com.baljeet.expirytracker.util.SharedPref
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
 import java.time.YearMonth
@@ -31,7 +35,7 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     val trackersInDay = MutableLiveData<ArrayList<TrackerAndProduct>>()
-
+    val categoryFilter = MutableLiveData<Category>()
     var favouriteFilter : MutableLiveData<Int> = MutableLiveData()
 
     var noTrackerIsActive = false
@@ -39,31 +43,40 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
     var filteredTrackers  = MediatorLiveData<List<TrackerAndProduct>>().apply {
         addSource(trackersInDay){ trackers->
             noTrackerIsActive = checkIfNoTrackerIsActive(trackers?:ArrayList())
-            this.postValue(filterTrackers(favouriteFilter.value?:1,trackers))
+            this.postValue(filterTrackers(favouriteFilter.value?:1,trackers,categoryFilter.value?:Category(0,"Products",0)))
+        }
+        addSource(categoryFilter){ category->
+            noTrackerIsActive = checkIfNoTrackerIsActive(trackersInDay.value?:ArrayList())
+            this.postValue(filterTrackers(favouriteFilter.value?:1,trackersInDay.value?:ArrayList(),category))
         }
         addSource(favouriteFilter){ favFilter->
             noTrackerIsActive = checkIfNoTrackerIsActive(trackersInDay.value?:ArrayList())
-            this.postValue(filterTrackers(favFilter,trackersInDay.value?:ArrayList()))
+            this.postValue(filterTrackers(favFilter,trackersInDay.value?:ArrayList(),  categoryFilter.value?:Category(0,"Products",0)))
         }
     }
     private fun checkIfNoTrackerIsActive(trackers : List<TrackerAndProduct>): Boolean{
         return trackers.isNullOrEmpty()
     }
 
-    private fun filterTrackers(favFilter : Int,allTracker : List<TrackerAndProduct>): List<TrackerAndProduct>? {
+    private fun filterTrackers(favFilter : Int,allTracker : List<TrackerAndProduct>, category: Category ): List<TrackerAndProduct>? {
         var afterAllFilters : List<TrackerAndProduct>? = null
         allTracker.let {
+            val afterCategoryFilter = if (category.categoryName == "Products") {
+                it
+            } else {
+                it.filter { c -> c.productAndCategoryAndImage.categoryAndImage.category.categoryId == category.categoryId }
+            }
             afterAllFilters = when (favFilter) {
                 Constants.SHOW_ALL -> {
-                    it
+                    afterCategoryFilter
                 }
                 Constants.SHOW_ONLY_FAVOURITE -> {
-                    it.filter { f -> f.tracker.isFavourite == true }
+                    afterCategoryFilter.filter { f -> f.tracker.isFavourite == true }
                 }
                 Constants.SHOW_ONLY_NON_FAVOURITE -> {
-                    it.filter { f -> f.tracker.isFavourite == false }
+                    afterCategoryFilter.filter { f -> f.tracker.isFavourite == false }
                 }
-                else->it
+                else->afterCategoryFilter
             }
         }
         return afterAllFilters
@@ -142,6 +155,12 @@ class CalendarViewModel(app: Application) : AndroidViewModel(app) {
     fun dayYearTextFromDate(givenDate : java.time.LocalDateTime): String?{
         val formatter = DateTimeFormatter.ofPattern("d MMMM")
         return givenDate.format(formatter)
+    }
+
+    fun updateTracker(tracker: Tracker){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateTracker(tracker)
+        }
     }
 }
 
