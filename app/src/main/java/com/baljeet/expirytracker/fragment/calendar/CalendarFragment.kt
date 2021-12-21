@@ -2,9 +2,6 @@ package com.baljeet.expirytracker.fragment.calendar
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.transition.Fade
-import android.transition.Transition
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +22,7 @@ import com.baljeet.expirytracker.listAdapters.CalendarAdapter
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.Constants
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import kotlinx.datetime.toJavaLocalDateTime
 
@@ -80,6 +78,11 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             }
         }
 
+        bind.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+                    val value = ((-1F)*verticalOffset) / 1000
+                    bind.secondTopMostLine.scaleX = value
+        })
+
         return bind.root
     }
 
@@ -119,12 +122,12 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             setOnClickListener {
                 bind.categoryLayout.apply {
                     if (bind.categoryLayout.isGone) {
-                        bind.categoryLayout.fadeVisibility(View.VISIBLE, 500)
+                        bind.categoryLayout.visibility = View.VISIBLE
                         bind.productCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                     } else {
-                        bind.categoryLayout.fadeVisibility(View.GONE, 500)
+                        bind.categoryLayout.visibility = View.GONE
                         bind.productCategoryChip.chipBackgroundColor =
                             ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
@@ -140,15 +143,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
 
         getCategoriesChips()
     }
-
-    private fun View.fadeVisibility(visibility: Int, duration: Long = 500) {
-        val transition: Transition = Fade()
-        transition.duration = duration
-        transition.addTarget(this)
-        TransitionManager.beginDelayedTransition(this.parent as ViewGroup, transition)
-        this.visibility = visibility
-    }
-
 
     private fun getCategoriesChips() {
         viewModel.categoryFilter.value?.let {

@@ -122,7 +122,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintVertical_bias="0"
                     app:cardBackgroundColor="@color/card_background"
                     >
@@ -249,6 +249,26 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:animateLayoutChanges="true"
+            android:background="@color/main_background"
+            >
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/day_control_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -256,60 +276,9 @@
             android:visibility="visible"
             tools:visibility="visible"
             android:background="@color/main_background"
-            >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/day_controls"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@color/main_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
-            <TextView
-                android:id="@+id/day_name"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/_21_december"
-                android:textColor="@color/text_dialog_color"
-                android:fontFamily="@font/proxima_nova_alt_light"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline711"
-                app:layout_constraintStart_toEndOf="@id/guideline511"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
 
-
-            <View
-                android:id="@+id/second_top_most_line"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/window_top_bar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/day_name" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline511"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline711"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/product_category_chip"
@@ -323,8 +292,26 @@
                 android:textColor="@color/always_white"
                 app:chipBackgroundColor="@color/window_top_bar"
                 app:layout_constraintStart_toEndOf="@id/guideline5111"
-                app:layout_constraintTop_toBottomOf="@id/day_controls" />
+                app:layout_constraintTop_toTopOf="parent" />
 
+
+            <TextView
+                android:id="@+id/day_name"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/_21_december"
+                android:textColor="@color/text_dialog_color"
+                android:fontFamily="@font/proxima_nova_alt_light"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline7111"
+                app:layout_constraintStart_toEndOf="@id/guideline5111"
+                app:layout_constraintTop_toTopOf="@id/product_category_chip"
+                app:layout_constraintBottom_toBottomOf="@id/product_category_chip"
+                tools:visibility="visible" />
 
             <ImageButton
                 android:id="@+id/favourite_toggle"
@@ -337,7 +324,15 @@
                 app:layout_constraintTop_toTopOf="@id/product_category_chip"
                 app:layout_constraintBottom_toBottomOf="@id/product_category_chip"
                 android:contentDescription="@string/image" />
-
+            <View
+                android:id="@+id/second_top_most_line"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/window_top_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/day_name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/category_layout"
@@ -346,9 +341,10 @@
                 android:animateLayoutChanges="true"
                 android:visibility="gone"
                 tools:visibility="visible"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toStartOf="@id/guideline7111"
                 app:layout_constraintStart_toEndOf="@id/guideline5111"
-                app:layout_constraintTop_toBottomOf="@id/product_category_chip">
+                app:layout_constraintTop_toBottomOf="@id/second_top_most_line">
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -404,16 +400,6 @@
                 app:layout_constraintGuide_percent="0.95" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        >
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tracker_recycler_view"
@@ -424,7 +410,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/day_control_layout"
             app:layout_constraintVertical_bias="0"
             tools:visibility="visible" />
 
