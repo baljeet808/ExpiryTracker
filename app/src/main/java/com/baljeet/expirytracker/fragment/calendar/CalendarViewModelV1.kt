@@ -31,7 +31,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
     }
 
     private var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
-    var selectedDateLive = MutableLiveData(LocalDateTime.now())
+    private var selectedDateLive = MutableLiveData(LocalDateTime.now())
     val selectedDayOfMonth = MutableLiveData<kotlinx.datetime.LocalDateTime>()
     var favouriteFilter = MutableLiveData<Int>()
     var categoryFilter = MutableLiveData<Category>()
@@ -121,10 +121,10 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
                     afterCategoryFilter
                 }
                 Constants.SHOW_ONLY_FAVOURITE -> {
-                    afterCategoryFilter.filter { f -> f.tracker.isFavourite == true }
+                    afterCategoryFilter.filter { f -> f.tracker.isFavourite }
                 }
                 Constants.SHOW_ONLY_NON_FAVOURITE -> {
-                    afterCategoryFilter.filter { f -> f.tracker.isFavourite == false }
+                    afterCategoryFilter.filter { f -> !f.tracker.isFavourite }
                 }
                 else->afterCategoryFilter
             }

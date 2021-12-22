@@ -24,7 +24,6 @@ import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.Constants
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
-import kotlinx.datetime.toJavaLocalDateTime
 
 
 class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListener{
@@ -133,9 +132,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                     }
                 }
             }
-            text = viewModel.categoryFilter.value?.let {
-                it.categoryName
-            }?: kotlin.run {
+            text = viewModel.categoryFilter.value?.categoryName ?: kotlin.run {
                 "Products"
             }
         }
