@@ -37,7 +37,7 @@ class CalendarAdapter(
         itemData.date?.let {
             holder.bind.apply {
                 root.setOnClickListener {
-                    dateSelectedListener.openSelectedDate(itemData, position)
+                    dateSelectedListener.openSelectedDate(itemData)
                 }
                 if(itemData.isCurrentDate){
                     currentDayBg.visibility  = View.VISIBLE

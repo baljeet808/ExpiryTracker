@@ -29,9 +29,8 @@ import kotlinx.datetime.toJavaLocalDateTime
 
 class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListener{
     private lateinit var bind: FragmentCalendarV1Binding
-    private val viewModel: CalendarViewModel by viewModels()
+    private val viewModel: CalendarViewModelV1 by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
-    private val daysInMonthArray = ArrayList<DayWithProducts>()
     private val categories = ArrayList<Category>()
 
     private lateinit var  trackerAdapter : TrackerDiffAdapter
@@ -82,6 +81,11 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                     val value = ((-1F)*verticalOffset) / 1000
                     bind.secondTopMostLine.scaleX = value
         })
+        bind.trackerRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            trackerAdapter = TrackerDiffAdapter(requireContext(), this@CalendarFragment)
+            adapter = trackerAdapter
+        }
 
         return bind.root
     }
@@ -89,33 +93,28 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind.apply {
+            monthRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
+
             nextButton.setOnClickListener {
                 viewModel.setNextMonth()
-                daysInMonthArray.clear()
-                daysInMonthArray.addAll(viewModel.getMonth())
-                calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
-                monthRecyclerView.adapter = calendarAdapter
-                monthName.text = viewModel.monthYearTextFromDate()
             }
             previousButton.setOnClickListener {
                 viewModel.setPreviousMonth()
-                daysInMonthArray.clear()
-                daysInMonthArray.addAll(viewModel.getMonth())
-                calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
+            }
+
+            viewModel.trackersForCalendar.observe(viewLifecycleOwner,{
+                calendarAdapter =CalendarAdapter(it, requireContext(), this@CalendarFragment)
                 monthRecyclerView.adapter =calendarAdapter
                 monthName.text = viewModel.monthYearTextFromDate()
-            }
+            })
+
+            viewModel.trackersForRecycler.observe(viewLifecycleOwner,{
+                trackerAdapter.submitList(it)
+                bind.dayName.text = viewModel.dayYearTextFromDate()
+            })
+
             monthName.text = viewModel.monthYearTextFromDate()
-            monthRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
-            daysInMonthArray.clear()
-            daysInMonthArray.addAll(viewModel.getMonth())
-            calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
-            monthRecyclerView.adapter =calendarAdapter
-
-            trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            trackerAdapter = TrackerDiffAdapter(requireContext(),this@CalendarFragment)
-            trackerRecyclerView.adapter = trackerAdapter
-
+            bind.dayName.text = viewModel.dayYearTextFromDate()
         }
 
         bind.productCategoryChip.apply {
@@ -134,12 +133,12 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                     }
                 }
             }
-            text = viewModel.selectedCategory.categoryName
+            text = viewModel.categoryFilter.value?.let {
+                it.categoryName
+            }?: kotlin.run {
+                "Products"
+            }
         }
-
-        viewModel.filteredTrackers.observe(viewLifecycleOwner,{ trackers ->
-            trackerAdapter.submitList(trackers)
-        })
 
         getCategoriesChips()
     }
@@ -197,11 +196,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                 viewModel.categoryFilter.postValue(Category(0, "Products", 0))
             }
 
-            daysInMonthArray.clear()
-            daysInMonthArray.addAll(viewModel.getMonth())
-            calendarAdapter =CalendarAdapter(daysInMonthArray, requireContext(), this@CalendarFragment)
-            bind.monthRecyclerView.adapter =calendarAdapter
-
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor =
                 ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
@@ -209,15 +203,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
         }
     }
 
-    override fun openSelectedDate(dayWithProducts: DayWithProducts, selectedDayIndex: Int) {
-        daysInMonthArray[selectedDayIndex].isSelected = true
-        daysInMonthArray[viewModel.selectedDayIndex].isSelected = false
-        calendarAdapter.notifyItemChanged(selectedDayIndex)
-        calendarAdapter.notifyItemChanged(viewModel.selectedDayIndex)
-        viewModel.selectedDayIndex = selectedDayIndex
-        viewModel.selectedDayOfMonth = dayWithProducts.date
-        viewModel.trackersInDay.postValue(dayWithProducts.products)
-        bind.dayName.text = viewModel.dayYearTextFromDate(dayWithProducts.date!!.toJavaLocalDateTime())
+    override fun openSelectedDate(dayWithProducts: DayWithProducts) {
+        viewModel.selectedDayOfMonth.postValue(dayWithProducts.date)
     }
 
     override fun updateTracker(updatedTracker: Tracker) {

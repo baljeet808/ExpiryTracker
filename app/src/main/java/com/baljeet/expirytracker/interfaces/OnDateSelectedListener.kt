@@ -4,5 +4,5 @@ import com.baljeet.expirytracker.model.DayWithProducts
 import kotlinx.datetime.LocalDateTime
 
 interface OnDateSelectedListener {
-        fun openSelectedDate(dayWithProducts: DayWithProducts, selectedDayIndex : Int)
+        fun openSelectedDate(dayWithProducts: DayWithProducts)
 }

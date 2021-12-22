@@ -301,7 +301,6 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/_21_december"
                 android:textColor="@color/text_dialog_color"
                 android:fontFamily="@font/proxima_nova_alt_light"
                 android:textSize="20sp"
