@@ -20,6 +20,8 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
 
     val getAllTrackers : LiveData<List<TrackerAndProduct>> = trackerDao.getAllTracker()
 
+    val getAllFinishedTrackers: LiveData<List<TrackerAndProduct>> = trackerDao.getAllFinishedTracker()
+
     fun getActiveTrackers():List<TrackerAndProduct>{
         return trackerDao.getActiveTracker()
     }

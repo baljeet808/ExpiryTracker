@@ -82,6 +82,14 @@ class Analytics : Fragment() {
                 }
             }
 
+            viewModel.allActiveTrackers.observe(viewLifecycleOwner,{
+                additionalTrackingInfo.text = requireContext().getString(R.string.additional_info, it?.size?:0, viewModel.allActiveTrackers.value?.size?:0)
+            })
+
+            viewModel.allFinishedTracker.observe(viewLifecycleOwner,{
+                additionalTrackingInfo.text = requireContext().getString(R.string.additional_info, viewModel.allActiveTrackers.value?.size?:0, it?.size?:0)
+            })
+
             favouriteToggle.apply {
                 setOnClickListener {
                     viewModel.favouriteFilter.value?.let { filter ->

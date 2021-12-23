@@ -24,6 +24,10 @@ interface TrackerDao {
     fun getAllTracker() : LiveData<List<TrackerAndProduct>>
 
     @Transaction
+    @Query("SELECT * FROM tracker where (isArchived == ${true} And gotExpired == ${true}) Or isUsed == ${true}")
+    fun getAllFinishedTracker() : LiveData<List<TrackerAndProduct>>
+
+    @Transaction
     @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
     fun getActiveTracker() : List<TrackerAndProduct>
 

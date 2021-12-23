@@ -26,7 +26,9 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
         val trackerDao = AppDatabase.getDatabase(app).trackerDao()
         repository = TrackerRepository(trackerDao)
     }
-    private var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.getAllTrackers
+    var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.getAllTrackers
+    var allFinishedTracker : LiveData<List<TrackerAndProduct>> = repository.getAllFinishedTrackers
+    var allActiveTrackers : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
 
     var endDateLive  : LocalDateTime = getWeekLateDate()
     var startDateLive : LocalDateTime = getWeekFirstDate()

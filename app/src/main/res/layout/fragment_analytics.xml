@@ -490,6 +490,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/montserrat"
+                        android:lineSpacingExtra="5dp"
                         android:text=" Place holder string lets see how it looks\n flooring \n tracked blah blah"
                         android:textColor="@color/text_dialog_color"
                         app:layout_constraintEnd_toStartOf="@id/guideline4"
