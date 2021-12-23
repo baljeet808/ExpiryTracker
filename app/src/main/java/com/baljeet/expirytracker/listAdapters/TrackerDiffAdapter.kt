@@ -184,6 +184,10 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
     private fun performAction(tracker : Tracker, progressValue: Float,holder : MyViewHolder){
             if(isDeleteActionSelected) {
                 tracker.isArchived = true
+                if(progressValue >= 100 ){
+                    tracker.gotExpired = true
+                    tracker.isUsed = true
+                }
                 updateTrackerListener.updateTracker(tracker)
             }else{
                 markTrackerAsUsedBasedOnProgress(progressValue,tracker)

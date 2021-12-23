@@ -21,7 +21,7 @@ interface TrackerDao {
 
     @Transaction
     @Query("SELECT * FROM tracker")
-    fun getAllTracker() : List<TrackerAndProduct>
+    fun getAllTracker() : LiveData<List<TrackerAndProduct>>
 
     @Transaction
     @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")

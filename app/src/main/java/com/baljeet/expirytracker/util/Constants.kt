@@ -5,14 +5,30 @@ import kotlinx.datetime.TimeZone
 
 object Constants {
 
+    //Status
     const val PRODUCT_STATUS_ALL ="All"
     const val PRODUCT_STATUS_FRESH ="Fresh"
     const val PRODUCT_STATUS_EXPIRED ="Expired"
     const val PRODUCT_STATUS_EXPIRING ="Expiring"
+
+    //Timezone
     val TIMEZONE = TimeZone.UTC
 
-
+    //Favourite options
     const val SHOW_ALL = 1
     const val SHOW_ONLY_FAVOURITE = 2
     const val SHOW_ONLY_NON_FAVOURITE = 3
+
+    //Periods types
+    const val PERIOD_DAILY =1
+    const val PERIOD_WEEKLY =2
+    const val PERIOD_MONTHLY =3
+    const val PERIOD_YEARLY =4
+
+    //Charts for
+    const val TOTAL_TRACKED =1
+    const val USED_NEAR_EXPIRY =2
+    const val USED_WHEN_FRESH = 3
+    const val EXPIRED = 4
+
 }

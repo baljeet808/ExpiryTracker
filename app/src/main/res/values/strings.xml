@@ -75,4 +75,14 @@
     <string name="delete">Delete</string>
     <string name="used">Used</string>
     <string name="_21_december">21 December</string>
+    <string name="daily">DAILY</string>
+    <string name="yearly">YEARLY</string>
+    <string name="monthly">MONTHLY</string>
+    <string name="weekly">WEEKLY</string>
+    <string name="used_near_expiry">Used Near Expiry</string>
+    <string name="products_expired">Products Expired</string>
+    <string name="_0">0</string>
+    <string name="used_fresh">Used Fresh</string>
+    <string name="total_tracked">Total Tracked</string>
+    <string name="percentage">%1$s%%</string>
 </resources>
