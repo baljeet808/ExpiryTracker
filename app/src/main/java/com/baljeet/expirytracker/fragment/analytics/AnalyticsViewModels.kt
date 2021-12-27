@@ -1,7 +1,6 @@
 package com.baljeet.expirytracker.fragment.analytics
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -36,12 +35,20 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
 
     private var trackersAfterPeriodFilter = MediatorLiveData<List<TrackerAndProduct>>().apply {
         addSource(periodFilterLive){
-            Log.d("Log for - ","period source called")
-            this.value = filterByTimePeriod(allTrackerLive.value?:ArrayList(),it,startDateLive,endDateLive)
+            this.value = filterByTimePeriod(
+                allTrackerLive.value?:ArrayList(),
+                it,
+                startDateLive,
+                endDateLive
+            )
         }
         addSource(allTrackerLive){
-            Log.d("Log for - ","all tracker source called")
-            this.value = filterByTimePeriod(it?:ArrayList(),periodFilterLive.value?:Constants.PERIOD_WEEKLY,startDateLive,endDateLive)
+            this.value = filterByTimePeriod(
+                it?:ArrayList(),
+                periodFilterLive.value?:Constants.PERIOD_WEEKLY,
+                startDateLive,
+                endDateLive
+            )
         }
     }
 
@@ -50,7 +57,6 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
 
     var trackersAfterAllFilters = MediatorLiveData<List<TrackerAndProduct>>().apply{
         addSource(favouriteFilter){
-        Log.d("Log for - ","moved on to fav all filter source with trackers - ${trackersAfterPeriodFilter.value!!.size}")
             this.value = filterByCategoryAndFavourites(
                 trackersAfterPeriodFilter.value?:ArrayList(),
                 categoryFilter.value?: Category(0,"Products",0),
@@ -58,7 +64,6 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
             )
         }
         addSource(categoryFilter){
-            Log.d("Log for - ","moved on to category all filter source with trackers - ${trackersAfterPeriodFilter.value!!.size}")
             this.value = filterByCategoryAndFavourites(
                 trackersAfterPeriodFilter.value?:ArrayList(),
                 it?: Category(0,"Products",0),
@@ -67,7 +72,6 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
 
         }
         addSource(trackersAfterPeriodFilter){
-            Log.d("Log for - ","moved on to trackers all filter source with trackers - ${trackersAfterPeriodFilter.value!!.size}")
             this.value = filterByCategoryAndFavourites(
                 it?:ArrayList(),
                 categoryFilter.value?: Category(0,"Products",0),
@@ -86,7 +90,6 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     var totalProductsUsedFreshPercentage  = 0.0
 
     fun calculatedAllFields(trackers : List<TrackerAndProduct>){
-        Log.d("Log for - ","calculation is being performed with trackers - ${trackers.size}")
         totalProductsTracked = trackers.filter { t ->
             t.tracker.isUsed
         }.size.toDouble()

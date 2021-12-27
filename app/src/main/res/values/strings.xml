@@ -45,12 +45,15 @@
     <string name="time_sample">2:22 AM</string>
     <string name="date_sample">11 Sept, 2021</string>
     <string name="month_sample">January 2021</string>
-    <string name="month_sample_var">%1$s %2$d</string>
+    <string name="month_var">%1$s %2$d</string>
+    <string name="week_var">%1$d %2$s - %3$d %4$s</string>
+    <string name="date_short_var">%1$d %2$s</string>
     <string name="all">All</string>
     <string name="products">Products</string>
     <string name="hey_there">Hey there 😀</string>
     <string name="fresh">Fresh</string>
-    <string name="expiring">Expiring</string>
+    <string name="expiring">Expiring Soon</string>
+    <string name="good">Still OK</string>
     <string name="expired">Expired</string>
     <string name="no_item_text">No %1$s %2$s found!</string>
     <string name="no_item_text1">No %1$s found!</string>
@@ -62,7 +65,7 @@
     <string name="friday_text">FRI</string>
     <string name="saturday_text">SAT</string>
     <string name="_1">1</string>
-    <string name="become_pro">Become Pro</string>
+    <string name="become_pro">Buy Pro App</string>
     <string name="favourites">Favourites</string>
     <string name="widgets">Widgets</string>
     <string name="night_mode">Night Mode</string>
@@ -85,5 +88,11 @@
     <string name="used_fresh">Used Fresh</string>
     <string name="total_tracked">Total Tracked</string>
     <string name="percentage">%1$s%%</string>
-    <string name="additional_info">Total products tracked so far - %1$d\nAnd Number of actively tracking products - %2$d</string>
+    <string name="additional_info1">Total products tracked so far - %1$d</string>
+    <string name="additional_info2">Total products tracking right now - %1$d</string>
+    <string name="quantity">Quantity</string>
+    <string name="no">No.</string>
+    <string name="freshly_used">Used fresh</string>
+    <string name="good_condition">Used in good condition</string>
+    <string name="result">Result</string>
 </resources>

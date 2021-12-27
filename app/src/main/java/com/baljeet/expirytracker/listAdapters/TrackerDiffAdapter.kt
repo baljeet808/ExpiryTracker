@@ -1,15 +1,12 @@
 package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
-import android.graphics.ColorFilter
 import android.graphics.drawable.LayerDrawable
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +19,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.periodUntil
 import kotlinx.datetime.toInstant
-import java.time.Month
 
 class TrackerDiffAdapter(private val context : Context, private val updateTrackerListener :UpdateTrackerListener) : ListAdapter<TrackerAndProduct,TrackerDiffAdapter.MyViewHolder>(DiffUtil()) {
 
@@ -74,12 +70,8 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
             expiryDate.let {
-                expiryDateText.text = context.resources.getString(
-                    R.string.expiry_date_var,
-                    Month.of(it.monthNumber).name.substring(0, 3),
-                    it.dayOfMonth,
-                    it.year
-                )
+                expiringMonthAndDay.text = context.getString(R.string.date_short_var,it.dayOfMonth,it.month.name.substring(0,3).uppercase())
+                expiringYear.text = it.year.toString()
             }
             val dateToday = Clock.System.now()
 
@@ -98,14 +90,21 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
                 val layerDrawable = progressDrawable as LayerDrawable
                 val progressDrawableClip = layerDrawable.getDrawable(1)
                 when {
+                    progressValue >= 100->{
+                        progressDrawableClip.setTint(context.getColor(R.color.progress_bad))
+                        trackingStatus.text = context.getText(R.string.expired)
+                    }
                     progressValue >= 80 -> {
                         progressDrawableClip.setTint(context.getColor(R.color.progress_bad))
+                        trackingStatus.text = context.getText(R.string.expired)
                     }
                     progressValue < 80 && progressValue >= 50 -> {
                         progressDrawableClip.setTint(context.getColor(R.color.progress_ok))
+                        trackingStatus.text = context.getText(R.string.good)
                     }
                     progressValue < 50 -> {
                         progressDrawableClip.setTint(context.getColor(R.color.progress_great))
+                        trackingStatus.text = context.getText(R.string.fresh)
                     }
                 }
             }
@@ -114,6 +113,8 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
 
                 optionCard.setOnClickListener {
                     buttonsLayout.isGone = !buttonsLayout.isGone
+                    expiringMonthAndDay.isGone = !expiringMonthAndDay.isGone
+                    expiringYear.isGone = !expiringYear.isGone
                 }
 
                 favoriteButton.isChecked = tracker.tracker.isFavourite

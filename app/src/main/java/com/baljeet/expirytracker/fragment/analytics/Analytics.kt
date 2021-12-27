@@ -2,7 +2,6 @@ package com.baljeet.expirytracker.fragment.analytics
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,12 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
+import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.util.Constants
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
@@ -30,6 +31,8 @@ class Analytics : Fragment() {
     private val viewModel : AnalyticsViewModels by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
     private val categories = ArrayList<Category>()
+
+    private lateinit var summaryAdapter : SummaryDiffAdapter
 
     private lateinit var bind : FragmentAnalyticsBinding
 
@@ -60,7 +63,6 @@ class Analytics : Fragment() {
                             viewModel.endDateLive = endDate
                             viewModel.periodFilterLive.postValue(Constants.PERIOD_WEEKLY)
                         }catch (e: Exception){
-                            Log.d("Log for - ","${e.message}")
                         }
                     }
                     monthlyRadioButton.id->{
@@ -83,11 +85,11 @@ class Analytics : Fragment() {
             }
 
             viewModel.allActiveTrackers.observe(viewLifecycleOwner,{
-                additionalTrackingInfo.text = requireContext().getString(R.string.additional_info, it?.size?:0, viewModel.allActiveTrackers.value?.size?:0)
+                additionalTrackingInfo1.text = requireContext().getString(R.string.additional_info1,it?.size?:0)
             })
 
             viewModel.allFinishedTracker.observe(viewLifecycleOwner,{
-                additionalTrackingInfo.text = requireContext().getString(R.string.additional_info, viewModel.allActiveTrackers.value?.size?:0, it?.size?:0)
+                additionalTrackingInfo2.text = requireContext().getString(R.string.additional_info2,  it?.size?:0)
             })
 
             favouriteToggle.apply {
@@ -202,11 +204,43 @@ class Analytics : Fragment() {
                 setGraphValues()
             })
 
+            summaryListView.layoutManager = LinearLayoutManager(requireContext())
+            summaryAdapter = SummaryDiffAdapter(requireContext())
+            summaryListView.adapter = summaryAdapter
+
             viewModel.trackersAfterAllFilters.observe(viewLifecycleOwner,{
-                    Log.d("Log for - ","all filtered trackers observer called with trackers - ${it.size}")
                     viewModel.calculatedAllFields(it)
                     setGraphValues()
+                    summaryAdapter.submitList(it.filter { r -> r.tracker.isUsed })
                 })
+
+            viewModel.periodFilterLive.observe(viewLifecycleOwner,{
+                  when(it){
+                      Constants.PERIOD_DAILY->{
+                          monthName.text = requireContext().getString(R.string.date_short_var,
+                              viewModel.startDateLive.dayOfMonth,
+                              viewModel.startDateLive.month.name.substring(0,3).uppercase()
+                          )
+                      }
+                      Constants.PERIOD_WEEKLY->{
+                          monthName.text = requireContext().getString(R.string.week_var,
+                              viewModel.startDateLive.dayOfMonth,
+                              viewModel.startDateLive.month.name.substring(0,3).uppercase(),
+                              viewModel.endDateLive.dayOfMonth,
+                              viewModel.endDateLive.month.name.substring(0,3).uppercase()
+                          )
+                      }
+                      Constants.PERIOD_MONTHLY->{
+                          monthName.text = requireContext().getString(R.string.month_var,
+                                viewModel.startDateLive.month.name.substring(0,3).uppercase(),
+                                viewModel.startDateLive.year
+                          )
+                      }
+                      Constants.PERIOD_YEARLY ->{
+                          monthName.text = viewModel.startDateLive.year.toString()
+                      }
+                  }
+            })
         }
     }
 
