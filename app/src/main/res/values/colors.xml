@@ -32,6 +32,6 @@
     <color name="text_dialog_color">#343F56</color>
     <color name="theme_peach">#FF5252</color>
     <color name="theme_peach_light">#FC6681</color>
-    <color name="tab_background">#93ABD3</color>
+    <color name="tab_background">#C9BFC9</color>
     <color name="red_orange">#FF5349</color>
 </resources>

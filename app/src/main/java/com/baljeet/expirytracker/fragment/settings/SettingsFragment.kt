@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.baljeet.expirytracker.databinding.FragmentSettingsBinding
 import com.baljeet.expirytracker.util.SharedPref
 
@@ -49,6 +50,11 @@ class SettingsFragment : Fragment() {
             },1000)
         }
 
+        bind.apply {
+            donateTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToDonateFragment())
+            }
+        }
         return bind.root
     }
 

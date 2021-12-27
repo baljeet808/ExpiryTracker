@@ -31,4 +31,11 @@ object Constants {
     const val USED_WHEN_FRESH = 3
     const val EXPIRED = 4
 
+    //Donation amounts
+    const val CANDY = 1.29
+    const val CHOCOLATE = 2.50
+    const val COFFEE = 6.88
+    const val BURGER = 12.07
+    const val MEAL = 29.99
+
 }
