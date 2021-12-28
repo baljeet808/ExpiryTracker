@@ -105,8 +105,8 @@
     <string name="rating_bar_content_description">This is a bar which can be used to rate the app on Google Play store directly.</string>
     <string name="rating_expression_image_description">Image which shows developer emotions when get rated</string>
     <string name="_5_rating_hint">Spread love with your words for us.</string>
-    <string name="_3_rating_hint">How we can improve.</string>
-    <string name="_2_rating_hint">How we can improve.</string>
+    <string name="_3_rating_hint">How can we improve.</string>
+    <string name="_2_rating_hint">How can we improve.</string>
     <string name="_1_rating_hint">Let us know what went wrong.</string>
     <string name="a_candy">A Candy</string>
     <string name="_1_29">$1.29</string>
