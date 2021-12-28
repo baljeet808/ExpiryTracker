@@ -26,6 +26,7 @@
     <style name="circular">
         <item name="cornerSize">50%</item>
     </style>
+
     <style name="rectangular">
         <item name="cornerSize">10%</item>
     </style>
@@ -41,6 +42,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
     <style name="month_name_format" parent="TextAppearance.AppCompat">
 
     </style>
@@ -53,8 +55,10 @@
         <item name="android:headerDayOfMonthTextAppearance">@style/Theme.ExpiryTracker</item>
         <item name="android:headerYearTextAppearance">@style/Theme.ExpiryTracker</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent
+        </item>
     </style>
+
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
     </style>
@@ -67,5 +71,13 @@
         <item name="android:windowEnterAnimation">@anim/fade_in_second</item>
         <item name="android:windowExitAnimation">@anim/fade_out_in_second</item>
     </style>
+
+    <style name="Theme.ExpiryTracker.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <item name="appWidgetRadius">8dp</item>
+        <item name="appWidgetPadding">4dp</item>
+        <item name="appWidgetInnerRadius">4dp</item>
+    </style>
+
+    <style name="Theme.ExpiryTracker.AppWidgetContainer" parent="Theme.ExpiryTracker.AppWidgetContainerParent" />
 
 </resources>

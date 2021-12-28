@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/widget_round_bg"
+    android:elevation="4dp"
+    android:paddingTop="25dp"
+    android:layout_width="130dp"
+    android:layout_height="130dp">
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:src="@drawable/broccoli"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/image" />
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:lines="1"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/text_color"
+        android:letterSpacing="0.05"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/expiry_date"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:textSize="16sp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/text_color"
+        android:letterSpacing="0.05"
+        android:layout_gravity="center_horizontal"
+        />
+
+</LinearLayout>

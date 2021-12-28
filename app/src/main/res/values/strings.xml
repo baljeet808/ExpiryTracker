@@ -118,4 +118,8 @@
     <string name="_12_07">$12.07</string>
     <string name="a_big_dinner">A Big Dinner</string>
     <string name="_29_99">$29.99</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="active_trackers">Active Trackers</string>
 </resources>

@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.ExpiryTracker.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_hollow_bg"
+    android:theme="@style/Theme.ExpiryTracker.AppWidgetContainer">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/active_trackers"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/always_white"
+        android:letterSpacing="0.05"
+        android:textStyle="bold"
+        android:background="@drawable/widget_round_top_bar_bg"
+        android:backgroundTint="@color/black"
+        android:textAlignment="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <StackView
+            android:id="@+id/trackers_stack_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:loopViews="false"
+            android:padding="0dp"
+            />
+    </FrameLayout>
+
+</LinearLayout>
