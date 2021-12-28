@@ -9,16 +9,29 @@
 
     <color name="main_background">#FFFFFFFF</color>
     <color name="window_top_bar">#6272a4</color>
+    <color name="theme_blue">#6272a4</color>
+    <color name="theme_blue_half_transparent">#556272a4</color>
     <color name="status_bar">#FFFFFFFF</color>
     <color name="bottom_icon_checked">#343F56</color>
     <color name="bottom_icon_unchecked">#BBBBBB</color>
     <color name="ripple_color">#6272a4</color>
     <color name="card_background">#EDEEF7</color>
-    <color name="progress_great">#94EBCD</color>
-    <color name="progress_ok">#FFEFA1</color>
-    <color name="progress_bad">#E5485D</color>
+    <color name="progress_great">#346751</color>
+    <color name="progress_ok">#D89216</color>
+    <color name="progress_bad">#DA0037</color>
+
+
+    <color name="soft_red">#f8333c</color>
+    <color name="soft_green">#00a878</color>
+    <color name="soft_yellow">#FFD25A</color>
+
+
     <color name="text_color">#171717</color>
+    <color name="transparent_text_color">#55171717</color>
+    <color name="always_white">#EDEDED</color>
     <color name="text_dialog_color">#343F56</color>
     <color name="theme_peach">#FF5252</color>
     <color name="theme_peach_light">#FC6681</color>
+    <color name="tab_background">#C9BFC9</color>
+    <color name="red_orange">#FF5349</color>
 </resources>

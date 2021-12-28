@@ -3,7 +3,68 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/bg_image_for_pulse_animation.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/bg_round_checkable_button.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/bg_support_btn_unabled.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/bg_support_button.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/chevron_left_24.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/chevron_right_24.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/day_round_filled_background.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/day_round_outline_background.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/fav_button_icon_set.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/hevron_left_24.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/hevron_right_24.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_arrow_left_32.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_arrow_left_48.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_arrow_right_24.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_arrow_right_32.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_arrow_right_48.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_baseline_insert_chart_24.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_fav_outline.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_icon.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_right.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_settings.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_today.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/pb_green_drawable.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/pb_red_drawable.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/pb_yellow_drawable.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/radio_button_bg.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/radio_button_bg_checked.xml" value="0.30632911392405066" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/radio_button_bg_left_sharp_corner.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/radio_button_bg_right_sharp_corner.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/radio_button_bg_unchecked.xml" value="0.30632911392405066" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ripple_bg.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/round_bg_window_color_15.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/round_bg_window_color_15_checked.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/round_bg_window_color_15_checked_right_sharp.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/round_bg_window_color_15_right_sharp.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/round_bg_windows_color_15_checked_left_sharp.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/round_bg_windows_color_15_left_sharp.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/stats_full.xml" value="0.30632911392405066" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/stats_progress.xml" value="0.31025641025641026" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/activity_main.xml" value="0.3004273504273504" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/activity_on_boarding.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/dash_list_item.xml" value="0.30085470085470084" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/dashboard_recycler_item_view.xml" value="0.4" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/day_item.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_add_product.xml" value="0.264" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_analytics.xml" value="0.4" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_calendar.xml" value="0.4" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_calendar_v1.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_dash.xml" value="0.33" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_donate.xml" value="0.4" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_reviews.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_select_from.xml" value="0.30085470085470084" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_settings.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/fragment_splash.xml" value="0.30085470085470084" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/item_option.xml" value="0.30085470085470084" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/summary_view_heading.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout/summary_view_item.xml" value="0.4" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/menu/bottom_menu.xml" value="0.297008547008547" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.31367521367521367" />
         <entry key="..\:/Users/homey/personal/app/src/main/res/layout/fragment_dash.xml" value="0.14743589743589744" />
+        <entry key="..\:/Users/kaurk/Documents/Projects/ExpiryTracker/app/src/main/res/layout/fragment_select_from.xml" value="0.2871376811594203" />
       </map>
     </option>
   </component>

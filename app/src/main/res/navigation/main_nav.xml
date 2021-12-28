@@ -3,33 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/splashFragment">
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.baljeet.expirytracker.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_splashFragment_to_dashFragment2"
-            app:destination="@id/dashFragment"
-            app:enterAnim="@anim/slide_1_in_right"
-            app:exitAnim="@anim/slide_2_out_left"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@id/dashFragment">
     <fragment
         android:id="@+id/dashFragment"
-        android:name="com.baljeet.expirytracker.Dash.DashFragment"
+        android:name="com.baljeet.expirytracker.fragment.dash.DashFragment"
         android:label="fragment_dash"
-        tools:layout="@layout/fragment_dash" />
+        tools:layout="@layout/fragment_dash" >
+        <action
+            android:id="@+id/action_dashFragment_to_addProduct"
+            app:destination="@id/addProduct"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.baljeet.expirytracker.calendar.CalendarFragment"
+        android:name="com.baljeet.expirytracker.fragment.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar_v1" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.baljeet.expirytracker.settings.SettingsFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_donateFragment"
+            app:destination="@id/donateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/analytics"
+        android:name="com.baljeet.expirytracker.fragment.analytics.Analytics"
+        android:label="fragment_analytics"
+        tools:layout="@layout/fragment_analytics" />
+    <fragment
+        android:id="@+id/addProduct"
+        android:name="com.baljeet.expirytracker.fragment.product.AddProduct"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" />
+    <fragment
+        android:id="@+id/donateFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.DonateFragment"
+        android:label="fragment_donate"
+        tools:layout="@layout/fragment_donate" />
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.ReviewsFragment"
+        android:label="fragment_reviews"
+        tools:layout="@layout/fragment_reviews" />
 </navigation>

@@ -28,7 +28,7 @@ class SplashFragment : Fragment() {
         cardLayout = view.findViewById(R.id.card_layout)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_dashFragment2)
+            (activity as OnBoarding).moveToMainActivity()
         },1000)
 
         return view

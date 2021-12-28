@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/main_background"
+    tools:context=".fragment.product.AddProduct">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/main_background"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_right_32"
+            android:rotation="90"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline21"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_color"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:id="@+id/fragment_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_product"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:letterSpacing="0.12"
+            android:textSize="18sp"
+            android:textAppearance="@style/normalRoboto14Regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <View
+            android:id="@+id/top_most_line"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/window_top_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+             />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/category_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:animateLayoutChanges="true"
+                android:background="@color/main_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:letterSpacing="0.12"
+                    android:text="@string/choose_a_category"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/normalRoboto14Regular"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/guideline2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/completed_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/check_circle_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/title_text"
+                    app:layout_constraintStart_toEndOf="@id/title_text"
+                    app:layout_constraintTop_toTopOf="@id/title_text"
+                    app:tint="@color/text_dialog_color"
+                    android:contentDescription="@string/image" />
+
+                <View
+                    android:id="@+id/underline_view"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/window_top_bar"
+                    app:layout_constraintEnd_toEndOf="@id/title_text"
+                    app:layout_constraintStart_toStartOf="@id/title_text"
+                    app:layout_constraintTop_toBottomOf="@id/title_text" />
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/custom_box_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/main_background"
+                    android:hint="@string/product_category"
+                    android:textColorHint="@color/text_dialog_color"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/theme_peach_light"
+                    app:layout_constraintEnd_toStartOf="@id/guideline4"
+                    app:layout_constraintStart_toEndOf="@id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/title_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/custom_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/normalRoboto14Regular"
+                        android:textColor="@color/text_dialog_color"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/selected_category_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/liquor"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/custom_box_layout"
+                    app:layout_constraintEnd_toStartOf="@id/guideline4"
+                    app:layout_constraintTop_toTopOf="@id/custom_box_layout" />
+
+
+                <View
+                    android:id="@+id/category_click_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="@id/custom_box_layout"
+                    app:layout_constraintEnd_toEndOf="@id/custom_box_layout"
+                    app:layout_constraintTop_toTopOf="@id/custom_box_layout"
+                    app:layout_constraintBottom_toBottomOf="@id/custom_box_layout"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/options_recycler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline2"
+                    app:layout_constraintEnd_toStartOf="@id/guideline4"
+                    app:layout_constraintTop_toBottomOf="@id/custom_box_layout"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:animateLayoutChanges="true"
+                android:background="@color/main_background"
+                app:layout_constraintTop_toBottomOf="@id/category_layout">
+
+                <TextView
+                    android:id="@+id/title_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.12"
+                    android:text="@string/_2_product_name"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/normalRoboto14Regular"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/guideline5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/completed2_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/check_circle_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/title_name_text"
+                    app:layout_constraintStart_toEndOf="@id/title_name_text"
+                    app:layout_constraintTop_toTopOf="@id/title_name_text"
+                    app:tint="@color/text_dialog_color"
+                    android:contentDescription="@string/image" />
+
+                <View
+                    android:id="@+id/underline2_view"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/window_top_bar"
+                    app:layout_constraintEnd_toEndOf="@id/title_name_text"
+                    app:layout_constraintStart_toStartOf="@id/title_name_text"
+                    app:layout_constraintTop_toBottomOf="@id/title_name_text" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/custom_name_box_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/main_background"
+                    android:hint="@string/product_name"
+                    android:textColorHint="@color/text_dialog_color"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/theme_peach_light"
+                    app:layout_constraintEnd_toStartOf="@id/guideline6"
+                    app:layout_constraintStart_toEndOf="@id/guideline5"
+                    app:layout_constraintTop_toBottomOf="@id/title_name_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/custom_name_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/normalRoboto14Regular"
+                        android:textColor="@color/text_dialog_color"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/name_options_recycler"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline6"
+                    app:layout_constraintStart_toEndOf="@id/guideline5"
+                    app:layout_constraintTop_toBottomOf="@id/custom_name_box_layout" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/selected_name_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/liquor"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/custom_name_box_layout"
+                    app:layout_constraintEnd_toStartOf="@id/guideline6"
+                    app:layout_constraintTop_toTopOf="@id/custom_name_box_layout" />
+
+                <View
+                    android:id="@+id/name_click_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="@id/custom_name_box_layout"
+                    app:layout_constraintEnd_toEndOf="@id/custom_name_box_layout"
+                    app:layout_constraintTop_toTopOf="@id/custom_name_box_layout"
+                    app:layout_constraintBottom_toBottomOf="@id/custom_name_box_layout"
+                    />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:animateLayoutChanges="true"
+                android:background="@color/main_background"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/name_layout">
+
+                <TextView
+                    android:id="@+id/title_date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.12"
+                    android:text="@string/set_expiry_date"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/normalRoboto14Regular"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/guideline51"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/completed3_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/check_circle_24"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/title_date_text"
+                    app:layout_constraintStart_toEndOf="@id/title_date_text"
+                    app:layout_constraintTop_toTopOf="@id/title_date_text"
+                    app:tint="@color/text_dialog_color"
+                    android:contentDescription="@string/image" />
+
+                <View
+                    android:id="@+id/underline3_view"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/window_top_bar"
+                    app:layout_constraintEnd_toEndOf="@id/title_date_text"
+                    app:layout_constraintStart_toStartOf="@id/title_date_text"
+                    app:layout_constraintTop_toBottomOf="@id/title_date_text" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mfg_date_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/main_background"
+                    android:hint="@string/manufactured_date"
+                    android:textColorHint="@color/text_dialog_color"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/theme_peach_light"
+                    app:layout_constraintEnd_toStartOf="@id/guideline71"
+                    app:layout_constraintStart_toEndOf="@id/guideline51"
+                    app:layout_constraintTop_toBottomOf="@id/title_date_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mfg_date_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:textAppearance="@style/normalRoboto14Regular"
+                        android:textColor="@color/text_dialog_color"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/expiry_date_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/main_background"
+                    android:hint="@string/expiry_date"
+                    android:textColorHint="@color/text_dialog_color"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/theme_peach_light"
+                    app:layout_constraintEnd_toStartOf="@id/guideline61"
+                    app:layout_constraintStart_toEndOf="@id/guideline71"
+                    app:layout_constraintTop_toBottomOf="@id/title_date_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/expiry_date_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:textAppearance="@style/normalRoboto14Regular"
+                        android:textColor="@color/text_dialog_color"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/mfg_click_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="@id/mfg_date_layout"
+                    app:layout_constraintEnd_toEndOf="@id/mfg_date_layout"
+                    app:layout_constraintTop_toTopOf="@id/mfg_date_layout"
+                    app:layout_constraintBottom_toBottomOf="@id/mfg_date_layout"
+                    />
+                <View
+                    android:id="@+id/expiry_click_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintStart_toStartOf="@id/expiry_date_layout"
+                    app:layout_constraintEnd_toEndOf="@id/expiry_date_layout"
+                    app:layout_constraintTop_toTopOf="@id/expiry_date_layout"
+                    app:layout_constraintBottom_toBottomOf="@id/expiry_date_layout"
+                    />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline51"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline71"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/add_product_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                app:layout_constraintStart_toEndOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/date_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:backgroundTint="@color/theme_blue"
+                android:textAllCaps="false"
+                android:letterSpacing="0.12"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/main_background"
+                android:textSize="18sp"
+                android:text="@string/track"
+                android:fontFamily="@font/roboto_medium"/>
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

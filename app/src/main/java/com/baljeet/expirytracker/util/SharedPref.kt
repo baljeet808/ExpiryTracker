@@ -21,10 +21,20 @@ object SharedPref {
             it.putBoolean("isAlertEnabled",value)
         }
 
+    var hasBeenSeeded: Boolean
+        get() = sharedPref.getBoolean("hasBeenSeeded",false)
+        set(value) = sharedPref.edit {
+            it.putBoolean("hasBeenSeeded",value)
+        }
+
     var isNightModeOn: Boolean
         get() = sharedPref.getBoolean("isNightModeOn",false)
 
         set(value)  = sharedPref.edit{
             it.putBoolean("isNightModeOn",value)
         }
+
+    var selectedStatus: String?
+        get() = sharedPref.getString("selectedStatus","All")
+        set(value) = sharedPref.edit { it.putString("selectedStatus",value) }
 }

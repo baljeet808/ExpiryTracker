@@ -9,6 +9,8 @@
 
     <color name="main_background">#171717</color>
     <color name="window_top_bar">#30475E</color>
+    <color name="theme_blue">#6272a4</color>
+    <color name="theme_blue_half_transparent">#556272a4</color>
     <color name="status_bar">#171717</color>
     <color name="bottom_icon_checked">#93ABD3</color>
     <color name="bottom_icon_unchecked">#30475E</color>
@@ -18,7 +20,16 @@
     <color name="progress_ok">#D89216</color>
     <color name="progress_bad">#DA0037</color>
     <color name="text_color">#EDEDED</color>
+
+    <color name="soft_red">#f8333c</color>
+    <color name="soft_green">#00a878</color>
+    <color name="soft_yellow">#FFD25A</color>
+
+    <color name="transparent_text_color">#55EDEDED</color>
+    <color name="always_white">#EDEDED</color>
     <color name="text_dialog_color">#93ABD3</color>
     <color name="theme_peach">#FF5252</color>
     <color name="theme_peach_light">#FC6681</color>
+    <color name="tab_background">#343F56</color>
+    <color name="red_orange">#FF5349</color>
 </resources>
