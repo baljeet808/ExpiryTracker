@@ -34,6 +34,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_left_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/analytics"
@@ -50,4 +57,9 @@
         android:name="com.baljeet.expirytracker.fragment.settings.DonateFragment"
         android:label="fragment_donate"
         tools:layout="@layout/fragment_donate" />
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.ReviewsFragment"
+        android:label="fragment_reviews"
+        tools:layout="@layout/fragment_reviews" />
 </navigation>

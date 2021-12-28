@@ -37,14 +37,14 @@ class SettingsFragment : Fragment() {
 
         bind.nightModeButton.setOnClickListener {
             hideSun()
-            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed({
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 SharedPref.isNightModeOn = true
             },1000)
         }
         bind.lightModeButton.setOnClickListener {
             hideMoon()
-            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed({
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             SharedPref.isNightModeOn = false
             },1000)
@@ -53,6 +53,9 @@ class SettingsFragment : Fragment() {
         bind.apply {
             donateTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToDonateFragment())
+            }
+            feedbackTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToReviewsFragment())
             }
         }
         return bind.root

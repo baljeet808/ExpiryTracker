@@ -23,6 +23,10 @@
         <item name="android:textColor">@color/text_color</item>
     </style>
 
+    <style name="montserrat_text_color" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/montserrat</item>
+    </style>
+
     <style name="circular">
         <item name="cornerSize">50%</item>
     </style>

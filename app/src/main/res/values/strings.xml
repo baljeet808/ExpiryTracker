@@ -96,5 +96,26 @@
     <string name="good_condition">Used in good condition</string>
     <string name="result">Result</string>
     <string name="support_expiry_tracker_team">Support Expiry Tracker Team</string>
+    <string name="review_expiry_tracker_app">Share you feedback</string>
+    <string name="review_message">We would love to hear your thoughts regarding our App. We are working hard to provide a better and easy user experience.</string>
     <string name="grateful_note">Hey there! This is a donation Page. You could treat us with a meal or a candy here. We will be very grateful for your kind support. Anyway we are already grateful to you for choosing this app. Thank you so much.</string>
+    <string name="personalization">Personalization</string>
+    <string name="submit">Submit</string>
+    <string name="your_thoughts">Your thoughts</string>
+    <string name="rating_bar_content_description">This is a bar which can be used to rate the app on Google Play store directly.</string>
+    <string name="rating_expression_image_description">Image which shows developer emotions when get rated</string>
+    <string name="_5_rating_hint">Spread love with your words for us.</string>
+    <string name="_3_rating_hint">How we can improve.</string>
+    <string name="_2_rating_hint">How we can improve.</string>
+    <string name="_1_rating_hint">Let us know what went wrong.</string>
+    <string name="a_candy">A Candy</string>
+    <string name="_1_29">$1.29</string>
+    <string name="_2_50">$2.50</string>
+    <string name="a_chocolate_bar">A Chocolate Bar</string>
+    <string name="a_cup_of_coffee">A Cup Of Coffee</string>
+    <string name="_6_88">$6.88</string>
+    <string name="a_fresh_burger">A Fresh Burger</string>
+    <string name="_12_07">$12.07</string>
+    <string name="a_big_dinner">A Big Dinner</string>
+    <string name="_29_99">$29.99</string>
 </resources>
