@@ -91,4 +91,8 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
         return afterAllFilters
     }
 
+    fun getActiveTrackersLive(): LiveData<List<TrackerAndProduct>>{
+        return repository.getActiveTrackersLive()
+    }
+
 }

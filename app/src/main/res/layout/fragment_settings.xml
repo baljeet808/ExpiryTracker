@@ -156,7 +156,7 @@
                 app:layout_constraintTop_toBottomOf="@id/donate_textview"
                 />
             <TextView
-                android:id="@+id/Widgets_textview"
+                android:id="@+id/widgets_textview"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:fontFamily="@font/proxima_nova_alt_light"
@@ -183,7 +183,7 @@
                 android:background="@color/window_top_bar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/Widgets_textview"
+                app:layout_constraintTop_toBottomOf="@id/widgets_textview"
                 />
 
             <TextView

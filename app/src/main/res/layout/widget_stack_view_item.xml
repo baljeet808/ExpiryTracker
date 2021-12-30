@@ -72,12 +72,25 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:fontFamily="@font/oswald_light"
         android:letterSpacing="0.02"
         android:padding="0dp"
         android:textColor="@color/text_dialog_color"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/expiring_date_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/oswald_light"
+        android:letterSpacing="0.02"
+        android:padding="0dp"
+        android:textColor="@color/text_dialog_color"
+        android:textSize="14sp"
+        android:layout_below="@id/expiring_date"
         />
 
     <ProgressBar

@@ -57,6 +57,9 @@ class SettingsFragment : Fragment() {
             feedbackTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToReviewsFragment())
             }
+            widgetsTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToWidgetMenu())
+            }
         }
         return bind.root
     }

@@ -44,7 +44,7 @@
     <string name="manufactured_date_var">%1$s. %2$d, %3$d</string>
     <string name="track_product">Track Product</string>
     <string name="time_sample">2:22 AM</string>
-    <string name="date_sample">11 Sept, 2021</string>
+    <string name="date_sample">11 DEC, 2021</string>
     <string name="month_sample">January 2021</string>
     <string name="month_var">%1$s %2$d</string>
     <string name="week_var">%1$d %2$s - %3$d %4$s</string>
@@ -124,4 +124,5 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="active_trackers">Active Trackers</string>
     <string name="still_ok">Still OK</string>
+    <string name="widget_adding_instructions">Click Add Button to add widget to your home screen. Widget is handy tools to get quick status of your product tracking.</string>
 </resources>
