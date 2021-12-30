@@ -51,6 +51,8 @@
         android:text="@string/widget_adding_instructions"
         android:textColor="@color/text_color"
         android:textSize="15sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/heading" />
@@ -60,8 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0.2"
-        android:padding="5dp"
-        android:background="@color/soft_yellow"
+        android:background="@color/theme_blue"
         app:layout_constraintBottom_toBottomOf="@id/instructions_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,11 +72,12 @@
         android:id="@+id/preview_of_widget"
         android:layout_width="270dp"
         android:layout_height="270dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/widget_hollow_bg"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/alert_background">
+        app:layout_constraintTop_toBottomOf="@id/alert_background"
+        app:layout_constraintBottom_toTopOf="@id/add_button"
+        >
 
         <TextView
             android:id="@+id/widget_heading"
@@ -109,6 +111,27 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_round_checkable_button"
+        android:elevation="10dp"
+        android:enabled="true"
+        android:fontFamily="@font/montserrat"
+        android:letterSpacing="0.05"
+        android:text="@string/add"
+        android:textColor="@color/main_background"
+        android:textStyle="bold"
+        android:minWidth="100dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/preview_of_widget"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
     <androidx.constraintlayout.widget.Guideline

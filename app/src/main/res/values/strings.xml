@@ -125,4 +125,5 @@
     <string name="active_trackers">Active Trackers</string>
     <string name="still_ok">Still OK</string>
     <string name="widget_adding_instructions">Click Add Button to add widget to your home screen. Widget is handy tools to get quick status of your product tracking.</string>
+    <string name="add">Add to Home Screen</string>
 </resources>
