@@ -96,7 +96,7 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
                     }
                     progressValue >= 80 -> {
                         progressDrawableClip.setTint(context.getColor(R.color.progress_bad))
-                        trackingStatus.text = context.getText(R.string.expired)
+                        trackingStatus.text = context.getText(R.string.still_ok)
                     }
                     progressValue < 80 && progressValue >= 50 -> {
                         progressDrawableClip.setTint(context.getColor(R.color.progress_ok))

@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
 
     <color name="main_background">#171717</color>
+    <color name="main_transparent_background">#99171717</color>
     <color name="window_top_bar">#30475E</color>
     <color name="theme_blue">#6272a4</color>
     <color name="theme_blue_half_transparent">#556272a4</color>

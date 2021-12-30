@@ -18,15 +18,15 @@
         android:background="@drawable/widget_round_top_bar_bg"
         android:backgroundTint="@color/black"
         android:textAlignment="center"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <StackView
+        <ListView
             android:id="@+id/trackers_stack_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

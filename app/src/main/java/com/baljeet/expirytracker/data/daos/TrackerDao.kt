@@ -31,6 +31,12 @@ interface TrackerDao {
     @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
     fun getActiveTracker() : List<TrackerAndProduct>
 
+
+    @Transaction
+    @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
+    fun getActiveTrackerLive() : LiveData<List<TrackerAndProduct>>
+
+
     @Transaction
     @Query("SELECT * FROM tracker where trackerId == :id")
     fun readTrackerById(id: Int) : TrackerAndProduct

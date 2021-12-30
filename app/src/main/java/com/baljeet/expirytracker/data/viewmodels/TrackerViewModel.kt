@@ -2,6 +2,7 @@ package com.baljeet.expirytracker.data.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.baljeet.expirytracker.CustomApplication
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Tracker
@@ -12,7 +13,10 @@ import com.baljeet.expirytracker.util.GetStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class TrackerViewModel(application: Application) : AndroidViewModel(application){
+    val context = getApplication<CustomApplication>()
+
     private val trackerDao = AppDatabase.getDatabase(application).trackerDao()
     private val repository : TrackerRepository =  TrackerRepository(trackerDao)
     private var readAllTracker : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
