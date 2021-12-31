@@ -143,6 +143,8 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
             buttonsLayout.visibility = View.GONE
             undoLayout.visibility = View.GONE
             countDownText.visibility = View.GONE
+            expiringMonthAndDay.isGone = !expiringMonthAndDay.isGone
+            expiringYear.isGone = !expiringYear.isGone
             itemProgressbar.visibility = View.VISIBLE
             openButton.visibility = View.VISIBLE
             favoriteButton.visibility = View.VISIBLE
