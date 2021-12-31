@@ -28,18 +28,12 @@
         android:layout_marginStart="10dp"
         android:ellipsize="end"
         android:gravity="start"
-        android:letterSpacing="0.05"
         android:text="@string/vegetables"
         android:lines="1"
-        android:fontFamily="@font/montserrat"
         android:textAllCaps="false"
         android:layout_toStartOf="@id/expiring_date"
         android:layout_toEndOf="@id/product_image"
-        android:layout_marginTop="5dp"
-        android:textAppearance="@style/normalRoboto14Regular"
-        android:textColor="@color/text_dialog_color"
-        android:textSize="14sp"
-        android:textStyle="normal" />
+        android:layout_marginTop="5dp" />
 
 
     <TextView
@@ -52,15 +46,9 @@
         android:layout_toStartOf="@id/expiring_date"
         android:layout_toEndOf="@id/product_image"
         android:ellipsize="end"
-        android:fontFamily="@font/montserrat"
         android:gravity="start"
-        android:letterSpacing="0.05"
         android:lines="1"
         android:text="@string/still_ok"
-        android:textAllCaps="false"
-        android:textAppearance="@style/normalRoboto14Regular"
-        android:textColor="@color/text_dialog_color"
-        android:textSize="12sp"
         android:textStyle="italic" />
 
 
@@ -73,10 +61,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="0dp"
-        android:fontFamily="@font/oswald_light"
-        android:letterSpacing="0.02"
         android:padding="0dp"
-        android:textColor="@color/text_dialog_color"
         android:textSize="20sp"
         />
     <TextView
@@ -85,10 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/oswald_light"
-        android:letterSpacing="0.02"
         android:padding="0dp"
-        android:textColor="@color/text_dialog_color"
         android:textSize="14sp"
         android:layout_below="@id/expiring_date"
         />

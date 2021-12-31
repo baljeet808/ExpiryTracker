@@ -45,12 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:elevation="2dp"
-        android:fontFamily="@font/montserrat"
-        android:letterSpacing="0.05"
-        android:lineSpacingExtra="5dp"
         android:text="@string/widget_adding_instructions"
-        android:textColor="@color/text_color"
-        android:textSize="15sp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
@@ -112,20 +107,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/add_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/bg_round_checkable_button"
         android:elevation="10dp"
         android:enabled="true"
-        android:fontFamily="@font/montserrat"
-        android:letterSpacing="0.05"
         android:text="@string/add"
-        android:textColor="@color/main_background"
-        android:textStyle="bold"
         android:minWidth="100dp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"

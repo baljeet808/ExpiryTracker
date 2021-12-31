@@ -19,14 +19,12 @@
             android:id="@+id/close_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_right_32"
             android:rotation="90"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline21"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/text_color"
             android:contentDescription="@string/image" />
 
         <TextView
@@ -34,11 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_product"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:letterSpacing="0.12"
-            android:textSize="18sp"
-            android:textAppearance="@style/normalRoboto14Regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,12 +39,11 @@
 
 
 
-        <View
+        <Button
             android:id="@+id/top_most_line"
             android:layout_width="0dp"
             android:layout_height="4dp"
             android:layout_marginTop="4dp"
-            android:background="@color/window_top_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -107,11 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:letterSpacing="0.12"
                     android:text="@string/choose_a_category"
-                    android:textAllCaps="false"
-                    android:textAppearance="@style/normalRoboto14Regular"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -131,12 +119,11 @@
                     app:tint="@color/text_dialog_color"
                     android:contentDescription="@string/image" />
 
-                <View
+                <Button
                     android:id="@+id/underline_view"
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/window_top_bar"
                     app:layout_constraintEnd_toEndOf="@id/title_text"
                     app:layout_constraintStart_toStartOf="@id/title_text"
                     app:layout_constraintTop_toBottomOf="@id/title_text" />
@@ -232,11 +219,7 @@
                     android:id="@+id/title_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.12"
                     android:text="@string/_2_product_name"
-                    android:textAllCaps="false"
-                    android:textAppearance="@style/normalRoboto14Regular"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@id/guideline5"
@@ -256,7 +239,7 @@
                     app:tint="@color/text_dialog_color"
                     android:contentDescription="@string/image" />
 
-                <View
+                <Button
                     android:id="@+id/underline2_view"
                     android:layout_width="0dp"
                     android:layout_height="2dp"
@@ -353,11 +336,7 @@
                     android:id="@+id/title_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.12"
                     android:text="@string/set_expiry_date"
-                    android:textAllCaps="false"
-                    android:textAppearance="@style/normalRoboto14Regular"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@id/guideline51"
@@ -377,12 +356,11 @@
                     app:tint="@color/text_dialog_color"
                     android:contentDescription="@string/image" />
 
-                <View
+                <Button
                     android:id="@+id/underline3_view"
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/window_top_bar"
                     app:layout_constraintEnd_toEndOf="@id/title_date_text"
                     app:layout_constraintStart_toStartOf="@id/title_date_text"
                     app:layout_constraintTop_toBottomOf="@id/title_date_text" />
@@ -491,21 +469,16 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
+                android:enabled="true"
                 app:layout_constraintEnd_toStartOf="@id/guideline3"
                 app:layout_constraintStart_toEndOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@id/date_layout"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:backgroundTint="@color/theme_blue"
-                android:textAllCaps="false"
-                android:letterSpacing="0.12"
                 android:visibility="gone"
                 tools:visibility="visible"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:textColor="@color/main_background"
-                android:textSize="18sp"
-                android:text="@string/track"
-                android:fontFamily="@font/roboto_medium"/>
+                android:text="@string/track"/>
 
 
             <androidx.constraintlayout.widget.Guideline

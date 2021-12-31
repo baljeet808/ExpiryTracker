@@ -5,24 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <Button
         android:id="@+id/selected_day_bg"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
         android:visibility="gone"
-        tools:visibility="gone"
-        android:src="@drawable/day_round_filled_background"
+        tools:visibility="visible"
         app:layout_constraintTop_toTopOf="@id/day_text"
         app:layout_constraintBottom_toBottomOf="@id/day_text"
         app:layout_constraintStart_toStartOf="@id/day_text"
         app:layout_constraintEnd_toEndOf="@id/day_text"
         android:contentDescription="@string/image" />
+
     <ImageView
         android:id="@+id/current_day_bg"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="gone"
-        tools:visibility="gone"
+        tools:visibility="visible"
         android:src="@drawable/day_round_outline_background"
         app:layout_constraintTop_toTopOf="@id/day_text"
         app:layout_constraintBottom_toBottomOf="@id/day_text"
@@ -40,12 +40,13 @@
         android:fontFamily="@font/proxima_nova_scosf_light"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:elevation="5dp"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         />
 
     <ImageView
@@ -53,13 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_multiple_items"
-        app:tint="@color/theme_peach_light"
+        app:tint="@color/text_color"
         android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/day_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="5dp"
         android:contentDescription="@string/image" />
 

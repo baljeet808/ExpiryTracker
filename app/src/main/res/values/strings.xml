@@ -83,8 +83,8 @@
     <string name="yearly">YEARLY</string>
     <string name="monthly">MONTHLY</string>
     <string name="weekly">WEEKLY</string>
-    <string name="used_near_expiry">Used Near Expiry</string>
-    <string name="products_expired">Products Expired</string>
+    <string name="used_near_expiry">Was Good</string>
+    <string name="products_expired">Expired</string>
     <string name="_0">0</string>
     <string name="used_fresh">Used Fresh</string>
     <string name="total_tracked">Total Tracked</string>
@@ -100,6 +100,7 @@
     <string name="review_expiry_tracker_app">Share you feedback</string>
     <string name="review_message">We would love to hear your thoughts regarding our App. We are working hard to provide a better and easy user experience.</string>
     <string name="grateful_note">Hey there! This is a donation Page. You could treat us with a meal or a candy here. We will be very grateful for your kind support. Anyway we are already grateful to you for choosing this app. Thank you so much.</string>
+    <string name="personal_note">Craving for more customizations? We got you covered. Dig in and experiment.</string>
     <string name="personalization">Personalization</string>
     <string name="submit">Submit</string>
     <string name="your_thoughts">Your thoughts</string>
@@ -126,4 +127,7 @@
     <string name="still_ok">Still OK</string>
     <string name="widget_adding_instructions">Click Add Button to add widget to your home screen. Widget is handy tools to get quick status of your product tracking.</string>
     <string name="add">Add to Home Screen</string>
+    <string name="make_it_yours">Make it yours</string>
+    <string name="change_color">Change Theme Color</string>
+    <string name="_3">3</string>
 </resources>

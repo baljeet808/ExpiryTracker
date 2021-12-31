@@ -45,12 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:drawablePadding="25dp"
-        android:fontFamily="@font/montserrat"
-        android:letterSpacing="0.05"
-        android:lineSpacingExtra="5dp"
         android:text="@string/review_message"
-        android:textColor="@color/text_dialog_color"
-        android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/support_heading" />
@@ -109,19 +104,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/submit_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:background="@drawable/bg_round_checkable_button"
         android:elevation="10dp"
         android:enabled="false"
-        android:fontFamily="@font/montserrat"
-        android:letterSpacing="0.05"
         android:text="@string/submit"
-        android:textColor="@color/main_background"
-        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/review_comment_layout" />

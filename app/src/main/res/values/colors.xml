@@ -28,6 +28,7 @@
 
 
     <color name="text_color">#171717</color>
+    <color name="theme_color">#EDEDED</color>
     <color name="transparent_text_color">#55171717</color>
     <color name="always_white">#EDEDED</color>
     <color name="text_dialog_color">#343F56</color>

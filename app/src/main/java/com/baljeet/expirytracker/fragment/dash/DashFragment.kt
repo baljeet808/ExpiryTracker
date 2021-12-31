@@ -354,28 +354,10 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                         categories.clear()
                         categories.addAll(cats)
                         for (category in cats) {
-                            val chip = Chip(
-                                requireContext(),
-                                null,
-                                R.style.Widget_MaterialComponents_Chip_Choice
-                            )
+                            val chip = Chip(requireContext())
                             chip.text = category.categoryName
                             chip.id = category.categoryId
-                            chip.isCheckable = true
-                            chip.isClickable = true
-                            chip.chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                            chip.setTextColor(requireContext().getColor(R.color.always_white))
-                            chip.checkedIcon = AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.check_circle_24
-                            )
                             chip.isCheckedIconVisible = true
-                            chip.checkedIconTint =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.always_white))
-                            chip.chipMinHeight = 70f
-                            chip.minWidth = 50
-                            chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
                             chip.isChecked =
                                 trackerVm.categoryFilter.value?.let { cat->
                                     cat.categoryId == category.categoryId

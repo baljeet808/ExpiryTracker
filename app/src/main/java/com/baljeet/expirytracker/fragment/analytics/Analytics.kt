@@ -282,12 +282,12 @@ class Analytics : Fragment() {
                     okForegroundProgressbar.visibility = View.VISIBLE
 
                     nearExpiryGraphValue.visibility = View.VISIBLE
-                    freshGraphValue.visibility = View.GONE
-                    expiredGraphValue.visibility = View.GONE
+                    freshGraphValue.visibility = View.INVISIBLE
+                    expiredGraphValue.visibility = View.INVISIBLE
 
                     secondAttributeText.visibility = View.VISIBLE
-                    thirdAttributeText.visibility = View.GONE
-                    fourthAttributeText.visibility = View.GONE
+                    thirdAttributeText.visibility = View.INVISIBLE
+                    fourthAttributeText.visibility = View.INVISIBLE
                 }
                 Constants.USED_WHEN_FRESH->{
                     freshForegroundProgressbar.progress = (viewModel.totalProductsUsedFreshPercentage).roundToInt()
@@ -295,13 +295,13 @@ class Analytics : Fragment() {
                     freshForegroundProgressbar.visibility = View.VISIBLE
                     okForegroundProgressbar.visibility = View.GONE
 
-                    nearExpiryGraphValue.visibility = View.GONE
+                    nearExpiryGraphValue.visibility = View.INVISIBLE
                     freshGraphValue.visibility = View.VISIBLE
-                    expiredGraphValue.visibility = View.GONE
+                    expiredGraphValue.visibility = View.INVISIBLE
 
-                    secondAttributeText.visibility = View.GONE
+                    secondAttributeText.visibility = View.INVISIBLE
                     thirdAttributeText.visibility = View.VISIBLE
-                    fourthAttributeText.visibility = View.GONE
+                    fourthAttributeText.visibility = View.INVISIBLE
                 }
                 Constants.EXPIRED->{
                     expiredForegroundProgressbar.progress =  viewModel.totalProductsExpiredPercentage.roundToInt()
@@ -309,12 +309,12 @@ class Analytics : Fragment() {
                     freshForegroundProgressbar.visibility = View.GONE
                     okForegroundProgressbar.visibility = View.GONE
 
-                    nearExpiryGraphValue.visibility = View.GONE
-                    freshGraphValue.visibility = View.GONE
+                    nearExpiryGraphValue.visibility = View.INVISIBLE
+                    freshGraphValue.visibility = View.INVISIBLE
                     expiredGraphValue.visibility = View.VISIBLE
 
-                    secondAttributeText.visibility = View.GONE
-                    thirdAttributeText.visibility = View.GONE
+                    secondAttributeText.visibility = View.INVISIBLE
+                    thirdAttributeText.visibility = View.INVISIBLE
                     fourthAttributeText.visibility = View.VISIBLE
                 }
             }
@@ -332,28 +332,10 @@ class Analytics : Fragment() {
                         categories.clear()
                         categories.addAll(cats)
                         for (category in cats) {
-                            val chip = Chip(
-                                requireContext(),
-                                null,
-                                R.style.Widget_MaterialComponents_Chip_Choice
-                            )
+                            val chip = Chip(requireContext())
                             chip.text = category.categoryName
                             chip.id = category.categoryId
-                            chip.isCheckable = true
-                            chip.isClickable = true
-                            chip.chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
-                            chip.setTextColor(requireContext().getColor(R.color.always_white))
-                            chip.checkedIcon = AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.check_circle_24
-                            )
                             chip.isCheckedIconVisible = true
-                            chip.checkedIconTint =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.always_white))
-                            chip.chipMinHeight = 70f
-                            chip.minWidth = 50
-                            chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
                             chip.isChecked =
                                 viewModel.categoryFilter.value?.let { cat->
                                     cat.categoryId == category.categoryId

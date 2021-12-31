@@ -21,6 +21,7 @@
     <color name="progress_ok">#D89216</color>
     <color name="progress_bad">#DA0037</color>
     <color name="text_color">#EDEDED</color>
+    <color name="theme_color">#171717</color>
 
     <color name="soft_red">#f8333c</color>
     <color name="soft_green">#00a878</color>
