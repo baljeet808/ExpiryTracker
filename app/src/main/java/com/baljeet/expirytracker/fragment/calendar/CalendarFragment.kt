@@ -121,13 +121,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                 bind.categoryLayout.apply {
                     if (bind.categoryLayout.isGone) {
                         bind.categoryLayout.visibility = View.VISIBLE
-                        bind.productCategoryChip.chipBackgroundColor =
-                            ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                     } else {
                         bind.categoryLayout.visibility = View.GONE
-                        bind.productCategoryChip.chipBackgroundColor =
-                            ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
                     }
                 }
@@ -176,8 +172,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             }
 
             bind.categoryLayout.visibility = View.GONE
-            bind.productCategoryChip.chipBackgroundColor =
-                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
             bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
         }
     }

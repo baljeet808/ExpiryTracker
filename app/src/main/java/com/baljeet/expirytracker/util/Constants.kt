@@ -38,4 +38,14 @@ object Constants {
     const val BURGER = 12.07
     const val MEAL = 29.99
 
+    //Theme names
+    const val GREEN  = "GREEN"
+    const val BLUE  = "BLUE"
+    const val PEACH  = "PEACH"
+    const val YELLOW  = "YELLOW"
+    const val BLACK  = "BLACK"
+    const val WHITE  = "WHITE"
+    const val PURPLE  = "PURPLE"
+    const val PINK  = "PINK"
+    const val TEAL  = "TEAL"
 }

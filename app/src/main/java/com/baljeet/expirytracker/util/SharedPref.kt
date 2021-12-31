@@ -37,4 +37,8 @@ object SharedPref {
     var selectedStatus: String?
         get() = sharedPref.getString("selectedStatus","All")
         set(value) = sharedPref.edit { it.putString("selectedStatus",value) }
+
+    var themeName : String
+    get() = sharedPref.getString("themeName",Constants.BLUE)!!
+    set(value) = sharedPref.edit{it.putString("themeName",value)}
 }

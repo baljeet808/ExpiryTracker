@@ -46,12 +46,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        app:cardBackgroundColor="@color/text_dialog_color"
                         app:cardCornerRadius="15dp"
                         app:layout_constraintEnd_toStartOf="@id/guideline4"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:strokeColor="@color/text_dialog_color"
+                        app:strokeColor="@color/text_color"
                         app:strokeWidth="1dp">
 
                         <LinearLayout
@@ -78,7 +77,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/daily"
                                     android:textAlignment="center"
-                                    android:textColor="@color/text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/weekly_radio_button"
@@ -91,7 +90,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/weekly"
                                     android:textAlignment="center"
-                                    android:textColor="@color/text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/monthly_radio_button"
@@ -104,7 +103,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/monthly"
                                     android:textAlignment="center"
-                                    android:textColor="@color/text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/yearly_radio_button"
@@ -117,7 +116,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/yearly"
                                     android:textAlignment="center"
-                                    android:textColor="@color/text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                             </RadioGroup>
                         </LinearLayout>
@@ -162,7 +161,7 @@
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/month_name"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/text_dialog_color" />
+                            app:tint="@color/text_color" />
 
 
                         <ImageView
@@ -178,7 +177,7 @@
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/text_dialog_color" />
+                            app:tint="@color/text_color" />
 
 
                         <androidx.constraintlayout.widget.Guideline
@@ -250,7 +249,6 @@
                             android:visibility="visible"
                             app:cardCornerRadius="10dp"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:strokeColor="@color/text_dialog_color"
                             app:strokeWidth="1dp"
                             tools:visibility="visible">
 
@@ -550,7 +548,6 @@
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/montserrat"
                         android:lineSpacingExtra="5dp"
-                        android:textColor="@color/text_dialog_color"
                         app:layout_constraintEnd_toStartOf="@id/guideline4"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
                         app:layout_constraintTop_toBottomOf="@id/second_row" />

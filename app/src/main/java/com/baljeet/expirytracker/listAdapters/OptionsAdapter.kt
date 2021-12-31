@@ -72,7 +72,7 @@ class OptionsAdapter(
                 holder.bind.optionCard.strokeWidth = 7
                 holder.bind.optionCard.setCardBackgroundColor(
                     context.resources.getColor(
-                        R.color.card_background,
+                        R.color.tab_background,
                         null
                     )
                 )
@@ -126,7 +126,7 @@ class OptionsAdapter(
                 bind.optionSelectedCheck.visibility = View.VISIBLE
                 bind.optionCard.strokeWidth = 7
                 bind.optionTitle.textSize = 13F
-                bind.optionCard.setCardBackgroundColor(con.resources.getColor(R.color.card_background, null))
+                bind.optionCard.setCardBackgroundColor(con.resources.getColor(R.color.tab_background, null))
                 refreshAll(adapterPosition)
             } else {
                 bind.optionSelectedCheck.visibility = View.GONE

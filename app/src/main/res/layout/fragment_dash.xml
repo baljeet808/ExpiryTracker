@@ -173,7 +173,6 @@
                 android:visibility="visible"
                 tools:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/text_dialog_color"
                 app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -253,7 +252,6 @@
                 android:visibility="visible"
                 tools:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/text_dialog_color"
                 app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

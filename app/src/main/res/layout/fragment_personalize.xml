@@ -55,33 +55,170 @@
 
             <TextView
                 android:id="@+id/personalize_message"
-                app:layout_constraintEnd_toStartOf="@id/guideline41"
-                app:layout_constraintStart_toEndOf="@id/guideline21"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
                 android:letterSpacing="0.05"
                 android:lineSpacingExtra="5dp"
                 android:text="@string/personal_note"
-                android:textColor="@color/text_dialog_color"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@id/guideline41"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/color_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/change_color"
-                app:layout_constraintTop_toBottomOf="@id/personalize_message"
                 android:layout_marginTop="20dp"
-                app:layout_constraintStart_toEndOf="@id/guideline21"
                 android:fontFamily="@font/montserrat"
-                android:textSize="16sp"
-
                 android:letterSpacing="0.05"
-                />
+                android:text="@string/change_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toBottomOf="@id/personalize_message" />
 
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintEnd_toEndOf="@id/color_heading"
+                app:layout_constraintStart_toStartOf="@id/color_heading"
+                app:layout_constraintTop_toBottomOf="@id/color_heading" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/blue_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_blue"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/pink_theme_card_btn"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toBottomOf="@id/color_heading"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pink_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_pink"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/black_theme_card_btn"
+                app:layout_constraintStart_toEndOf="@id/blue_theme_card_btn"
+                app:layout_constraintTop_toBottomOf="@id/color_heading"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/black_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_black_light"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:checkedIconTint="@color/always_white"
+                app:layout_constraintEnd_toStartOf="@id/guideline41"
+                app:layout_constraintStart_toEndOf="@id/pink_theme_card_btn"
+                app:layout_constraintTop_toBottomOf="@id/color_heading"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/green_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_green"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/purple_theme_card_btn"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toBottomOf="@id/blue_theme_card_btn"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/purple_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_purple"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/white_theme_card_btn"
+                app:layout_constraintStart_toEndOf="@id/blue_theme_card_btn"
+                app:layout_constraintTop_toBottomOf="@id/blue_theme_card_btn"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/white_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_white"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:checkedIconTint="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/guideline41"
+                app:layout_constraintStart_toEndOf="@id/purple_theme_card_btn"
+                app:layout_constraintTop_toBottomOf="@id/blue_theme_card_btn"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/peach_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_peach"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/purple_theme_card_btn"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toBottomOf="@id/green_theme_card_btn"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/yellow_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/theme_yellow"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/teal_theme_card_btn"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/peach_theme_card_btn"
+                app:layout_constraintTop_toBottomOf="@id/green_theme_card_btn"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/teal_theme_card_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:checkable="true"
+                app:cardBackgroundColor="@color/teal_200"
+                app:cardCornerRadius="10dp"
+                app:checkedIcon="@drawable/check_circle_24"
+                app:layout_constraintEnd_toStartOf="@id/guideline41"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@id/yellow_theme_card_btn"
+                app:layout_constraintTop_toBottomOf="@id/green_theme_card_btn"
+                app:strokeWidth="1dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline21"

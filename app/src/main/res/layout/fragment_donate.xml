@@ -75,8 +75,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/candy_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/card_background">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/candy_image"
@@ -144,7 +143,6 @@
             android:id="@+id/chocolate_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/card_background"
             >
             <ImageView
                 android:id="@+id/chocolate_image"
@@ -213,7 +211,6 @@
             android:id="@+id/coffee_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/card_background"
             >
             <ImageView
                 android:id="@+id/coffee_image"
@@ -283,8 +280,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/burger_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/card_background">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/burger_image"
@@ -353,7 +349,6 @@
             android:id="@+id/meal_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/card_background"
             >
             <ImageView
                 android:id="@+id/meal_image"

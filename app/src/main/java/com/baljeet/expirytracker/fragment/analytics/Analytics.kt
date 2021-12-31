@@ -129,13 +129,9 @@ class Analytics : Fragment() {
                     categoryLayout.apply {
                         if (categoryLayout.isGone) {
                             categoryLayout.visibility = View.VISIBLE
-                            productCategoryChip.chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.text_dialog_color))
                             productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                         } else {
                             categoryLayout.visibility = View.GONE
-                            productCategoryChip.chipBackgroundColor =
-                                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
                             productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
                         }
                     }
@@ -361,8 +357,6 @@ class Analytics : Fragment() {
             }
 
             bind.categoryLayout.visibility = View.GONE
-            bind.productCategoryChip.chipBackgroundColor =
-                ColorStateList.valueOf(requireContext().getColor(R.color.window_top_bar))
             bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
         }
     }

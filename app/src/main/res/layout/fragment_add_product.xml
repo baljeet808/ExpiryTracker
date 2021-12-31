@@ -116,7 +116,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/title_text"
                     app:layout_constraintStart_toEndOf="@id/title_text"
                     app:layout_constraintTop_toTopOf="@id/title_text"
-                    app:tint="@color/text_dialog_color"
+                    app:tint="@color/text_color"
                     android:contentDescription="@string/image" />
 
                 <Button
@@ -138,7 +138,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@color/main_background"
                     android:hint="@string/product_category"
-                    android:textColorHint="@color/text_dialog_color"
+                    android:textColorHint="@color/text_color"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/theme_peach_light"
                     app:layout_constraintEnd_toStartOf="@id/guideline4"
@@ -150,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/normalRoboto14Regular"
-                        android:textColor="@color/text_dialog_color"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -236,7 +236,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/title_name_text"
                     app:layout_constraintStart_toEndOf="@id/title_name_text"
                     app:layout_constraintTop_toTopOf="@id/title_name_text"
-                    app:tint="@color/text_dialog_color"
+                    app:tint="@color/text_color"
                     android:contentDescription="@string/image" />
 
                 <Button
@@ -244,7 +244,6 @@
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/window_top_bar"
                     app:layout_constraintEnd_toEndOf="@id/title_name_text"
                     app:layout_constraintStart_toStartOf="@id/title_name_text"
                     app:layout_constraintTop_toBottomOf="@id/title_name_text" />
@@ -257,7 +256,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@color/main_background"
                     android:hint="@string/product_name"
-                    android:textColorHint="@color/text_dialog_color"
+                    android:textColorHint="@color/text_color"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/theme_peach_light"
                     app:layout_constraintEnd_toStartOf="@id/guideline6"
@@ -269,7 +268,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/normalRoboto14Regular"
-                        android:textColor="@color/text_dialog_color"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -353,7 +352,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/title_date_text"
                     app:layout_constraintStart_toEndOf="@id/title_date_text"
                     app:layout_constraintTop_toTopOf="@id/title_date_text"
-                    app:tint="@color/text_dialog_color"
+                    app:tint="@color/text_color"
                     android:contentDescription="@string/image" />
 
                 <Button
@@ -375,7 +374,7 @@
                     android:layout_marginEnd="5dp"
                     android:background="@color/main_background"
                     android:hint="@string/manufactured_date"
-                    android:textColorHint="@color/text_dialog_color"
+                    android:textColorHint="@color/text_color"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/theme_peach_light"
                     app:layout_constraintEnd_toStartOf="@id/guideline71"
@@ -388,7 +387,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:textAppearance="@style/normalRoboto14Regular"
-                        android:textColor="@color/text_dialog_color"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -402,7 +401,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@color/main_background"
                     android:hint="@string/expiry_date"
-                    android:textColorHint="@color/text_dialog_color"
+                    android:textColorHint="@color/text_color"
                     app:endIconMode="clear_text"
                     app:endIconTint="@color/theme_peach_light"
                     app:layout_constraintEnd_toStartOf="@id/guideline61"
@@ -415,7 +414,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="date"
                         android:textAppearance="@style/normalRoboto14Regular"
-                        android:textColor="@color/text_dialog_color"
+                        android:textColor="@color/text_color"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -60,6 +60,9 @@ class SettingsFragment : Fragment() {
             widgetsTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToWidgetMenu())
             }
+            personalizationTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToPersonalize())
+            }
         }
         return bind.root
     }

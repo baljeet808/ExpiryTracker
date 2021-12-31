@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="@id/option_card"
         app:layout_goneMarginEnd="44dp"
         app:layout_goneMarginStart="44dp"
-        app:strokeColor="@color/text_dialog_color"
+        app:strokeColor="@color/text_color"
         app:strokeWidth="1dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,7 +115,7 @@
         app:layout_constraintEnd_toStartOf="@id/buttons_layout"
         app:layout_constraintStart_toStartOf="@id/action_card_background"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/text_dialog_color"
+        app:strokeColor="@color/text_color"
         app:strokeWidth="1dp"
         tools:visibility="visible">
 
@@ -125,7 +125,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:animateLayoutChanges="true"
-            android:background="@color/card_background"
             android:padding="4dp">
 
             <ImageView
@@ -227,7 +226,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:button="@drawable/fav_button_icon_set"
-        android:buttonTint="@color/text_dialog_color"
+        android:buttonTint="@color/text_color"
         android:elevation="8dp"
         android:padding="2dp"
         android:visibility="visible"
@@ -248,7 +247,7 @@
         app:layout_constraintBottom_toBottomOf="@id/action_card_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/action_card_background"
-        app:tint="@color/text_dialog_color"
+        app:tint="@color/text_color"
         tools:visibility="visible" />
 
     <ProgressBar
@@ -284,7 +283,7 @@
         app:layout_constraintStart_toStartOf="@id/option_card"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/circular"
-        app:strokeColor="@color/text_dialog_color"
+        app:strokeColor="@color/text_color"
         app:strokeWidth="1dp" />
 
 

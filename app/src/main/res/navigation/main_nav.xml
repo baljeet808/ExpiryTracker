@@ -48,6 +48,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_left_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_personalize"
+            app:destination="@id/personalize"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/analytics"
@@ -74,4 +81,9 @@
         android:name="com.baljeet.expirytracker.fragment.settings.WidgetMenu"
         android:label="fragment_widget_menu"
         tools:layout="@layout/fragment_widget_menu" />
+    <fragment
+        android:id="@+id/personalize"
+        android:name="com.baljeet.expirytracker.fragment.settings.personalization.Personalize"
+        android:label="fragment_personalize"
+        tools:layout="@layout/fragment_personalize" />
 </navigation>

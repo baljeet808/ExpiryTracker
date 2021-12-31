@@ -63,11 +63,11 @@ class DonateFragment : Fragment() {
 
     private fun resetAllButtons(){
         bind.apply {
-            candyLayout.setBackgroundColor(requireContext().getColor(R.color.card_background))
-            chocolateLayout.setBackgroundColor(requireContext().getColor(R.color.card_background))
-            coffeeLayout.setBackgroundColor(requireContext().getColor(R.color.card_background))
-            burgerLayout.setBackgroundColor(requireContext().getColor(R.color.card_background))
-            mealLayout.setBackgroundColor(requireContext().getColor(R.color.card_background))
+            candyLayout.setBackgroundColor(requireContext().getColor(R.color.tab_background))
+            chocolateLayout.setBackgroundColor(requireContext().getColor(R.color.tab_background))
+            coffeeLayout.setBackgroundColor(requireContext().getColor(R.color.tab_background))
+            burgerLayout.setBackgroundColor(requireContext().getColor(R.color.tab_background))
+            mealLayout.setBackgroundColor(requireContext().getColor(R.color.tab_background))
 
             candyCheck.visibility = View.INVISIBLE
             chocolateCheck.visibility = View.INVISIBLE

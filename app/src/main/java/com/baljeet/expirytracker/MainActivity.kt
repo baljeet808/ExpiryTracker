@@ -11,6 +11,7 @@ import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
+import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -26,6 +27,34 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         SharedPref.init(this)
+
+        when(SharedPref.themeName){
+            Constants.BLUE->{
+                setTheme(R.style.Theme_ExpiryTracker)
+            }
+            Constants.BLACK->{
+                setTheme(R.style.BlackTheme)
+            }
+            Constants.GREEN->{
+                setTheme(R.style.GreenTheme)
+            }
+            Constants.PEACH->{
+                setTheme(R.style.PeachTheme)
+            }
+            Constants.PURPLE->{
+                setTheme(R.style.PurpleTheme)
+            }
+            Constants.WHITE->{
+                setTheme(R.style.WhiteTheme)
+            }
+            Constants.YELLOW->{
+                setTheme(R.style.YellowTheme)
+            }
+            Constants.PINK->{
+                setTheme(R.style.PinkTheme)
+            }
+        }
+
         if(SharedPref.isNightModeOn){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }else{
