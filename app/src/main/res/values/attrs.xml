@@ -10,4 +10,7 @@
     <attr name="myColorSecondary" format="color"/>
     <attr name="myColorSecondaryVariant" format="color"/>
     <attr name="myColorOnSecondary" format="color"/>
+    <attr name="card_background" format="color"/>
+    <attr name="text_dialog_color" format="color"/>
+    <attr name="window_top_bar" format="color"/>
 </resources>

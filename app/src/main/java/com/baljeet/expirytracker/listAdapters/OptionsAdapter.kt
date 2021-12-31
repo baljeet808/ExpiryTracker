@@ -11,6 +11,7 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
+import com.baljeet.expirytracker.util.MyColors
 
 class OptionsAdapter(
     private val categoryList: ArrayList<CategoryAndImage>?,
@@ -70,12 +71,7 @@ class OptionsAdapter(
             if (it == position) {
                 holder.bind.optionSelectedCheck.visibility = View.VISIBLE
                 holder.bind.optionCard.strokeWidth = 7
-                holder.bind.optionCard.setCardBackgroundColor(
-                    context.resources.getColor(
-                        R.color.tab_background,
-                        null
-                    )
-                )
+                holder.bind.optionCard.setCardBackgroundColor(MyColors.getColorByAttr(context,R.attr.card_background,R.color.tab_background))
                 holder.bind.optionTitle.textSize = 13F
             }
         }
@@ -126,7 +122,7 @@ class OptionsAdapter(
                 bind.optionSelectedCheck.visibility = View.VISIBLE
                 bind.optionCard.strokeWidth = 7
                 bind.optionTitle.textSize = 13F
-                bind.optionCard.setCardBackgroundColor(con.resources.getColor(R.color.tab_background, null))
+                bind.optionCard.setCardBackgroundColor(MyColors.getColorByAttr(context,R.attr.card_background,R.color.tab_background))
                 refreshAll(adapterPosition)
             } else {
                 bind.optionSelectedCheck.visibility = View.GONE

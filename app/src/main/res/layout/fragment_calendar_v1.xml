@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:animateLayoutChanges="true"
-        android:theme="@style/Theme.ExpiryTracker"
         >
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsable_calendar_layout"
@@ -57,7 +56,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:src="@drawable/ic_round_navigate_next_24"
-                        app:tint="@color/text_color"
+                        app:tint="?text_dialog_color"
                         android:layout_margin="6dp"
                         android:background="@drawable/ripple_bg"
                         app:layout_constraintStart_toEndOf="@id/month_name"
@@ -72,7 +71,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:src="@drawable/ic_round_navigate_previous_24"
-                        app:tint="@color/text_color"
+                        app:tint="?text_dialog_color"
                         android:layout_margin="6dp"
                         android:background="@drawable/ripple_bg"
                         app:layout_constraintEnd_toStartOf="@id/month_name"
@@ -276,6 +275,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_star_half_32"
                 android:background="@android:color/transparent"
+                app:tint="?text_dialog_color"
                 app:layout_constraintEnd_toStartOf="@id/guideline7111"
                 app:layout_constraintTop_toTopOf="@id/product_category_chip"
                 app:layout_constraintBottom_toBottomOf="@id/product_category_chip"
@@ -327,6 +327,7 @@
                 android:visibility="visible"
                 tools:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="?text_dialog_color"
                 app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

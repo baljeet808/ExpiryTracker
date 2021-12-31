@@ -22,6 +22,7 @@ import com.baljeet.expirytracker.listAdapters.CalendarAdapter
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.Constants
+import com.baljeet.expirytracker.util.MyColors
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 
@@ -121,9 +122,12 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                 bind.categoryLayout.apply {
                     if (bind.categoryLayout.isGone) {
                         bind.categoryLayout.visibility = View.VISIBLE
+                        bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(
+                            MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                     } else {
                         bind.categoryLayout.visibility = View.GONE
+                        bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
                     }
                 }
@@ -172,6 +176,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             }
 
             bind.categoryLayout.visibility = View.GONE
+            bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
             bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
         }
     }

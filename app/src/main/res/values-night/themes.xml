@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ExpiryTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ExpiryTracker" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_blue</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -10,7 +10,7 @@
         <item name="colorSecondary">@color/theme_blue</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
         <!-- Customize your theme here. -->
@@ -21,6 +21,9 @@
         <item name="imageButtonStyle">@style/myImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myTextStyle</item>
         <item name="materialCardViewStyle">@style/myCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_blue</item>
+        <item name="card_background">@color/card_background_blue</item>
+        <item name="window_top_bar">@color/window_top_bar_blue</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -39,11 +42,10 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-
     <style name="myImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
-           <item name="tint">@color/text_dialog_color_blue</item>
-            <item name="android:padding">6dp</item>
-            <item name="android:background">@android:color/transparent</item>
+        <item name="tint">@color/text_dialog_color_blue</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="mySolidButton" parent="Widget.MaterialComponents.Button">
@@ -82,9 +84,10 @@
         <item name="android:letterSpacing">0.05</item>
     </style>
 
+
     <!-- peach theme -->
 
-    <style name="PeachTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="PeachTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_peach</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -106,6 +109,9 @@
         <item name="imageButtonStyle">@style/myPeachImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myPeachTextStyle</item>
         <item name="materialCardViewStyle">@style/myPeachCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_peach</item>
+        <item name="card_background">@color/card_background_peach</item>
+        <item name="window_top_bar">@color/window_top_bar_peach</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -169,7 +175,7 @@
 
     <!-- yellow theme -->
 
-    <style name="YellowTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="YellowTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_peach</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -191,7 +197,9 @@
         <item name="imageButtonStyle">@style/myYellowImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myYellowTextStyle</item>
         <item name="materialCardViewStyle">@style/myYellowCardViewStyle</item>
-        <!-- Customize your theme here. -->
+        <item name="text_dialog_color">@color/text_dialog_color_yellow</item>
+        <item name="card_background">@color/card_background_yellow</item>
+        <item name="window_top_bar">@color/window_top_bar_yellow</item>green       <!-- Customize your theme here. -->
     </style>
 
 
@@ -254,7 +262,7 @@
 
     <!-- green theme -->
 
-    <style name="GreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="GreenTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_green</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -276,6 +284,9 @@
         <item name="imageButtonStyle">@style/myGreenImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myGreenTextStyle</item>
         <item name="materialCardViewStyle">@style/myGreenCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_green</item>
+        <item name="card_background">@color/card_background_green</item>
+        <item name="window_top_bar">@color/window_top_bar_green</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -339,7 +350,7 @@
 
     <!-- purple theme -->
 
-    <style name="PurpleTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="PurpleTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_purple</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -361,6 +372,9 @@
         <item name="imageButtonStyle">@style/myPurpleImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myPurpleTextStyle</item>
         <item name="materialCardViewStyle">@style/myPurpleCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_purple</item>
+        <item name="card_background">@color/card_background_purple</item>
+        <item name="window_top_bar">@color/window_top_bar_purple</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -424,7 +438,7 @@
 
     <!-- pink theme -->
 
-    <style name="PinkTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="PinkTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_pink</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -446,6 +460,9 @@
         <item name="imageButtonStyle">@style/myPinkImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myPinkTextStyle</item>
         <item name="materialCardViewStyle">@style/myPinkCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_pink</item>
+        <item name="card_background">@color/card_background_pink</item>
+        <item name="window_top_bar">@color/window_top_bar_pink</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -509,7 +526,7 @@
 
     <!-- Black theme -->
 
-    <style name="BlackTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="BlackTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_black</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -531,6 +548,9 @@
         <item name="imageButtonStyle">@style/myBlackImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myBlackTextStyle</item>
         <item name="materialCardViewStyle">@style/myBlackCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_black</item>
+        <item name="card_background">@color/card_background_black</item>
+        <item name="window_top_bar">@color/window_top_bar_black</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -594,7 +614,7 @@
 
     <!-- White theme -->
 
-    <style name="WhiteTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="WhiteTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/theme_white</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -616,6 +636,9 @@
         <item name="imageButtonStyle">@style/myWhiteImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myWhiteTextStyle</item>
         <item name="materialCardViewStyle">@style/myWhiteCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_white</item>
+        <item name="card_background">@color/card_background_white</item>
+        <item name="window_top_bar">@color/window_top_bar_white</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -679,25 +702,19 @@
 
 
 
-    <style name="themeOverlayPeach" parent="Theme.AppCompat">
-        <item name="colorPrimary">@color/text_color</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/main_background</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+
+    <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">?attr/myPrimaryColor</item>
+        <item name="colorPrimaryVariant">?attr/myPrimaryColorVariant</item>
+        <item name="colorOnPrimary">?attr/myColorOnPrimary</item>
+        <item name="colorSecondary">?attr/myColorSecondary</item>
+        <item name="colorSecondaryVariant">?attr/myColorSecondaryVariant</item>
+        <item name="colorOnSecondary">?attr/myColorOnSecondary</item>
+        <item name="window_top_bar">?attr/window_top_bar</item>
+        <item name="card_background">?attr/card_background</item>
+        <item name="text_dialog_color">?attr/text_dialog_color</item>
     </style>
 
-    <style name="normalRoboto14Regular" parent="Theme.AppCompat">
-        <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/text_color</item>
-    </style>
 
     <style name="montserrat_text_color" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/montserrat</item>

@@ -130,12 +130,15 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 if (bind.statusLayout.isGone) {
                     bind.statusLayout.visibility = View.VISIBLE
                     bind.categoryLayout.visibility = View.GONE
+                    chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
 
                     setTextColor(requireContext().getColor(R.color.main_background))
 
+                    bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                     bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
 
                 } else {
+                    chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                     setTextColor(requireContext().getColor(R.color.always_white))
                     bind.statusLayout.visibility = View.GONE
                 }
@@ -147,11 +150,14 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                     if (bind.categoryLayout.isGone) {
                         bind.statusLayout.visibility = View.GONE
                         bind.categoryLayout.visibility = View.VISIBLE
+                        chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
 
                         setTextColor(requireContext().getColor(R.color.main_background))
 
+                        bind.statusChip. chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                         bind.statusChip.setTextColor(requireContext().getColor(R.color.always_white))
                     } else {
+                        chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                         setTextColor(requireContext().getColor(R.color.always_white))
                         bind.categoryLayout.visibility = View.GONE
                     }
@@ -182,6 +188,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                     }
                 }
                 bind.statusLayout.visibility = View.GONE
+                chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                 setTextColor(requireContext().getColor(R.color.always_white))
             }
 
@@ -364,6 +371,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 trackerVm.categoryFilter.postValue(Category(0, "Products", 0))
             }
             bind.categoryLayout.visibility = View.GONE
+            bind.productCategoryChip. chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
             bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
         }
     }

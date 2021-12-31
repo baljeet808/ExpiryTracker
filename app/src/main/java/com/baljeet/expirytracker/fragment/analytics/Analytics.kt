@@ -16,6 +16,7 @@ import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.util.Constants
+import com.baljeet.expirytracker.util.MyColors
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
 import java.time.DayOfWeek
@@ -129,9 +130,11 @@ class Analytics : Fragment() {
                     categoryLayout.apply {
                         if (categoryLayout.isGone) {
                             categoryLayout.visibility = View.VISIBLE
+                            productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
                             productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                         } else {
                             categoryLayout.visibility = View.GONE
+                            productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
                             productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
                         }
                     }
@@ -357,6 +360,7 @@ class Analytics : Fragment() {
             }
 
             bind.categoryLayout.visibility = View.GONE
+            bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
             bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
         }
     }
