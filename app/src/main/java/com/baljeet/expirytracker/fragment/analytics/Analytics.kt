@@ -111,33 +111,16 @@ class Analytics : Fragment() {
                     }
                 }
             }
-
             usedNearExpiryCard.setOnClickListener {
-                usedNearExpiryCard.setCardBackgroundColor(requireContext().getColor(R.color.window_top_bar))
-                expiredNumCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                usedFreshCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                totalTrackedCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
                 viewModel.showingGraphFor.postValue(Constants.USED_NEAR_EXPIRY)
             }
             expiredNumCard.setOnClickListener {
-                usedNearExpiryCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                expiredNumCard.setCardBackgroundColor(requireContext().getColor(R.color.window_top_bar))
-                usedFreshCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                totalTrackedCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
                 viewModel.showingGraphFor.postValue(Constants.EXPIRED)
             }
             usedFreshCard.setOnClickListener {
-                usedNearExpiryCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                expiredNumCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                usedFreshCard.setCardBackgroundColor(requireContext().getColor(R.color.window_top_bar))
-                totalTrackedCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
                 viewModel.showingGraphFor.postValue(Constants.USED_WHEN_FRESH)
             }
             totalTrackedCard.setOnClickListener {
-                usedNearExpiryCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                expiredNumCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                usedFreshCard.setCardBackgroundColor(requireContext().getColor(R.color.card_background))
-                totalTrackedCard.setCardBackgroundColor(requireContext().getColor(R.color.window_top_bar))
                 viewModel.showingGraphFor.postValue(Constants.TOTAL_TRACKED)
             }
 
@@ -274,6 +257,12 @@ class Analytics : Fragment() {
                     secondAttributeText.visibility = View.VISIBLE
                     thirdAttributeText.visibility = View.VISIBLE
                     fourthAttributeText.visibility = View.VISIBLE
+
+                    usedNearExpiryCard.isChecked= false
+                    expiredNumCard.isChecked= false
+                    usedFreshCard.isChecked= false
+                    totalTrackedCard.isChecked= true
+
                 }
                 Constants.USED_NEAR_EXPIRY->{
                     okForegroundProgressbar.progress = viewModel.totalProductsUsedNearExpiryPercentage.roundToInt()
@@ -288,6 +277,11 @@ class Analytics : Fragment() {
                     secondAttributeText.visibility = View.VISIBLE
                     thirdAttributeText.visibility = View.INVISIBLE
                     fourthAttributeText.visibility = View.INVISIBLE
+
+                    usedNearExpiryCard.isChecked= true
+                    expiredNumCard.isChecked= false
+                    usedFreshCard.isChecked= false
+                    totalTrackedCard.isChecked= false
                 }
                 Constants.USED_WHEN_FRESH->{
                     freshForegroundProgressbar.progress = (viewModel.totalProductsUsedFreshPercentage).roundToInt()
@@ -302,6 +296,11 @@ class Analytics : Fragment() {
                     secondAttributeText.visibility = View.INVISIBLE
                     thirdAttributeText.visibility = View.VISIBLE
                     fourthAttributeText.visibility = View.INVISIBLE
+
+                    usedNearExpiryCard.isChecked= false
+                    expiredNumCard.isChecked= false
+                    usedFreshCard.isChecked= true
+                    totalTrackedCard.isChecked= false
                 }
                 Constants.EXPIRED->{
                     expiredForegroundProgressbar.progress =  viewModel.totalProductsExpiredPercentage.roundToInt()
@@ -316,6 +315,11 @@ class Analytics : Fragment() {
                     secondAttributeText.visibility = View.INVISIBLE
                     thirdAttributeText.visibility = View.INVISIBLE
                     fourthAttributeText.visibility = View.VISIBLE
+
+                    usedNearExpiryCard.isChecked= false
+                    expiredNumCard.isChecked= true
+                    usedFreshCard.isChecked= false
+                    totalTrackedCard.isChecked= false
                 }
             }
         }

@@ -298,7 +298,10 @@
                             android:layout_margin="15dp"
                             android:layout_weight="1"
                             android:elevation="5dp"
-                            app:cardBackgroundColor="@color/card_background"
+                            app:strokeWidth="1dp"
+                            app:checkedIcon="@drawable/check_circle_24"
+                            android:checkable="true"
+                            app:checkedIconSize="24dp"
                             app:cardCornerRadius="15dp">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -312,7 +315,7 @@
                                     android:layout_height="20dp"
                                     android:layout_margin="4dp"
                                     android:src="@drawable/ic_baseline_info_24"
-                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:tint="@color/transparent_text_color" />
 
@@ -354,7 +357,9 @@
                             android:layout_margin="15dp"
                             android:layout_weight="1"
                             android:elevation="5dp"
-                            app:cardBackgroundColor="@color/card_background"
+                            app:strokeWidth="1dp"
+                            app:checkedIcon="@drawable/check_circle_24"
+                            android:checkable="true"
                             app:cardCornerRadius="15dp">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -368,7 +373,7 @@
                                     android:layout_height="20dp"
                                     android:layout_margin="4dp"
                                     android:src="@drawable/ic_baseline_info_24"
-                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:tint="@color/transparent_text_color" />
 
@@ -424,7 +429,9 @@
                             android:layout_margin="15dp"
                             android:layout_weight="1"
                             android:elevation="5dp"
-                            app:cardBackgroundColor="@color/card_background"
+                            app:strokeWidth="1dp"
+                            app:checkedIcon="@drawable/check_circle_24"
+                            android:checkable="true"
                             app:cardCornerRadius="15dp">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -438,7 +445,7 @@
                                     android:layout_height="20dp"
                                     android:layout_margin="4dp"
                                     android:src="@drawable/ic_baseline_info_24"
-                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:tint="@color/transparent_text_color" />
 
@@ -483,7 +490,9 @@
                             android:layout_margin="15dp"
                             android:layout_weight="1"
                             android:elevation="5dp"
-                            app:cardBackgroundColor="@color/window_top_bar"
+                            app:strokeWidth="1dp"
+                            app:checkedIcon="@drawable/check_circle_24"
+                            android:checkable="true"
                             app:cardCornerRadius="15dp">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -497,7 +506,7 @@
                                     android:layout_height="20dp"
                                     android:layout_margin="4dp"
                                     android:src="@drawable/ic_baseline_info_24"
-                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:tint="@color/transparent_text_color" />
 
@@ -584,7 +593,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:elevation="5dp"
-                app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toStartOf="@id/guideline41"
                 app:layout_constraintStart_toEndOf="@id/guideline21"
@@ -792,14 +800,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/heading_of_summary"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/heading_of_summary_card"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/card_background"
                     app:layout_constraintStart_toStartOf="@id/guideline8"
                     app:layout_constraintEnd_toEndOf="@id/guideline9"
                     app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/heading_of_summary"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    >
 
                     <TextView
                         android:id="@+id/sr_number"
@@ -951,6 +965,8 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                </com.google.android.material.card.MaterialCardView>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/summary_list_view"
                     android:layout_width="0dp"
@@ -959,7 +975,7 @@
                     android:scrollbars="horizontal"
                     app:layout_constraintStart_toEndOf="@id/guideline8"
                     app:layout_constraintEnd_toStartOf="@id/guideline9"
-                    app:layout_constraintTop_toBottomOf="@id/heading_of_summary"
+                    app:layout_constraintTop_toBottomOf="@id/heading_of_summary_card"
                     app:layout_constraintBottom_toBottomOf="parent"
                     />
 

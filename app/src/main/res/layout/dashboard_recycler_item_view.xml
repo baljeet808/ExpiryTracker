@@ -108,7 +108,6 @@
         android:animateLayoutChanges="true"
         android:elevation="0dp"
         android:visibility="visible"
-        app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
         app:layout_constrainedWidth="false"
