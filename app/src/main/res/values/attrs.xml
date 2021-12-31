@@ -4,4 +4,10 @@
         <attr name="appWidgetInnerRadius" format="dimension" />
         <attr name="appWidgetRadius" format="dimension" />
     </declare-styleable>
+    <attr name="myPrimaryColor" format="color"/>
+    <attr name="myPrimaryColorVariant" format="color"/>
+    <attr name="myColorOnPrimary" format="color"/>
+    <attr name="myColorSecondary" format="color"/>
+    <attr name="myColorSecondaryVariant" format="color"/>
+    <attr name="myColorOnSecondary" format="color"/>
 </resources>

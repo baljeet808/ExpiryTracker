@@ -14,8 +14,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
         <!-- Customize your theme here. -->
-        <item name="background">@color/main_background</item>
-        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="cardBackgroundColor">@color/card_background_blue</item>
         <item name="materialButtonStyle">@style/mySolidButton</item>
         <item name="extendedFloatingActionButtonStyle">@style/myExtendedFloatingButton</item>
         <item name="chipStyle">@style/myChoiceChipTheme</item>
@@ -26,8 +25,8 @@
     </style>
 
     <style name="myCardViewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/card_background</item>
-        <item name="rippleColor">@color/text_dialog_color</item>
+        <item name="cardBackgroundColor">@color/card_background_blue</item>
+        <item name="rippleColor">@color/text_dialog_color_blue</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
     </style>
@@ -36,12 +35,12 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color</item>
+        <item name="android:textColor">@color/text_dialog_color_blue</item>
         <item name="android:textSize">15sp</item>
     </style>
 
     <style name="myImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
-        <item name="tint">@color/text_dialog_color</item>
+        <item name="tint">@color/text_dialog_color_blue</item>
         <item name="android:padding">6dp</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
@@ -72,7 +71,7 @@
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
         <item name="android:textColor">@color/always_white</item>
-        <item name="chipBackgroundColor">@color/window_top_bar</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_blue</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
 
@@ -82,9 +81,615 @@
         <item name="android:letterSpacing">0.05</item>
     </style>
 
+
+    <!-- peach theme -->
+
+    <style name="PeachTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_peach</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_peach_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_peach</item>
+        <item name="materialButtonStyle">@style/myPeachSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myPeachExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myPeachChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myPeachImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myPeachTextStyle</item>
+        <item name="materialCardViewStyle">@style/myPeachCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myPeachCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_peach</item>
+        <item name="rippleColor">@color/text_dialog_color_peach</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myPeachTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_peach</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myPeachImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_peach</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myPeachSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myPeachExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myPeachChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_peach</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textPeachStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- yellow theme -->
+
+    <style name="YellowTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_peach</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_peach_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_yellow</item>
+        <item name="materialButtonStyle">@style/myPeachSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myPeachExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myYellowChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myYellowImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myYellowTextStyle</item>
+        <item name="materialCardViewStyle">@style/myYellowCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myYellowCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_yellow</item>
+        <item name="rippleColor">@color/text_dialog_color_yellow</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myYellowTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_yellow</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myYellowImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_yellow</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myYellowSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myYellowExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myYellowChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_yellow</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textYellowStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- green theme -->
+
+    <style name="GreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_green</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_green_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_green</item>
+        <item name="materialButtonStyle">@style/myGreenSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myGreenExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myGreenChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myGreenImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myGreenTextStyle</item>
+        <item name="materialCardViewStyle">@style/myGreenCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myGreenCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_peach</item>
+        <item name="rippleColor">@color/text_dialog_color_green</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myGreenTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_green</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myGreenImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_green</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myGreenSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myGreenExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myGreenChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_green</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textGreenStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- purple theme -->
+
+    <style name="PurpleTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_purple</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_purple_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_purple</item>
+        <item name="materialButtonStyle">@style/myPurpleSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myPurpleExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myPurpleChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myPurpleImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myPurpleTextStyle</item>
+        <item name="materialCardViewStyle">@style/myPurpleCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myPurpleCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_purple</item>
+        <item name="rippleColor">@color/text_dialog_color_purple</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myPurpleTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_purple</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myPurpleImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_purple</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myPurpleSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myPurpleExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myPurpleChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_purple</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textPurpleStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- pink theme -->
+
+    <style name="PinkTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_pink</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_pink_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_pink</item>
+        <item name="materialButtonStyle">@style/myPinkSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myPinkExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myPinkChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myPinkImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myPinkTextStyle</item>
+        <item name="materialCardViewStyle">@style/myPinkCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myPinkCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_pink</item>
+        <item name="rippleColor">@color/text_dialog_color_pink</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myPinkTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_pink</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myPinkImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_pink</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myPinkSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myPinkExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myPinkChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_pink</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textPinkStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- Black theme -->
+
+    <style name="BlackTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_black_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_black</item>
+        <item name="materialButtonStyle">@style/myBlackSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myBlackExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myBlackChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myBlackImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myBlackTextStyle</item>
+        <item name="materialCardViewStyle">@style/myBlackCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myBlackCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_black</item>
+        <item name="rippleColor">@color/text_dialog_color_black</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myBlackTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_black</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myBlackImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_black</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myBlackSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myBlackExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myBlackChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_black</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textBlackStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- White theme -->
+
+    <style name="WhiteTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_white</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_white_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_white</item>
+        <item name="materialButtonStyle">@style/myWhiteSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myWhiteExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myWhiteChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myWhiteImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myWhiteTextStyle</item>
+        <item name="materialCardViewStyle">@style/myWhiteCardViewStyle</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myWhiteCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_white</item>
+        <item name="rippleColor">@color/text_dialog_color_white</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+    </style>
+
+    <style name="myWhiteTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_dialog_color_white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myWhiteImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_white</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myWhiteSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myWhiteExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">40sp</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myWhiteChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_white</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textWhiteStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+
     <style name="montserrat_text_color" parent="Theme.AppCompat">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">?attr/myPrimaryColor</item>
+        <item name="colorPrimaryVariant">?attr/myPrimaryColorVariant</item>
+        <item name="colorOnPrimary">?attr/myColorOnPrimary</item>
+        <item name="colorSecondary">?attr/myColorSecondary</item>
+        <item name="colorSecondaryVariant">?attr/myColorSecondaryVariant</item>
+        <item name="colorOnSecondary">?attr/myColorOnSecondary</item>
     </style>
 
     <style name="circular">
@@ -112,7 +717,7 @@
     </style>
 
     <style name="datePickerTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/text_dialog_color</item>
+        <item name="colorPrimary">@color/text_dialog_color_blue</item>
         <item name="colorOnPrimary">@color/main_background</item>
         <item name="colorSurface">@color/main_background</item>
         <item name="android:headerMonthTextAppearance">@style/Theme.ExpiryTracker</item>

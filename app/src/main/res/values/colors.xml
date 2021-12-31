@@ -9,14 +9,59 @@
 
     <color name="main_background">#FFFFFFFF</color>
     <color name="main_transparent_background">#99FFFFFF</color>
-    <color name="window_top_bar">#6272a4</color>
+
     <color name="theme_blue">#6272a4</color>
+    <color name="theme_blue_light">#7D8BB5</color>
+
+    <color name="theme_peach">#FF5252</color>
+    <color name="theme_peach_light">#FC6681</color>
+    <color name="theme_yellow">#F6D013</color>
+    <color name="theme_yellow_light">#FAE789</color>
+    <color name="theme_pink">#FF3370</color>
+    <color name="theme_pink_light">#FF85A9</color>
+    <color name="theme_purple">#C20AFF</color>
+    <color name="theme_purple_light">#D65CFF</color>
+    <color name="theme_green">#00B8B8</color>
+    <color name="theme_green_light">#47FFFF</color>
+    <color name="theme_black">#141414</color>
+    <color name="theme_black_light">#3D3D3D</color>
+    <color name="theme_white">#F5F5F5</color>
+    <color name="theme_white_light">#FFFFFF</color>
+
     <color name="theme_blue_half_transparent">#556272a4</color>
     <color name="status_bar">#FFFFFFFF</color>
     <color name="bottom_icon_checked">#343F56</color>
     <color name="bottom_icon_unchecked">#BBBBBB</color>
     <color name="ripple_color">#6272a4</color>
-    <color name="card_background">#EDEEF7</color>
+
+
+    <color name="card_background_blue">#EDEEF7</color>
+    <color name="card_background_peach">#FFEBF4</color>
+    <color name="card_background_yellow">#FEF7D7</color>
+    <color name="card_background_green">#EBFFFF</color>
+    <color name="card_background_purple">#FAEBFF</color>
+    <color name="card_background_pink">#FFEBF1</color>
+    <color name="card_background_black">#F5F5F5</color>
+    <color name="card_background_white">#F5F5F5</color>
+
+    <color name="text_dialog_color_blue">#343F56</color>
+    <color name="text_dialog_color_peach">#960D2D</color>
+    <color name="text_dialog_color_yellow">#B19506</color>
+    <color name="text_dialog_color_green">#008F8F</color>
+    <color name="text_dialog_color_purple">#8A00B8</color>
+    <color name="text_dialog_color_pink">#F50049</color>
+    <color name="text_dialog_color_black">#525252</color>
+    <color name="text_dialog_color_white">#CCCCCC</color>
+
+    <color name="window_top_bar_blue">#6272a4</color>
+    <color name="window_top_bar_peach">#F7A1B5</color>
+    <color name="window_top_bar_yellow">#F9E062</color>
+    <color name="window_top_bar_green">#33FFFF</color>
+    <color name="window_top_bar_purple">#CC33FF</color>
+    <color name="window_top_bar_pink">#FFADC6</color>
+    <color name="window_top_bar_black">#8F8F8F</color>
+    <color name="window_top_bar_white">#EBEBEB</color>
+
     <color name="progress_great">#346751</color>
     <color name="progress_ok">#D89216</color>
     <color name="progress_bad">#DA0037</color>
@@ -31,9 +76,9 @@
     <color name="theme_color">#EDEDED</color>
     <color name="transparent_text_color">#55171717</color>
     <color name="always_white">#EDEDED</color>
-    <color name="text_dialog_color">#343F56</color>
-    <color name="theme_peach">#FF5252</color>
-    <color name="theme_peach_light">#FC6681</color>
+
+
+
     <color name="tab_background">#C9BFC9</color>
     <color name="red_orange">#FF5349</color>
     <color name="light_blue_50">#FFE1F5FE</color>
