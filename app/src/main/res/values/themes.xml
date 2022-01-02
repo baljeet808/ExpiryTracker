@@ -120,7 +120,7 @@
         <item name="cardBackgroundColor">@color/card_background_peach</item>
         <item name="rippleColor">@color/text_dialog_color_peach</item>
         <item name="checkedIconTint">@color/text_color</item>
-        <item name="strokeColor">@color/stroke_color</item>
+        <item name="strokeColor">@color/card_background_peach</item>
     </style>
 
     <style name="myPeachTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -177,12 +177,12 @@
 
     <style name="YellowTheme" parent="BaseTheme">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/theme_peach</item>
+        <item name="colorPrimary">@color/theme_yellow</item>
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/main_background</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/theme_peach_light</item>
+        <item name="colorSecondary">@color/theme_yellow_light</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -249,7 +249,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/text_dialog_color_yellow</item>
         <item name="chipBackgroundColor">@color/window_top_bar_yellow</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
@@ -292,7 +292,7 @@
 
 
     <style name="myGreenCardViewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/card_background_peach</item>
+        <item name="cardBackgroundColor">@color/card_background_green</item>
         <item name="rippleColor">@color/text_dialog_color_green</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
@@ -601,7 +601,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/card_background_black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_black</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
@@ -689,7 +689,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/text_dialog_color_white</item>
         <item name="chipBackgroundColor">@color/window_top_bar_white</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>

@@ -13,20 +13,20 @@
     <color name="theme_blue">#6272a4</color>
     <color name="theme_blue_light">#7D8BB5</color>
 
-    <color name="theme_peach">#FF5252</color>
-    <color name="theme_peach_light">#FC6681</color>
+    <color name="theme_peach">#AB364B</color>
+    <color name="theme_peach_light">#C4455C</color>
     <color name="theme_yellow">#F6D013</color>
     <color name="theme_yellow_light">#FAE789</color>
-    <color name="theme_pink">#FF3370</color>
-    <color name="theme_pink_light">#FF85A9</color>
-    <color name="theme_purple">#C20AFF</color>
-    <color name="theme_purple_light">#D65CFF</color>
-    <color name="theme_green">#00B8B8</color>
-    <color name="theme_green_light">#47FFFF</color>
+    <color name="theme_pink">#E36387</color>
+    <color name="theme_pink_light">#EA86A2</color>
+    <color name="theme_purple">#741B66</color>
+    <color name="theme_purple_light">#952384</color>
+    <color name="theme_green">#425837</color>
+    <color name="theme_green_light">#557147</color>
     <color name="theme_black">#141414</color>
-    <color name="theme_black_light">#3D3D3D</color>
-    <color name="theme_white">#F5F5F5</color>
-    <color name="theme_white_light">#FFFFFF</color>
+    <color name="theme_black_light">#333333</color>
+    <color name="theme_white">#B6B9B7</color>
+    <color name="theme_white_light">#D5D7D6</color>
 
     <color name="theme_blue_half_transparent">#556272a4</color>
     <color name="status_bar">#FFFFFFFF</color>
@@ -36,31 +36,31 @@
 
 
     <color name="card_background_blue">#EDEEF7</color>
-    <color name="card_background_peach">#FFEBF4</color>
-    <color name="card_background_yellow">#FEF7D7</color>
-    <color name="card_background_green">#EBFFFF</color>
-    <color name="card_background_purple">#FAEBFF</color>
-    <color name="card_background_pink">#FFEBF1</color>
-    <color name="card_background_black">#F5F5F5</color>
-    <color name="card_background_white">#F5F5F5</color>
+    <color name="card_background_peach">#FAEFF1</color>
+    <color name="card_background_yellow">#FFFDD6</color>
+    <color name="card_background_green">#DEE7DA</color>
+    <color name="card_background_purple">#FBEEF9</color>
+    <color name="card_background_pink">#F2B7C6</color>
+    <color name="card_background_black">#CCCCCC</color>
+    <color name="card_background_white">#F3F6F5</color>
 
     <color name="text_dialog_color_blue">#343F56</color>
-    <color name="text_dialog_color_peach">#960D2D</color>
-    <color name="text_dialog_color_yellow">#B19506</color>
-    <color name="text_dialog_color_green">#008F8F</color>
-    <color name="text_dialog_color_purple">#8A00B8</color>
-    <color name="text_dialog_color_pink">#F50049</color>
-    <color name="text_dialog_color_black">#525252</color>
-    <color name="text_dialog_color_white">#CCCCCC</color>
+    <color name="text_dialog_color_peach">#290100</color>
+    <color name="text_dialog_color_yellow">#292600</color>
+    <color name="text_dialog_color_green">#095256</color>
+    <color name="text_dialog_color_purple">#430F39</color>
+    <color name="text_dialog_color_pink">#110307</color>
+    <color name="text_dialog_color_black">#292929</color>
+    <color name="text_dialog_color_white">#655B53</color>
 
     <color name="window_top_bar_blue">#6272a4</color>
-    <color name="window_top_bar_peach">#F7A1B5</color>
-    <color name="window_top_bar_yellow">#F9E062</color>
-    <color name="window_top_bar_green">#33FFFF</color>
-    <color name="window_top_bar_purple">#CC33FF</color>
-    <color name="window_top_bar_pink">#FFADC6</color>
-    <color name="window_top_bar_black">#8F8F8F</color>
-    <color name="window_top_bar_white">#EBEBEB</color>
+    <color name="window_top_bar_peach">#AB364B</color>
+    <color name="window_top_bar_yellow">#F5E400</color>
+    <color name="window_top_bar_green">#394B2F</color>
+    <color name="window_top_bar_purple">#731963</color>
+    <color name="window_top_bar_pink">#D9305A</color>
+    <color name="window_top_bar_black">#141414</color>
+    <color name="window_top_bar_white">#E5ECE9</color>
 
     <color name="progress_great">#346751</color>
     <color name="progress_ok">#D89216</color>
@@ -85,4 +85,5 @@
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
+    <color name="grey">#9F9F9F</color>
 </resources>
