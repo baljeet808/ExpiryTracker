@@ -28,4 +28,8 @@ class CategoryViewModel(application: Application):AndroidViewModel(application) 
             repository.addCategory(category)
         }
     }
+
+    fun readCategoryByName(name : String): List<CategoryAndImage> {
+        return repository.readCategoriesByName(name)
+    }
 }

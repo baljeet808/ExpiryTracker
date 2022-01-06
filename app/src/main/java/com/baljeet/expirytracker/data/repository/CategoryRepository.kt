@@ -13,4 +13,8 @@ class CategoryRepository(private val categoryDao : CategoryDao){
     suspend fun addCategory(c : Category){
         categoryDao.addCategory(c)
     }
+
+    fun readCategoriesByName(name : String): List<CategoryAndImage> {
+        return categoryDao.readCategoryByName(name)
+    }
 }

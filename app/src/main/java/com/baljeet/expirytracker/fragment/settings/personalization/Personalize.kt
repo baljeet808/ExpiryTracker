@@ -52,7 +52,7 @@ class Personalize : Fragment() {
             }
         }
 
-
+             backButton.setOnClickListener { activity?.onBackPressed() }
             blueThemeCardBtn.setOnClickListener {
                 unCheckAllColorCards()
                 blueThemeCardBtn.isChecked = true

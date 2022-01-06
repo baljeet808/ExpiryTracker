@@ -3,9 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/main_background"
-    android:layout_margin="5dp"
     android:animateLayoutChanges="true"
+    android:layout_margin="5dp"
+    android:background="@color/main_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/option_card"
@@ -19,18 +19,19 @@
         app:cardCornerRadius="12dp"
         app:strokeWidth="1dp"
         app:strokeColor="@color/text_color"
+        app:cardBackgroundColor="?card_background"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
             android:padding="4dp">
             <ImageView
                 android:id="@+id/option_image"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
-                android:src="@drawable/ic_passion_fruit"
+                android:src="@drawable/ic_round_add_32"
                 android:padding="10dp"
+                app:tint="?text_dialog_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +42,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:visibility="gone"
-                tools:visibility="visible"
+                tools:visibility="gone"
                 android:src="@drawable/check_circle_24"
                 app:tint="@color/text_color"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,9 +59,10 @@
         app:layout_constraintStart_toStartOf="@id/option_card"
         app:layout_constraintEnd_toEndOf="@id/option_card"
         app:layout_constraintTop_toBottomOf="@id/option_card"
-        android:text="@string/vegetables"
+        android:text="@string/custom"
         android:ellipsize="end"
         android:textAlignment="center"
         android:lines="1"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

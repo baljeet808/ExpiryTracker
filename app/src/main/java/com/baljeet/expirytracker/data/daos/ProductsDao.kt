@@ -21,4 +21,8 @@ interface ProductsDao {
     @Query("SELECT * FROM products WHERE categoryId == :id")
     fun readProductWithImagesById(id : Int) : List<ProductAndImage>
 
+    @Transaction
+    @Query("SELECT * FROM products WHERE name == :name")
+    fun readProductByName(name : String) : List<ProductAndImage>
+
 }

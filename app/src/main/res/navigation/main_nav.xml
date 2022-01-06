@@ -65,7 +65,15 @@
         android:id="@+id/addProduct"
         android:name="com.baljeet.expirytracker.fragment.product.AddProduct"
         android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product" />
+        tools:layout="@layout/fragment_add_product" >
+        <action
+            android:id="@+id/action_addProduct_to_createCustom"
+            app:destination="@id/createCustom"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/donateFragment"
         android:name="com.baljeet.expirytracker.fragment.settings.DonateFragment"
@@ -86,4 +94,14 @@
         android:name="com.baljeet.expirytracker.fragment.settings.personalization.Personalize"
         android:label="fragment_personalize"
         tools:layout="@layout/fragment_personalize" />
+    <fragment
+        android:id="@+id/createCustom"
+        android:name="com.baljeet.expirytracker.fragment.product.CreateCustom"
+        android:label="fragment_create_custom"
+        tools:layout="@layout/fragment_create_custom" >
+        <argument
+            android:name="itemType"
+            app:argType="string"
+            android:defaultValue="Category" />
+    </fragment>
 </navigation>

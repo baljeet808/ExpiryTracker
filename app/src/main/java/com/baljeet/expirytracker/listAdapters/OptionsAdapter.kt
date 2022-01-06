@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
+import com.baljeet.expirytracker.databinding.AddProductOptionBinding
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
 import com.baljeet.expirytracker.util.MyColors
 
@@ -19,61 +20,84 @@ class OptionsAdapter(
     private var selectedCategory: Int?,
     private val optionClickListener: OnOptionSelectedListener,
     private val productList: ArrayList<ProductAndImage>?
-) : RecyclerView.Adapter<OptionsAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MyViewHolder {
-
-        return MyViewHolder(ItemOptionBinding.inflate(LayoutInflater.from(parent.context),parent,false), optionClickListener, context)
+    ): RecyclerView.ViewHolder {
+            return when(viewType){
+                1->{
+                    AddViewHolder(AddProductOptionBinding.inflate(LayoutInflater.from(parent.context),parent,false), optionClickListener)
+                }
+                else->{
+                    MyViewHolder(ItemOptionBinding.inflate(LayoutInflater.from(parent.context),parent,false), optionClickListener, context)
+                }
+            }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind.optionCard.strokeWidth = 2
-        holder.bind.optionSelectedCheck.visibility = View.GONE
-        holder.bind.optionTitle.textSize = 11F
-        holder.bind.optionCard.setCardBackgroundColor(
-            context.resources.getColor(
-                R.color.main_background, null
-            )
-        )
-        categoryList?.let {
-            val category = categoryList[position]
-            holder.bind.optionTitle.text = category.category.categoryName
-            holder.bind.optionImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    context,
-                    context.resources.getIdentifier(
-                        category.image.imageUrl,
-                        "drawable",
-                        context.packageName
-                    )
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(holder is MyViewHolder) {
+            holder.bind.optionCard.strokeWidth = 2
+            holder.bind.optionSelectedCheck.visibility = View.GONE
+            holder.bind.optionTitle.textSize = 11F
+            holder.bind.optionCard.setCardBackgroundColor(
+                context.resources.getColor(
+                    R.color.main_background, null
                 )
             )
-        }
-        productList?.let {
-            val product = productList[position]
-            holder.bind.optionTitle.text = product.product.name
-            holder.bind.optionImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    context,
-                    context.resources.getIdentifier(
-                        product.image.imageUrl,
-                        "drawable",
-                        context.packageName
+            categoryList?.let {
+                val category = categoryList[position-1]
+                holder.bind.optionTitle.text = category.category.categoryName
+                holder.bind.optionImage.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        context,
+                        context.resources.getIdentifier(
+                            category.image.imageUrl,
+                            "drawable",
+                            context.packageName
+                        )
                     )
                 )
-            )
-        }
-        selectedCategory?.let {
-            if (it == position) {
-                holder.bind.optionSelectedCheck.visibility = View.VISIBLE
-                holder.bind.optionCard.strokeWidth = 7
-                holder.bind.optionCard.setCardBackgroundColor(MyColors.getColorByAttr(context,R.attr.card_background,R.color.tab_background))
-                holder.bind.optionTitle.textSize = 13F
             }
+            productList?.let {
+                val product = productList[position-1]
+                holder.bind.optionTitle.text = product.product.name
+                holder.bind.optionImage.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        context,
+                        context.resources.getIdentifier(
+                            product.image.imageUrl,
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                )
+            }
+            selectedCategory?.let {
+                if (it == position) {
+                    holder.bind.optionSelectedCheck.visibility = View.VISIBLE
+                    holder.bind.optionCard.strokeWidth = 7
+                    holder.bind.optionCard.setCardBackgroundColor(
+                        MyColors.getColorByAttr(
+                            context,
+                            R.attr.card_background,
+                            R.color.tab_background
+                        )
+                    )
+                    holder.bind.optionTitle.textSize = 13F
+                }
+            }
+        }else if(holder is AddViewHolder){
+            holder.bind.optionCard.strokeWidth = 2
+            holder.bind.optionSelectedCheck.visibility = View.GONE
+            holder.bind.optionTitle.textSize = 11F
+            holder.bind.optionCard.setCardBackgroundColor(
+                context.resources.getColor(
+                    R.color.main_background, null
+                )
+            )
         }
     }
 
@@ -94,9 +118,18 @@ class OptionsAdapter(
     }
 
     override fun getItemCount(): Int {
-        categoryList?.let { return categoryList.size }
-        productList?.let { return productList.size }
+        categoryList?.let {
+            return categoryList.size +1
+        }
+        productList?.let {
+            return productList.size  +1
+        }
         return 0
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if(position == 0) 1
+        else 2
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -105,8 +138,18 @@ class OptionsAdapter(
         notifyDataSetChanged()
     }
 
+    inner class AddViewHolder(val bind: AddProductOptionBinding, listener: OnOptionSelectedListener) : RecyclerView.ViewHolder(bind.root) , View.OnClickListener{
+        private val optionListener = listener
 
+        init {
+            bind.optionCard.setOnClickListener(this)
+        }
 
+        override fun onClick(v: View?) {
+            optionListener.onOptionSelected(-1, 0, categoryList != null)
+        }
+    }
+    
     inner class MyViewHolder(val bind : ItemOptionBinding, listener: OnOptionSelectedListener, context: Context) :
         RecyclerView.ViewHolder(bind.root), View.OnClickListener {
         private val con = context
@@ -117,7 +160,7 @@ class OptionsAdapter(
         }
 
         override fun onClick(v: View?) {
-            optionListener.onOptionSelected(adapterPosition, bind.optionSelectedCheck.visibility, categoryList != null)
+            optionListener.onOptionSelected(adapterPosition-1, bind.optionSelectedCheck.visibility, categoryList != null)
             if (bind.optionSelectedCheck.visibility == View.GONE) {
                 bind.optionSelectedCheck.visibility = View.VISIBLE
                 bind.optionCard.strokeWidth = 7

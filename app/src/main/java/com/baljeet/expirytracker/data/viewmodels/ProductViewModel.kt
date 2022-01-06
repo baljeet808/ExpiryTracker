@@ -30,6 +30,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun readProductByName(name : String): List<ProductAndImage>{
+      return repository.readProductByName(name)
+    }
     fun readProductWithImageById(id : Int){
         viewModelScope.launch(Dispatchers.IO) {
             productsByCategoryWithImage.postValue(repository.readProductWithImagesById(id))

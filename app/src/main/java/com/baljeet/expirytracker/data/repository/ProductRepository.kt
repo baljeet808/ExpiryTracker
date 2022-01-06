@@ -14,6 +14,9 @@ class ProductRepository(private val productDao : ProductsDao) {
         productDao.addProduct(product)
     }
 
+    fun readProductByName(name : String): List<ProductAndImage>{
+        return productDao.readProductByName(name)
+    }
 
     fun readProductWithImagesById(id : Int) : List<ProductAndImage>{
         return productDao.readProductWithImagesById(id)

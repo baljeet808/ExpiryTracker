@@ -16,4 +16,9 @@ interface CategoryDao {
     @Transaction
     @Query("SELECT * FROM categories")
     fun readAllCategoriesWithImages() : LiveData<List<CategoryAndImage>>
+
+
+    @Transaction
+    @Query("SELECT * FROM categories where categoryName == :name")
+    fun readCategoryByName(name : String) : List<CategoryAndImage>
 }

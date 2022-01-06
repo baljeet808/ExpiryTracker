@@ -130,4 +130,15 @@
     <string name="make_it_yours">Make it yours</string>
     <string name="change_color">Change Theme Color</string>
     <string name="_3">3</string>
+    <string name="custom">Custom</string>
+    <string name="create_custom">Create Custom </string>
+    <string name="category_name">Category Name</string>
+    <string name="take_a_picture">Take A Picture</string>
+    <string name="select_from_gallery">Select From Gallery</string>
+    <string name="use_cool_icons">Use Cool Icons</string>
+    <string name="skip">Skip</string>
+    <string name="preview">Preview</string>
+    <string name="add_custom">Add</string>
+    <string name="_2_pick_an_image_or_icon_for">2. Pick an Image or Icon for </string>
+    <string name="_1_give_it_a_name">1. Give it a name</string>
 </resources>

@@ -6,10 +6,12 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Tracker
@@ -152,75 +154,80 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
     }
 
     override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory : Boolean) {
-        if(optionIsCategory) {
-            if (checkVisibility == View.GONE) {
-                bind.customEdittext.setText(categoriesWithImages[position].category.categoryName)
-                viewModel.setSelectedCategory(categoriesWithImages[position])
-                bind.selectedCategoryIcon.visibility = View.VISIBLE
-                bind.customBoxLayout.isEndIconVisible = false
-                bind.customNameBoxLayout.isEndIconVisible = false
-                bind.selectedCategoryIcon.setImageDrawable(
-                    AppCompatResources.getDrawable(
-                        requireContext(),
-                        resources.getIdentifier(
-                            categoriesWithImages[position].image.imageUrl,
-                            "drawable",
-                            requireContext().packageName
+        
+        if(position == -1){
+            Navigation.findNavController(requireView()).navigate(AddProductDirections.actionAddProductToCreateCustom(if(optionIsCategory) "Category" else "Product"))
+        }else {
+
+            if (optionIsCategory) {
+                if (checkVisibility == View.GONE) {
+                    bind.customEdittext.setText(categoriesWithImages[position].category.categoryName)
+                    viewModel.setSelectedCategory(categoriesWithImages[position])
+                    bind.selectedCategoryIcon.visibility = View.VISIBLE
+                    bind.customBoxLayout.isEndIconVisible = false
+                    bind.customNameBoxLayout.isEndIconVisible = false
+                    bind.selectedCategoryIcon.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            resources.getIdentifier(
+                                categoriesWithImages[position].image.imageUrl,
+                                "drawable",
+                                requireContext().packageName
+                            )
                         )
                     )
-                )
-                Handler(Looper.getMainLooper()).postDelayed({
-                    bind.optionsRecycler.visibility = View.GONE
-                    bind.nameLayout.visibility = View.VISIBLE
-                    bind.nameOptionsRecycler.visibility = View.VISIBLE
-                    productVM.readProductWithImageById(viewModel.getSelectedCategory()?.category?.categoryId!!)
-                    productVM.productsByCategoryWithImage.observe(viewLifecycleOwner, {
-                        productsWithImages.clear()
-                        productsWithImages.addAll(it)
-                        nameAdapter.setProducts(it)
-                    })
-                    nameAdapter.refreshAll(null)
-                    bind.completedCheck.visibility = View.VISIBLE
-                    bind.completed2Check.visibility = View.GONE
-                    bind.completed3Check.visibility = View.GONE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        bind.optionsRecycler.visibility = View.GONE
+                        bind.nameLayout.visibility = View.VISIBLE
+                        bind.nameOptionsRecycler.visibility = View.VISIBLE
+                        productVM.readProductWithImageById(viewModel.getSelectedCategory()?.category?.categoryId!!)
+                        productVM.productsByCategoryWithImage.observe(viewLifecycleOwner, {
+                            productsWithImages.clear()
+                            productsWithImages.addAll(it)
+                            nameAdapter.setProducts(it)
+                        })
+                        nameAdapter.refreshAll(null)
+                        bind.completedCheck.visibility = View.VISIBLE
+                        bind.completed2Check.visibility = View.GONE
+                        bind.completed3Check.visibility = View.GONE
+                        bind.customNameEdittext.text?.clear()
+                        bind.selectedNameIcon.visibility = View.GONE
+                    }, 200)
+                } else {
+                    bind.customEdittext.text?.clear()
+                    viewModel.setSelectedCategory(null)
+                    bind.selectedCategoryIcon.visibility = View.GONE
+                    bind.completedCheck.visibility = ViewAnimator.GONE
+                }
+            } else {
+                if (checkVisibility == View.GONE) {
+                    bind.customNameEdittext.setText(productsWithImages[position].product.name)
+                    viewModel.setSelectedProduct(productsWithImages[position])
+                    bind.selectedNameIcon.visibility = View.VISIBLE
+                    bind.customNameBoxLayout.isEndIconVisible = false
+                    bind.selectedNameIcon.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            resources.getIdentifier(
+                                productsWithImages[position].image.imageUrl,
+                                "drawable",
+                                requireContext().packageName
+                            )
+                        )
+                    )
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        bind.nameOptionsRecycler.visibility = View.GONE
+                        bind.completed2Check.visibility = View.VISIBLE
+                        bind.completed3Check.visibility = View.GONE
+                        bind.dateLayout.visibility = View.VISIBLE
+                    }, 200)
+                } else {
                     bind.customNameEdittext.text?.clear()
+                    viewModel.setSelectedProduct(null)
                     bind.selectedNameIcon.visibility = View.GONE
-                }, 200)
-            } else {
-                bind.customEdittext.text?.clear()
-                viewModel.setSelectedCategory(null)
-                bind.selectedCategoryIcon.visibility = View.GONE
-                bind.completedCheck.visibility = ViewAnimator.GONE
-            }
-        }else{
-            if (checkVisibility == View.GONE) {
-                bind.customNameEdittext.setText(productsWithImages[position].product.name)
-                viewModel.setSelectedProduct(productsWithImages[position])
-                bind.selectedNameIcon.visibility = View.VISIBLE
-                bind.customNameBoxLayout.isEndIconVisible = false
-                bind.selectedNameIcon.setImageDrawable(
-                    AppCompatResources.getDrawable(
-                        requireContext(),
-                        resources.getIdentifier(
-                            productsWithImages[position].image.imageUrl,
-                            "drawable",
-                            requireContext().packageName
-                        )
-                    )
-                )
-                Handler(Looper.getMainLooper()).postDelayed({
-                    bind.nameOptionsRecycler.visibility = View.GONE
-                    bind.completed2Check.visibility = View.VISIBLE
-                    bind.completed3Check.visibility = View.GONE
-                    bind.dateLayout.visibility = View.VISIBLE
-                }, 200)
-            } else {
-                bind.customNameEdittext.text?.clear()
-                viewModel.setSelectedProduct(null)
-                bind.selectedNameIcon.visibility = View.GONE
-                bind.completed2Check.visibility = ViewAnimator.GONE
+                    bind.completed2Check.visibility = ViewAnimator.GONE
+                }
             }
         }
     }
-
 }
