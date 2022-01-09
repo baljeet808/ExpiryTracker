@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -64,14 +65,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.2.1'
 
-    implementation "androidx.room:room-runtime:2.4.0-rc01"
-    kapt "androidx.room:room-compiler:2.4.0-rc01"
-    implementation "androidx.room:room-ktx:2.4.0-rc01"
-    androidTestImplementation "androidx.room:room-testing:2.4.0-rc01"
+    implementation "androidx.room:room-runtime:2.4.0"
+    kapt "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-ktx:2.4.0"
+    androidTestImplementation "androidx.room:room-testing:2.4.0"
 
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
+    implementation "com.naver.android.helloyako:imagecropview:1.2.3"
+    //image zoom
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
 }

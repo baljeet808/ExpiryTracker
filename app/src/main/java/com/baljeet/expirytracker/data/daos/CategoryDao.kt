@@ -19,6 +19,6 @@ interface CategoryDao {
 
 
     @Transaction
-    @Query("SELECT * FROM categories where categoryName == :name")
+    @Query("SELECT * FROM categories where categoryName == :name COLLATE NOCASE")
     fun readCategoryByName(name : String) : List<CategoryAndImage>
 }

@@ -16,30 +16,32 @@
         android:background="@color/main_background"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <TextView
+            android:id="@+id/fragment_title_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="@string/create_custom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <ImageButton
             android:id="@+id/close_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/image"
-            android:padding="10dp"
             android:rotation="90"
-            android:src="@drawable/ic_arrow_right_32"
+            android:src="@drawable/ic_round_close_32"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline21"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/fragment_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_custom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.513" />
 
         <Button
             android:id="@+id/top_most_line"
@@ -67,16 +69,31 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            >
+
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/_1_give_it_a_name"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/guideline211"
-        app:layout_constraintTop_toBottomOf="@id/top_bar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/completed_check"
@@ -123,16 +140,19 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/normalRoboto14Regular"
             android:textColor="?text_dialog_color"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/image_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_box"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name_box">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        >
 
         <TextView
             android:id="@+id/image_heading"
@@ -142,8 +162,9 @@
             android:text="@string/_2_pick_an_image_or_icon_for"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/completed_check_for_image"
@@ -173,32 +194,29 @@
             android:id="@+id/option_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintBottom_toTopOf="@id/camera_card"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/underline_view_2"
-            app:layout_constraintVertical_bias="0"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="1dp"
             app:strokeColor="@color/text_color"
-            app:strokeWidth="1dp">
-
+            >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true">
-
                 <ImageView
                     android:id="@+id/option_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:contentDescription="@string/image"
-                    android:padding="1dp"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:src="@mipmap/ic_launcher_foreground"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="1dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/image" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -208,29 +226,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:text="@string/preview"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@id/option_card"
             app:layout_constraintStart_toStartOf="@id/option_card"
-            app:layout_constraintTop_toBottomOf="@id/option_card" />
+            app:layout_constraintEnd_toEndOf="@id/option_card"
+            app:layout_constraintTop_toBottomOf="@id/option_card"
+            android:text="@string/preview"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:lines="1"
+            />
 
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/camera_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toTopOf="@id/gallery_card"
-            app:layout_constraintEnd_toStartOf="@id/guideline4"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/preview_title"
+            app:layout_constraintBottom_toTopOf="@id/gallery_card"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:strokeColor="@color/text_color"
-            app:strokeWidth="0dp">
+            app:strokeWidth="0dp"
+            android:layout_marginTop="35dp"
+            app:cardCornerRadius="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/camera_layout"
@@ -243,10 +264,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:contentDescription="@string/image"
                     android:src="@drawable/camera"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -256,13 +277,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:gravity="center"
                     android:text="@string/take_a_picture"
                     android:textColor="@color/text_color"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -271,16 +294,17 @@
             android:id="@+id/gallery_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toTopOf="@id/icons_card"
-            app:layout_constraintEnd_toStartOf="@id/guideline4"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/camera_card"
+            app:layout_constraintBottom_toTopOf="@id/icons_card"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:strokeColor="@color/text_color"
-            app:strokeWidth="0dp">
+            app:strokeWidth="0dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/gallery_layout"
@@ -306,31 +330,34 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:gravity="center"
                     android:text="@string/select_from_gallery"
                     android:textColor="@color/text_color"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/icons_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toTopOf="@id/add_product_button"
-            app:layout_constraintEnd_toStartOf="@id/guideline4"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/gallery_card"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
             app:strokeColor="@color/text_color"
-            app:strokeWidth="0dp">
+            app:strokeWidth="0dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/icons_layout"
@@ -356,65 +383,88 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:gravity="center"
                     android:text="@string/use_cool_icons"
                     android:textColor="@color/text_color"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
 
-        <Button
-            android:id="@+id/add_product_button"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="25dp"
-            android:enabled="false"
-            android:text="@string/add_custom"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline4"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toBottomOf="@id/icons_card"
-            tools:visibility="visible" />
-
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+                            android:id="@+id/guideline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.05" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.95" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+    <Button
+        android:id="@+id/add_product_button"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:enabled="false"
+        app:layout_constraintEnd_toStartOf="@id/guideline411"
+        app:layout_constraintStart_toEndOf="@id/guideline211"
+        app:layout_constraintTop_toBottomOf="@id/image_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/add_custom"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline211"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline411"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline211"
+        android:id="@+id/guideline2111"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline411"
+        android:id="@+id/guideline4111"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

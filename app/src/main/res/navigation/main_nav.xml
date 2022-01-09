@@ -103,5 +103,21 @@
             android:name="itemType"
             app:argType="string"
             android:defaultValue="Category" />
+        <action
+            android:id="@+id/action_createCustom_to_imageEditor"
+            app:destination="@id/imageEditor"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageEditor"
+        android:name="com.baljeet.expirytracker.fragment.product.ImageEditor"
+        android:label="fragment_image_editor"
+        tools:layout="@layout/fragment_image_editor" >
+        <argument
+            android:name="selectedImage"
+            app:argType="com.baljeet.expirytracker.data.Image" />
     </fragment>
 </navigation>
