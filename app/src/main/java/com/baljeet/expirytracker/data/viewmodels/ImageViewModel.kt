@@ -26,4 +26,8 @@ class ImageViewModel(application : Application): AndroidViewModel(application) {
             repository.addImage(image)
         }
     }
+
+    fun getImageByName(name : String): List<Image>{
+        return repository.getImageByName(name)
+    }
 }

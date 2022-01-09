@@ -12,6 +12,7 @@ import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.baljeet.expirytracker.databinding.AddProductOptionBinding
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
+import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.MyColors
 
 class OptionsAdapter(
@@ -50,30 +51,54 @@ class OptionsAdapter(
             categoryList?.let {
                 val category = categoryList[position-1]
                 holder.bind.optionTitle.text = category.category.categoryName
-                holder.bind.optionImage.setImageDrawable(
-                    AppCompatResources.getDrawable(
-                        context,
-                        context.resources.getIdentifier(
-                            category.image.imageUrl,
-                            "drawable",
-                            context.packageName
-                        )
-                    )
-                )
+                category.image.mimeType.let {
+                    when(it){
+                        "asset"->{
+                            holder.bind.optionImage.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    context,
+                                    context.resources.getIdentifier(
+                                        category.image.imageUrl,
+                                        "drawable",
+                                        context.packageName
+                                    )
+                                )
+                            )
+                        }
+                        else->{
+                            holder.bind.optionImage.setImageBitmap(
+                                ImageConvertor.stringToBitmap(category.image.bitmap)
+                            )
+                        }
+                    }
+                }
+
             }
             productList?.let {
                 val product = productList[position-1]
                 holder.bind.optionTitle.text = product.product.name
-                holder.bind.optionImage.setImageDrawable(
-                    AppCompatResources.getDrawable(
-                        context,
-                        context.resources.getIdentifier(
-                            product.image.imageUrl,
-                            "drawable",
-                            context.packageName
-                        )
-                    )
-                )
+
+                product.image.mimeType.let {
+                    when(it){
+                        "asset"->{
+                            holder.bind.optionImage.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    context,
+                                    context.resources.getIdentifier(
+                                        product.image.imageUrl,
+                                        "drawable",
+                                        context.packageName
+                                    )
+                                )
+                            )
+                        }
+                        else->{
+                            holder.bind.optionImage.setImageBitmap(
+                                ImageConvertor.stringToBitmap(product.image.bitmap)
+                            )
+                        }
+                    }
+                }
             }
             selectedCategory?.let {
                 if (it == position) {

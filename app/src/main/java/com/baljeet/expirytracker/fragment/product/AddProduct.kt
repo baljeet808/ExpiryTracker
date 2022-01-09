@@ -155,7 +155,12 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
     override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory : Boolean) {
         
         if(position == -1){
-            Navigation.findNavController(requireView()).navigate(AddProductDirections.actionAddProductToCreateCustom(if(optionIsCategory) "Category" else "Product"))
+            Navigation.findNavController(requireView()).navigate(
+                AddProductDirections.actionAddProductToCreateCustom(
+                    itemType = if(optionIsCategory) "Category" else "Product",
+                    selectedCategory = if(optionIsCategory) viewModel.getSelectedCategory()?.category else null
+                )
+            )
         }else {
 
             if (optionIsCategory) {

@@ -10,4 +10,8 @@ class ImageRepository(private val imageDao : ImageDao) {
     suspend fun addImage(image : Image){
         imageDao.addImage(image)
     }
+
+    fun getImageByName(name : String): List<Image>{
+        return imageDao.getImageById(name)
+    }
 }

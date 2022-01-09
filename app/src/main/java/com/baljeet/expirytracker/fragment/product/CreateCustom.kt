@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
-import androidx.core.view.isGone
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,8 +17,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Image
+import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.FragmentCreateCustomBinding
 import com.baljeet.expirytracker.util.ImageConvertor
@@ -34,6 +36,7 @@ class CreateCustom : Fragment() {
 
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val productViewModel :  ProductViewModel by viewModels()
+    private val imageViewModel : ImageViewModel by viewModels()
 
     private val viewModel : CustomViewModel by activityViewModels()
 
@@ -181,6 +184,30 @@ class CreateCustom : Fragment() {
             galleryCard.setOnClickListener {
                 pickAction.launch("image/*")
             }
+
+            addProductButton.setOnClickListener {
+                  imageViewModel.addImage(viewModel.croppedImage!!)
+                 val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)[0]
+                  when(navArgs.itemType){
+                      "Category"->{
+                          categoryViewModel.addCategory(Category(
+                              categoryId = 0,
+                              categoryName = nameEdittext.text.toString(),
+                              imageId = image.imageId
+                          ))
+                      }
+                      else->{
+                          productViewModel.addProduct(Product(
+                              productId = 0,
+                              name = nameEdittext.toString(),
+                              categoryId = navArgs.selectedCategory?.categoryId!!,
+                              imageId = image.imageId
+                          ))
+                      }
+                  }
+                activity?.onBackPressed()
+            }
+
         }
         return bind.root
     }
