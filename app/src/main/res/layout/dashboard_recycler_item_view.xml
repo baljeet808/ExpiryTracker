@@ -128,7 +128,7 @@
             android:background="?card_background"
             android:padding="4dp">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/product_image"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -137,6 +137,7 @@
                 android:layout_marginBottom="5dp"
                 android:contentDescription="@string/image"
                 android:src="@drawable/liquor"
+                app:riv_corner_radius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -276,11 +277,10 @@
         android:layout_marginTop="5dp"
         android:contentDescription="@string/image"
         android:elevation="6dp"
-        android:padding="5dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_passion_fruit"
         app:layout_constraintEnd_toEndOf="@id/option_card"
-        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintHorizontal_bias=".7"
         app:layout_constraintStart_toStartOf="@id/option_card"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/circular"

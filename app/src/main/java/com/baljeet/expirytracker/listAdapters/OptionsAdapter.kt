@@ -65,6 +65,7 @@ class OptionsAdapter(
                                     )
                                 )
                             )
+                            holder.bind.optionImage.setPadding(30)
                         }
                         else->{
                             holder.bind.optionImage.setImageBitmap(

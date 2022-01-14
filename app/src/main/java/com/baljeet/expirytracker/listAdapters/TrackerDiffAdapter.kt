@@ -15,6 +15,7 @@ import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
+import com.baljeet.expirytracker.util.ImageConvertor
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.periodUntil
@@ -46,26 +47,45 @@ class TrackerDiffAdapter(private val context : Context, private val updateTracke
         val tracker = getItem(position)
         holder.bind.apply {
             productName.text = tracker.productAndCategoryAndImage.product.name
-            productImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    context,
-                    context.resources.getIdentifier(
-                        tracker.productAndCategoryAndImage.image.imageUrl,
-                        "drawable",
-                        context.packageName
+            when(tracker.productAndCategoryAndImage.image.mimeType){
+                "asset"->{
+                    productImage.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            context.resources.getIdentifier(
+                                tracker.productAndCategoryAndImage.image.imageUrl,
+                                "drawable",
+                                context.packageName
+                            )
+                        )
                     )
-                )
-            )
-            categoryImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    context,
-                    context.resources.getIdentifier(
-                        tracker.productAndCategoryAndImage.categoryAndImage.image.imageUrl,
-                        "drawable",
-                        context.packageName
+                }
+                else->{
+                    productImage.setImageBitmap(
+                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
                     )
-                )
-            )
+                }
+            }
+            when(tracker.productAndCategoryAndImage.categoryAndImage.image.mimeType){
+                "asset" ->{
+                    categoryImage.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            context.resources.getIdentifier(
+                                tracker.productAndCategoryAndImage.categoryAndImage.image.imageUrl,
+                                "drawable",
+                                context.packageName
+                            )
+                        )
+                    )
+                }
+                else->{
+                    categoryImage.setImageBitmap(
+                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.categoryAndImage.image.bitmap)
+                    )
+                }
+            }
+
 
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate

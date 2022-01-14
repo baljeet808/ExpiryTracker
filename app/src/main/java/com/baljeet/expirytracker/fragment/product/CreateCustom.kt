@@ -3,9 +3,11 @@ package com.baljeet.expirytracker.fragment.product
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -33,6 +35,7 @@ class CreateCustom : Fragment() {
 
     private lateinit var bind : FragmentCreateCustomBinding
     private val navArgs : CreateCustomArgs by navArgs()
+
 
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val productViewModel :  ProductViewModel by viewModels()
@@ -125,6 +128,12 @@ class CreateCustom : Fragment() {
                 addProductButton.isEnabled = it
             })
 
+            navArgs.selectedCategory?.let {
+                Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
+            }?: kotlin.run {
+                Toast.makeText(requireContext(),"category is null", Toast.LENGTH_SHORT).show()
+            }
+
             viewModel.croppedImage?.let {
                 showImageInPreview(it)
             }
@@ -187,7 +196,7 @@ class CreateCustom : Fragment() {
 
             addProductButton.setOnClickListener {
                   imageViewModel.addImage(viewModel.croppedImage!!)
-                 val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)[0]
+                  val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)[0]
                   when(navArgs.itemType){
                       "Category"->{
                           categoryViewModel.addCategory(Category(
@@ -199,10 +208,11 @@ class CreateCustom : Fragment() {
                       else->{
                           productViewModel.addProduct(Product(
                               productId = 0,
-                              name = nameEdittext.toString(),
+                              name = nameEdittext.text.toString(),
                               categoryId = navArgs.selectedCategory?.categoryId!!,
                               imageId = image.imageId
                           ))
+                          Log.d("Log for - ","ran completely")
                       }
                   }
                 activity?.onBackPressed()

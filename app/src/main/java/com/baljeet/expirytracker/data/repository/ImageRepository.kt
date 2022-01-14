@@ -7,7 +7,7 @@ import com.baljeet.expirytracker.data.daos.ImageDao
 class ImageRepository(private val imageDao : ImageDao) {
     val readAllData : LiveData<List<Image>> = imageDao.readAllImage()
 
-    suspend fun addImage(image : Image){
+    fun addImage(image : Image){
         imageDao.addImage(image)
     }
 

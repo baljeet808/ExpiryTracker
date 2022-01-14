@@ -11,7 +11,7 @@ import com.baljeet.expirytracker.data.Image
 interface ImageDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addImage(image : Image)
+    fun addImage(image : Image)
 
     @Query("SELECT * FROM images ORDER BY imageId ASC")
     fun readAllImage(): LiveData<List<Image>>

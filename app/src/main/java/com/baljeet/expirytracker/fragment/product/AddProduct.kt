@@ -159,7 +159,7 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
             Navigation.findNavController(requireView()).navigate(
                 AddProductDirections.actionAddProductToCreateCustom(
                     itemType = if(optionIsCategory) "Category" else "Product",
-                    selectedCategory = if(optionIsCategory) viewModel.getSelectedCategory()?.category else null
+                    selectedCategory = if(optionIsCategory) null else viewModel.getSelectedCategory()?.category
                 )
             )
         }else {
@@ -219,16 +219,26 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                     viewModel.setSelectedProduct(productsWithImages[position])
                     bind.selectedNameIcon.visibility = View.VISIBLE
                     bind.customNameBoxLayout.isEndIconVisible = false
-                    bind.selectedNameIcon.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            requireContext(),
-                            resources.getIdentifier(
-                                productsWithImages[position].image.imageUrl,
-                                "drawable",
-                                requireContext().packageName
+
+                    when(productsWithImages[position].image.mimeType){
+                        "asset"->{
+                            bind.selectedNameIcon.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    resources.getIdentifier(
+                                        productsWithImages[position].image.imageUrl,
+                                        "drawable",
+                                        requireContext().packageName
+                                    )
+                                )
                             )
-                        )
-                    )
+                        }
+                        else->{
+                            bind.selectedNameIcon.setImageBitmap(
+                                ImageConvertor.stringToBitmap(productsWithImages[position].image.bitmap)
+                            )
+                        }
+                    }
                     Handler(Looper.getMainLooper()).postDelayed({
                         bind.nameOptionsRecycler.visibility = View.GONE
                         bind.completed2Check.visibility = View.VISIBLE

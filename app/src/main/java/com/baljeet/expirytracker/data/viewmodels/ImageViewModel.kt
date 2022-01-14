@@ -22,9 +22,7 @@ class ImageViewModel(application : Application): AndroidViewModel(application) {
     }
 
     fun addImage(image: Image){
-        viewModelScope.launch(Dispatchers.IO) {
             repository.addImage(image)
-        }
     }
 
     fun getImageByName(name : String): List<Image>{
