@@ -65,8 +65,6 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav = findViewById(R.id.bottom_navigation)
         navController = findNavController(R.id.fragmentContainerView)
-
-
         bottomNav.setupWithNavController(navController)
 
         if (!SharedPref.hasBeenSeeded) {

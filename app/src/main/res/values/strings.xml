@@ -19,7 +19,7 @@
     <string name="status_dashboard_var">%1$s</string>
     <string name="strawberries">Strawberries</string>
     <string name="bought_on_sample">Bought On : 25th June</string>
-    <string name="slogan">Lets keep everything fresh</string>
+    <string name="slogan">Lets keep \neverything fresh</string>
     <string name="add_here">Add here</string>
     <string name="add_product">Add Product</string>
     <string name="product_category">Product Category</string>

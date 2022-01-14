@@ -18,19 +18,19 @@
 
         <TextView
             android:id="@+id/slogan_text"
-            android:layout_width="250dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:elevation="4dp"
-            android:fontFamily="@font/roboto_medium"
-            android:letterSpacing="0.12"
-            android:lines="2"
+            android:maxLines="2"
             android:shadowColor="#88000000"
             android:text="@string/slogan"
             android:textAlignment="center"
-            android:textColor="@color/theme_blue"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:visibility="visible"
+            android:lines="2"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="30sp"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/guideline3" />
@@ -295,23 +295,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_layout"
             app:layout_constraintVertical_bias="0"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/no_item_text"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:elevation="4dp"
-            android:fontFamily="@font/roboto_medium"
-            android:letterSpacing="0.12"
             android:maxLines="3"
-            android:shadowColor="#88000000"
             android:text="@string/slogan"
             android:textAlignment="center"
-            android:textColor="@color/theme_blue"
-            android:textSize="30sp"
-            android:visibility="gone"
+            android:textSize="26sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="30sp"
+            android:visibility="visible"
             app:layout_constraintVertical_bias="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
@@ -353,7 +351,7 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <ImageView
         android:id="@+id/image_for_animation"
@@ -373,20 +371,14 @@
         android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:backgroundTint="@color/theme_blue"
         android:elevation="5dp"
-        android:fontFamily="@font/roboto_medium"
-        android:letterSpacing="0.12"
         android:text="@string/lets_s_track_a_product"
-        android:textAllCaps="false"
-        android:textColor="@color/main_background"
-        android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
         app:layout_constraintVertical_bias="0.6"
-        tools:visibility="invisible" />
+        tools:visibility="visible" />
 
 
 
