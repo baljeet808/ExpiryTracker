@@ -191,8 +191,8 @@
         <!-- Customize your theme here. -->
         <item name="background">@color/main_background</item>
         <item name="cardBackgroundColor">@color/card_background_yellow</item>
-        <item name="materialButtonStyle">@style/myPeachSolidButton</item>
-        <item name="extendedFloatingActionButtonStyle">@style/myPeachExtendedFloatingButton</item>
+        <item name="materialButtonStyle">@style/myYellowSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myYellowExtendedFloatingButton</item>
         <item name="chipStyle">@style/myYellowChoiceChipTheme</item>
         <item name="imageButtonStyle">@style/myYellowImageButtonStyle</item>
         <item name="android:textViewStyle">@style/myYellowTextStyle</item>
@@ -226,7 +226,7 @@
 
     <style name="myYellowSolidButton" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">40sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/text_dialog_color_yellow</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>

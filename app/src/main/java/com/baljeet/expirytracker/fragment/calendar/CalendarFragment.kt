@@ -128,7 +128,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                     } else {
                         bind.categoryLayout.visibility = View.GONE
                         bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                        bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
+                        bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
                     }
                 }
             }
@@ -177,7 +177,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
 
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-            bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
+            bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
         }
     }
 

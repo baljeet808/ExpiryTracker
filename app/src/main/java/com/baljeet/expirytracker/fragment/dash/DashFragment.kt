@@ -139,7 +139,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
                 } else {
                     chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                    setTextColor(requireContext().getColor(R.color.always_white))
+                    setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
                     bind.statusLayout.visibility = View.GONE
                 }
             }
@@ -155,10 +155,10 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                         setTextColor(requireContext().getColor(R.color.main_background))
 
                         bind.statusChip. chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                        bind.statusChip.setTextColor(requireContext().getColor(R.color.always_white))
+                        bind.statusChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
                     } else {
                         chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                        setTextColor(requireContext().getColor(R.color.always_white))
+                        setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
                         bind.categoryLayout.visibility = View.GONE
                     }
                 }
@@ -372,7 +372,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             }
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip. chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-            bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
+            bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
         }
     }
     private var getStatusJob: Job? = null

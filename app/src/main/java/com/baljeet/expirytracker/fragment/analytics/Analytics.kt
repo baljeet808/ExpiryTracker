@@ -135,7 +135,7 @@ class Analytics : Fragment() {
                         } else {
                             categoryLayout.visibility = View.GONE
                             productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                            productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
+                            productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
                         }
                     }
                 }
@@ -361,7 +361,7 @@ class Analytics : Fragment() {
 
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-            bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.always_white))
+            bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
         }
     }
 
