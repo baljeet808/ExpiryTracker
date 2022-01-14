@@ -154,7 +154,7 @@
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/selected_category_icon"
                     android:layout_width="30dp"
                     android:layout_height="0dp"
@@ -162,6 +162,7 @@
                     android:src="@drawable/liquor"
                     android:visibility="gone"
                     tools:visibility="visible"
+                    app:riv_corner_radius="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/custom_box_layout"
                     app:layout_constraintEnd_toStartOf="@id/guideline4"
                     app:layout_constraintTop_toTopOf="@id/custom_box_layout" />
@@ -282,7 +283,7 @@
                     app:layout_constraintStart_toEndOf="@id/guideline5"
                     app:layout_constraintTop_toBottomOf="@id/custom_name_box_layout" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/selected_name_icon"
                     android:layout_width="30dp"
                     android:layout_height="0dp"
@@ -290,6 +291,7 @@
                     android:src="@drawable/liquor"
                     android:visibility="gone"
                     tools:visibility="visible"
+                    app:riv_corner_radius="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/custom_name_box_layout"
                     app:layout_constraintEnd_toStartOf="@id/guideline6"
                     app:layout_constraintTop_toTopOf="@id/custom_name_box_layout" />

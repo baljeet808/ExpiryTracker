@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
@@ -69,6 +70,7 @@ class OptionsAdapter(
                             holder.bind.optionImage.setImageBitmap(
                                 ImageConvertor.stringToBitmap(category.image.bitmap)
                             )
+                            holder.bind.optionImage.setPadding(0)
                         }
                     }
                 }

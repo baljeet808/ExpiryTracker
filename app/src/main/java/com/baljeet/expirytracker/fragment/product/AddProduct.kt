@@ -23,6 +23,7 @@ import com.baljeet.expirytracker.databinding.FragmentAddProductBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.baljeet.expirytracker.util.Constants
+import com.baljeet.expirytracker.util.ImageConvertor
 import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.LocalDateTime
@@ -162,7 +163,6 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                 )
             )
         }else {
-
             if (optionIsCategory) {
                 if (checkVisibility == View.GONE) {
                     bind.customEdittext.setText(categoriesWithImages[position].category.categoryName)
@@ -170,16 +170,26 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                     bind.selectedCategoryIcon.visibility = View.VISIBLE
                     bind.customBoxLayout.isEndIconVisible = false
                     bind.customNameBoxLayout.isEndIconVisible = false
-                    bind.selectedCategoryIcon.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            requireContext(),
-                            resources.getIdentifier(
-                                categoriesWithImages[position].image.imageUrl,
-                                "drawable",
-                                requireContext().packageName
+                    when(categoriesWithImages[position].image.mimeType){
+                        "asset"->{
+                            bind.selectedCategoryIcon.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    resources.getIdentifier(
+                                        categoriesWithImages[position].image.imageUrl,
+                                        "drawable",
+                                        requireContext().packageName
+                                    )
+                                )
                             )
-                        )
-                    )
+                        }
+                        else->{
+                           bind.selectedCategoryIcon.setImageBitmap(
+                                ImageConvertor.stringToBitmap(categoriesWithImages[position].image.bitmap)
+                            ) 
+                        }
+                    }
+
                     Handler(Looper.getMainLooper()).postDelayed({
                         bind.optionsRecycler.visibility = View.GONE
                         bind.nameLayout.visibility = View.VISIBLE
