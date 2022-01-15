@@ -28,6 +28,6 @@ interface CategoryDao {
     fun searchCategoryByWord(text: String) : List<CategoryAndImage>
 
     @Transaction
-    @Query("SELECT * FROM categories")
+    @Query("SELECT * FROM categories ORDER BY categoryId DESC")
     fun getAllCategories(): List<CategoryAndImage>
 }

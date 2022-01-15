@@ -38,4 +38,15 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             productsByCategoryWithImage.postValue(repository.readProductWithImagesById(id))
         }
     }
+
+    val searchResults  = MutableLiveData<List<ProductAndImage>>(ArrayList())
+
+    fun searchByText(text : String ){
+        searchResults.value =  repository.searchProductByText(text)
+    }
+
+    fun getAllProducts(){
+        searchResults.value = repository.getAllProducts()
+    }
+
 }

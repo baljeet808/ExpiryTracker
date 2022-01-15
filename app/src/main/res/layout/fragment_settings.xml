@@ -183,14 +183,30 @@
                 android:paddingStart="20dp"
                 android:drawablePadding="20dp"
                 />
-
+            <TextView
+                android:id="@+id/products_textview"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/products"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/categories_textview"
+                android:layout_marginTop="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="?card_background"
+                app:drawableStartCompat="@drawable/groceries_24"
+                app:drawableEndCompat="@drawable/ic_arrow_right_32"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:drawablePadding="20dp"
+                />
             <TextView
                 android:id="@+id/notifications_textview"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="@string/notifications"
                 android:gravity="center_vertical"
-                app:layout_constraintTop_toBottomOf="@id/categories_textview"
+                app:layout_constraintTop_toBottomOf="@id/products_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

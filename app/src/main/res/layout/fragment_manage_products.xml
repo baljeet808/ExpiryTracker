@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/main_background"
-    tools:context=".fragment.settings.categories.ManageCategories">
+    android:animateLayoutChanges="true"
+    tools:context=".fragment.settings.products.ManageProducts">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button"
@@ -20,18 +19,18 @@
 
 
     <TextView
-        android:id="@+id/manage_categories_heading"
+        android:id="@+id/manage_products_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawablePadding="5dp"
         android:ellipsize="end"
         android:lines="1"
-        android:text="@string/manage_categories"
+        android:text="@string/manage_products"
         android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:drawableEndCompat="@drawable/category_24"
+        app:drawableEndCompat="@drawable/groceries_24"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintHorizontal_bias="0"
@@ -40,14 +39,14 @@
 
 
     <TextView
-        android:id="@+id/manage_category_message"
+        android:id="@+id/manage_product_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/manage_categories_heading"
+        app:layout_constraintTop_toBottomOf="@id/manage_products_heading"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         android:layout_marginTop="10dp"
-        android:text="@string/manage_categories_note"/>
+        android:text="@string/manage_products_note"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +62,7 @@
         app:endIconTint="@color/theme_peach_light"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/manage_category_message">
+        app:layout_constraintTop_toBottomOf="@id/manage_product_message">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edittext"
@@ -89,7 +88,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categories_recycler"
+        android:id="@+id/products_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="25dp"
