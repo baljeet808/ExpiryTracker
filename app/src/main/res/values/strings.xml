@@ -147,4 +147,6 @@
     <string name="image_editor_instruction">Drag photo by swipe or pinch to zoom in and out to fit the photo in frame.</string>
     <string name="save">save</string>
     <string name="manage_categories">Manage Categories</string>
+    <string name="_0_results">0 results</string>
+    <string name="number_of_results_var">%1$d results</string>
 </resources>

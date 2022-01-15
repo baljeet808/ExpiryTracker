@@ -39,7 +39,7 @@
 
 
     <TextView
-        android:id="@+id/support_message"
+        android:id="@+id/manage_category_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/manage_categories_heading"
@@ -50,7 +50,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/custom_box_layout"
+        android:id="@+id/search_box_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -62,10 +62,10 @@
         app:endIconTint="@color/theme_peach_light"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/support_message">
+        app:layout_constraintTop_toBottomOf="@id/manage_category_message">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/custom_edittext"
+            android:id="@+id/search_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/normalRoboto14Regular"
@@ -73,15 +73,29 @@
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <TextView
+        android:id="@+id/results_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_box_layout"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        android:text="@string/_0_results"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/options_recycler"
+        android:id="@+id/categories_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/custom_box_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/results_count"/>
 
 
     <androidx.constraintlayout.widget.Guideline

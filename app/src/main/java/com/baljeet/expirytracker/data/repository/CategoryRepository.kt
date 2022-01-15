@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.daos.CategoryDao
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import io.reactivex.Flowable
 
 class CategoryRepository(private val categoryDao : CategoryDao){
 
@@ -16,5 +17,13 @@ class CategoryRepository(private val categoryDao : CategoryDao){
 
     fun readCategoriesByName(name : String): List<CategoryAndImage> {
         return categoryDao.readCategoryByName(name)
+    }
+
+    fun searchCategoryByWord(text: String): List<CategoryAndImage> {
+            return categoryDao.searchCategoryByWord(text)
+    }
+
+    fun getAllCategories(): List<CategoryAndImage>{
+        return categoryDao.getAllCategories()
     }
 }

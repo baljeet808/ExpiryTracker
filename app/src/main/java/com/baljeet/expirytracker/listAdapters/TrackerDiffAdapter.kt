@@ -21,7 +21,9 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.periodUntil
 import kotlinx.datetime.toInstant
 
-class TrackerDiffAdapter(private val context : Context, private val updateTrackerListener :UpdateTrackerListener) : ListAdapter<TrackerAndProduct,TrackerDiffAdapter.MyViewHolder>(DiffUtil()) {
+class TrackerDiffAdapter(private val context : Context,
+                         private val updateTrackerListener :UpdateTrackerListener
+                         ) : ListAdapter<TrackerAndProduct,TrackerDiffAdapter.MyViewHolder>(DiffUtil()) {
 
     private var isDeleteActionSelected = true
 
