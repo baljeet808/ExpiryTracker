@@ -103,6 +103,7 @@
     <string name="personal_note">Craving for more customizations? We got you covered. Dig in and experiment.</string>
     <string name="manage_categories_note">Want to see logs, edit, delete, add or search products. No problem we got you covered</string>
     <string name="manage_products_note">Want to see history logs, edit, delete or add products. This page will help you do that. Tap on any product to start.</string>
+    <string name="manage_notification_note">Enable theme all with one tap or set reminder time for any specific tracking in progress.</string>
     <string name="search_category_hint">Start typing to search</string>
     <string name="personalization">Personalization</string>
     <string name="submit">Submit</string>
@@ -151,4 +152,7 @@
     <string name="manage_products">Manage Products</string>
     <string name="_0_results">0 results</string>
     <string name="number_of_results_var">%1$d results</string>
+    <string name="manage_notifications">Manage Notifications</string>
+    <string name="notifications_off">Notifications Off</string>
+    <string name="notifications_on">Notifications On</string>
 </resources>

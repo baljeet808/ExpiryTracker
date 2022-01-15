@@ -27,6 +27,18 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="mySwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:checked">false</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="thumbTint">@color/switch_thumb_color</item>
+        <item name="trackTint">@color/switch_track_color</item>
+    </style>
+
     <style name="myCardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/card_background_blue</item>
         <item name="rippleColor">@color/text_dialog_color_blue</item>
@@ -718,6 +730,7 @@
         <item name="window_top_bar">?attr/window_top_bar</item>
         <item name="card_background">?attr/card_background</item>
         <item name="text_dialog_color">?attr/text_dialog_color</item>
+        <item name="switchStyle">@style/mySwitchStyle</item>
     </style>
 
 

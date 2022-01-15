@@ -69,6 +69,9 @@ class SettingsFragment : Fragment() {
             productsTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageProducts())
             }
+            notificationsTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageNotifications())
+            }
         }
         return bind.root
     }

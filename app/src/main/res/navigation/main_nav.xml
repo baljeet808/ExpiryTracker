@@ -69,6 +69,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_left_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_manageNotifications"
+            app:destination="@id/manageNotifications"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/analytics"
@@ -147,4 +154,9 @@
         android:name="com.baljeet.expirytracker.fragment.settings.products.ManageProducts"
         android:label="fragment_manage_products"
         tools:layout="@layout/fragment_manage_products" />
+    <fragment
+        android:id="@+id/manageNotifications"
+        android:name="com.baljeet.expirytracker.fragment.settings.notifications.ManageNotifications"
+        android:label="fragment_manage_notifications"
+        tools:layout="@layout/fragment_manage_notifications" />
 </navigation>

@@ -1,5 +1,7 @@
 package com.baljeet.expirytracker
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -71,6 +73,8 @@ class MainActivity : AppCompatActivity() {
             seedData()
             SharedPref.hasBeenSeeded = true
         }
+
+        createNotificationChannel()
     }
 
     private fun seedData() {
@@ -95,6 +99,17 @@ class MainActivity : AppCompatActivity() {
         for (image in selectVM.getImages()) {
             imageVm.addImage(image)
         }
+    }
+
+
+    private fun createNotificationChannel() {
+        val name = "ExpiryTrackerReminderBaljeet"
+        val description = "Channel for ExpiryTracker Reminders"
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel("expiryTrackerBaljeet", name, importance)
+        channel.description = description
+        val notificationManager = applicationContext.getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
     }
 
 }

@@ -1,11 +1,5 @@
 package com.baljeet.expirytracker.fragment.dash
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
@@ -39,12 +33,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.Job
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import java.time.Month
-import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 
 class DashFragment : Fragment(), UpdateTrackerListener {
@@ -55,9 +46,6 @@ class DashFragment : Fragment(), UpdateTrackerListener {
     private val categoryVM: CategoryViewModel by viewModels()
     private val trackerVm: TrackerViewModel by activityViewModels()
 
-    private lateinit var alarmManager: AlarmManager
-    private lateinit var pendingIntent: PendingIntent
-    private val calendar = Calendar.getInstance()
 
     private val messages = ArrayList<String>()
     private val categories = ArrayList<Category>()
@@ -192,33 +180,8 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 setTextColor(requireContext().getColor(R.color.always_white))
             }
 
-            createNotificationChannel()
-
-            if (!SharedPref.isAlertEnabled) {
-                val time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                setReminderForProducts(time.hour, time.minute.plus(5))
-                SharedPref.isAlertEnabled = true
-            }
-
             bind.greetingText.setOnClickListener {
-                if (SharedPref.isAlertEnabled) {
-                    alarmManager =
-                        requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    val intent = Intent(requireContext(), NotificationReceiver::class.java)
-                    pendingIntent = PendingIntent.getBroadcast(
-                        requireContext(), 0, intent,
-                        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-                    alarmManager.cancel(pendingIntent)
-                    SharedPref.isAlertEnabled = false
-                    Toast.makeText(requireContext(), "Alerts disabled", Toast.LENGTH_SHORT).show()
-                } else {
-                    val time =
-                        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                    setReminderForProducts(time.hour, time.minute.plus(5))
-                    SharedPref.isAlertEnabled = true
-                    Toast.makeText(requireContext(), "Alerts enabled", Toast.LENGTH_SHORT).show()
-                }
+
             }
             getCategoriesChips()
             getStatus()
@@ -388,34 +351,6 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         }
     }
 
-    private fun setReminderForProducts(hour: Int, minutes: Int) {
-
-        calendar[Calendar.HOUR_OF_DAY] = hour
-        calendar[Calendar.MINUTE] = minutes
-        calendar[Calendar.SECOND] = 0
-        calendar[Calendar.MILLISECOND] = 0
-
-        alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
-            AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
-        )
-    }
-
-    private fun createNotificationChannel() {
-        val name = "ExpiryTrackerReminderBaljeet"
-        val description = "Channel for ExpiryTracker Reminders"
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("expiryTrackerBaljeet", name, importance)
-        channel.description = description
-        val notificationManager = requireContext().getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
-    }
 
 
     override fun onPause() {
