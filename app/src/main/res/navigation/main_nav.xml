@@ -55,6 +55,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_left_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_manageCategories"
+            app:destination="@id/manageCategories"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/analytics"
@@ -76,12 +83,12 @@
     </fragment>
     <fragment
         android:id="@+id/donateFragment"
-        android:name="com.baljeet.expirytracker.fragment.settings.DonateFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.donate.DonateFragment"
         android:label="fragment_donate"
         tools:layout="@layout/fragment_donate" />
     <fragment
         android:id="@+id/reviewsFragment"
-        android:name="com.baljeet.expirytracker.fragment.settings.ReviewsFragment"
+        android:name="com.baljeet.expirytracker.fragment.settings.rating.ReviewsFragment"
         android:label="fragment_reviews"
         tools:layout="@layout/fragment_reviews" />
     <fragment
@@ -123,4 +130,9 @@
             android:name="selectedImage"
             app:argType="com.baljeet.expirytracker.data.Image" />
     </fragment>
+    <fragment
+        android:id="@+id/manageCategories"
+        android:name="com.baljeet.expirytracker.fragment.settings.categories.ManageCategories"
+        android:label="fragment_manage_categories"
+        tools:layout="@layout/fragment_manage_categories" />
 </navigation>

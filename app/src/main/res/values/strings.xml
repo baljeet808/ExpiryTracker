@@ -101,6 +101,8 @@
     <string name="review_message">We would love to hear your thoughts regarding our App. We are working hard to provide a better and easy user experience.</string>
     <string name="grateful_note">Hey there! This is a donation Page. You could treat us with a meal or a candy here. We will be very grateful for your kind support. Anyway we are already grateful to you for choosing this app. Thank you so much.</string>
     <string name="personal_note">Craving for more customizations? We got you covered. Dig in and experiment.</string>
+    <string name="manage_categories_note">Want to edit, delete, add or search categories. No problem we got you covered</string>
+    <string name="search_category_hint">Start typing to search</string>
     <string name="personalization">Personalization</string>
     <string name="submit">Submit</string>
     <string name="your_thoughts">Your thoughts</string>
@@ -144,4 +146,5 @@
     <string name="edit_your_photo">Edit Your Photo</string>
     <string name="image_editor_instruction">Drag photo by swipe or pinch to zoom in and out to fit the photo in frame.</string>
     <string name="save">save</string>
+    <string name="manage_categories">Manage Categories</string>
 </resources>

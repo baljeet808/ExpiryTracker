@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
     android:animateLayoutChanges="true"
-    tools:context=".fragment.settings.rating.ReviewsFragment">
+    android:background="@color/main_background"
+    tools:context=".fragment.settings.categories.ManageCategories">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button"
@@ -17,104 +17,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/support_heading"
+        android:id="@+id/manage_categories_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:drawablePadding="5dp"
         android:ellipsize="end"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center_vertical"
-        android:letterSpacing="0.05"
         android:lines="1"
-        android:text="@string/review_expiry_tracker_app"
+        android:text="@string/manage_categories"
         android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:drawableEndCompat="@drawable/star_24"
+        app:drawableEndCompat="@drawable/category_24"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/back_button" />
 
+
     <TextView
-        android:id="@+id/review_message_text"
+        android:id="@+id/support_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/manage_categories_heading"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
         android:layout_marginTop="10dp"
-        android:drawablePadding="25dp"
-        android:text="@string/review_message"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/support_heading" />
+        android:text="@string/manage_categories_note"/>
 
-    <ImageView
-        android:id="@+id/expression_face"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/heart_neutral"
-        app:layout_constraintTop_toBottomOf="@id/review_message_text"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
-        android:contentDescription="@string/rating_expression_image_description" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:rating="2"
-        android:stepSize="1.0"
-        android:progressTint="?text_dialog_color"
-        android:contentDescription="@string/rating_bar_content_description"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/expression_face"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/review_comment_layout"
+        android:id="@+id/custom_box_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/your_thoughts"
-        app:errorEnabled="true"
-        app:hintTextColor="#757575"
+        android:layout_marginTop="20dp"
+        android:background="@color/main_background"
+        android:hint="@string/search_category_hint"
+        android:textColorHint="?text_dialog_color"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/theme_peach_light"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        android:layout_marginTop="20dp"
-        >
+        app:layout_constraintTop_toBottomOf="@id/support_message">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/review_comment_edittext"
+            android:id="@+id/custom_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:letterSpacing="0.05"
-            android:lineSpacingExtra="5dp"
-            android:textColor="@color/text_color"
-            android:minLines="4"
-            android:gravity="start"
-            />
+            android:textAppearance="@style/normalRoboto14Regular"
+            android:textColor="?text_dialog_color"
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <Button
-        android:id="@+id/submit_button"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/options_recycler"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:elevation="10dp"
-        android:enabled="false"
-        android:text="@string/submit"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/review_comment_layout" />
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toBottomOf="@id/custom_box_layout"/>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -130,6 +97,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

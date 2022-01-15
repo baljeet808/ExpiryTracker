@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".fragment.settings.DonateFragment">
+    tools:context=".fragment.settings.donate.DonateFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button"

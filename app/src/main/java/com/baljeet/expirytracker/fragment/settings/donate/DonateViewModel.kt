@@ -1,4 +1,4 @@
-package com.baljeet.expirytracker.fragment.settings
+package com.baljeet.expirytracker.fragment.settings.donate
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
