@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
+import com.baljeet.expirytracker.interfaces.OnProductSelected
 import com.baljeet.expirytracker.util.ImageConvertor
 
 class ProductResultsAdapter(
-    private val context: Context
-): ListAdapter<ProductAndImage, ProductResultsAdapter.MyViewHolder>(ProductResultsAdapter.DiffUtil()) {
+    private val context: Context ,
+    private val listener : OnProductSelected
+): ListAdapter<ProductAndImage, ProductResultsAdapter.MyViewHolder>(DiffUtil()) {
 
     inner class MyViewHolder(val bind : ItemOptionBinding) : RecyclerView.ViewHolder(bind.root)
 
@@ -60,6 +62,7 @@ class ProductResultsAdapter(
                     optionImage.setPadding(0)
                 }
             }
+            optionLayout.setOnClickListener { listener.openInfoOfProduct(product) }
         }
     }
 

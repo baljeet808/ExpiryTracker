@@ -1,4 +1,4 @@
-package com.baljeet.expirytracker.fragment.settings
+package com.baljeet.expirytracker.fragment.settings.widgets
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

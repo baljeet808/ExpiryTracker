@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/main_background"
-    tools:context=".fragment.settings.WidgetMenu">
+    tools:context=".fragment.settings.widgets.WidgetMenu">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button"

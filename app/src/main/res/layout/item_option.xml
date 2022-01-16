@@ -7,6 +7,7 @@
     android:background="@color/main_background"
     android:layout_margin="5dp"
     android:animateLayoutChanges="true"
+    android:id="@+id/option_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/option_card"

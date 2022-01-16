@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
+import com.baljeet.expirytracker.interfaces.OnCategorySelected
 import com.baljeet.expirytracker.util.ImageConvertor
 
 class SearchResultsAdapter(
-    private val context: Context
-): ListAdapter<CategoryAndImage, SearchResultsAdapter.MyViewHolder>(SearchResultsAdapter.DiffUtil()) {
+    private val context: Context ,
+    private val listener : OnCategorySelected
+): ListAdapter<CategoryAndImage, SearchResultsAdapter.MyViewHolder>(DiffUtil()) {
 
     inner class MyViewHolder(val bind : ItemOptionBinding) : RecyclerView.ViewHolder(bind.root)
 
@@ -61,6 +63,7 @@ class SearchResultsAdapter(
                     optionImage.setPadding(0)
                 }
             }
+            optionLayout.setOnClickListener { listener.openInfoOfCategory(category) }
         }
     }
 

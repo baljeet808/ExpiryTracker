@@ -107,7 +107,7 @@
         tools:layout="@layout/fragment_reviews" />
     <fragment
         android:id="@+id/widgetMenu"
-        android:name="com.baljeet.expirytracker.fragment.settings.WidgetMenu"
+        android:name="com.baljeet.expirytracker.fragment.settings.widgets.WidgetMenu"
         android:label="fragment_widget_menu"
         tools:layout="@layout/fragment_widget_menu" />
     <fragment
@@ -148,15 +148,49 @@
         android:id="@+id/manageCategories"
         android:name="com.baljeet.expirytracker.fragment.settings.categories.ManageCategories"
         android:label="fragment_manage_categories"
-        tools:layout="@layout/fragment_manage_categories" />
+        tools:layout="@layout/fragment_manage_categories" >
+        <action
+            android:id="@+id/action_manageCategories_to_categoryInfo"
+            app:destination="@id/categoryInfo"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/manageProducts"
         android:name="com.baljeet.expirytracker.fragment.settings.products.ManageProducts"
         android:label="fragment_manage_products"
-        tools:layout="@layout/fragment_manage_products" />
+        tools:layout="@layout/fragment_manage_products" >
+        <action
+            android:id="@+id/action_manageProducts_to_productInfo"
+            app:destination="@id/productInfo"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/manageNotifications"
         android:name="com.baljeet.expirytracker.fragment.settings.notifications.ManageNotifications"
         android:label="fragment_manage_notifications"
         tools:layout="@layout/fragment_manage_notifications" />
+    <fragment
+        android:id="@+id/categoryInfo"
+        android:name="com.baljeet.expirytracker.fragment.settings.categories.CategoryInfo"
+        android:label="fragment_category_info"
+        tools:layout="@layout/fragment_category_info" >
+        <argument
+            android:name="categoryAndImage"
+            app:argType="com.baljeet.expirytracker.data.relations.CategoryAndImage" />
+    </fragment>
+    <fragment
+        android:id="@+id/productInfo"
+        android:name="com.baljeet.expirytracker.fragment.settings.products.ProductInfo"
+        android:label="fragment_product_info"
+        tools:layout="@layout/fragment_product_info" >
+        <argument
+            android:name="productAndImage"
+            app:argType="com.baljeet.expirytracker.data.relations.ProductAndImage" />
+    </fragment>
 </navigation>
