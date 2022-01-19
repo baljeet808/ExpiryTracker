@@ -11,52 +11,44 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/main_background"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline5"
+        >
 
         <ImageButton
             android:id="@+id/close_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image"
             android:padding="10dp"
-            android:src="@drawable/ic_arrow_right_32"
             android:rotation="90"
+            android:src="@drawable/ic_round_close_32"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline21"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/image" />
-
-        <TextView
-            android:id="@+id/fragment_title_text"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="@string/products"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center"
-            android:paddingEnd="20dp"
-            android:paddingStart="0dp"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMaxTextSize="22sp"
-            android:layout_marginStart="10dp"
-            android:lines="1"
-            android:ellipsize="end"
-            android:letterSpacing="0.025"
-            app:layout_constraintEnd_toStartOf="@id/guideline41"
-            app:layout_constraintStart_toEndOf="@id/close_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <TextView
+            android:id="@+id/fragment_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/categories"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.513" />
 
         <Button
             android:id="@+id/top_most_line"
             android:layout_width="0dp"
             android:layout_height="4dp"
             android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline21"
@@ -73,10 +65,106 @@
             app:layout_constraintGuide_percent="0.95" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/image_card"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="30dp"
+        app:strokeColor="@color/text_color"
+        app:strokeWidth="2dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/guideline5"
+        app:layout_constraintBottom_toTopOf="@id/guideline6"
+        >
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            >
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:riv_corner_radius="30dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/edit_image_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        app:layout_constraintTop_toBottomOf="@id/image_card"
+        app:textAllCaps="false"
+        android:letterSpacing="0.09"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:drawableTint="@color/text_color"
+        app:drawableStartCompat="@drawable/ic_edit" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_box"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/main_background"
+        android:hint="@string/category_name"
+        android:textColorHint="?text_dialog_color"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/theme_peach_light"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/edit_image_btn">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/normalRoboto14Regular"
+            android:textColor="?text_dialog_color"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.07" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
