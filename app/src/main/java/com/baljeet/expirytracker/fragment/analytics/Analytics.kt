@@ -85,13 +85,15 @@ class Analytics : Fragment() {
                 }
             }
 
-            viewModel.allActiveTrackers.observe(viewLifecycleOwner,{
-                additionalTrackingInfo1.text = requireContext().getString(R.string.additional_info1,it?.size?:0)
-            })
+            viewModel.allActiveTrackers.observe(viewLifecycleOwner) {
+                additionalTrackingInfo1.text =
+                    requireContext().getString(R.string.additional_info1, it?.size ?: 0)
+            }
 
-            viewModel.allFinishedTracker.observe(viewLifecycleOwner,{
-                additionalTrackingInfo2.text = requireContext().getString(R.string.additional_info2,  it?.size?:0)
-            })
+            viewModel.allFinishedTracker.observe(viewLifecycleOwner) {
+                additionalTrackingInfo2.text =
+                    requireContext().getString(R.string.additional_info2, it?.size ?: 0)
+            }
 
             favouriteToggle.apply {
                 setOnClickListener {
@@ -153,7 +155,7 @@ class Analytics : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind.apply {
-            viewModel.favouriteFilter.observe(viewLifecycleOwner, { filter ->
+            viewModel.favouriteFilter.observe(viewLifecycleOwner) { filter ->
                 when (filter) {
                     Constants.SHOW_ALL -> {
                         favouriteToggle.setImageDrawable(
@@ -180,49 +182,52 @@ class Analytics : Fragment() {
                         )
                     }
                 }
-            })
+            }
 
-            viewModel.showingGraphFor.observe(viewLifecycleOwner,{
+            viewModel.showingGraphFor.observe(viewLifecycleOwner) {
                 setGraphValues()
-            })
+            }
 
             summaryListView.layoutManager = LinearLayoutManager(requireContext())
             summaryAdapter = SummaryDiffAdapter(requireContext())
             summaryListView.adapter = summaryAdapter
 
-            viewModel.trackersAfterAllFilters.observe(viewLifecycleOwner,{
-                    viewModel.calculatedAllFields(it)
-                    setGraphValues()
-                    summaryAdapter.submitList(it.filter { r -> r.tracker.isUsed })
-                })
+            viewModel.trackersAfterAllFilters.observe(viewLifecycleOwner) {
+                viewModel.calculatedAllFields(it)
+                setGraphValues()
+                summaryAdapter.submitList(it.filter { r -> r.tracker.isUsed })
+            }
 
-            viewModel.periodFilterLive.observe(viewLifecycleOwner,{
-                  when(it){
-                      Constants.PERIOD_DAILY->{
-                          monthName.text = requireContext().getString(R.string.date_short_var,
-                              viewModel.startDateLive.dayOfMonth,
-                              viewModel.startDateLive.month.name.substring(0,3).uppercase()
-                          )
-                      }
-                      Constants.PERIOD_WEEKLY->{
-                          monthName.text = requireContext().getString(R.string.week_var,
-                              viewModel.startDateLive.dayOfMonth,
-                              viewModel.startDateLive.month.name.substring(0,3).uppercase(),
-                              viewModel.endDateLive.dayOfMonth,
-                              viewModel.endDateLive.month.name.substring(0,3).uppercase()
-                          )
-                      }
-                      Constants.PERIOD_MONTHLY->{
-                          monthName.text = requireContext().getString(R.string.month_var,
-                                viewModel.startDateLive.month.name.substring(0,3).uppercase(),
-                                viewModel.startDateLive.year
-                          )
-                      }
-                      Constants.PERIOD_YEARLY ->{
-                          monthName.text = viewModel.startDateLive.year.toString()
-                      }
-                  }
-            })
+            viewModel.periodFilterLive.observe(viewLifecycleOwner) {
+                when (it) {
+                    Constants.PERIOD_DAILY -> {
+                        monthName.text = requireContext().getString(
+                            R.string.date_short_var,
+                            viewModel.startDateLive.dayOfMonth,
+                            viewModel.startDateLive.month.name.substring(0, 3).uppercase()
+                        )
+                    }
+                    Constants.PERIOD_WEEKLY -> {
+                        monthName.text = requireContext().getString(
+                            R.string.week_var,
+                            viewModel.startDateLive.dayOfMonth,
+                            viewModel.startDateLive.month.name.substring(0, 3).uppercase(),
+                            viewModel.endDateLive.dayOfMonth,
+                            viewModel.endDateLive.month.name.substring(0, 3).uppercase()
+                        )
+                    }
+                    Constants.PERIOD_MONTHLY -> {
+                        monthName.text = requireContext().getString(
+                            R.string.month_var,
+                            viewModel.startDateLive.month.name.substring(0, 3).uppercase(),
+                            viewModel.startDateLive.year
+                        )
+                    }
+                    Constants.PERIOD_YEARLY -> {
+                        monthName.text = viewModel.startDateLive.year.toString()
+                    }
+                }
+            }
         }
     }
 
@@ -329,7 +334,7 @@ class Analytics : Fragment() {
             bind.productCategoryChip.text = it.categoryName
         }
         categoryVM.readAllCategories?.let {
-            it.observe(viewLifecycleOwner, { cats ->
+            it.observe(viewLifecycleOwner) { cats ->
                 if (!cats.isNullOrEmpty()) {
                     bind.categoriesChoiceList.apply {
                         categories.clear()
@@ -340,14 +345,14 @@ class Analytics : Fragment() {
                             chip.id = category.categoryId
                             chip.isCheckedIconVisible = true
                             chip.isChecked =
-                                viewModel.categoryFilter.value?.let { cat->
+                                viewModel.categoryFilter.value?.let { cat ->
                                     cat.categoryId == category.categoryId
                                 } ?: false
                             addView(chip)
                         }
                     }
                 }
-            })
+            }
         }
         bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
             val category = categories.firstOrNull { c->c.categoryId == checkedId }
@@ -356,7 +361,7 @@ class Analytics : Fragment() {
                 viewModel.categoryFilter.postValue(category)
             }?: kotlin.run {
                 bind.productCategoryChip.text = resources.getString(R.string.products)
-                viewModel.categoryFilter.postValue(Category(0, "Products", 0))
+                viewModel.categoryFilter.postValue(Category(0, "Products", 0,false))
             }
 
             bind.categoryLayout.visibility = View.GONE

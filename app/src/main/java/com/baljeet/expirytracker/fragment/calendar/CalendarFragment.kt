@@ -43,19 +43,34 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
     ): View {
         bind = FragmentCalendarV1Binding.inflate(inflater, container, false)
 
-        viewModel.favouriteFilter.observe(viewLifecycleOwner, { filter->
-            when(filter){
-                Constants.SHOW_ALL ->{
-                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_half_32))
+        viewModel.favouriteFilter.observe(viewLifecycleOwner) { filter ->
+            when (filter) {
+                Constants.SHOW_ALL -> {
+                    bind.favouriteToggle.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_star_half_32
+                        )
+                    )
                 }
-                Constants.SHOW_ONLY_FAVOURITE->{
-                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_round_star_32))
+                Constants.SHOW_ONLY_FAVOURITE -> {
+                    bind.favouriteToggle.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_round_star_32
+                        )
+                    )
                 }
-                Constants.SHOW_ONLY_NON_FAVOURITE->{
-                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_outline_32))
+                Constants.SHOW_ONLY_NON_FAVOURITE -> {
+                    bind.favouriteToggle.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_star_outline_32
+                        )
+                    )
                 }
             }
-        })
+        }
 
         bind.favouriteToggle.apply {
             setOnClickListener {
@@ -102,16 +117,16 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                 viewModel.setPreviousMonth()
             }
 
-            viewModel.trackersForCalendar.observe(viewLifecycleOwner,{
-                calendarAdapter =CalendarAdapter(it, requireContext(), this@CalendarFragment)
-                monthRecyclerView.adapter =calendarAdapter
+            viewModel.trackersForCalendar.observe(viewLifecycleOwner) {
+                calendarAdapter = CalendarAdapter(it, requireContext(), this@CalendarFragment)
+                monthRecyclerView.adapter = calendarAdapter
                 monthName.text = viewModel.monthYearTextFromDate()
-            })
+            }
 
-            viewModel.trackersForRecycler.observe(viewLifecycleOwner,{
+            viewModel.trackersForRecycler.observe(viewLifecycleOwner) {
                 trackerAdapter.submitList(it)
                 bind.dayName.text = viewModel.dayYearTextFromDate()
-            })
+            }
 
             monthName.text = viewModel.monthYearTextFromDate()
             bind.dayName.text = viewModel.dayYearTextFromDate()
@@ -145,7 +160,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             bind.productCategoryChip.text = it.categoryName
         }
         categoryVM.readAllCategories?.let {
-            it.observe(viewLifecycleOwner, { cats ->
+            it.observe(viewLifecycleOwner) { cats ->
                 if (!cats.isNullOrEmpty()) {
                     bind.categoriesChoiceList.apply {
                         categories.clear()
@@ -156,14 +171,14 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                             chip.id = category.categoryId
                             chip.isCheckedIconVisible = true
                             chip.isChecked =
-                                viewModel.categoryFilter.value?.let { cat->
+                                viewModel.categoryFilter.value?.let { cat ->
                                     cat.categoryId == category.categoryId
                                 } ?: false
                             addView(chip)
                         }
                     }
                 }
-            })
+            }
         }
         bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
             val category = categories.firstOrNull { c->c.categoryId == checkedId }
@@ -172,7 +187,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                 viewModel.categoryFilter.postValue(category)
             }?: kotlin.run {
                 bind.productCategoryChip.text = resources.getString(R.string.products)
-                viewModel.categoryFilter.postValue(Category(0, "Products", 0))
+                viewModel.categoryFilter.postValue(Category(0, "Products", 0,false))
             }
 
             bind.categoryLayout.visibility = View.GONE

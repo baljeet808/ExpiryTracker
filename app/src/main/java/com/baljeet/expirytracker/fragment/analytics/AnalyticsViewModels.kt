@@ -59,14 +59,14 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
         addSource(favouriteFilter){
             this.value = filterByCategoryAndFavourites(
                 trackersAfterPeriodFilter.value?:ArrayList(),
-                categoryFilter.value?: Category(0,"Products",0),
+                categoryFilter.value?: Category(0,"Products",0,false),
                 it?:Constants.SHOW_ALL
             )
         }
         addSource(categoryFilter){
             this.value = filterByCategoryAndFavourites(
                 trackersAfterPeriodFilter.value?:ArrayList(),
-                it?: Category(0,"Products",0),
+                it?: Category(0,"Products",0,false),
                 favouriteFilter.value?:Constants.SHOW_ALL
             )
 
@@ -74,7 +74,7 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
         addSource(trackersAfterPeriodFilter){
             this.value = filterByCategoryAndFavourites(
                 it?:ArrayList(),
-                categoryFilter.value?: Category(0,"Products",0),
+                categoryFilter.value?: Category(0,"Products",0,false),
                 favouriteFilter.value?:Constants.SHOW_ALL
             )
         }

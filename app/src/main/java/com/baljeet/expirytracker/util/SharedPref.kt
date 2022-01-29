@@ -34,6 +34,13 @@ object SharedPref {
             it.putBoolean("isNightModeOn",value)
         }
 
+    var doNotAskBeforeDeletingCategory : Boolean
+        get() = sharedPref.getBoolean("doNotAskBeforeDeletingCategory", false)
+
+        set(value) = sharedPref.edit {
+            it.putBoolean("doNotAskBeforeDeletingCategory",value)
+        }
+
     var selectedStatus: String?
         get() = sharedPref.getString("selectedStatus","All")
         set(value) = sharedPref.edit { it.putString("selectedStatus",value) }

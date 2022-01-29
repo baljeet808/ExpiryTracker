@@ -202,7 +202,8 @@ class CreateCustom : Fragment() {
                           categoryViewModel.addCategory(Category(
                               categoryId = 0,
                               categoryName = nameEdittext.text.toString(),
-                              imageId = image.imageId
+                              imageId = image.imageId,
+                              false
                           ))
                       }
                       else->{
@@ -210,7 +211,8 @@ class CreateCustom : Fragment() {
                               productId = 0,
                               name = nameEdittext.text.toString(),
                               categoryId = navArgs.selectedCategory?.categoryId!!,
-                              imageId = image.imageId
+                              imageId = image.imageId,
+                              false
                           ))
                           Log.d("Log for - ","ran completely")
                       }

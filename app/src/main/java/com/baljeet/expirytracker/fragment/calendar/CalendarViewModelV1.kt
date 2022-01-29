@@ -35,7 +35,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
     private var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
     var favouriteFilter = MutableLiveData<Int>()
     var categoryFilter = MutableLiveData<Category>()
-    var noTrackerIsActive = false
+    private var noTrackerIsActive = false
 
     private var filteredTrackers = MediatorLiveData<List<TrackerAndProduct>>().apply {
         addSource(allTrackerLive){ allTrackers->
@@ -43,7 +43,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
             this.value =filterTrackers(
                 favFilter = favouriteFilter.value?:Constants.SHOW_ALL,
                 allTracker = allTrackers,
-                category = categoryFilter.value?:Category(0,"Products",0),
+                category = categoryFilter.value?:Category(0,"Products",0,false),
                 monthDate = selectedDateLive.value?: LocalDateTime.now()
             )
         }
@@ -52,7 +52,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
             this.value =filterTrackers(
                 favFilter = favouriteFilter.value?:Constants.SHOW_ALL,
                 allTracker = allTrackerLive.value?:ArrayList(),
-                category = categoryFilter.value?:Category(0,"Products",0),
+                category = categoryFilter.value?:Category(0,"Products",0,false),
                 monthDate = monthDate?: LocalDateTime.now()
             )
         }
@@ -61,7 +61,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
             this.value =filterTrackers(
                 favFilter = favouriteState?:Constants.SHOW_ALL,
                 allTracker = allTrackerLive.value?:ArrayList(),
-                category = categoryFilter.value?:Category(0,"Products",0),
+                category = categoryFilter.value?:Category(0,"Products",0,false),
                 monthDate = selectedDateLive.value?: LocalDateTime.now()
             )
         }
@@ -70,7 +70,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
             this.value =filterTrackers(
                 favFilter = favouriteFilter.value?:Constants.SHOW_ALL,
                 allTracker = allTrackerLive.value?:ArrayList(),
-                category = category?:Category(0,"Products",0),
+                category = category?:Category(0,"Products",0,false),
                 monthDate = selectedDateLive.value?: LocalDateTime.now()
             )
         }

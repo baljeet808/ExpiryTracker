@@ -86,14 +86,14 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         bind.trackerRecyclerView.adapter = trackerAdapter
 
         trackerVm.filteredTrackers.let {
-            it.observe(viewLifecycleOwner, { its ->
+            it.observe(viewLifecycleOwner) { its ->
                 if (trackerVm.noTrackerIsActive) {
                     noItemView()
                     disposable.dispose()
                 } else {
                     setDashList(its)
                 }
-            })
+            }
         }
 
         bind.trackerRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -186,19 +186,34 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             getCategoriesChips()
             getStatus()
         }
-        trackerVm.favouriteFilter.observe(viewLifecycleOwner, { filter->
-            when(filter){
-                Constants.SHOW_ALL ->{
-                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_half_32))
+        trackerVm.favouriteFilter.observe(viewLifecycleOwner) { filter ->
+            when (filter) {
+                Constants.SHOW_ALL -> {
+                    bind.favouriteToggle.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_star_half_32
+                        )
+                    )
                 }
-                Constants.SHOW_ONLY_FAVOURITE->{
-                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_round_star_32))
+                Constants.SHOW_ONLY_FAVOURITE -> {
+                    bind.favouriteToggle.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_round_star_32
+                        )
+                    )
                 }
-                Constants.SHOW_ONLY_NON_FAVOURITE->{
-                    bind.favouriteToggle.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_star_outline_32))
+                Constants.SHOW_ONLY_NON_FAVOURITE -> {
+                    bind.favouriteToggle.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_star_outline_32
+                        )
+                    )
                 }
             }
-        })
+        }
 
         bind.favouriteToggle.apply {
             setOnClickListener {
@@ -304,7 +319,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
             bind.productCategoryChip.text = it.categoryName
         }
         categoryVM.readAllCategories?.let {
-            it.observe(viewLifecycleOwner, { cats ->
+            it.observe(viewLifecycleOwner) { cats ->
                 if (!cats.isNullOrEmpty()) {
                     bind.categoriesChoiceList.apply {
                         categories.clear()
@@ -315,14 +330,14 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                             chip.id = category.categoryId
                             chip.isCheckedIconVisible = true
                             chip.isChecked =
-                                trackerVm.categoryFilter.value?.let { cat->
+                                trackerVm.categoryFilter.value?.let { cat ->
                                     cat.categoryId == category.categoryId
                                 } ?: false
                             addView(chip)
                         }
                     }
                 }
-            })
+            }
         }
         bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
             val category = categories.firstOrNull { c -> c.categoryId == checkedId }
@@ -331,7 +346,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
                 trackerVm.categoryFilter.postValue(category)
             } ?: kotlin.run {
                 bind.productCategoryChip.text = resources.getString(R.string.products)
-                trackerVm.categoryFilter.postValue(Category(0, "Products", 0))
+                trackerVm.categoryFilter.postValue(Category(0, "Products", 0,false))
             }
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip. chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))

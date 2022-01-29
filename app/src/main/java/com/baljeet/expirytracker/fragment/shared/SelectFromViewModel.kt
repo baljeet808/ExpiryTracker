@@ -286,47 +286,56 @@ class SelectFromViewModel : ViewModel() {
         val fruits = Category(
             1,
             "Fruit",
-            1
+            1,
+            false
         )
         val vegetables = Category(
             2,
             "Vegetable",
-            2
+            2,
+            false
         )
         val meat = Category(
             3,
             "Meat",
-            3
+            3,
+            false
         )
         val document = Category(
             4,
             "Document",
-            4
+            4,
+            false
         )
         val subscription = Category(
             5,
             "Subscription",
-            5
+            5,
+            false
         )
         val packedFood = Category(
             6,
             "Packed Food",
-            6
+            6,
+            false
         )
         val liquor = Category(
             7,
             "Liquor",
-            7
+            7,
+            false
         )
         val drinks = Category(
             8,
             "Drinkable",
-            8
+            8,
+            false
         )
         val fastFood = Category(
             9,
             "Fast Food",
-            9
+            9,
+            false
         )
         defaultCategories.add(fruits)
         defaultCategories.add(vegetables)
@@ -354,27 +363,32 @@ class SelectFromViewModel : ViewModel() {
         val broccoli = Product(
             1,
             "Broccoli",
-            2, 18
+            2, 18,
+            false
         )
         val potato = Product(
             2,
             "Potato",
-            2, 16
+            2, 16,
+            false
         )
         val peas = Product(
             3,
             "Peas",
-            2, 17
+            2, 17 ,
+            false
         )
         val bellPepper = Product(
             4,
             "Bell Pepper",
-            2, 19
+            2, 19,
+            false
         )
         val tomato = Product(
             5,
             "Tomato",
-            2, 20
+            2, 20,
+            false
         )
 
 
@@ -393,36 +407,42 @@ class SelectFromViewModel : ViewModel() {
             6,
             "Banana",
             1,
-            11
+            11,
+            false
         )
         val pineApple = Product(
             7,
             "Pineapple",
             1,
-            14
+            14,
+            false
         )
         val grapes = Product(
             8,
             "Grapes",
             1,
-            12
+            12,
+            false
         )
         val orange = Product(
             9,
             "Orange",
             1,
-            13
+            13,
+            false
         )
         val apple = Product(
             10,
             "Apple",
             1,
-            10
+            10,
+            false
         )
         val redGrapes = Product(
             11,
             "Red Grapes",
-            1, 15
+            1, 15,
+            false
         )
 
         products.add(redGrapes)

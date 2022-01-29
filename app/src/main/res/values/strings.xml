@@ -163,4 +163,6 @@
     <string name="product_delete_note">Deleting this product will not effect your tracking history.</string>
     <string name="info_icon">info icon</string>
     <string name="don_t_ask_me_again">Don\'t ask me again.</string>
+    <string name="deleting_category">Deleting category…</string>
+    <string name="edit_category">Edit Category</string>
 </resources>
