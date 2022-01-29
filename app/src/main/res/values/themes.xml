@@ -44,6 +44,7 @@
         <item name="rippleColor">@color/text_dialog_color_blue</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
     
     <style name="myTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -133,6 +134,7 @@
         <item name="rippleColor">@color/text_dialog_color_peach</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/card_background_peach</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myPeachTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -220,6 +222,7 @@
         <item name="rippleColor">@color/text_dialog_color_yellow</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myYellowTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -308,6 +311,7 @@
         <item name="rippleColor">@color/text_dialog_color_green</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myGreenTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -396,6 +400,7 @@
         <item name="rippleColor">@color/text_dialog_color_purple</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myPurpleTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -484,6 +489,7 @@
         <item name="rippleColor">@color/text_dialog_color_pink</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myPinkTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -572,6 +578,7 @@
         <item name="rippleColor">@color/text_dialog_color_black</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myBlackTextStyle" parent="Widget.MaterialComponents.TextView">
@@ -660,6 +667,7 @@
         <item name="rippleColor">@color/text_dialog_color_white</item>
         <item name="checkedIconTint">@color/text_color</item>
         <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
     </style>
 
     <style name="myWhiteTextStyle" parent="Widget.MaterialComponents.TextView">
