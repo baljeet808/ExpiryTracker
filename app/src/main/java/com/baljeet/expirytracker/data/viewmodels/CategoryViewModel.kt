@@ -49,4 +49,8 @@ class CategoryViewModel(application: Application):AndroidViewModel(application) 
     fun showAllAsResult(){
         searchResults.value =  repository.getAllCategories()
     }
+
+    fun deleteCategory(category : Category){
+        repository.markCategoryDeleted(category)
+    }
 }

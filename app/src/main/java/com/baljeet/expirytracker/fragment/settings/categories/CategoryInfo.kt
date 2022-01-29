@@ -1,7 +1,7 @@
 package com.baljeet.expirytracker.fragment.settings.categories
 
+
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
-import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.FragmentCategoryInfoBinding
 import com.baljeet.expirytracker.util.ImageConvertor
 
@@ -23,6 +24,7 @@ class CategoryInfo : Fragment() {
 
     private lateinit var bind : FragmentCategoryInfoBinding
     private val viewModel : CategoryViewModel by viewModels()
+    private val productViewModel : ProductViewModel by viewModels()
     private val navArgs : CategoryInfoArgs by navArgs()
 
     private var nameChanged = MutableLiveData(false)
@@ -77,14 +79,15 @@ class CategoryInfo : Fragment() {
                  viewModel.updateCategory(Category(
                      categoryId = category.category.categoryId,
                      categoryName = nameEdittext.text.toString(),
-                     imageId = category.image.imageId
+                     imageId = category.image.imageId,
+                     isDeleted = false
                  ))
                 activity?.onBackPressed()
             }
             deleteButton.setOnClickListener {
-                //TODO: think how to delete category safely
+                viewModel.deleteCategory(category.category)
+                productViewModel.deleteAllByCategoryId(category.category.categoryId)
                 activity?.onBackPressed()
-                Toast.makeText(requireContext(),"no deleted yet", Toast.LENGTH_SHORT).show()
             }
 
         }

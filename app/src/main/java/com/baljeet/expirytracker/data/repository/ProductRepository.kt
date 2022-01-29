@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.data.repository
 
 import androidx.lifecycle.LiveData
+import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.daos.ProductsDao
 import com.baljeet.expirytracker.data.relations.ProductAndImage
@@ -32,5 +33,13 @@ class ProductRepository(private val productDao : ProductsDao) {
 
     suspend fun updateProduct(product : Product){
         productDao.updateProduct(product)
+    }
+
+    fun markProductDeleted(product: Product){
+        productDao.markDeleted(product.productId, true)
+    }
+
+    fun markProductsDeletedByProjectId(categoryId : Int){
+        productDao.markDeletedByCategoryId(categoryId, true)
     }
 }

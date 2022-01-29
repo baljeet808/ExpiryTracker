@@ -78,15 +78,15 @@ class ProductInfo : Fragment() {
                         categoryId = product.product.categoryId,
                         name = nameEdittext.text.toString(),
                         imageId = product.image.imageId,
-                        productId = product.product.productId
+                        productId = product.product.productId,
+                        isDeleted = false
                     )
                 )
                 activity?.onBackPressed()
             }
             deleteButton.setOnClickListener {
-                //TODO: think how to delete category safely
+                viewModel.deleteProduct(product.product)
                 activity?.onBackPressed()
-                Toast.makeText(requireContext(), "no deleted yet", Toast.LENGTH_SHORT).show()
             }
 
         }

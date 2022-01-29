@@ -38,4 +38,13 @@ interface ProductsDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateProduct(product : Product)
 
+    @Transaction
+    @Query("Update products set isDeleted = :isDeleted where productId == :productId")
+    fun markDeleted(productId : Int, isDeleted : Boolean)
+
+    @Transaction
+    @Query("Update products set isDeleted = :isDeleted where categoryId == :categoryId")
+    fun markDeletedByCategoryId(categoryId : Int, isDeleted : Boolean)
+
+
 }

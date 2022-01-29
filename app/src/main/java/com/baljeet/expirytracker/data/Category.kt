@@ -11,5 +11,6 @@ data class Category(
     @PrimaryKey(autoGenerate = true)
     var categoryId : Int,
     var categoryName : String,
-    var imageId : Int
+    var imageId : Int,
+    var isDeleted : Boolean
 ) :Parcelable

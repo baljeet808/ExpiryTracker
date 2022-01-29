@@ -13,4 +13,5 @@ data class Product(
     var name: String,
     var categoryId: Int,
     var imageId: Int,
+    var isDeleted : Boolean
 ):Parcelable

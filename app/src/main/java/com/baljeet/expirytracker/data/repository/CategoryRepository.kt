@@ -30,4 +30,8 @@ class CategoryRepository(private val categoryDao : CategoryDao){
     suspend fun updateCategory(category : Category){
         categoryDao.updateCategory(category)
     }
+
+    fun markCategoryDeleted(category : Category){
+        categoryDao.markDeleted(category.categoryId, true)
+    }
 }

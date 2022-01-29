@@ -34,4 +34,8 @@ interface CategoryDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateCategory(category : Category)
+
+    @Transaction
+    @Query("Update categories set isDeleted = :isDeleted where categoryId == :categoryId")
+    fun markDeleted(categoryId : Int, isDeleted : Boolean)
 }

@@ -57,4 +57,12 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun deleteProduct(product : Product){
+        repository.markProductDeleted(product)
+    }
+
+    fun deleteAllByCategoryId( categoryId : Int){
+        repository.markProductsDeletedByProjectId(categoryId)
+    }
+
 }
