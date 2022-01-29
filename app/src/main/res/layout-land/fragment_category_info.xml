@@ -12,7 +12,6 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:animateLayoutChanges="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline5"
         >
@@ -76,10 +75,11 @@
         app:strokeColor="@color/text_color"
         app:strokeWidth="2dp"
         android:elevation="5dp"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintEnd_toStartOf="@id/guideline6"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/guideline5"
-        app:layout_constraintBottom_toTopOf="@id/guideline6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.2"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -95,22 +95,21 @@
                 app:riv_corner_radius="30dp"
                 />
 
-
+            <ImageButton
+                android:id="@+id/edit_image_btn"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/image_btn_2_dp_stroke_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_edit"
+                android:contentDescription="@string/edit_button" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <ImageButton
-        android:id="@+id/edit_image_btn"
-        android:layout_width="60dp"
-        android:layout_height="35dp"
-        android:elevation="10dp"
-        app:layout_constraintTop_toTopOf="@id/image_card"
-        android:background="@drawable/image_btn_2_dp_stroke_bg"
-        app:layout_constraintEnd_toEndOf="@id/image_card"
-        android:src="@drawable/ic_edit"
-        android:contentDescription="@string/edit_button" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_box"
@@ -125,7 +124,9 @@
         app:endIconTint="@color/theme_peach_light"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/image_card">
+        app:layout_constraintTop_toBottomOf="@id/image_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_edittext"
@@ -142,8 +143,9 @@
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_delete_forever_24"
         android:background="@drawable/image_button_2_stroke_round_bg"
-        app:layout_constraintTop_toBottomOf="@id/name_box"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/delete_note"
+        app:layout_constraintStart_toEndOf="@id/guideline6"
+        app:layout_constraintBottom_toTopOf="@id/name_box"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toStartOf="@id/save_button"
         android:contentDescription="@string/delete_button" />
@@ -165,11 +167,10 @@
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_save_48"
         android:background="@drawable/image_button_2_stroke_round_bg"
-        app:layout_constraintTop_toBottomOf="@id/name_box"
+        app:layout_constraintTop_toBottomOf="@id/delete_note"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintBottom_toTopOf="@id/name_box"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:contentDescription="@string/delete_button"
         app:layout_constraintStart_toEndOf="@id/delete_button"
         />
@@ -191,13 +192,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/delete_category_note"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/guideline6"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/delete_label"
+        app:layout_constraintTop_toBottomOf="@id/guideline5"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
         android:lineSpacingExtra="10dp"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.1"
         android:drawableTop="@android:drawable/ic_dialog_info"
         android:drawableTint="?attr/text_dialog_color"
         android:drawablePadding="10dp"
@@ -222,7 +223,7 @@
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.40" />
 
 
@@ -231,7 +232,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.07" />
+        app:layout_constraintGuide_percent="0.10" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

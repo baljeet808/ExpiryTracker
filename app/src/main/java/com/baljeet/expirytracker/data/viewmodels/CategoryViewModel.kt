@@ -30,6 +30,11 @@ class CategoryViewModel(application: Application):AndroidViewModel(application) 
             repository.addCategory(category)
         }
     }
+    fun updateCategory(category: Category){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateCategory(category)
+        }
+    }
 
     fun readCategoryByName(name : String): List<CategoryAndImage> {
         return repository.readCategoriesByName(name)

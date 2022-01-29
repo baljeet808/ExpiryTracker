@@ -71,11 +71,11 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
 
         adapter = OptionsAdapter(categoriesWithImages, requireContext(), null, this, null)
         bind.optionsRecycler.adapter = adapter
-        categoryVM.readAllCategoriesWithImages.observe(viewLifecycleOwner, {
+        categoryVM.readAllCategoriesWithImages.observe(viewLifecycleOwner) {
             categoriesWithImages.clear()
             categoriesWithImages.addAll(it)
             adapter.setCategoriesWithImages(it)
-        })
+        }
 
         nameAdapter = OptionsAdapter(null,requireContext(),null,this,productsWithImages)
         bind.nameOptionsRecycler.adapter = nameAdapter
@@ -195,11 +195,11 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                         bind.nameLayout.visibility = View.VISIBLE
                         bind.nameOptionsRecycler.visibility = View.VISIBLE
                         productVM.readProductWithImageById(viewModel.getSelectedCategory()?.category?.categoryId!!)
-                        productVM.productsByCategoryWithImage.observe(viewLifecycleOwner, {
+                        productVM.productsByCategoryWithImage.observe(viewLifecycleOwner) {
                             productsWithImages.clear()
                             productsWithImages.addAll(it)
                             nameAdapter.setProducts(it)
-                        })
+                        }
                         nameAdapter.refreshAll(null)
                         bind.completedCheck.visibility = View.VISIBLE
                         bind.completed2Check.visibility = View.GONE

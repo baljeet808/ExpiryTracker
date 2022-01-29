@@ -30,4 +30,8 @@ interface CategoryDao {
     @Transaction
     @Query("SELECT * FROM categories ORDER BY categoryId DESC")
     fun getAllCategories(): List<CategoryAndImage>
+
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateCategory(category : Category)
 }

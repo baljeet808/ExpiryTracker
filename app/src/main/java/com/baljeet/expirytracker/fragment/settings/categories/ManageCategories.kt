@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -43,11 +44,11 @@ class ManageCategories : Fragment(), OnCategorySelected {
 
             viewModel.showAllAsResult()
 
-            viewModel.searchResults.observe(viewLifecycleOwner, {
+            viewModel.searchResults.observe(viewLifecycleOwner) {
                 resultsAdapter.submitList(it)
                 resultsCount.text =
                     requireContext().getString(R.string.number_of_results_var, it.size)
-            })
+            }
         }
         return bind.root
     }
@@ -58,5 +59,13 @@ class ManageCategories : Fragment(), OnCategorySelected {
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (bind.searchEdittext.text.toString().count() > 0) {
+            viewModel.searchCategoryByWord(bind.searchEdittext.text.toString())
+        } else {
+            viewModel.showAllAsResult()
+        }
+    }
 
 }

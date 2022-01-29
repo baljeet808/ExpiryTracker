@@ -26,4 +26,8 @@ class CategoryRepository(private val categoryDao : CategoryDao){
     fun getAllCategories(): List<CategoryAndImage>{
         return categoryDao.getAllCategories()
     }
+
+    suspend fun updateCategory(category : Category){
+        categoryDao.updateCategory(category)
+    }
 }

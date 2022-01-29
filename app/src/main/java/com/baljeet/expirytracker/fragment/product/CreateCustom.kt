@@ -124,9 +124,9 @@ class CreateCustom : Fragment() {
             nameBox.hint = navArgs.itemType.plus(" Name")
             imageHeading.text = imageHeading.text.toString().plus(" ").plus(navArgs.itemType)
 
-            formIsComplete.observe(viewLifecycleOwner, {
+            formIsComplete.observe(viewLifecycleOwner) {
                 addProductButton.isEnabled = it
-            })
+            }
 
             navArgs.selectedCategory?.let {
                 Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
