@@ -160,4 +160,5 @@
     <string name="delete">Delete</string>
     <string name="save_">Save</string>
     <string name="delete_category_note">On deleting this Category, you will loose all products under this category. But don\'t worry your tracking history will not be effected by this.</string>
+    <string name="product_delete_note">Deleting this product will not effect your tracking history.</string>
 </resources>

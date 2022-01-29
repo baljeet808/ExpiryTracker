@@ -29,4 +29,8 @@ class ProductRepository(private val productDao : ProductsDao) {
     fun getAllProducts():List<ProductAndImage>{
         return productDao.getAllProducts()
     }
+
+    suspend fun updateProduct(product : Product){
+        productDao.updateProduct(product)
+    }
 }

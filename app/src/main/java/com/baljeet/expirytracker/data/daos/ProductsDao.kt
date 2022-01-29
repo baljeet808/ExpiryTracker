@@ -35,4 +35,7 @@ interface ProductsDao {
     @Query("SELECT * FROM products ORDER BY productId DESC")
     fun getAllProducts(): List<ProductAndImage>
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateProduct(product : Product)
+
 }

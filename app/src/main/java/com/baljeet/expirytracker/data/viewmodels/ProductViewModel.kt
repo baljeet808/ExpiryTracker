@@ -30,6 +30,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+
+
     fun readProductByName(name : String): List<ProductAndImage>{
       return repository.readProductByName(name)
     }
@@ -47,6 +49,12 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     fun getAllProducts(){
         searchResults.value = repository.getAllProducts()
+    }
+
+    fun updateProduct(product : Product){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateProduct(product)
+        }
     }
 
 }
