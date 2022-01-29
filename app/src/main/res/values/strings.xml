@@ -76,7 +76,6 @@
     <string name="notifications">Notifications</string>
     <string name="analytics">Analytics</string>
     <string name="undo">Undo</string>
-    <string name="delete">Delete</string>
     <string name="used">Used</string>
     <string name="_21_december">21 December</string>
     <string name="daily">DAILY</string>
@@ -156,4 +155,9 @@
     <string name="notifications_off">Notifications Off</string>
     <string name="notifications_on">Notifications On</string>
     <string name="edit">edit</string>
+    <string name="edit_button">edit button</string>
+    <string name="delete_button">delete button</string>
+    <string name="delete">Delete</string>
+    <string name="save_">Save</string>
+    <string name="delete_category_note">On deleting this Category, you will loose all products under this category. But don\'t worry your tracking history will not be effected by this.</string>
 </resources>
