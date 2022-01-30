@@ -34,7 +34,7 @@ class IconsGallery : Fragment() , OnIconSelected {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
             iconsAdapter=  SearchIconsAdapter(requireContext(),this@IconsGallery)
-            iconsRecycler.layoutManager = GridLayoutManager(requireContext(),3)
+            iconsRecycler.layoutManager = GridLayoutManager(requireContext(),4)
             iconsRecycler.adapter = iconsAdapter
             searchEdittext.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().count() > 0) {

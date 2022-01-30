@@ -167,4 +167,5 @@
     <string name="deleting_product">Deleting product…</string>
     <string name="edit_category">Edit Category</string>
     <string name="edit_product">Edit Product</string>
+    <string name="icon_gallery_header">Choose an icon</string>
 </resources>
