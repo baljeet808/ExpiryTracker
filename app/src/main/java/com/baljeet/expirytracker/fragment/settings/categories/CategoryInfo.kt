@@ -140,11 +140,11 @@ class CategoryInfo : Fragment() {
 
                 viewModel.deleteCategory(navArgs.categoryAndImage.category)
                 productViewModel.deleteAllByCategoryId(navArgs.categoryAndImage.category.categoryId)
-                activity?.onBackPressed()
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     if(deleteDialog.isShowing){
                         deleteDialog.dismiss()
+                        activity?.onBackPressed()
                     }
                 },1500)
 

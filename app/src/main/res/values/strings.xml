@@ -164,5 +164,7 @@
     <string name="info_icon">info icon</string>
     <string name="don_t_ask_me_again">Don\'t ask me again.</string>
     <string name="deleting_category">Deleting category…</string>
+    <string name="deleting_product">Deleting product…</string>
     <string name="edit_category">Edit Category</string>
+    <string name="edit_product">Edit Product</string>
 </resources>
