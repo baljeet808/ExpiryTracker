@@ -11,25 +11,25 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addCategory(category : Category)
 
-    @Query("SELECT * FROM categories")
-    fun readAllCategories(): LiveData<List<Category>>
+    @Query("SELECT * FROM categories where isDeleted == :isDeleted")
+    fun readAllCategories(isDeleted: Boolean = false): LiveData<List<Category>>
 
     @Transaction
-    @Query("SELECT * FROM categories")
-    fun readAllCategoriesWithImages() : LiveData<List<CategoryAndImage>>
+    @Query("SELECT * FROM categories where isDeleted == :isDeleted")
+    fun readAllCategoriesWithImages(isDeleted: Boolean = false) : LiveData<List<CategoryAndImage>>
 
 
     @Transaction
-    @Query("SELECT * FROM categories where categoryName == :name COLLATE NOCASE")
-    fun readCategoryByName(name : String) : List<CategoryAndImage>
+    @Query("SELECT * FROM categories where categoryName == :name COLLATE NOCASE and isDeleted == :isDeleted")
+    fun readCategoryByName(name : String, isDeleted: Boolean = false) : List<CategoryAndImage>
 
     @Transaction
-    @Query("SELECT * FROM categories WHERE categoryName LIKE :text || '%'")
-    fun searchCategoryByWord(text: String) : List<CategoryAndImage>
+    @Query("SELECT * FROM categories WHERE categoryName LIKE :text || '%' and isDeleted == :isDeleted")
+    fun searchCategoryByWord(text: String, isDeleted: Boolean = false) : List<CategoryAndImage>
 
     @Transaction
-    @Query("SELECT * FROM categories ORDER BY categoryId DESC")
-    fun getAllCategories(): List<CategoryAndImage>
+    @Query("SELECT * FROM categories where isDeleted == :isDeleted ORDER BY categoryId DESC")
+    fun getAllCategories(isDeleted: Boolean = false): List<CategoryAndImage>
 
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

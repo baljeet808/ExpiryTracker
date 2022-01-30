@@ -43,11 +43,11 @@ class ManageProducts : Fragment(), OnProductSelected {
 
             viewModel.getAllProducts()
 
-            viewModel.searchResults.observe(viewLifecycleOwner, {
+            viewModel.searchResults.observe(viewLifecycleOwner) {
                 resultsAdapter.submitList(it)
                 resultsCount.text =
                     requireContext().getString(R.string.number_of_results_var, it.size)
-            })
+            }
 
         }
         return bind.root
@@ -56,5 +56,14 @@ class ManageProducts : Fragment(), OnProductSelected {
     override fun openInfoOfProduct(productAndImage: ProductAndImage) {
         Navigation.findNavController(requireView())
             .navigate(ManageProductsDirections.actionManageProductsToProductInfo(productAndImage))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (bind.searchEdittext.text.toString().count() > 0) {
+            viewModel.searchByText(bind.searchEdittext.text.toString())
+        } else {
+            viewModel.getAllProducts()
+        }
     }
 }

@@ -97,7 +97,7 @@ class ProductInfo : Fragment() {
                 activity?.onBackPressed()
             }
             deleteButton.setOnClickListener {
-
+                showPopup()
             }
 
         }
@@ -150,6 +150,7 @@ class ProductInfo : Fragment() {
         if(SharedPref.doNotAskBeforeDeletingCategory){
             Handler(Looper.getMainLooper()).postDelayed({
                 if(deleteDialog.isShowing){
+                    viewModel.deleteProduct(navArgs.productAndImage.product)
                     deleteDialog.dismiss()
                     activity?.onBackPressed()
                 }

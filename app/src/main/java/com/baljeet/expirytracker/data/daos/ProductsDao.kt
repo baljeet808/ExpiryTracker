@@ -12,8 +12,8 @@ interface ProductsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addProduct(product : Product)
 
-    @Query("SELECT * FROM products ORDER BY productId ASC")
-    fun readAllProducts(): LiveData<List<Product>>
+    @Query("SELECT * FROM products where isDeleted == :isDeleted ORDER BY productId ASC")
+    fun readAllProducts(isDeleted: Boolean = false): LiveData<List<Product>>
 
     @Query("SELECT * FROM products WHERE categoryId == :id")
     fun getProductByCategoryId(id : Int) : List<Product>
@@ -23,17 +23,17 @@ interface ProductsDao {
     fun readProductWithImagesById(id : Int) : List<ProductAndImage>
 
     @Transaction
-    @Query("SELECT * FROM products WHERE name == :name")
-    fun readProductByName(name : String) : List<ProductAndImage>
+    @Query("SELECT * FROM products WHERE name == :name and isDeleted == :isDeleted")
+    fun readProductByName(name : String, isDeleted: Boolean = false) : List<ProductAndImage>
 
 
     @Transaction
-    @Query("SELECT * FROM products WHERE name LIKE :text || '%'")
-    fun searchProductsByText(text : String) : List<ProductAndImage>
+    @Query("SELECT * FROM products WHERE name LIKE :text || '%' and isDeleted == :isDeleted")
+    fun searchProductsByText(text : String, isDeleted: Boolean = false) : List<ProductAndImage>
 
     @Transaction
-    @Query("SELECT * FROM products ORDER BY productId DESC")
-    fun getAllProducts(): List<ProductAndImage>
+    @Query("SELECT * FROM products where isDeleted == :isDeleted ORDER BY productId DESC")
+    fun getAllProducts(isDeleted: Boolean = false): List<ProductAndImage>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateProduct(product : Product)

@@ -1,7 +1,7 @@
 package com.baljeet.expirytracker.data.repository
 
+
 import androidx.lifecycle.LiveData
-import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.daos.ProductsDao
 import com.baljeet.expirytracker.data.relations.ProductAndImage

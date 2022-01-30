@@ -104,7 +104,6 @@ class CategoryInfo : Fragment() {
             }
             deleteButton.setOnClickListener {
                 showPopup()
-
             }
 
         }
@@ -138,8 +137,8 @@ class CategoryInfo : Fragment() {
                 doNotShowAgainCheckbox.visibility = View.GONE
                 deleteButton.visibility = View.GONE
 
-                viewModel.deleteCategory(navArgs.categoryAndImage.category)
                 productViewModel.deleteAllByCategoryId(navArgs.categoryAndImage.category.categoryId)
+                viewModel.deleteCategory(navArgs.categoryAndImage.category)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     if(deleteDialog.isShowing){
@@ -158,7 +157,10 @@ class CategoryInfo : Fragment() {
         if(SharedPref.doNotAskBeforeDeletingCategory){
             Handler(Looper.getMainLooper()).postDelayed({
                 if(deleteDialog.isShowing){
+                    productViewModel.deleteAllByCategoryId(navArgs.categoryAndImage.category.categoryId)
+                    viewModel.deleteCategory(navArgs.categoryAndImage.category)
                     deleteDialog.dismiss()
+                    activity?.onBackPressed()
                 }
             },1500)
         }
