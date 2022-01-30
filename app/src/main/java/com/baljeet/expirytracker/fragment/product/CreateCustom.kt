@@ -194,6 +194,10 @@ class CreateCustom : Fragment() {
                 pickAction.launch("image/*")
             }
 
+            iconsCard.setOnClickListener{
+                Navigation.findNavController(requireView()).navigate(CreateCustomDirections.actionCreateCustomToIconsGallery())
+            }
+
             addProductButton.setOnClickListener {
                   imageViewModel.addImage(viewModel.croppedImage!!)
                   val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)[0]

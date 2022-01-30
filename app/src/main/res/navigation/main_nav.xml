@@ -134,6 +134,13 @@
             android:name="selectedCategory"
             app:argType="com.baljeet.expirytracker.data.Category"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_createCustom_to_iconsGallery"
+            app:destination="@id/iconsGallery"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/imageEditor"
@@ -193,4 +200,9 @@
             android:name="productAndImage"
             app:argType="com.baljeet.expirytracker.data.relations.ProductAndImage" />
     </fragment>
+    <fragment
+        android:id="@+id/iconsGallery"
+        android:name="com.baljeet.expirytracker.fragment.shared.IconsGallery"
+        android:label="fragment_icons_gallery"
+        tools:layout="@layout/fragment_icons_gallery" />
 </navigation>
