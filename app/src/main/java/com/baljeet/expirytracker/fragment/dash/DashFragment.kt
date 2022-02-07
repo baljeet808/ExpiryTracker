@@ -42,6 +42,9 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
     private lateinit var disposable: Disposable
 
+
+
+
     private lateinit var trackerAdapter : TrackerDiffAdapter
     private val categoryVM: CategoryViewModel by viewModels()
     private val trackerVm: TrackerViewModel by activityViewModels()
