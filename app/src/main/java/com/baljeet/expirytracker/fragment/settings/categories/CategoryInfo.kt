@@ -112,23 +112,45 @@ class CategoryInfo : Fragment() {
             bind.closeBtn.setOnClickListener { activity?.onBackPressed() }
             val category = navArgs.categoryAndImage
 
-            when (category.image.mimeType) {
-                "asset" -> {
-                    imageView.setPadding(60)
-                    imageView.setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            requireContext(),
-                            resources.getIdentifier(
-                                category.image.imageUrl,
-                                "drawable",
-                                requireContext().packageName
+            customViewModel.croppedImage?.let {
+                when (it.mimeType) {
+                    "asset" -> {
+                        imageView.setPadding(60)
+                        imageView.setImageDrawable(
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                resources.getIdentifier(
+                                    it.imageUrl,
+                                    "drawable",
+                                    requireContext().packageName
+                                )
                             )
                         )
-                    )
+                    }
+                    else -> {
+                        imageView.setPadding(0)
+                        imageView.setImageBitmap(ImageConvertor.stringToBitmap(it.bitmap))
+                    }
                 }
-                else -> {
-                    imageView.setPadding(0)
-                    imageView.setImageBitmap(ImageConvertor.stringToBitmap(category.image.bitmap))
+            }?: kotlin.run {
+                when (category.image.mimeType) {
+                    "asset" -> {
+                        imageView.setPadding(60)
+                        imageView.setImageDrawable(
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                resources.getIdentifier(
+                                    category.image.imageUrl,
+                                    "drawable",
+                                    requireContext().packageName
+                                )
+                            )
+                        )
+                    }
+                    else -> {
+                        imageView.setPadding(0)
+                        imageView.setImageBitmap(ImageConvertor.stringToBitmap(category.image.bitmap))
+                    }
                 }
             }
             nameEdittext.setText(category.category.categoryName)
@@ -147,7 +169,7 @@ class CategoryInfo : Fragment() {
                     Category(
                         categoryId = category.category.categoryId,
                         categoryName = nameEdittext.text.toString(),
-                        imageId = category.image.imageId,
+                        imageId = customViewModel.croppedImage!!.imageId,
                         isDeleted = false
                     )
                 )
