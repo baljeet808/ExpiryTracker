@@ -4,29 +4,41 @@ package com.baljeet.expirytracker.fragment.settings.categories
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.isGone
+import androidx.core.content.FileProvider
 import androidx.core.view.setPadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.DeletePopUpLayoutBinding
 import com.baljeet.expirytracker.databinding.FragmentCategoryInfoBinding
+import com.baljeet.expirytracker.databinding.ImagePickingOptionsLayoutBinding
+import com.baljeet.expirytracker.fragment.product.CustomViewModel
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.SharedPref
+import com.baljeet.expirytracker.util.getContentType
+import com.baljeet.expirytracker.util.getFileName
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.io.File
 
 class CategoryInfo : Fragment() {
 
@@ -34,6 +46,8 @@ class CategoryInfo : Fragment() {
     private val viewModel: CategoryViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
     private val navArgs: CategoryInfoArgs by navArgs()
+
+    private val customViewModel : CustomViewModel by activityViewModels()
 
     private lateinit var deleteDialog: AlertDialog
     private lateinit var dialogBuilder: AlertDialog.Builder
@@ -45,6 +59,43 @@ class CategoryInfo : Fragment() {
             this.value = validateName(bind.nameEdittext.text.toString())
         }
     }
+
+    private val pickAction = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri ->
+        uri?.let {
+            val image = Image(
+                imageId  = 0,
+                imageUrl = it.toString(),
+                imageName = requireContext().contentResolver.getFileName(it),
+                alt = "image",
+                mimeType = requireContext().contentResolver.getContentType(it),
+                uri = it,
+                bitmap = ""
+            )
+            openEditor(image)
+        }
+    }
+
+    private var latestTmpUri: Uri? = null
+
+    private val takeImageResult =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                latestTmpUri?.let { u ->
+                    val image = Image(
+                        imageId = 0,
+                        imageUrl = u.toString(),
+                        imageName = requireContext().contentResolver.getFileName(u),
+                        alt = "image",
+                        mimeType = "image/jpeg",
+                        uri = u ,
+                        bitmap =""
+                    )
+                    openEditor(image)
+                }
+            }
+        }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,9 +157,48 @@ class CategoryInfo : Fragment() {
                 showPopup()
             }
 
+            editImageBtn.setOnClickListener {
+                 showBottomSheet()
+            }
+
         }
         return bind.root
     }
+
+    private fun showBottomSheet() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme)
+        val pickerBind = ImagePickingOptionsLayoutBinding.inflate(layoutInflater)
+        pickerBind.uploadBtn.setOnClickListener {
+            pickAction.launch("image/*")
+            bottomSheetDialog.dismiss()
+        }
+
+        bottomSheetDialog.setOnDismissListener {
+              bind.editImageBtn.isEnabled = true
+        }
+
+        pickerBind.iconsBtn.setOnClickListener {
+            Navigation.findNavController(requireView()).navigate(CategoryInfoDirections.actionCategoryInfoToIconsGallery())
+        }
+        pickerBind.cameraBtn.setOnClickListener {
+            bottomSheetDialog.dismiss()
+            val photoFile = File.createTempFile(
+                "IMG_",
+                ".jpg",
+                requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            )
+
+            latestTmpUri = FileProvider.getUriForFile(
+                requireContext(),
+                "${requireContext().packageName}.provider",
+                photoFile
+            )
+            takeImageResult.launch(latestTmpUri)
+        }
+        bottomSheetDialog.setContentView(pickerBind.root)
+        bottomSheetDialog.show()
+    }
+
 
     private fun showPopup() {
 
@@ -165,6 +255,11 @@ class CategoryInfo : Fragment() {
             },1500)
         }
     }
+
+    private fun openEditor(image : Image){
+        Navigation.findNavController(requireView()).navigate(CategoryInfoDirections.actionCategoryInfoToImageEditor(image))
+    }
+
 
 
     private fun validateName(text: String): Boolean {

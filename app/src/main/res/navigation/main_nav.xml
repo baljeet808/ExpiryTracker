@@ -190,6 +190,12 @@
         <argument
             android:name="categoryAndImage"
             app:argType="com.baljeet.expirytracker.data.relations.CategoryAndImage" />
+        <action
+            android:id="@+id/action_categoryInfo_to_imageEditor"
+            app:destination="@id/imageEditor" />
+        <action
+            android:id="@+id/action_categoryInfo_to_iconsGallery"
+            app:destination="@id/iconsGallery" />
     </fragment>
     <fragment
         android:id="@+id/productInfo"
@@ -199,6 +205,12 @@
         <argument
             android:name="productAndImage"
             app:argType="com.baljeet.expirytracker.data.relations.ProductAndImage" />
+        <action
+            android:id="@+id/action_productInfo_to_imageEditor"
+            app:destination="@id/imageEditor" />
+        <action
+            android:id="@+id/action_productInfo_to_iconsGallery"
+            app:destination="@id/iconsGallery" />
     </fragment>
     <fragment
         android:id="@+id/iconsGallery"

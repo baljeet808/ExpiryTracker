@@ -168,4 +168,8 @@
     <string name="edit_category">Edit Category</string>
     <string name="edit_product">Edit Product</string>
     <string name="icon_gallery_header">Choose an icon</string>
+    <string name="select_an_option">Select an option</string>
+    <string name="upload_from_gallery">Upload from gallery</string>
+    <string name="use_camera">Use camera</string>
+    <string name="use_icon_gallery">Use icon gallery</string>
 </resources>

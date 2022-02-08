@@ -239,4 +239,11 @@ class CreateCustom : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.croppedImage?.let {
+            showImageInPreview(it)
+        }
+    }
+
 }

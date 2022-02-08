@@ -13,6 +13,7 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.databinding.FragmentIconsGalleryBinding
+import com.baljeet.expirytracker.fragment.product.CustomViewModel
 import com.baljeet.expirytracker.interfaces.OnIconSelected
 import com.baljeet.expirytracker.listAdapters.SearchIconsAdapter
 
@@ -23,6 +24,8 @@ class IconsGallery : Fragment() , OnIconSelected {
     private val viewModel : IconsViewModel by viewModels()
 
     private lateinit var iconsAdapter: SearchIconsAdapter
+
+    private val customViewModel : CustomViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +57,7 @@ class IconsGallery : Fragment() , OnIconSelected {
     }
 
     override fun selectThisIcon(image: Image) {
-
+        customViewModel.croppedImage = image
+        activity?.onBackPressed()
     }
 }

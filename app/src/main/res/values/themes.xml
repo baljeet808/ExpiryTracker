@@ -27,6 +27,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
     <style name="mySwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
@@ -67,6 +75,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -157,6 +166,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -245,6 +255,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -334,6 +345,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -423,6 +435,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -512,6 +525,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -601,6 +615,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
@@ -690,6 +705,7 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
     </style>
