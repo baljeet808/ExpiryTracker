@@ -12,8 +12,8 @@ class ImageRepository(private val imageDao : ImageDao) {
         imageDao.addImage(image)
     }
 
-    fun getImageByName(name : String): List<Image>{
-        return imageDao.getImageById(name)
+    fun getImageByName(name : String): Image{
+        return imageDao.getImageByName(name).first()
     }
 
     fun getAllImages():List<Image>{

@@ -200,7 +200,7 @@ class CreateCustom : Fragment() {
 
             addProductButton.setOnClickListener {
                   imageViewModel.addImage(viewModel.croppedImage!!)
-                  val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)[0]
+                  val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)
                   when(navArgs.itemType){
                       "Category"->{
                           categoryViewModel.addCategory(Category(

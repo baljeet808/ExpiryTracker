@@ -12,6 +12,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.FileProvider
@@ -28,11 +29,13 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.DeletePopUpLayoutBinding
 import com.baljeet.expirytracker.databinding.FragmentCategoryInfoBinding
 import com.baljeet.expirytracker.databinding.ImagePickingOptionsLayoutBinding
 import com.baljeet.expirytracker.fragment.product.CustomViewModel
+import com.baljeet.expirytracker.fragment.shared.IconsViewModel
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.SharedPref
 import com.baljeet.expirytracker.util.getContentType
@@ -46,8 +49,10 @@ class CategoryInfo : Fragment() {
     private val viewModel: CategoryViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
     private val navArgs: CategoryInfoArgs by navArgs()
-
+    private val imageViewModel : ImageViewModel by viewModels()
     private val customViewModel : CustomViewModel by activityViewModels()
+
+    private val iconViewModel : IconsViewModel by activityViewModels()
 
     private lateinit var deleteDialog: AlertDialog
     private lateinit var dialogBuilder: AlertDialog.Builder
@@ -100,8 +105,19 @@ class CategoryInfo : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        clearImageCache()
+                        isEnabled = false
+                        activity?.onBackPressed()
+
+                    }
+                })
         SharedPref.init(requireContext())
     }
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,50 +125,67 @@ class CategoryInfo : Fragment() {
     ): View {
         bind = FragmentCategoryInfoBinding.inflate(inflater, container, false)
         bind.apply {
-            bind.closeBtn.setOnClickListener { activity?.onBackPressed() }
+            bind.closeBtn.setOnClickListener {
+                activity?.onBackPressed()
+            }
             val category = navArgs.categoryAndImage
 
-            customViewModel.croppedImage?.let {
-                when (it.mimeType) {
-                    "asset" -> {
-                        imageView.setPadding(60)
-                        imageView.setImageDrawable(
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                resources.getIdentifier(
-                                    it.imageUrl,
-                                    "drawable",
-                                    requireContext().packageName
-                                )
-                            )
+            iconViewModel.selectedIcon?.let {
+                imageView.setPadding(60)
+                imageView.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        resources.getIdentifier(
+                            it.imageUrl,
+                            "drawable",
+                            requireContext().packageName
                         )
-                    }
-                    else -> {
-                        imageView.setPadding(0)
-                        imageView.setImageBitmap(ImageConvertor.stringToBitmap(it.bitmap))
-                    }
-                }
+                    )
+                )
             }?: kotlin.run {
-                when (category.image.mimeType) {
-                    "asset" -> {
-                        imageView.setPadding(60)
-                        imageView.setImageDrawable(
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                resources.getIdentifier(
-                                    category.image.imageUrl,
-                                    "drawable",
-                                    requireContext().packageName
+                customViewModel.croppedImage?.let {
+                    when (it.mimeType) {
+                        "asset" -> {
+                            imageView.setPadding(60)
+                            imageView.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    resources.getIdentifier(
+                                        it.imageUrl,
+                                        "drawable",
+                                        requireContext().packageName
+                                    )
                                 )
                             )
-                        )
+                        }
+                        else -> {
+                            imageView.setPadding(0)
+                            imageView.setImageBitmap(ImageConvertor.stringToBitmap(it.bitmap))
+                        }
                     }
-                    else -> {
-                        imageView.setPadding(0)
-                        imageView.setImageBitmap(ImageConvertor.stringToBitmap(category.image.bitmap))
+                }?: kotlin.run {
+                    when (category.image.mimeType) {
+                        "asset" -> {
+                            imageView.setPadding(60)
+                            imageView.setImageDrawable(
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    resources.getIdentifier(
+                                        category.image.imageUrl,
+                                        "drawable",
+                                        requireContext().packageName
+                                    )
+                                )
+                            )
+                        }
+                        else -> {
+                            imageView.setPadding(0)
+                            imageView.setImageBitmap(ImageConvertor.stringToBitmap(category.image.bitmap))
+                        }
                     }
                 }
             }
+
             nameEdittext.setText(category.category.categoryName)
 
             nameEdittext.doOnTextChanged { _, _, _, _ ->
@@ -165,11 +198,20 @@ class CategoryInfo : Fragment() {
 
 
             saveButton.setOnClickListener {
+
+                val imageId = iconViewModel.selectedIcon?.imageId ?: kotlin.run {
+                    customViewModel.croppedImage?.let {
+                        imageViewModel.addImage(it)
+                        imageViewModel.getImageByName(it.imageName).imageId
+                    }  ?: kotlin.run {
+                        category.image.imageId
+                    }
+                }
                 viewModel.updateCategory(
                     Category(
                         categoryId = category.category.categoryId,
                         categoryName = nameEdittext.text.toString(),
-                        imageId = customViewModel.croppedImage!!.imageId,
+                        imageId = imageId,
                         isDeleted = false
                     )
                 )
@@ -192,6 +234,7 @@ class CategoryInfo : Fragment() {
         val pickerBind = ImagePickingOptionsLayoutBinding.inflate(layoutInflater)
         pickerBind.uploadBtn.setOnClickListener {
             pickAction.launch("image/*")
+            clearImageCache()
             bottomSheetDialog.dismiss()
         }
 
@@ -200,6 +243,9 @@ class CategoryInfo : Fragment() {
         }
 
         pickerBind.iconsBtn.setOnClickListener {
+            customViewModel.croppedImage
+            clearImageCache()
+            bottomSheetDialog.dismiss()
             Navigation.findNavController(requireView()).navigate(CategoryInfoDirections.actionCategoryInfoToIconsGallery())
         }
         pickerBind.cameraBtn.setOnClickListener {
@@ -215,10 +261,16 @@ class CategoryInfo : Fragment() {
                 "${requireContext().packageName}.provider",
                 photoFile
             )
+            clearImageCache()
             takeImageResult.launch(latestTmpUri)
         }
         bottomSheetDialog.setContentView(pickerBind.root)
         bottomSheetDialog.show()
+    }
+
+    fun clearImageCache(){
+        iconViewModel.selectedIcon = null
+        customViewModel.croppedImage = null
     }
 
 

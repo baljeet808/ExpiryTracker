@@ -13,6 +13,8 @@ class IconsViewModel(app : Application) : AndroidViewModel(app) {
 
     var iconsResults = MutableLiveData<ArrayList<Image>>(ArrayList())
 
+    var selectedIcon : Image? = null
+
     private val allImages = getImages()
 
     fun getAllIcons(){

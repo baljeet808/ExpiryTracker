@@ -21,7 +21,7 @@ interface ImageDao {
     fun getImageById(id : Int): Image
 
     @Query("SELECT * FROM images WHERE imageName == :name")
-    fun getImageById(name : String): List<Image>
+    fun getImageByName(name : String): List<Image>
 
     @Transaction
     @Query("Select * From images")

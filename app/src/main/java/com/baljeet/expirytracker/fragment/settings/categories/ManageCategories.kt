@@ -54,6 +54,7 @@ class ManageCategories : Fragment(), OnCategorySelected {
     }
 
     override fun openInfoOfCategory(categoryAndImage: CategoryAndImage) {
+        
         Navigation.findNavController(requireView()).navigate(
             ManageCategoriesDirections.actionManageCategoriesToCategoryInfo(categoryAndImage)
         )

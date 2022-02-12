@@ -21,11 +21,9 @@ import com.baljeet.expirytracker.listAdapters.SearchIconsAdapter
 class IconsGallery : Fragment() , OnIconSelected {
 
     private lateinit var bind : FragmentIconsGalleryBinding
-    private val viewModel : IconsViewModel by viewModels()
+    private val viewModel : IconsViewModel by activityViewModels()
 
     private lateinit var iconsAdapter: SearchIconsAdapter
-
-    private val customViewModel : CustomViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +55,7 @@ class IconsGallery : Fragment() , OnIconSelected {
     }
 
     override fun selectThisIcon(image: Image) {
-        customViewModel.croppedImage = image
+        viewModel.selectedIcon= image
         activity?.onBackPressed()
     }
 }
