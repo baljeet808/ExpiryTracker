@@ -23,6 +23,7 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentDashBinding
+import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.util.*
@@ -38,7 +39,7 @@ import java.time.Month
 import java.util.concurrent.TimeUnit
 
 
-class DashFragment : Fragment(), UpdateTrackerListener {
+class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
 
     private lateinit var disposable: Disposable
 
@@ -82,7 +83,7 @@ class DashFragment : Fragment(), UpdateTrackerListener {
         }
 
         bind.trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        trackerAdapter = TrackerDiffAdapter(requireContext(),this)
+        trackerAdapter = TrackerDiffAdapter(requireContext(),this, this)
         bind.trackerRecyclerView.adapter = trackerAdapter
 
         trackerVm.filteredTrackers.let {
@@ -422,6 +423,10 @@ class DashFragment : Fragment(), UpdateTrackerListener {
 
     override fun updateTracker(updatedTracker: Tracker) {
         trackerVm.updateTracker(updatedTracker)
+    }
+
+    override fun openTrackerInfo(tracker: TrackerAndProduct) {
+
     }
 }
 

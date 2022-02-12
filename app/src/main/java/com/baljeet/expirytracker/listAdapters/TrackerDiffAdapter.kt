@@ -14,6 +14,7 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
+import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.util.ImageConvertor
 import kotlinx.datetime.Clock
@@ -22,7 +23,8 @@ import kotlinx.datetime.periodUntil
 import kotlinx.datetime.toInstant
 
 class TrackerDiffAdapter(private val context : Context,
-                         private val updateTrackerListener :UpdateTrackerListener
+                         private val updateTrackerListener :UpdateTrackerListener,
+                         private val openListener : OnTrackerOpenListener
                          ) : ListAdapter<TrackerAndProduct,TrackerDiffAdapter.MyViewHolder>(DiffUtil()) {
 
     private var isDeleteActionSelected = true
@@ -145,6 +147,7 @@ class TrackerDiffAdapter(private val context : Context,
                     favoriteButton.isChecked = tracker.tracker.isFavourite
                     updateTrackerListener.updateTracker(tracker.tracker)
                 }
+            openButton.setOnClickListener { openListener.openTrackerInfo(tracker) }
                 markUsedButton.setOnClickListener {
                     isDeleteActionSelected = false
                     showUndoCountDown(holder,tracker.tracker,progressValue)

@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Tracker
+import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.databinding.FragmentCalendarV1Binding
 import com.baljeet.expirytracker.interfaces.OnDateSelectedListener
+import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.CalendarAdapter
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
@@ -27,7 +29,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 
 
-class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListener{
+class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListener, OnTrackerOpenListener{
     private lateinit var bind: FragmentCalendarV1Binding
     private val viewModel: CalendarViewModelV1 by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
@@ -98,7 +100,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
         })
         bind.trackerRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            trackerAdapter = TrackerDiffAdapter(requireContext(), this@CalendarFragment)
+            trackerAdapter = TrackerDiffAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment)
             adapter = trackerAdapter
         }
 
@@ -202,5 +204,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
 
     override fun updateTracker(updatedTracker: Tracker) {
         viewModel.updateTracker(updatedTracker)
+    }
+
+    override fun openTrackerInfo(tracker: TrackerAndProduct) {
+        TODO("Not yet implemented")
     }
 }

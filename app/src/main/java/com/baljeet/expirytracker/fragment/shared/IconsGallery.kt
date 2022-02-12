@@ -42,6 +42,7 @@ class IconsGallery : Fragment() , OnIconSelected {
                     viewModel.getIconByName(text.toString())
                 } else {
                     viewModel.getAllIcons()
+
                 }
             }
             viewModel.getAllIcons()
