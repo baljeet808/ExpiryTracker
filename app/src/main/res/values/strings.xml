@@ -172,4 +172,6 @@
     <string name="upload_from_gallery">Upload from gallery</string>
     <string name="use_camera">Use camera</string>
     <string name="use_icon_gallery">Use icon gallery</string>
+    <string name="tracking_detail">Tracking Details</string>
+    <string name="expiring_after">Expiring \nAfter</string>
 </resources>
