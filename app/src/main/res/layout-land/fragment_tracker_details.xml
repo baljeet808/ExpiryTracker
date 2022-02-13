@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -62,6 +63,7 @@
                 android:background="@drawable/right_round_bg"
                 android:elevation="5dp"
                 android:padding="10dp"
+                android:minHeight="90dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -90,6 +92,8 @@
                             android:layout_height="75dp"
                             android:contentDescription="@string/image"
                             android:padding="12dp"
+                            android:visibility="gone"
+                            tools:visibility="visible"
                             android:src="@drawable/drinks"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -110,6 +114,8 @@
                     android:maxWidth="170dp"
                     android:maxLines="2"
                     android:textSize="20sp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideline_2"
                     app:layout_constraintTop_toTopOf="parent"
@@ -141,6 +147,7 @@
                 android:animateLayoutChanges="true"
                 android:background="@drawable/right_round_bg"
                 android:elevation="5dp"
+                android:minHeight="120dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_layout">
 
@@ -154,6 +161,8 @@
                     android:paddingEnd="10dp"
                     android:paddingBottom="10dp"
                     android:textAllCaps="true"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
