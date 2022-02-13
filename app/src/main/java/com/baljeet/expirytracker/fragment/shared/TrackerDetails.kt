@@ -3,6 +3,8 @@ package com.baljeet.expirytracker.fragment.shared
 import android.animation.ObjectAnimator
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -144,7 +146,7 @@ class TrackerDetails : Fragment() {
                             progressDrawableClip.setTint(context.getColor(R.color.progress_great))
                         }
                     }
-                    ObjectAnimator.ofInt(itemProgressbar,"progress",progressValue.toInt()).setDuration(500).start()
+                    ObjectAnimator.ofInt(itemProgressbar,"progress",progressValue.toInt()).setDuration(1500).start()
                 }
             }
         }
@@ -153,12 +155,14 @@ class TrackerDetails : Fragment() {
     }
 
     private fun showAll(){
-        bind.apply {
-            productName.isGone = false
-            optionImage.isGone = false
-            timeLeft.isGone = false
-            
-        }
+        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            bind.apply {
+                productName.isGone = false
+                optionImage.isGone = false
+                timeLeft.isGone = false
+                statusText.visibility = View.VISIBLE
+            }
+        },1200)
     }
 
 }
