@@ -47,7 +47,6 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
     private val categoryVM: CategoryViewModel by viewModels()
     private val trackerVm: TrackerViewModel by activityViewModels()
 
-
     private val messages = ArrayList<String>()
     private val categories = ArrayList<Category>()
 
@@ -426,7 +425,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
     }
 
     override fun openTrackerInfo(tracker: TrackerAndProduct) {
-
+        Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionDashFragmentToTrackerDetails(tracker))
     }
 }
 

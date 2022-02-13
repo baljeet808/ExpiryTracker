@@ -9,6 +9,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
@@ -29,15 +30,16 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 
 
-class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListener, OnTrackerOpenListener{
+class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListener,
+    OnTrackerOpenListener {
     private lateinit var bind: FragmentCalendarV1Binding
     private val viewModel: CalendarViewModelV1 by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
     private val categories = ArrayList<Category>()
 
-    private lateinit var  trackerAdapter : TrackerDiffAdapter
+    private lateinit var trackerAdapter: TrackerDiffAdapter
 
-    private lateinit var calendarAdapter : CalendarAdapter
+    private lateinit var calendarAdapter: CalendarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,19 +90,20 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                             viewModel.favouriteFilter.postValue(Constants.SHOW_ALL)
                         }
                     }
-                }?: kotlin.run {
+                } ?: kotlin.run {
                     viewModel.favouriteFilter.postValue(Constants.SHOW_ONLY_FAVOURITE)
                 }
             }
         }
 
         bind.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-                    val value = ((-1F)*verticalOffset) / 1000
-                    bind.secondTopMostLine.scaleX = value
+            val value = ((-1F) * verticalOffset) / 1000
+            bind.secondTopMostLine.scaleX = value
         })
         bind.trackerRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            trackerAdapter = TrackerDiffAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment)
+            trackerAdapter =
+                TrackerDiffAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment)
             adapter = trackerAdapter
         }
 
@@ -139,13 +142,30 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
                 bind.categoryLayout.apply {
                     if (bind.categoryLayout.isGone) {
                         bind.categoryLayout.visibility = View.VISIBLE
-                        bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(
-                            MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
+                        bind.productCategoryChip.chipBackgroundColor = ColorStateList.valueOf(
+                            MyColors.getColorByAttr(
+                                requireContext(),
+                                R.attr.text_dialog_color,
+                                R.color.black
+                            )
+                        )
                         bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                     } else {
                         bind.categoryLayout.visibility = View.GONE
-                        bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                        bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
+                        bind.productCategoryChip.chipBackgroundColor = ColorStateList.valueOf(
+                            MyColors.getColorByAttr(
+                                requireContext(),
+                                R.attr.window_top_bar,
+                                R.color.black
+                            )
+                        )
+                        bind.productCategoryChip.setTextColor(
+                            MyColors.getColorByAttr(
+                                requireContext(),
+                                R.attr.text_dialog_color,
+                                R.color.always_white
+                            )
+                        )
                     }
                 }
             }
@@ -183,18 +203,30 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
             }
         }
         bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
-            val category = categories.firstOrNull { c->c.categoryId == checkedId }
+            val category = categories.firstOrNull { c -> c.categoryId == checkedId }
             category?.let {
                 bind.productCategoryChip.text = category.categoryName
                 viewModel.categoryFilter.postValue(category)
-            }?: kotlin.run {
+            } ?: kotlin.run {
                 bind.productCategoryChip.text = resources.getString(R.string.products)
-                viewModel.categoryFilter.postValue(Category(0, "Products", 0,false))
+                viewModel.categoryFilter.postValue(Category(0, "Products", 0, false))
             }
 
             bind.categoryLayout.visibility = View.GONE
-            bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-            bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
+            bind.productCategoryChip.chipBackgroundColor = ColorStateList.valueOf(
+                MyColors.getColorByAttr(
+                    requireContext(),
+                    R.attr.window_top_bar,
+                    R.color.black
+                )
+            )
+            bind.productCategoryChip.setTextColor(
+                MyColors.getColorByAttr(
+                    requireContext(),
+                    R.attr.text_dialog_color,
+                    R.color.always_white
+                )
+            )
         }
     }
 
@@ -207,6 +239,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener , UpdateTrackerListe
     }
 
     override fun openTrackerInfo(tracker: TrackerAndProduct) {
-        TODO("Not yet implemented")
+        Navigation.findNavController(requireView())
+            .navigate(
+                CalendarFragmentDirections.actionCalendarFragmentToTrackerDetails(tracker)
+            )
     }
 }

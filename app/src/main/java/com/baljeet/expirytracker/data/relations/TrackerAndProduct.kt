@@ -1,10 +1,13 @@
 package com.baljeet.expirytracker.data.relations
 
+import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.Tracker
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class TrackerAndProduct(
     @Embedded val tracker : Tracker,
     @Relation(
@@ -13,4 +16,4 @@ data class TrackerAndProduct(
         entity = Product::class
     )
     val productAndCategoryAndImage: ProductAndCategoryAndImage
-)
+):Parcelable

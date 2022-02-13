@@ -16,12 +16,27 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/slide_down_from_bottom" />
+        <action
+            android:id="@+id/action_dashFragment_to_trackerDetails"
+            app:destination="@id/trackerDetails"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.baljeet.expirytracker.fragment.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar_v1" />
+        tools:layout="@layout/fragment_calendar_v1" >
+        <action
+            android:id="@+id/action_calendarFragment_to_trackerDetails"
+            app:destination="@id/trackerDetails"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.baljeet.expirytracker.fragment.settings.SettingsFragment"
@@ -217,4 +232,13 @@
         android:name="com.baljeet.expirytracker.fragment.shared.IconsGallery"
         android:label="fragment_icons_gallery"
         tools:layout="@layout/fragment_icons_gallery" />
+    <fragment
+        android:id="@+id/trackerDetails"
+        android:name="com.baljeet.expirytracker.fragment.shared.TrackerDetails"
+        android:label="fragment_tracker_details"
+        tools:layout="@layout/fragment_tracker_details" >
+        <argument
+            android:name="selectedTracker"
+            app:argType="com.baljeet.expirytracker.data.relations.TrackerAndProduct" />
+    </fragment>
 </navigation>
