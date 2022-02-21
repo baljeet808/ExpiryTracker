@@ -174,7 +174,9 @@
     <string name="use_icon_gallery">Use icon gallery</string>
     <string name="tracking_detail">Tracking Details</string>
     <string name="expiring_after">Expiring After</string>
+    <string name="expired_from">Expired From</string>
     <string name="period_left_var">%1$d Years \n%2$d Month \n%3$d Days</string>
-    <string name="period_months_left_var">%1$d Month \n%2$d Days</string>
-    <string name="period_days_left_var">%1$d Days</string>
+    <string name="period_months_left_var">%1$d Month \n%2$d Days \n%3$d Hours</string>
+    <string name="period_days_left_var">%1$d Days \n%2$d Hours \n%3$d Minutes</string>
+    <string name="period_hours_left_var">%1$d Hours \n%2$d Minutes \n%3$d Seconds</string>
 </resources>

@@ -17,6 +17,7 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.FragmentTrackerDetailsBinding
 import com.baljeet.expirytracker.util.ImageConvertor
 import kotlinx.datetime.*
+import kotlin.math.absoluteValue
 
 class TrackerDetails : Fragment() {
 
@@ -107,23 +108,45 @@ class TrackerDetails : Fragment() {
                 val spentHours = periodSpent.days * 24 + periodSpent.hours
 
                 val periodLeft = dateToday.toLocalDateTime(TimeZone.UTC).toInstant(TimeZone.UTC).periodUntil(expiryInstant, TimeZone.UTC)
-                if(periodLeft.years>0) {
+                if(periodLeft.years>0 || periodLeft.years<0) {
+                    if(periodLeft.years<0) {
+                        timerLabel.text = getString(R.string.expired_from)
+                    }
                     timeLeft.text = getString(
                         R.string.period_left_var,
-                        periodLeft.years,
-                        periodLeft.months,
-                        periodLeft.days
+                        periodLeft.years.absoluteValue,
+                        periodLeft.months.absoluteValue,
+                        periodLeft.days.absoluteValue
                     )
-                }else if(periodLeft.years == 0 && periodLeft.months> 0){
+                }else if(periodLeft.years == 0 && (periodLeft.months> 0 || periodLeft.months<0)){
+                    if(periodLeft.months<0) {
+                        timerLabel.text = getString(R.string.expired_from)
+                    }
                     timeLeft.text = getString(
                         R.string.period_months_left_var,
-                        periodLeft.months,
-                        periodLeft.days
+                        periodLeft.months.absoluteValue,
+                        periodLeft.days.absoluteValue,
+                        periodLeft.hours.absoluteValue
                     )
-                }else if(periodLeft.years == 0 && periodLeft.months ==0 && periodLeft.days > 0){
+                }else if(periodLeft.years == 0 && periodLeft.months ==0 && (periodLeft.days > 0 || periodLeft.days<0)){
+                    if(periodLeft.days<0) {
+                        timerLabel.text = getString(R.string.expired_from)
+                    }
                     timeLeft.text = getString(
                         R.string.period_days_left_var,
-                        periodLeft.days
+                        periodLeft.days.absoluteValue,
+                        periodLeft.hours.absoluteValue,
+                        periodLeft.minutes.absoluteValue
+                    )
+                }else if(periodLeft.years == 0 && periodLeft.months ==0 && periodLeft.days == 0 && ((periodLeft.hours > 0 || periodLeft.hours<0) || (periodLeft.minutes > 0 || periodLeft.minutes<0))){
+                    if(periodLeft.hours<0 || periodLeft.minutes < 0) {
+                        timerLabel.text = getString(R.string.expired_from)
+                    }
+                    timeLeft.text = getString(
+                        R.string.period_hours_left_var,
+                        periodLeft.days.absoluteValue,
+                        periodLeft.hours.absoluteValue,
+                        periodLeft.minutes.absoluteValue
                     )
                 }
 
@@ -155,14 +178,7 @@ class TrackerDetails : Fragment() {
     }
 
     private fun showAll(){
-        Handler(Looper.getMainLooper()).postDelayed(Runnable {
-            bind.apply {
-                productName.isGone = false
-                optionImage.isGone = false
-                timeLeft.isGone = false
-                statusText.visibility = View.VISIBLE
-            }
-        },1200)
+
     }
 
 }
