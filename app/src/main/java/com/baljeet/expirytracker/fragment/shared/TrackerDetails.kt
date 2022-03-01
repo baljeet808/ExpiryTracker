@@ -3,17 +3,13 @@ package com.baljeet.expirytracker.fragment.shared
 import android.animation.ObjectAnimator
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.FragmentTrackerDetailsBinding
 import com.baljeet.expirytracker.util.ImageConvertor
 import kotlinx.datetime.*
@@ -24,7 +20,6 @@ class TrackerDetails : Fragment() {
     private lateinit var bind : FragmentTrackerDetailsBinding
     private val navArgs : TrackerDetailsArgs by navArgs()
 
-    private lateinit var tracker : TrackerAndProduct
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,18 +33,6 @@ class TrackerDetails : Fragment() {
             with(navArgs.selectedTracker){
                 productName.text = productAndCategoryAndImage.product.name
                 categoryNameValue.text = productAndCategoryAndImage.categoryAndImage.category.categoryName
-                if(tracker.usedWhileFresh){
-                    statusText.text = getString(R.string.freshly_used)
-                }
-                if(tracker.usedWhileOk){
-                    statusText.text = getString(R.string.good_condition)
-                }
-                if(tracker.usedNearExpiry){
-                    statusText.text = getString(R.string.used_near_expiry)
-                }
-                if(tracker.gotExpired){
-                    statusText.text =getString(R.string.expired)
-                }
                 expiryDateValue.text = tracker.expiryDate.date.toString()
                 manufactureDateValue.text = tracker.mfgDate.date.toString()
 
@@ -158,15 +141,19 @@ class TrackerDetails : Fragment() {
                     when {
                         progressValue >= 100->{
                             progressDrawableClip.setTint(context.getColor(R.color.progress_bad))
+                            statusText.text = getString(R.string.expired)
                         }
                         progressValue >= 80 -> {
                             progressDrawableClip.setTint(context.getColor(R.color.red_orange))
+                            statusText.text = getString(R.string.expiring)
                         }
                         progressValue < 80 && progressValue >= 50 -> {
                             progressDrawableClip.setTint(context.getColor(R.color.progress_ok))
+                            statusText.text = getString(R.string.still_ok)
                         }
                         progressValue < 50 -> {
                             progressDrawableClip.setTint(context.getColor(R.color.progress_great))
+                            statusText.text = getString(R.string.fresh)
                         }
                     }
                     ObjectAnimator.ofInt(itemProgressbar,"progress",progressValue.toInt()).setDuration(1500).start()

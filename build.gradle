@@ -7,7 +7,7 @@ buildscript {
         maven { url 'https://androidx.dev/snapshots/builds/8054565/artifacts/repository' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.1'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         //noinspection DifferentKotlinGradleVersion
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
 

@@ -179,4 +179,9 @@
     <string name="period_months_left_var">%1$d Month \n%2$d Days \n%3$d Hours</string>
     <string name="period_days_left_var">%1$d Days \n%2$d Hours \n%3$d Minutes</string>
     <string name="period_hours_left_var">%1$d Hours \n%2$d Minutes \n%3$d Seconds</string>
+    <string name="reminder_instruction">Remind a day before expiry date.</string>
+    <string name="on_specific_date">On Specific Date</string>
+    <string name="do_not_remind">Do not remind</string>
+    <string name="_4_set_reminder">4.Set Reminder</string>
+    <string name="remind_me_on_this_date">Remind me on this date</string>
 </resources>

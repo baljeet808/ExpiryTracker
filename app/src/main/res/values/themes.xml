@@ -63,6 +63,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+
     <style name="myImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
         <item name="tint">@color/text_dialog_color_blue</item>
         <item name="android:padding">6dp</item>

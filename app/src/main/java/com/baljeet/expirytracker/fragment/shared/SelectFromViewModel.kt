@@ -13,6 +13,7 @@ class SelectFromViewModel : ViewModel() {
 
     private lateinit var expiryDate: LocalDateTime
     private lateinit var mfgDate: LocalDateTime
+    lateinit var reminderDate: LocalDateTime
 
     private var selectedCategory: CategoryAndImage? = null
     private var selectedProduct: ProductAndImage? = null
