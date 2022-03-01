@@ -102,7 +102,7 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
             bind.mfgDateEdittext.text?.let {
                 if(it.isNotEmpty()){
                     bind.completed2Check.visibility = View.VISIBLE
-                    bind.addProductButton.visibility = View.VISIBLE
+                    bind.editReminderLayout.visibility = View.VISIBLE
                 }}
         }
 
