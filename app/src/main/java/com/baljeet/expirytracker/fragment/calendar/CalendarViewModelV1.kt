@@ -88,7 +88,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
     }
 
     private fun filterForDay(selectedDay : kotlinx.datetime.LocalDateTime, allTracker : List<TrackerAndProduct>): List<TrackerAndProduct>{
-        return allTracker.filter { d-> d.tracker.expiryDate.dayOfMonth == selectedDay.dayOfMonth }
+        return allTracker.filter { d-> d.tracker.expiryDate!!.dayOfMonth == selectedDay.dayOfMonth }
     }
 
     var trackersForRecycler = MediatorLiveData<List<TrackerAndProduct>>().apply {
@@ -108,7 +108,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
     private fun filterTrackers(favFilter : Int,allTracker : List<TrackerAndProduct>, category: Category, monthDate : LocalDateTime ): List<TrackerAndProduct>? {
         var afterAllFilters : List<TrackerAndProduct>? = null
         allTracker.let {
-            val afterMonthFilter = it.filter { m -> m.tracker.expiryDate.year == monthDate.year && m.tracker.expiryDate.month == monthDate.month }
+            val afterMonthFilter = it.filter { m -> m.tracker.expiryDate!!.year == monthDate.year && m.tracker.expiryDate!!.month == monthDate.month }
 
             val afterCategoryFilter = if (category.categoryName == "Products") {
                 afterMonthFilter
@@ -156,7 +156,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
                 ))
             } else {
                 val date = kotlinx.datetime.LocalDateTime(selectedDate.year,selectedDate.monthValue,dateCounter,0,0,0,0)
-                val products = allTrackers.filter { t-> t.tracker.expiryDate.dayOfMonth == date.dayOfMonth }
+                val products = allTrackers.filter { t-> t.tracker.expiryDate!!.dayOfMonth == date.dayOfMonth }
 
                 val isCurrentDate = date.date == LocalDateTime.now().toKotlinLocalDateTime().date
                 val isSelected = selectedDayOfMonth.value?.let {

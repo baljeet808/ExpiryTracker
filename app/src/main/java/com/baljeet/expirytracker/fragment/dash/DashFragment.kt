@@ -289,7 +289,6 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
 
     private var messageNum = 0
     private fun setStatus(aLong: Long) {
-        Log.d("Log for - ","$aLong")
         bind.imageForAnimation.apply {
             animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(1200)
                 .withEndAction {

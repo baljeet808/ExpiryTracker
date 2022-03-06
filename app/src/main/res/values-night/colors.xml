@@ -12,7 +12,7 @@
 
     <color name="theme_blue">#6272a4</color>
     <color name="theme_blue_light">#7D8BB5</color>
-
+    <color name="always_peach">#E36387</color>
     <color name="theme_peach">#FFE4AD</color>
     <color name="theme_peach_light">#FFE4AD</color>
     <color name="theme_yellow">#FFFF00</color>

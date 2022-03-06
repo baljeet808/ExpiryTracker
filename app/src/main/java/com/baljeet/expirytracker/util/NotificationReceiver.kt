@@ -1,52 +1,126 @@
 package com.baljeet.expirytracker.util
 
-import android.app.Application
-import android.app.PendingIntent
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.baljeet.expirytracker.MainActivity
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.AppDatabase
-import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.repository.TrackerRepository
-import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.periodUntil
+import kotlinx.datetime.toInstant
+
 
 class NotificationReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
+        try {
+            val repository = TrackerRepository(AppDatabase.getDatabase(context).trackerDao())
+            val trackerId = intent.getIntExtra(titleExtra, 0)
+            val tracker = repository.getTrackerByID(trackerId)
 
-        val i = Intent(context, MainActivity::class.java)
-        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val pendingIntent = PendingIntent.getActivity(
-            context,
-            0,
-            i,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
+            val collapsed = RemoteViews(context.packageName, R.layout.notification_collapsed_layout)
+            val expanded = RemoteViews(context.packageName, R.layout.notification_expanded_layout)
 
-       val messages = ProductStatus.getStatusMessage(context!!)
-        var message = ""
-        for(msg in messages){
-            message = message.plus(msg)
+            expanded.setTextViewText(R.id.product_name, tracker.productAndCategoryAndImage.product.name)
+            when (tracker.productAndCategoryAndImage.image.mimeType) {
+                "asset" -> {
+                    expanded.setImageViewResource(
+                        R.id.product_image, context.resources.getIdentifier(
+                            tracker.productAndCategoryAndImage.image.imageUrl,
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                    collapsed.setImageViewResource(
+                        R.id.product_image, context.resources.getIdentifier(
+                            tracker.productAndCategoryAndImage.image.imageUrl,
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                }
+                else -> {
+                    expanded.setImageViewBitmap(
+                        R.id.product_image,
+                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                    )
+                    collapsed.setImageViewBitmap(
+                        R.id.product_image,
+                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                    )
+                }
+            }
+            val expiryDate = tracker.tracker.expiryDate
+            val mfgDate = tracker.tracker.mfgDate
+            expiryDate?.let {
+                expanded.setTextViewText(
+                    R.id.expiring_date,
+                    context.getString(
+                        R.string.date_var,
+                        it.month.name.substring(0, 3).uppercase(),
+                        it.dayOfMonth,
+                        it.year
+                    )
+                )
+            }
+            val dateToday = Clock.System.now()
+
+            val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
+            val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
+
+            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
+            val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
+
+            val totalHours = totalPeriod.days * 24 + totalPeriod.hours
+            val spentHours = periodSpent.days * 24 + periodSpent.hours
+
+            val progressValue =
+                (spentHours.toFloat() / totalHours.toFloat()) * 100
+            expanded.setProgressBar(R.id.item_progressbar, 100, progressValue.toInt(), false)
+            when {
+                progressValue >= 100 -> {
+                    expanded.setTextViewText(
+                        R.id.tracking_status,
+                        context.getText(R.string.expired)
+                    )
+                    collapsed.setTextViewText(R.id.message_text, "${tracker.productAndCategoryAndImage.product.name} has expired.")
+                }
+                progressValue >= 80 -> {
+                    expanded.setTextViewText(
+                        R.id.tracking_status,
+                        context.getText(R.string.expiring)
+                    )
+                    collapsed.setTextViewText(R.id.message_text, "${tracker.productAndCategoryAndImage.product.name} is expiring soon")
+                }
+                progressValue < 80 && progressValue >= 50 -> {
+                    expanded.setTextViewText(
+                        R.id.tracking_status,
+                        context.getText(R.string.still_ok)
+                    )
+                    collapsed.setTextViewText(R.id.message_text, "Tracking update about ${tracker.productAndCategoryAndImage.product.name}")
+                }
+                progressValue < 50 -> {
+                    expanded.setTextViewText(R.id.tracking_status, context.getText(R.string.fresh))
+                    collapsed.setTextViewText(R.id.message_text, "Tracking update about ${tracker.productAndCategoryAndImage.product.name}")
+                }
+            }
+            val builder = NotificationCompat.Builder(context, channelID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setCustomContentView(collapsed)
+                .setCustomBigContentView(expanded)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+            
+            val manager = context.getSystemService(NotificationManager::class.java)
+            manager.notify(trackerId, builder.build())
+        } catch (e: Exception) {
+            Log.d("Log for notification error - ", "${e.printStackTrace()}")
         }
-        val builder = NotificationCompat.Builder(context, "expiryTrackerBaljeet")
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Update on Your Products \ud83d\ude0e")
-            .setContentText("Expand to view Descriptions")
-            .setAutoCancel(true).setStyle(NotificationCompat.BigTextStyle().bigText(message))
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-        val notificationManager = NotificationManagerCompat.from(context)
-        notificationManager.notify(123, builder.build())
     }
 }

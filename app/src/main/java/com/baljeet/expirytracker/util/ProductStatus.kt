@@ -29,8 +29,8 @@ object ProductStatus {
                 messages.clear()
                 for (tracker in trackers) {
                     val dateToday = Clock.System.now()
-                    val mfgInstant = tracker.tracker.mfgDate.toInstant(TimeZone.UTC)
-                    val expiryInstant = tracker.tracker.expiryDate.toInstant(TimeZone.UTC)
+                    val mfgInstant = tracker.tracker.mfgDate!!.toInstant(TimeZone.UTC)
+                    val expiryInstant = tracker.tracker.expiryDate!!.toInstant(TimeZone.UTC)
 
                     val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
                     val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)

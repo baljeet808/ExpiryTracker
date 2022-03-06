@@ -46,8 +46,8 @@ class SummaryDiffAdapter(private val context: Context) : ListAdapter<TrackerAndP
                 trackingResult.text =context.getString(R.string.expired)
             }
 
-            productExpiry.text = tracker.tracker.expiryDate.date.toString()
-            productMfg.text = tracker.tracker.mfgDate.date.toString()
+            productExpiry.text = tracker.tracker.expiryDate!!.date.toString()
+            productMfg.text = tracker.tracker.mfgDate!!.date.toString()
 
         }
     }

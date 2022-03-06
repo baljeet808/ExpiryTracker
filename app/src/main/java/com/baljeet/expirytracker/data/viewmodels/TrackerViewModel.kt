@@ -49,15 +49,17 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun addTracker(newTracker : Tracker){
-        viewModelScope.launch(Dispatchers.IO){
             repository.addTracker(newTracker)
-        }
     }
 
     fun updateTracker(tracker: Tracker){
         viewModelScope.launch(Dispatchers.IO){
             repository.updateTracker(tracker)
         }
+    }
+
+    fun getLatestAddedTracker(): TrackerAndProduct{
+        return  repository.getLatestAddedTracker()
     }
 
     private fun filterTrackers(favFilter : Int,allTracker : List<TrackerAndProduct>, status : String, category : Category ): List<TrackerAndProduct>? {

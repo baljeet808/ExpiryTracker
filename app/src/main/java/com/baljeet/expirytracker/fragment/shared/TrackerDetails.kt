@@ -33,8 +33,8 @@ class TrackerDetails : Fragment() {
             with(navArgs.selectedTracker){
                 productName.text = productAndCategoryAndImage.product.name
                 categoryNameValue.text = productAndCategoryAndImage.categoryAndImage.category.categoryName
-                expiryDateValue.text = tracker.expiryDate.date.toString()
-                manufactureDateValue.text = tracker.mfgDate.date.toString()
+                expiryDateValue.text = tracker.expiryDate!!.date.toString()
+                manufactureDateValue.text = tracker.mfgDate!!.date.toString()
 
                 when(productAndCategoryAndImage.image.mimeType){
                     "asset"->{
@@ -81,8 +81,8 @@ class TrackerDetails : Fragment() {
 
                 val dateToday = Clock.System.now()
 
-                val mfgInstant = mfgDate.toInstant(TimeZone.UTC)
-                val expiryInstant = expiryDate.toInstant(TimeZone.UTC)
+                val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
+                val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
 
                 val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
                 val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)

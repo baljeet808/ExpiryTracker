@@ -11,10 +11,11 @@ import kotlinx.parcelize.RawValue
 @Entity(tableName = "Tracker")
 data class Tracker(
     @PrimaryKey(autoGenerate = true)
-    var trackerId: Int,
+    var trackerId: Int = 0,
     var productId: Int,
-    var mfgDate: @RawValue LocalDateTime,
-    var expiryDate: @RawValue LocalDateTime,
+    var mfgDate: @RawValue LocalDateTime?,
+    var expiryDate: @RawValue LocalDateTime?,
+    var reminderDate: @RawValue LocalDateTime?,
     var usedWhileOk : Boolean,
     var usedWhileFresh : Boolean,
     var usedNearExpiry : Boolean,

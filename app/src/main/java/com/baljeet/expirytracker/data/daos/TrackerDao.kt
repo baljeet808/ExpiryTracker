@@ -10,7 +10,7 @@ import kotlinx.datetime.LocalDateTime
 interface TrackerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addTracker(tracker: Tracker)
+    fun addTracker(tracker: Tracker)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateTracker(tracker: Tracker)
@@ -22,6 +22,10 @@ interface TrackerDao {
     @Transaction
     @Query("SELECT * FROM tracker")
     fun getAllTracker() : LiveData<List<TrackerAndProduct>>
+
+    @Transaction
+    @Query("SELECT * FROM tracker where trackerId == :trackerId")
+    fun getTrackerByID(trackerId: Int) : TrackerAndProduct
 
     @Transaction
     @Query("SELECT * FROM tracker where (isArchived == ${true} And gotExpired == ${true}) Or isUsed == ${true}")
@@ -44,5 +48,10 @@ interface TrackerDao {
     @Transaction
     @Query("SELECT * FROM tracker where expiryDate == :date")
     fun readTrackerByDate(date: LocalDateTime) : List<TrackerAndProduct>
+
+    @Transaction
+    @Query("SELECT * FROM tracker ORDER BY trackerId DESC LIMIT 1")
+    fun getLatestAddedTracker(): TrackerAndProduct
+
 
 }

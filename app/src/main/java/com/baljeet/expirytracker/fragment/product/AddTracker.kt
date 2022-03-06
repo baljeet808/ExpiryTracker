@@ -1,11 +1,14 @@
 package com.baljeet.expirytracker.fragment.product
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
@@ -19,46 +22,50 @@ import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
-import com.baljeet.expirytracker.databinding.FragmentAddProductBinding
+import com.baljeet.expirytracker.databinding.FragmentAddTrackerBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
+import com.baljeet.expirytracker.util.NotificationUtil
+import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.toLocalDateTime
 
-class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
+class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePickerDialog.OnTimeSetListener {
 
-    private val mfgDatePicker = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
-        .setTitleText("Manufactured Date").build()
-    private val expiryDatePicker = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
-        .setTitleText("Expiry Date").build()
-    private val reminderDatePicker = MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
-        .setTitleText("Set Reminder Date").build()
+    private val mfgDatePicker =
+        MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
+            .setTitleText("Manufactured Date").build()
+    private val expiryDatePicker =
+        MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
+            .setTitleText("Expiry Date").build()
+    private val reminderDatePicker =
+        MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
+            .setTitleText("Set Reminder Date").build()
 
     private val categoriesWithImages = ArrayList<CategoryAndImage>()
     private val productsWithImages = ArrayList<ProductAndImage>()
 
     private val viewModel: SelectFromViewModel by activityViewModels()
-    private val categoryVM : CategoryViewModel by activityViewModels()
-    private val productVM : ProductViewModel by activityViewModels()
-    private val trackerViewModel : TrackerViewModel by activityViewModels()
-
+    private val categoryVM: CategoryViewModel by activityViewModels()
+    private val productVM: ProductViewModel by activityViewModels()
+    private val trackerViewModel: TrackerViewModel by activityViewModels()
 
 
     private lateinit var adapter: OptionsAdapter
     private lateinit var nameAdapter: OptionsAdapter
 
-    private lateinit var bind : FragmentAddProductBinding
+    private lateinit var bind: FragmentAddTrackerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bind = FragmentAddProductBinding.inflate(inflater,container,false)
+        bind = FragmentAddTrackerBinding.inflate(inflater, container, false)
 
         bind.closeBtn.setOnClickListener { activity?.onBackPressed() }
 
@@ -78,67 +85,114 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
             adapter.setCategoriesWithImages(it)
         }
 
-        nameAdapter = OptionsAdapter(null,requireContext(),null,this,productsWithImages)
+        nameAdapter = OptionsAdapter(null, requireContext(), null, this, productsWithImages)
         bind.nameOptionsRecycler.adapter = nameAdapter
 
 
-        bind.expiryClickView.setOnClickListener {  expiryDatePicker.show(childFragmentManager,"tag1") }
-        bind.mfgClickView.setOnClickListener {  mfgDatePicker.show(childFragmentManager,"tag2") }
-        bind.reminderDateClickView.setOnClickListener {  reminderDatePicker.show(childFragmentManager,"tag3") }
+        bind.expiryClickView.setOnClickListener {
+            expiryDatePicker.show(
+                childFragmentManager,
+                "tag1"
+            )
+        }
+        bind.mfgClickView.setOnClickListener { mfgDatePicker.show(childFragmentManager, "tag2") }
+        bind.reminderDateClickView.setOnClickListener {
+            reminderDatePicker.show(
+                childFragmentManager,
+                "tag3"
+            )
+        }
 
-        expiryDatePicker.addOnPositiveButtonClickListener { its->
+        expiryDatePicker.addOnPositiveButtonClickListener { its ->
             val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
 
             val expiryDate = expiryInstant.toLocalDateTime(Constants.TIMEZONE)
 
-            viewModel.setExpiryDate(LocalDateTime(expiryDate.year,expiryDate.monthNumber,expiryDate.dayOfMonth,expiryDate.hour,expiryDate.minute,0,0))
+            viewModel.setExpiryDate(
+                LocalDateTime(
+                    expiryDate.year,
+                    expiryDate.monthNumber,
+                    expiryDate.dayOfMonth,
+                    expiryDate.hour,
+                    expiryDate.minute,
+                    0,
+                    0
+                )
+            )
             expiryDate.let {
-                bind.expiryDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
-                    Month.of(it.monthNumber).name.substring(0,3),
-                    it.dayOfMonth,
-                    it.year))
+                bind.expiryDateEdittext.setText(
+                    resources.getString(
+                        R.string.date_string_with_month_name,
+                        Month.of(it.monthNumber).name.substring(0, 3),
+                        it.dayOfMonth,
+                        it.year
+                    )
+                )
             }
 
             bind.mfgDateEdittext.text?.let {
-                if(it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     bind.completed2Check.visibility = View.VISIBLE
                     bind.editReminderLayout.visibility = View.VISIBLE
-                }}
+                }
+            }
         }
 
         mfgDatePicker.addOnPositiveButtonClickListener { its ->
             val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
             val mfgDate = mfgInstant.toLocalDateTime(Constants.TIMEZONE)
 
-            viewModel.setMfgDate(LocalDateTime(mfgDate.year,mfgDate.monthNumber,mfgDate.dayOfMonth,mfgDate.hour,mfgDate.minute,0,0))
+            viewModel.setMfgDate(
+                LocalDateTime(
+                    mfgDate.year,
+                    mfgDate.monthNumber,
+                    mfgDate.dayOfMonth,
+                    mfgDate.hour,
+                    mfgDate.minute,
+                    0,
+                    0
+                )
+            )
             mfgDate.let {
-                bind.mfgDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
-                    Month.of(it.monthNumber).name.substring(0,3),
-                    it.dayOfMonth,
-                    it.year))
+                bind.mfgDateEdittext.setText(
+                    resources.getString(
+                        R.string.date_string_with_month_name,
+                        Month.of(it.monthNumber).name.substring(0, 3),
+                        it.dayOfMonth,
+                        it.year
+                    )
+                )
             }
             bind.expiryDateEdittext.text?.let {
-                if(it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     bind.completed3Check.visibility = View.VISIBLE
                     bind.addProductButton.visibility = View.VISIBLE
-                }}
+                }
+            }
         }
         reminderDatePicker.addOnPositiveButtonClickListener { its ->
             val reminderInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
             val reminderDate = reminderInstant.toLocalDateTime(Constants.TIMEZONE)
 
-            viewModel.reminderDate =LocalDateTime(reminderDate.year,reminderDate.monthNumber,reminderDate.dayOfMonth,reminderDate.hour,reminderDate.minute,0,0)
-            reminderDate.let {
-                bind.reminderDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
-                    Month.of(it.monthNumber).name.substring(0,3),
-                    it.dayOfMonth,
-                    it.year))
-            }
+            Log.d("Log for - reminder date  ",reminderDate.toString())
+
+            viewModel.reminderDate = LocalDateTime(
+                reminderDate.year,
+                reminderDate.monthNumber,
+                reminderDate.dayOfMonth,
+                reminderDate.hour,
+                reminderDate.minute,
+                0,
+                0
+            )
             bind.reminderDateEdittext.text?.let {
-                if(it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     bind.reminderSetCheck.visibility = View.VISIBLE
                     bind.addProductButton.visibility = View.VISIBLE
-                }}
+                }
+            }
+            val currentTime = java.time.LocalDateTime.now()
+            TimePickerDialog(requireContext(),this,currentTime.hour,currentTime.minute,false).show()
         }
 
         bind.categoryClickView.setOnClickListener {
@@ -151,35 +205,57 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
         }
 
         bind.reminderRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                bind.remindDayBeforeCheckbox.id->{
-                      val date = viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }
-                          date.let {
-                          bind.reminderDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
-                              Month.of(it.monthNumber).name.substring(0,3),
-                              it.dayOfMonth.minus(1),
-                              it.year))
-                      }
+            when (checkedId) {
+                bind.remindDayBeforeCheckbox.id -> {
+                    val date = viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }
+                    date.let {
+                        bind.reminderDateEdittext.setText(
+                            resources.getString(
+                                R.string.date_string_with_month_name,
+                                Month.of(it.monthNumber).name.substring(0, 3),
+                                it.dayOfMonth.minus(1),
+                                it.year
+                            )
+                        )
+                    }
                 }
-                bind.remindOnCustomDateCheckbox.id->{
-                      viewModel.reminderDate?.let {
-                          bind.reminderDateEdittext.setText(resources.getString(R.string.date_string_with_month_name,
-                              Month.of(it.monthNumber).name.substring(0,3),
-                              it.dayOfMonth.minus(1),
-                              it.year))
-                      }
+                bind.remindOnCustomDateCheckbox.id -> {
+                    viewModel.reminderDate?.let {
+                        bind.reminderDateEdittext.setText(
+                            resources.getString(
+                                R.string.date_string_with_month_name,
+                                Month.of(it.monthNumber).name.substring(0, 3),
+                                it.dayOfMonth.minus(1),
+                                it.year
+                            )
+                        )
+                    } ?: kotlin.run {
+                        viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }.let {
+                            bind.reminderDateEdittext.setText(
+                                resources.getString(
+                                    R.string.date_string_with_month_name,
+                                    Month.of(it.monthNumber).name.substring(0, 3),
+                                    it.dayOfMonth.minus(1),
+                                    it.year
+                                )
+                            )
+                        }
+                    }
                 }
-                bind.doNotRemindCheckbox.id->{
-                       bind.reminderDateEdittext.setText(R.string.do_not_remind)
+                bind.doNotRemindCheckbox.id -> {
+                    bind.reminderDateEdittext.setText(R.string.do_not_remind)
                 }
             }
+            bind.reminderSetCheck.visibility = View.VISIBLE
+            bind.addProductButton.visibility = View.VISIBLE
         }
 
-        bind.addProductButton.setOnClickListener{
-            val tracker = Tracker(0,
-                viewModel.getSelectedProduct()?.product?.productId!!,
-                viewModel.getMfgDate(),
-                viewModel.getExpiryDate(),
+        bind.addProductButton.setOnClickListener {
+            val tracker = Tracker(
+                productId = viewModel.getSelectedProduct()?.product?.productId!!,
+                mfgDate = viewModel.getMfgDate(),
+                expiryDate = viewModel.getExpiryDate(),
+                reminderDate = viewModel.reminderDate,
                 usedWhileOk = false,
                 usedWhileFresh = false,
                 usedNearExpiry = false,
@@ -192,21 +268,33 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                 isUsed = false
             )
             trackerViewModel.addTracker(tracker)
+            val latestTracker = trackerViewModel.getLatestAddedTracker().tracker
+            Log.d("Log for - ","latest tracker id = ${latestTracker.trackerId}")
+            viewModel.reminderDate?.let {
+                if(SharedPref.isAlertEnabled) {
+                    NotificationUtil.setReminderForProducts(
+                        it,
+                        requireContext(),
+                        latestTracker.trackerId
+                    )
+
+                }
+            }
             activity?.onBackPressed()
         }
         return bind.root
     }
 
-    override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory : Boolean) {
-        
-        if(position == -1){
+    override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory: Boolean) {
+
+        if (position == -1) {
             Navigation.findNavController(requireView()).navigate(
-                AddProductDirections.actionAddProductToCreateCustom(
-                    itemType = if(optionIsCategory) "Category" else "Product",
-                    selectedCategory = if(optionIsCategory) null else viewModel.getSelectedCategory()?.category
+                AddTrackerDirections.actionAddProductToCreateCustom(
+                    itemType = if (optionIsCategory) "Category" else "Product",
+                    selectedCategory = if (optionIsCategory) null else viewModel.getSelectedCategory()?.category
                 )
             )
-        }else {
+        } else {
             if (optionIsCategory) {
                 if (checkVisibility == View.GONE) {
                     bind.customEdittext.setText(categoriesWithImages[position].category.categoryName)
@@ -214,8 +302,8 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                     bind.selectedCategoryIcon.visibility = View.VISIBLE
                     bind.customBoxLayout.isEndIconVisible = false
                     bind.customNameBoxLayout.isEndIconVisible = false
-                    when(categoriesWithImages[position].image.mimeType){
-                        "asset"->{
+                    when (categoriesWithImages[position].image.mimeType) {
+                        "asset" -> {
                             bind.selectedCategoryIcon.setImageDrawable(
                                 AppCompatResources.getDrawable(
                                     requireContext(),
@@ -227,10 +315,10 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                                 )
                             )
                         }
-                        else->{
-                           bind.selectedCategoryIcon.setImageBitmap(
+                        else -> {
+                            bind.selectedCategoryIcon.setImageBitmap(
                                 ImageConvertor.stringToBitmap(categoriesWithImages[position].image.bitmap)
-                            ) 
+                            )
                         }
                     }
 
@@ -264,8 +352,8 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                     bind.selectedNameIcon.visibility = View.VISIBLE
                     bind.customNameBoxLayout.isEndIconVisible = false
 
-                    when(productsWithImages[position].image.mimeType){
-                        "asset"->{
+                    when (productsWithImages[position].image.mimeType) {
+                        "asset" -> {
                             bind.selectedNameIcon.setImageDrawable(
                                 AppCompatResources.getDrawable(
                                     requireContext(),
@@ -277,7 +365,7 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                                 )
                             )
                         }
-                        else->{
+                        else -> {
                             bind.selectedNameIcon.setImageBitmap(
                                 ImageConvertor.stringToBitmap(productsWithImages[position].image.bitmap)
                             )
@@ -296,6 +384,26 @@ class AddProduct : Fragment() , OptionsAdapter.OnOptionSelectedListener{
                     bind.completed2Check.visibility = ViewAnimator.GONE
                 }
             }
+        }
+    }
+
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        viewModel.reminderDate = viewModel.reminderDate?.let {
+             LocalDateTime(it.year,it.monthNumber,it.dayOfMonth,hourOfDay,minute)
+        }
+        viewModel.reminderDate?.let {
+            bind.reminderDateEdittext.setText(
+                resources.getString(
+                    R.string.date_string_with_month_name_and_time,
+                    Month.of(it.monthNumber).name.substring(0, 3),
+                    it.dayOfMonth,
+                    it.year,
+                    it.hour,
+                    it.minute,
+                    if (it.hour>=12) {"PM"} else {"AM"}
+                )
+            )
         }
     }
 }

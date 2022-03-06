@@ -55,15 +55,16 @@ class WidgetStackViewAdapter: RemoteViewsService() {
                 context.packageName
             ))
             remoteView.setTextViewText(R.id.product_name,tracker.productAndCategoryAndImage.product.name)
-            remoteView.setTextViewText(R.id.expiring_date, context.getString(R.string.date_short_var, tracker.tracker.expiryDate.dayOfMonth,tracker.tracker.expiryDate.month.name.substring(0,3).uppercase()))
-            remoteView.setTextViewText(R.id.expiring_date_year,tracker.tracker.expiryDate.year.toString())
+            remoteView.setTextViewText(R.id.expiring_date, context.getString(R.string.date_short_var, tracker.tracker.expiryDate!!.dayOfMonth,
+                tracker.tracker.expiryDate!!.month.name.substring(0,3).uppercase()))
+            remoteView.setTextViewText(R.id.expiring_date_year,tracker.tracker.expiryDate!!.year.toString())
             val dateToday = Clock.System.now()
 
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
 
-            val mfgInstant = mfgDate.toInstant(TimeZone.UTC)
-            val expiryInstant = expiryDate.toInstant(TimeZone.UTC)
+            val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
+            val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
 
             val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
             val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)

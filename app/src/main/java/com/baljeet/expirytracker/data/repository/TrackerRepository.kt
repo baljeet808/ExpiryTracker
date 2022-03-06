@@ -10,7 +10,7 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
 
     val readAllTrackers : LiveData<List<TrackerAndProduct>> = trackerDao.readAllTracker()
 
-    suspend fun addTracker(tracker: Tracker){
+    fun addTracker(tracker: Tracker){
         trackerDao.addTracker(tracker)
     }
 
@@ -32,6 +32,14 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
 
     fun readTrackerByExpiryDate(date : LocalDateTime): List<TrackerAndProduct>{
         return trackerDao.readTrackerByDate(date)
+    }
+
+    fun getLatestAddedTracker(): TrackerAndProduct{
+        return trackerDao.getLatestAddedTracker()
+    }
+
+    fun getTrackerByID(trackerId: Int): TrackerAndProduct{
+        return trackerDao.getTrackerByID(trackerId)
     }
 
 }

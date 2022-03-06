@@ -93,14 +93,14 @@ class TrackerDiffAdapter(private val context : Context,
 
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
-            expiryDate.let {
+            expiryDate?.let {
                 expiringMonthAndDay.text = context.getString(R.string.date_short_var,it.dayOfMonth,it.month.name.substring(0,3).uppercase())
                 expiringYear.text = it.year.toString()
             }
             val dateToday = Clock.System.now()
 
-            val mfgInstant = mfgDate.toInstant(TimeZone.UTC)
-            val expiryInstant = expiryDate.toInstant(TimeZone.UTC)
+            val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
+            val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
 
             val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
             val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)

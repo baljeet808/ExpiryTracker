@@ -149,10 +149,10 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     private fun filterByTimePeriod(trackers : List<TrackerAndProduct>, periodFilter : Int,startDate : LocalDateTime, endDate : LocalDateTime) : List<TrackerAndProduct>{
         return  when(periodFilter){
             Constants.PERIOD_DAILY->{
-                trackers.filter { t -> t.tracker.expiryDate.date == startDate.toKotlinLocalDateTime().date }
+                trackers.filter { t -> t.tracker.expiryDate?.date == startDate.toKotlinLocalDateTime().date }
             }
             else->{
-                trackers.filter { t -> t.tracker.expiryDate.date >= startDate.toKotlinLocalDateTime().date && t.tracker.expiryDate.date <= endDate.toKotlinLocalDateTime().date }
+                trackers.filter { t -> t.tracker.expiryDate?.date!! >= startDate.toKotlinLocalDateTime().date && t.tracker.expiryDate!!.date <= endDate.toKotlinLocalDateTime().date }
             }
         }
     }

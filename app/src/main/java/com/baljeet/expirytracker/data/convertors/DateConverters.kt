@@ -17,7 +17,7 @@ class DateConverters {
     }
 
     @TypeConverter
-    fun fromLocalDateTimeToLong(date : LocalDateTime): Long {
-        return date.toInstant(Constants.TIMEZONE).toEpochMilliseconds()
+    fun fromLocalDateTimeToLong(date : LocalDateTime?): Long? {
+        return date?.toInstant(Constants.TIMEZONE)?.toEpochMilliseconds()
     }
 }

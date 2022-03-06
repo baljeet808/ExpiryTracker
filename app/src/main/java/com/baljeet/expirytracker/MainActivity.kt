@@ -14,6 +14,7 @@ import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.util.Constants
+import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             SharedPref.hasBeenSeeded = true
         }
 
-        createNotificationChannel()
+        NotificationUtil.createNotificationChannel(applicationContext)
     }
 
     private fun seedData() {
@@ -99,17 +100,6 @@ class MainActivity : AppCompatActivity() {
         for (image in selectVM.getImages()) {
             imageVm.addImage(image)
         }
-    }
-
-
-    private fun createNotificationChannel() {
-        val name = "ExpiryTrackerReminderBaljeet"
-        val description = "Channel for ExpiryTracker Reminders"
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("expiryTrackerBaljeet", name, importance)
-        channel.description = description
-        val notificationManager = applicationContext.getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
     }
 
 }

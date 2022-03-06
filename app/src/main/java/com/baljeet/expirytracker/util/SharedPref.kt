@@ -16,7 +16,7 @@ object SharedPref {
         editor.apply()
     }
     var isAlertEnabled: Boolean
-        get() = sharedPref.getBoolean("isAlertEnabled",false)
+        get() = sharedPref.getBoolean("isAlertEnabled",true)
         set(value) = sharedPref.edit {
             it.putBoolean("isAlertEnabled",value)
         }

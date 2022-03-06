@@ -99,9 +99,9 @@
         tools:layout="@layout/fragment_analytics" />
     <fragment
         android:id="@+id/addProduct"
-        android:name="com.baljeet.expirytracker.fragment.product.AddProduct"
+        android:name="com.baljeet.expirytracker.fragment.product.AddTracker"
         android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product" >
+        tools:layout="@layout/fragment_add_tracker" >
         <action
             android:id="@+id/action_addProduct_to_createCustom"
             app:destination="@id/createCustom"
