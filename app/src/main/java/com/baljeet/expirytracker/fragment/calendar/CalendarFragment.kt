@@ -241,7 +241,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
     override fun openTrackerInfo(tracker: TrackerAndProduct) {
         Navigation.findNavController(requireView())
             .navigate(
-                CalendarFragmentDirections.actionCalendarFragmentToTrackerDetails(tracker)
+                CalendarFragmentDirections.actionCalendarFragmentToTrackerDetails(tracker.tracker.trackerId)
             )
     }
 }

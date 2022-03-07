@@ -35,12 +35,21 @@
         android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:drawableEndCompat="@drawable/et_logo_48"
         app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/back_button"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_icon"
+        app:layout_constraintTop_toTopOf="@id/tracker_heading"
+        app:layout_constraintBottom_toBottomOf="@id/tracker_heading"
+        app:layout_constraintStart_toEndOf="@id/tracker_heading"
+        android:layout_marginStart="10dp"
+        />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

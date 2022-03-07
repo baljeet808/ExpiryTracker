@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.baljeet.expirytracker.R
+import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentTrackerDetailsBinding
 import com.baljeet.expirytracker.util.ImageConvertor
 import kotlinx.datetime.*
@@ -19,6 +21,7 @@ class TrackerDetails : Fragment() {
 
     private lateinit var bind : FragmentTrackerDetailsBinding
     private val navArgs : TrackerDetailsArgs by navArgs()
+    private val trackerViewModel : TrackerViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -29,8 +32,8 @@ class TrackerDetails : Fragment() {
         bind.apply {
 
             backButton.setOnClickListener { activity?.onBackPressed() }
-
-            with(navArgs.selectedTracker){
+            val selectedTracker = trackerViewModel.getTrackerById(navArgs.selectedTrackerId)
+            with(selectedTracker){
                 productName.text = productAndCategoryAndImage.product.name
                 categoryNameValue.text = productAndCategoryAndImage.categoryAndImage.category.categoryName
                 expiryDateValue.text = tracker.expiryDate!!.date.toString()

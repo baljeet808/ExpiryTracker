@@ -61,7 +61,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/candy_card"
+        android:id="@+id/all_notification_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/support_message"
@@ -133,7 +133,7 @@
         android:id="@+id/chocolate_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/candy_card"
+        app:layout_constraintTop_toBottomOf="@id/all_notification_card"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:strokeColor="@color/text_color"

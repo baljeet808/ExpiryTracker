@@ -424,7 +424,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
     }
 
     override fun openTrackerInfo(tracker: TrackerAndProduct) {
-        Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionDashFragmentToTrackerDetails(tracker))
+        Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionDashFragmentToTrackerDetails(tracker.tracker.trackerId))
     }
 }
 

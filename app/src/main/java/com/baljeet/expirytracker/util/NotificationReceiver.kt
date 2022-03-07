@@ -4,9 +4,12 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
+import com.baljeet.expirytracker.MainActivity
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.repository.TrackerRepository
@@ -110,10 +113,20 @@ class NotificationReceiver : BroadcastReceiver() {
                     collapsed.setTextViewText(R.id.message_text, "Tracking update about ${tracker.productAndCategoryAndImage.product.name}")
                 }
             }
+            val args = Bundle()
+            args.putInt("selectedTrackerId",tracker.tracker.trackerId)
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.main_nav)
+                .setDestination(R.id.trackerDetails)
+                .setArguments(args)
+                .createPendingIntent()
+
             val builder = NotificationCompat.Builder(context, channelID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setCustomContentView(collapsed)
                 .setCustomBigContentView(expanded)
+                .setContentIntent(pendingIntent)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
             

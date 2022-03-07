@@ -238,7 +238,7 @@
         android:label="fragment_tracker_details"
         tools:layout="@layout/fragment_tracker_details" >
         <argument
-            android:name="selectedTracker"
-            app:argType="com.baljeet.expirytracker.data.relations.TrackerAndProduct" />
+            android:name="selectedTrackerId"
+            app:argType="integer" />
     </fragment>
 </navigation>
