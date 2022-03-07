@@ -14,7 +14,7 @@ class TrackerRepository(private val trackerDao: TrackerDao) {
         trackerDao.addTracker(tracker)
     }
 
-    suspend fun updateTracker(tracker: Tracker){
+    fun updateTracker(tracker: Tracker){
         trackerDao.updateTracker(tracker)
     }
 

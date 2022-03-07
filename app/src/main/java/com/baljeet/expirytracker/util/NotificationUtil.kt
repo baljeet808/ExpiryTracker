@@ -35,13 +35,13 @@ object NotificationUtil {
     }
 
     fun removeReminderForProduct(context : Context , trackerId : Int){
-        val alarmManager =
-            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, NotificationReceiver::class.java)
+        intent.putExtra(titleExtra, trackerId)
         val pendingIntent = PendingIntent.getBroadcast(
             context, trackerId, intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)
     }
 

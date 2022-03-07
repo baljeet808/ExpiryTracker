@@ -9,50 +9,33 @@
     android:background="?attr/card_background">
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/image_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/product_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:riv_corner_radius="2dp"
+        android:padding="2dp"
+        android:src="@drawable/drinks"
+        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="2dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/text_color"
-        >
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/option_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:riv_corner_radius="2dp"
-                android:padding="2dp"
-                android:src="@drawable/drinks"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/image" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        android:contentDescription="@string/image" />
 
 
     <TextView
         android:id="@+id/product_name"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:maxWidth="160dp"
         android:ellipsize="end"
         android:lines="1"
         tools:text="Rustic Pineapple"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/image_card"
-        app:layout_constraintTop_toTopOf="@id/image_card"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        app:layout_constraintStart_toEndOf="@id/product_image"
+        app:layout_constraintTop_toTopOf="@id/product_image"
         android:layout_marginStart="15dp"
         />
     <TextView
@@ -60,19 +43,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="27 JUN. 2022  8:15 AM"
-        app:layout_constraintBottom_toBottomOf="@id/image_card"
-        app:layout_constraintStart_toEndOf="@id/image_card"
-        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/product_image"
+        app:layout_constraintStart_toEndOf="@id/product_image"
+        android:textSize="12sp"
         android:layout_marginStart="15dp"
         android:textColor="@color/text_color"
         />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/edit_button"
-        android:layout_width="30dp"
-        android:layout_height="28dp"
+        android:layout_width="32dp"
+        android:layout_height="26dp"
         app:layout_constraintStart_toEndOf="@id/product_name"
-        app:layout_constraintEnd_toStartOf="@id/all_notification_toggle"
+        app:layout_constraintEnd_toStartOf="@id/on_off_toggle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="3dp"
@@ -86,10 +69,11 @@
 
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/all_notification_toggle"
+        android:id="@+id/on_off_toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@null"
+        android:checked="false"
         app:layout_constraintStart_toEndOf="@id/edit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

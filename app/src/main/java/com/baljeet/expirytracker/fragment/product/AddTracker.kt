@@ -66,12 +66,11 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
         savedInstanceState: Bundle?
     ): View {
         bind = FragmentAddTrackerBinding.inflate(inflater, container, false)
-
+        bind.reminderDateClickView.isEnabled = false
         bind.closeBtn.setOnClickListener { activity?.onBackPressed() }
 
         bind.optionsRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
         bind.nameOptionsRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
-
 
         bind.nameLayout.visibility = View.GONE
         bind.completedCheck.visibility = View.GONE
@@ -203,23 +202,39 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             bind.completed2Check.visibility = View.GONE
             bind.nameOptionsRecycler.visibility = View.VISIBLE
         }
-
+        var doRemind = false
         bind.reminderRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 bind.remindDayBeforeCheckbox.id -> {
-                    val date = viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }
-                    date.let {
+                    bind.reminderDateClickView.isEnabled = false
+                    viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }.let {
+                        viewModel.reminderDate=  LocalDateTime(
+                            year = it.year,
+                            month = it.month,
+                            dayOfMonth = it.dayOfMonth,
+                            hour = 9,
+                            minute = 0,
+                            second = 0
+                        )
+                    }
+
+                    viewModel.reminderDate?.let {
                         bind.reminderDateEdittext.setText(
                             resources.getString(
-                                R.string.date_string_with_month_name,
+                                R.string.date_string_with_month_name_and_time,
                                 Month.of(it.monthNumber).name.substring(0, 3),
-                                it.dayOfMonth.minus(1),
-                                it.year
+                                it.dayOfMonth,
+                                it.year,
+                                it.hour,
+                                it.minute,
+                                if (it.hour>=12) {"PM"} else {"AM"}
                             )
                         )
                     }
+                    doRemind = true
                 }
                 bind.remindOnCustomDateCheckbox.id -> {
+                    bind.reminderDateClickView.isEnabled = true
                     viewModel.reminderDate?.let {
                         bind.reminderDateEdittext.setText(
                             resources.getString(
@@ -241,9 +256,13 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                             )
                         }
                     }
+                    doRemind = true
                 }
                 bind.doNotRemindCheckbox.id -> {
+                    bind.reminderDateClickView.isEnabled = false
                     bind.reminderDateEdittext.setText(R.string.do_not_remind)
+                    viewModel.reminderDate = null
+                    doRemind = false
                 }
             }
             bind.reminderSetCheck.visibility = View.VISIBLE
@@ -256,6 +275,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                 mfgDate = viewModel.getMfgDate(),
                 expiryDate = viewModel.getExpiryDate(),
                 reminderDate = viewModel.reminderDate,
+                reminderOn = SharedPref.isAlertEnabled && doRemind,
                 usedWhileOk = false,
                 usedWhileFresh = false,
                 usedNearExpiry = false,
@@ -271,7 +291,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             val latestTracker = trackerViewModel.getLatestAddedTracker().tracker
             Log.d("Log for - ","latest tracker id = ${latestTracker.trackerId}")
             viewModel.reminderDate?.let {
-                if(SharedPref.isAlertEnabled) {
+                if(SharedPref.isAlertEnabled && doRemind) {
                     NotificationUtil.setReminderForProducts(
                         it,
                         requireContext(),

@@ -13,7 +13,7 @@ interface TrackerDao {
     fun addTracker(tracker: Tracker)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateTracker(tracker: Tracker)
+    fun updateTracker(tracker: Tracker)
 
     @Transaction
     @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")

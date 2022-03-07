@@ -57,9 +57,7 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun updateTracker(tracker: Tracker){
-        viewModelScope.launch(Dispatchers.IO){
             repository.updateTracker(tracker)
-        }
     }
 
     fun getLatestAddedTracker(): TrackerAndProduct{

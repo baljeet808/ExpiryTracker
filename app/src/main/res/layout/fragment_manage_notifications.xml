@@ -104,12 +104,31 @@
         android:id="@+id/reminder_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        tools:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/reminder_heading"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         android:layout_marginTop="20dp"
     />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/no_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:drawableTop="@drawable/ic_no_tracking_48"
+        android:text="@string/you_are_not_tracking"
+        android:drawablePadding="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:drawableTint="?attr/text_dialog_color"
+        app:layout_constraintTop_toBottomOf="@id/reminder_heading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
 
 
 
