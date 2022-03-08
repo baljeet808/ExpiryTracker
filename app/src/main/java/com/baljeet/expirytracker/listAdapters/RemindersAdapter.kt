@@ -70,8 +70,8 @@ class RemindersAdapter(
                         Month.of(it.monthNumber).name.substring(0, 3),
                         it.dayOfMonth,
                         it.year,
-                        it.hour,
-                        it.minute,
+                        if(it.hour in 1..8) "0".plus(it.hour.toString()) else if (it.hour == 0) "00" else it.hour.toString(),
+                        if(it.minute in 1..8) "0".plus(it.minute.toString()) else if (it.minute == 0) "00" else it.minute.toString(),
                         if (it.hour>=12) {"PM"} else {"AM"}
                     )
                 }?: kotlin.run { 

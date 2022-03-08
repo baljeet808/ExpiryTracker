@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/main_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.shared.TrackerDetails">
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:rotation="-90"
+        android:padding="0dp"
+        android:src="@drawable/ic_arrow_left_32"
+        app:layout_constraintEnd_toEndOf="@id/guideline_left"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/image_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/main_background"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
+        app:strokeColor="@color/text_color"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/option_image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:contentDescription="@string/image"
+                android:padding="12dp"
+                android:src="@drawable/drinks"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="12dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:gravity="start"
+        android:lineHeight="32dp"
+        android:maxLines="3"
+        android:textSize="20sp"
+        android:maxWidth="180dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/image_card"
+        app:layout_constraintTop_toTopOf="@id/image_card"
+        tools:text="Terminator movies are " />
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/image_card"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@id/product_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/expiring"
+        android:textColor="@color/soft_green"
+        android:textSize="12sp"
+        android:gravity="start"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:lineHeight="30dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/item_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="10dp"
+        android:indeterminate="false"
+        android:progress="20"
+        android:progressDrawable="@drawable/ob_round_background"
+        app:layout_constraintEnd_toEndOf="@id/status_text"
+        app:layout_constraintStart_toStartOf="@id/status_text"
+        app:layout_constraintTop_toBottomOf="@id/status_text"
+        />
+
+    <View
+        android:id="@+id/image_underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?attr/card_background"
+        app:layout_constraintTop_toBottomOf="@id/item_progressbar"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/category_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category_name"
+        android:textSize="12sp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/image_underline"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/category_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:contentDescription="@string/image"
+        android:elevation="6dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_passion_fruit"
+        app:layout_constraintStart_toEndOf="@id/category_name_value"
+        app:layout_constraintTop_toBottomOf="@id/category_label"
+        app:shapeAppearance="@style/circular"
+        app:strokeColor="?text_dialog_color"
+        app:strokeWidth="1dp" />
+
+    <TextView
+        android:id="@+id/category_name_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Beverages"
+        android:textSize="14sp"
+        android:maxWidth="180dp"
+        android:letterSpacing="0.04"
+        android:lineHeight="20dp"
+        app:layout_constraintTop_toTopOf="@id/category_image"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintBottom_toBottomOf="@id/category_image"
+        android:layout_marginEnd="20dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        />
+
+
+    <View
+        android:id="@+id/category_underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?attr/card_background"
+        app:layout_constraintTop_toBottomOf="@id/category_image"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/expiry_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expiry_date"
+        android:textSize="12sp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_mid"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/category_underline"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        />
+
+    <TextView
+        android:id="@+id/expiry_date_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@string/date_sample"
+        android:textSize="20sp"
+        android:letterSpacing="0.04"
+        app:layout_constraintTop_toBottomOf="@id/expiry_label"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/edit_expiry_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/edit_reminder_button"
+        app:layout_constraintTop_toTopOf="@id/expiry_label"
+        app:layout_constraintBottom_toBottomOf="@id/expiry_date_value"
+        android:padding="3dp"
+        android:elevation="5dp"
+        android:drawableTop="@drawable/ic_edit"
+        android:drawableTint="@color/text_color"
+        android:textSize="11sp"
+        android:text="@string/_edit"
+        android:textColor="@color/text_color"
+        />
+
+    <View
+        android:id="@+id/expiry_dates_underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?attr/card_background"
+        app:layout_constraintTop_toBottomOf="@id/expiry_date_value"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <TextView
+        android:id="@+id/manufacture_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manufactured_date"
+        android:textSize="12sp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/expiry_dates_underline"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        />
+
+    <TextView
+        android:id="@+id/manufacture_date_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@string/date_sample"
+        android:textSize="20sp"
+        android:letterSpacing="0.04"
+        app:layout_constraintTop_toBottomOf="@id/manufacture_date_label"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:layout_marginBottom="20dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/edit_mfg_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/edit_reminder_button"
+        app:layout_constraintTop_toTopOf="@id/manufacture_date_label"
+        app:layout_constraintBottom_toBottomOf="@id/manufacture_date_value"
+        android:padding="3dp"
+        android:elevation="5dp"
+        android:drawableTop="@drawable/ic_edit"
+        android:drawableTint="@color/text_color"
+        android:textSize="11sp"
+        android:text="@string/_edit"
+        android:textColor="@color/text_color"
+        />
+
+
+    <View
+        android:id="@+id/mfg_date_underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?attr/card_background"
+        app:layout_constraintTop_toBottomOf="@id/manufacture_date_value"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/reminder_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_schedule"
+        android:textSize="12sp"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/mfg_date_underline"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        />
+
+    <TextView
+        android:id="@+id/reminder_date_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="10 DEC. 2021 \n09:15 AM"
+        android:textSize="20sp"
+        android:letterSpacing="0.04"
+        app:layout_constraintTop_toBottomOf="@id/reminder_date_label"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:layout_marginBottom="20dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/edit_reminder_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/guideline_mid"
+        app:layout_constraintEnd_toStartOf="@id/reminder_on_off_toggle"
+        app:layout_constraintTop_toTopOf="@id/reminder_date_label"
+        app:layout_constraintBottom_toBottomOf="@id/reminder_date_value"
+        android:padding="3dp"
+        android:elevation="5dp"
+        android:textColor="@color/text_color"
+        android:drawableTop="@drawable/ic_edit"
+        android:drawableTint="@color/text_color"
+        android:text="@string/_edit"
+        android:textSize="11sp"
+        android:scaleType="fitXY"
+        />
+
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/reminder_on_off_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@null"
+        android:checked="false"
+        app:layout_constraintStart_toEndOf="@id/edit_reminder_button"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@id/edit_reminder_button"
+        app:layout_constraintBottom_toBottomOf="@id/edit_reminder_button"
+        />
+
+    <View
+        android:id="@+id/reminder_date_underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?attr/card_background"
+        app:layout_constraintTop_toBottomOf="@id/reminder_date_value"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:layout_marginTop="20dp"
+        />
+
+
+    <TextView
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/image"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:textSize="11sp"
+        android:visibility="visible"
+        android:textColor="@color/text_color"
+        app:drawableTint="@color/text_color"
+        app:drawableTopCompat="@drawable/ic_baseline_delete_forever_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mark_used_button"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/reminder_date_underline"
+        tools:visibility="visible" />
+
+
+
+    <TextView
+        android:id="@+id/mark_used_button"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image"
+        android:gravity="center"
+        android:text="@string/used"
+        android:textSize="11sp"
+        android:textColor="@color/text_color"
+        android:visibility="visible"
+        app:drawableTint="@color/text_color"
+        app:drawableTopCompat="@drawable/ic_baseline_done_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/delete_button"
+        app:layout_constraintTop_toBottomOf="@id/reminder_date_underline"
+        app:layout_goneMarginEnd="10dp" />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

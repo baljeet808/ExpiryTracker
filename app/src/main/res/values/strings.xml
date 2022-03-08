@@ -34,7 +34,8 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="date_string">%1$d/%2$d/%3$d</string>
     <string name="date_string_with_month_name">%1$s. %2$d, %3$d</string>
-    <string name="date_string_with_month_name_and_time">%1$s. %2$d, %3$d  %4$d:%5$d %6$s </string>
+    <string name="date_string_with_month_name_and_time">%1$s. %2$d, %3$d  %4$s:%5$s %6$s </string>
+    <string name="date_string_with_month_name_and_time_2_lined">%1$s. %2$d, %3$d \n%4$s:%5$s %6$s </string>
     <string name="track">Track</string>
     <string name="lets_s_track_a_product">Lets\'s Track a Product !</string>
     <string name="expiry_date_8th_aug_2021">Expiring On - 8th Aug, 2021</string>
@@ -156,6 +157,7 @@
     <string name="notifications_off">Notifications are off</string>
     <string name="notifications_on">All Notifications are on</string>
     <string name="edit">edit</string>
+    <string name="_edit">Edit</string>
     <string name="edit_button">edit button</string>
     <string name="delete_button">delete button</string>
     <string name="delete">Delete</string>
@@ -189,4 +191,5 @@
     <string name="manage_tracking_reminders">Manage Tracking Reminders</string>
     <string name="no_time">No time specified</string>
     <string name="you_are_not_tracking">You are not tracking\n anything yet</string>
+    <string name="reminder_schedule">Reminder Schedule</string>
 </resources>
