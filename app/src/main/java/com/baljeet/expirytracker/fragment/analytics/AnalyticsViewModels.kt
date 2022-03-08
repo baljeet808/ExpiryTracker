@@ -29,8 +29,8 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     var allFinishedTracker : LiveData<List<TrackerAndProduct>> = repository.getAllFinishedTrackers
     var allActiveTrackers : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
 
-    var endDateLive  : LocalDateTime = getWeekLateDate()
-    var startDateLive : LocalDateTime = getWeekFirstDate()
+    var endDate  : LocalDateTime = getWeekLateDate()
+    var startDate : LocalDateTime = getWeekFirstDate()
     var periodFilterLive = MutableLiveData<Int>()
 
     private var trackersAfterPeriodFilter = MediatorLiveData<List<TrackerAndProduct>>().apply {
@@ -38,16 +38,16 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
             this.value = filterByTimePeriod(
                 allTrackerLive.value?:ArrayList(),
                 it,
-                startDateLive,
-                endDateLive
+                startDate,
+                endDate
             )
         }
         addSource(allTrackerLive){
             this.value = filterByTimePeriod(
                 it?:ArrayList(),
                 periodFilterLive.value?:Constants.PERIOD_WEEKLY,
-                startDateLive,
-                endDateLive
+                startDate,
+                endDate
             )
         }
     }

@@ -44,42 +44,126 @@ class Analytics : Fragment() {
         bind  = FragmentAnalyticsBinding.inflate(inflater,container,false)
         bind.apply {
 
+            val sDate = LocalDateTime.now().withDayOfMonth(1)
+            val yMonth = YearMonth.from(LocalDateTime.now())
+            val dInMonth = yMonth.lengthOfMonth()
+            val eDate = LocalDateTime.now().withDayOfMonth(dInMonth)
+            viewModel.startDate = sDate
+            viewModel.endDate = eDate
+            viewModel.periodFilterLive.postValue(Constants.PERIOD_MONTHLY)
+
             timePeriodRadioGroup.setOnCheckedChangeListener { _, checkedId ->
                 when(checkedId){
                     dailyRadioButton.id->{
-                        viewModel.startDateLive = LocalDateTime.now()
+                        viewModel.startDate = LocalDateTime.now()
                         viewModel.periodFilterLive.postValue(Constants.PERIOD_DAILY)
                     }
                     weeklyRadioButton.id->{
                         try {
-                            var startDate = LocalDateTime.now()
-                            var endDate = LocalDateTime.now()
-                            while (startDate.dayOfWeek != DayOfWeek.MONDAY) {
-                                startDate = startDate.minusDays(1)
+                            var start = LocalDateTime.now()
+                            var end = LocalDateTime.now()
+                            while (start.dayOfWeek != DayOfWeek.MONDAY) {
+                                start = start.minusDays(1)
                             }
-                            while (endDate.dayOfWeek != DayOfWeek.SUNDAY) {
-                                endDate = endDate.plusDays(1)
+                            while (end.dayOfWeek != DayOfWeek.SUNDAY) {
+                                end = end.plusDays(1)
                             }
-                            viewModel.startDateLive = startDate
-                            viewModel.endDateLive = endDate
+                            viewModel.startDate = start
+                            viewModel.endDate = end
                             viewModel.periodFilterLive.postValue(Constants.PERIOD_WEEKLY)
                         }catch (e: Exception){
                         }
                     }
                     monthlyRadioButton.id->{
-                        val startDate = LocalDateTime.now().withDayOfMonth(1)
-                        val yearMonth = YearMonth.from(LocalDateTime.now())
-                        val daysInMonth = yearMonth.lengthOfMonth()
-                        val endDate = LocalDateTime.now().withDayOfMonth(daysInMonth)
-                        viewModel.startDateLive = startDate
-                        viewModel.endDateLive = endDate
+                        val start = LocalDateTime.now().withDayOfMonth(1)
+                        val mYearMonth = YearMonth.from(LocalDateTime.now())
+                        val mDaysInMonth = mYearMonth.lengthOfMonth()
+                        val end = LocalDateTime.now().withDayOfMonth(mDaysInMonth)
+                        viewModel.startDate = start
+                        viewModel.endDate = end
                         viewModel.periodFilterLive.postValue(Constants.PERIOD_MONTHLY)
                     }
                     yearlyRadioButton.id->{
                         val yearStartDate = LocalDateTime.now().with(firstDayOfYear())
                         val yearEndDate = LocalDateTime.now().with(lastDayOfYear())
-                        viewModel.startDateLive = yearStartDate
-                        viewModel.endDateLive = yearEndDate
+                        viewModel.startDate = yearStartDate
+                        viewModel.endDate = yearEndDate
+                        viewModel.periodFilterLive.postValue(Constants.PERIOD_YEARLY)
+                    }
+                }
+            }
+
+            nextButton.setOnClickListener {
+                 when(timePeriodRadioGroup.checkedRadioButtonId){
+                     dailyRadioButton.id->{
+                         viewModel.startDate = viewModel.startDate.plusDays(1)
+                         viewModel.periodFilterLive.postValue(Constants.PERIOD_DAILY)
+                     }
+                     weeklyRadioButton.id->{
+                         var start = viewModel.endDate.plusDays(1)
+                         var end = viewModel.endDate.plusDays(1)
+                         while (start.dayOfWeek != DayOfWeek.MONDAY) {
+                             start = start.minusDays(1)
+                         }
+                         while (end.dayOfWeek != DayOfWeek.SUNDAY) {
+                             end = end.plusDays(1)
+                         }
+                         viewModel.startDate = start
+                         viewModel.endDate = end
+                         viewModel.periodFilterLive.postValue(Constants.PERIOD_WEEKLY)
+                     }
+                     monthlyRadioButton.id->{
+                         val start = viewModel.startDate.plusMonths(1).withDayOfMonth(1)
+                         val mYearMonth = YearMonth.from(viewModel.startDate.plusMonths(1))
+                         val mDaysInMonth = mYearMonth.lengthOfMonth()
+                         val end = viewModel.startDate.plusMonths(1).withDayOfMonth(mDaysInMonth)
+                         viewModel.startDate = start
+                         viewModel.endDate = end
+                         viewModel.periodFilterLive.postValue(Constants.PERIOD_MONTHLY)
+                     }
+                     yearlyRadioButton.id->{
+                         val yearStartDate = viewModel.startDate.plusYears(1).with(firstDayOfYear())
+                         val yearEndDate = viewModel.startDate.plusYears(1).with(lastDayOfYear())
+                         viewModel.startDate = yearStartDate
+                         viewModel.endDate = yearEndDate
+                         viewModel.periodFilterLive.postValue(Constants.PERIOD_YEARLY)
+                     }
+                 }
+            }
+
+            previousButton.setOnClickListener {
+                when(timePeriodRadioGroup.checkedRadioButtonId){
+                    dailyRadioButton.id->{
+                        viewModel.startDate = viewModel.startDate.minusDays(1)
+                        viewModel.periodFilterLive.postValue(Constants.PERIOD_DAILY)
+                    }
+                    weeklyRadioButton.id->{
+                        var start = viewModel.startDate.minusDays(1)
+                        var end = viewModel.startDate.minusDays(1)
+                        while (start.dayOfWeek != DayOfWeek.MONDAY) {
+                            start = start.minusDays(1)
+                        }
+                        while (end.dayOfWeek != DayOfWeek.SUNDAY) {
+                            end = end.plusDays(1)
+                        }
+                        viewModel.startDate = start
+                        viewModel.endDate = end
+                        viewModel.periodFilterLive.postValue(Constants.PERIOD_WEEKLY)
+                    }
+                    monthlyRadioButton.id->{
+                        val start = viewModel.startDate.minusMonths(1).withDayOfMonth(1)
+                        val mYearMonth = YearMonth.from(viewModel.startDate.minusMonths(1))
+                        val mDaysInMonth = mYearMonth.lengthOfMonth()
+                        val end = viewModel.startDate.minusMonths(1).withDayOfMonth(mDaysInMonth)
+                        viewModel.startDate = start
+                        viewModel.endDate = end
+                        viewModel.periodFilterLive.postValue(Constants.PERIOD_MONTHLY)
+                    }
+                    yearlyRadioButton.id->{
+                        val yearStartDate = viewModel.startDate.minusYears(1).with(firstDayOfYear())
+                        val yearEndDate = viewModel.startDate.minusYears(1).with(lastDayOfYear())
+                        viewModel.startDate = yearStartDate
+                        viewModel.endDate = yearEndDate
                         viewModel.periodFilterLive.postValue(Constants.PERIOD_YEARLY)
                     }
                 }
@@ -203,28 +287,28 @@ class Analytics : Fragment() {
                     Constants.PERIOD_DAILY -> {
                         monthName.text = requireContext().getString(
                             R.string.date_short_var,
-                            viewModel.startDateLive.dayOfMonth,
-                            viewModel.startDateLive.month.name.substring(0, 3).uppercase()
+                            viewModel.startDate.dayOfMonth,
+                            viewModel.startDate.month.name.substring(0, 3).uppercase()
                         )
                     }
                     Constants.PERIOD_WEEKLY -> {
                         monthName.text = requireContext().getString(
                             R.string.week_var,
-                            viewModel.startDateLive.dayOfMonth,
-                            viewModel.startDateLive.month.name.substring(0, 3).uppercase(),
-                            viewModel.endDateLive.dayOfMonth,
-                            viewModel.endDateLive.month.name.substring(0, 3).uppercase()
+                            viewModel.startDate.dayOfMonth,
+                            viewModel.startDate.month.name.substring(0, 3).uppercase(),
+                            viewModel.endDate.dayOfMonth,
+                            viewModel.endDate.month.name.substring(0, 3).uppercase()
                         )
                     }
                     Constants.PERIOD_MONTHLY -> {
                         monthName.text = requireContext().getString(
                             R.string.month_var,
-                            viewModel.startDateLive.month.name.substring(0, 3).uppercase(),
-                            viewModel.startDateLive.year
+                            viewModel.startDate.month.name.substring(0, 3).uppercase(),
+                            viewModel.startDate.year
                         )
                     }
                     Constants.PERIOD_YEARLY -> {
-                        monthName.text = viewModel.startDateLive.year.toString()
+                        monthName.text = viewModel.startDate.year.toString()
                     }
                 }
             }
