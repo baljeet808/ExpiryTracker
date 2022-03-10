@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.fragment.analytics
 
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +11,15 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.dataClasses.PDFUri
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
-import com.baljeet.expirytracker.util.Constants
-import com.baljeet.expirytracker.util.MyColors
-import com.baljeet.expirytracker.util.SharedPref
-import com.baljeet.expirytracker.util.getUSCurrencyFormat
+import com.baljeet.expirytracker.util.*
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
 import java.time.DayOfWeek
@@ -27,7 +27,7 @@ import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.temporal.TemporalAdjusters.firstDayOfYear
 import java.time.temporal.TemporalAdjusters.lastDayOfYear
-import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class Analytics : Fragment() {
@@ -317,7 +317,17 @@ class Analytics : Fragment() {
             }
             
             downloadButton.setOnClickListener { 
-                Toast.makeText(requireContext(),"button to download", Toast.LENGTH_SHORT).show()
+               viewModel.trackersAfterAllFilters.value?.let {
+                   if(it.isNotEmpty()){
+                       it.toCollection(ArrayList()).createPdfReport(requireContext()).getUriOfPdf(requireContext())?.let { uri->
+                            moveToPdfPreview(uri)
+                        }
+                   }else{
+                       Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
+                   }
+               }?: kotlin.run {
+                   Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
+               }
             }
             removeAds.setOnClickListener { 
                 Toast.makeText(requireContext(),"button to remove ads", Toast.LENGTH_SHORT).show()
@@ -330,6 +340,17 @@ class Analytics : Fragment() {
                 proPrice.text = 1.99.getUSCurrencyFormat()
             }
         }
+    }
+
+
+
+
+    fun moveToPdfPreview(uri : Uri){
+        Navigation.findNavController(requireView()).navigate(AnalyticsDirections.actionAnalyticsToPdfPreview(
+            PDFUri(
+                uri = uri
+            )
+        ))
     }
 
     private fun setGraphValues(){

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/main_background"
+    tools:context=".fragment.shared.PdfPreview">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_arrow_left_32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/preview_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="@string/preview_your_report"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/pdf"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/back_button" />
+
+
+
+    <ProgressBar
+        android:id="@+id/download_progress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:indeterminateTint="@color/theme_blue"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/downloading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:gravity="center_vertical"
+        android:text="@string/loading_preview"
+        android:textAllCaps="true"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/download_progress" />
+
+
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdf_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/download_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preview_text" />
+
+
+    <Button
+        android:id="@+id/download_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginTop="32dp"
+        android:elevation="10dp"
+        android:text="@string/download"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

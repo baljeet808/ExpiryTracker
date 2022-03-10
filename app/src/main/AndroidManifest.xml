@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         android:name=".CustomApplication"
         android:allowBackup="true"
         android:fullBackupOnly="true"

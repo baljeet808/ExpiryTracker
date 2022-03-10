@@ -96,7 +96,15 @@
         android:id="@+id/analytics"
         android:name="com.baljeet.expirytracker.fragment.analytics.Analytics"
         android:label="fragment_analytics"
-        tools:layout="@layout/fragment_analytics" />
+        tools:layout="@layout/fragment_analytics" >
+        <action
+            android:id="@+id/action_analytics_to_pdfPreview"
+            app:destination="@id/pdfPreview"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/addProduct"
         android:name="com.baljeet.expirytracker.fragment.product.AddTracker"
@@ -236,9 +244,18 @@
         android:id="@+id/trackerDetails"
         android:name="com.baljeet.expirytracker.fragment.shared.TrackerDetails"
         android:label="fragment_tracker_details"
-        tools:layout="@layout/fragment_tracker_details" >
+        tools:layout="@layout/fragment_tracker_summary" >
         <argument
             android:name="selectedTrackerId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/pdfPreview"
+        android:name="com.baljeet.expirytracker.fragment.shared.PdfPreview"
+        android:label="fragment_pdf_preview"
+        tools:layout="@layout/fragment_pdf_preview" >
+        <argument
+            android:name="pdfUri"
+            app:argType="com.baljeet.expirytracker.dataClasses.PDFUri" />
     </fragment>
 </navigation>

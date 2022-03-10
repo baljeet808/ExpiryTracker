@@ -63,7 +63,7 @@
 
     <style name="mySolidButton" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">40sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/main_background</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>

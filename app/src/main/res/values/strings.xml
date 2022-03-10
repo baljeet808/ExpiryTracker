@@ -199,4 +199,7 @@
     <string name="remove_ads">Remove Ads</string>
     <string name="watch_ad">Watch Ad</string>
     <string name="be_pro">Become Pro</string>
+    <string name="preview_your_report">Preview Your Report</string>
+    <string name="download">Download</string>
+    <string name="loading_preview">Loading Preview…</string>
 </resources>
