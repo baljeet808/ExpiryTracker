@@ -2,8 +2,10 @@ package com.baljeet.expirytracker.util
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.icu.text.NumberFormat
 import android.net.Uri
 import android.provider.MediaStore
+import java.util.*
 
 @SuppressLint("Range")
 fun ContentResolver.getFileName(uri : Uri): String{
@@ -24,6 +26,10 @@ fun ContentResolver.getContentType(uri : Uri): String{
         name = cursor.getString(it.getColumnIndexOrThrow(MediaStore.Images.Media.MIME_TYPE))
     }
     return name
+}
+
+fun Double.getUSCurrencyFormat(): String {
+    return NumberFormat.getCurrencyInstance(Locale.US).format(this)
 }
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.MyColors
+import com.baljeet.expirytracker.util.getUSCurrencyFormat
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
 import java.time.DayOfWeek
@@ -312,6 +314,14 @@ class Analytics : Fragment() {
                     }
                 }
             }
+            
+            downloadButton.setOnClickListener { 
+                Toast.makeText(requireContext(),"button to download", Toast.LENGTH_SHORT).show()
+            }
+            removeAds.setOnClickListener { 
+                Toast.makeText(requireContext(),"button to remove ads", Toast.LENGTH_SHORT).show()
+            }
+            proPrice.text = 1.99.getUSCurrencyFormat()
         }
     }
 

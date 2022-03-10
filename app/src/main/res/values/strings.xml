@@ -195,4 +195,8 @@
     <string name="no_time">No time specified</string>
     <string name="you_are_not_tracking">You are not tracking\n anything yet</string>
     <string name="reminder_schedule">Reminder Schedule</string>
+    <string name="download_report">Download Report</string>
+    <string name="remove_ads">Remove Ads</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="be_pro">Become Pro</string>
 </resources>
