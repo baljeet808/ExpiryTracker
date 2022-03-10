@@ -40,58 +40,27 @@
         app:layout_constraintTop_toBottomOf="@id/back_button" />
 
 
-
-    <ProgressBar
-        android:id="@+id/download_progress"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:indeterminateTint="@color/theme_blue"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/downloading_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
-        android:gravity="center_vertical"
-        android:text="@string/loading_preview"
-        android:textAllCaps="true"
-        android:textSize="12sp"
-        android:visibility="gone"
-        tools:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/download_progress" />
-
-
-
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdf_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/download_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/preview_text" />
 
 
     <Button
         android:id="@+id/download_button"
-        android:layout_width="0dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginTop="32dp"
+        android:layout_margin="20dp"
         android:elevation="10dp"
         android:text="@string/download"
+        app:textAllCaps="false"
+        app:icon="@drawable/ic_round_download_24"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
         app:layout_constraintBottom_toBottomOf="parent" />
