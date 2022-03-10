@@ -45,6 +45,10 @@ object SharedPref {
         get() = sharedPref.getString("selectedStatus","All")
         set(value) = sharedPref.edit { it.putString("selectedStatus",value) }
 
+    var isUserAPro : Boolean
+        get() = sharedPref.getBoolean("isUserAPro", false)
+        set(value) = sharedPref.edit { it.putBoolean("isUserAPro", value) }
+
     var themeName : String
     get() = sharedPref.getString("themeName",Constants.BLUE)!!
     set(value) = sharedPref.edit{it.putString("themeName",value)}

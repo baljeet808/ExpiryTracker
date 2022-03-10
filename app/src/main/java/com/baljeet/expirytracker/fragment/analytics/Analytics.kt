@@ -18,6 +18,7 @@ import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.MyColors
+import com.baljeet.expirytracker.util.SharedPref
 import com.baljeet.expirytracker.util.getUSCurrencyFormat
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
@@ -321,7 +322,13 @@ class Analytics : Fragment() {
             removeAds.setOnClickListener { 
                 Toast.makeText(requireContext(),"button to remove ads", Toast.LENGTH_SHORT).show()
             }
-            proPrice.text = 1.99.getUSCurrencyFormat()
+            if(SharedPref.isUserAPro){
+                removeAdsCard.visibility = View.GONE
+                playAdsTo.isGone = true
+            }
+            else{
+                proPrice.text = 1.99.getUSCurrencyFormat()
+            }
         }
     }
 

@@ -828,10 +828,10 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/download_card"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
+                app:layout_constraintEnd_toStartOf="@id/remove_ads_card"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_margin="5dp"
@@ -880,11 +880,11 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/remove_ads_card"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline_right"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
+                app:layout_constraintStart_toEndOf="@id/download_card"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="15dp"
@@ -906,6 +906,7 @@
                         app:textAllCaps="false"
                         android:textSize="12sp"
                         app:iconTint="@color/text_color"
+                        app:iconPadding="15dp"
                         android:textColor="@color/text_color"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -923,7 +924,7 @@
                         app:layout_constraintEnd_toEndOf="@id/remove_ads"
                         app:layout_constraintStart_toStartOf="@id/remove_ads"
                         android:layout_marginBottom="1dp"
-                        app:layout_constraintHorizontal_bias="0.6"
+                        app:layout_constraintHorizontal_bias="0.7"
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
