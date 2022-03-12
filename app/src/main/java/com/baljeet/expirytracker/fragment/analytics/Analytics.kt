@@ -19,6 +19,7 @@ import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.dataClasses.PDFUri
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
+import com.baljeet.expirytracker.model.*
 import com.baljeet.expirytracker.util.*
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
@@ -174,12 +175,12 @@ class Analytics : Fragment() {
 
             viewModel.allActiveTrackers.observe(viewLifecycleOwner) {
                 additionalTrackingInfo1.text =
-                    requireContext().getString(R.string.additional_info1, it?.size ?: 0)
+                    requireContext().getString(R.string.additional_info2, it?.size ?: 0)
             }
 
             viewModel.allFinishedTracker.observe(viewLifecycleOwner) {
                 additionalTrackingInfo2.text =
-                    requireContext().getString(R.string.additional_info2, it?.size ?: 0)
+                    requireContext().getString(R.string.additional_info1, it?.size ?: 0)
             }
 
             favouriteToggle.apply {
@@ -319,9 +320,47 @@ class Analytics : Fragment() {
             downloadButton.setOnClickListener { 
                viewModel.trackersAfterAllFilters.value?.let {
                    if(it.isNotEmpty()){
-                       it.toCollection(ArrayList()).createPdfReport(requireContext()).getUriOfPdf(requireContext())?.let { uri->
-                            moveToPdfPreview(uri)
-                        }
+                       val request = RequestPDF(
+                           trackers =it.toCollection(ArrayList()),
+                           periodStartDate =  viewModel.startDate,
+                           periodEndDate = viewModel.endDate,
+                           totalTracked =  viewModel.totalProductsTracked.toInt(),
+                           totalFresh = viewModel.totalProductsUsedFresh.toInt(),
+                           totalNearExpiry = viewModel.totalProductsUsedNearExpiry.toInt(),
+                           totalExpired = viewModel.totalProductsExpired.toInt(),
+                           resultCase = when {
+                               viewModel.totalProductsExpired.toInt() > (viewModel.totalProductsUsedFresh.toInt() + viewModel.totalProductsUsedNearExpiry.toInt()) -> {
+                                   ResultCase.MORE_EXPIRED
+                               }
+                               viewModel.totalProductsUsedNearExpiry.toInt()> viewModel.totalProductsUsedFresh.toInt() -> {
+                                   ResultCase.NEED_TO_IMPROVE
+                               }
+                               viewModel.totalProductsExpired.toInt() + viewModel.totalProductsUsedNearExpiry.toInt() < viewModel.totalProductsUsedFresh -> {
+                                   ResultCase.GOOD_JOB
+                               }
+                               else -> {
+                                   ResultCase.KEEP_IT_UP
+                               }
+                           },
+                           periodType = when(viewModel.periodFilterLive.value){
+                               Constants.PERIOD_DAILY->{
+                                   PeriodType.DAILY
+                               }
+                               Constants.PERIOD_WEEKLY->{
+                                   PeriodType.WEEKLY
+                               }
+                               Constants.PERIOD_MONTHLY->{
+                                   PeriodType.MONTHLY
+                               }
+                               else->{
+                                   PeriodType.YEARLY
+                               }
+                           },
+                           groupBy = GroupBy.CATEGORIES,
+                           colorDynamics = ColorDynamics.COLORFUL,
+                           useOfImages = UseImages.ON
+                       )
+                       moveToPdfPreview(request)
                    }else{
                        Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
                    }
@@ -345,12 +384,8 @@ class Analytics : Fragment() {
 
 
 
-    fun moveToPdfPreview(uri : Uri){
-        Navigation.findNavController(requireView()).navigate(AnalyticsDirections.actionAnalyticsToPdfPreview(
-            PDFUri(
-                uri = uri
-            )
-        ))
+    fun moveToPdfPreview(request : RequestPDF){
+        Navigation.findNavController(requireView()).navigate(AnalyticsDirections.actionAnalyticsToPdfPreview(request))
     }
 
     private fun setGraphValues(){

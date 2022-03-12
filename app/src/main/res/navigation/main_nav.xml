@@ -255,7 +255,7 @@
         android:label="fragment_pdf_preview"
         tools:layout="@layout/fragment_pdf_preview" >
         <argument
-            android:name="pdfUri"
-            app:argType="com.baljeet.expirytracker.dataClasses.PDFUri" />
+            android:name="requestData"
+            app:argType="com.baljeet.expirytracker.model.RequestPDF" />
     </fragment>
 </navigation>
