@@ -40,7 +40,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     val themeColor = context.getColor(R.color.theme_blue)
 
     val pageHeight = 1700
-    val pageWidth = 1400
+    val pageWidth = 1250
     var pageNumber = 1
     val pageInfo1 = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
     val page1 = doc.startPage(pageInfo1)
@@ -72,30 +72,30 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     canvas.drawText(
         when(periodType){
             PeriodType.DAILY -> {
-                "Daily Report ".plus(context.getString(
+                "Daily Report:  ".plus(context.getString(
                     R.string.date_short_var,
                     periodStartDate!!.dayOfMonth,
-                    periodStartDate!!.month.name.substring(0, 3).uppercase()
+                    periodStartDate!!.month.name.lowercase()
                 ))
             }
             PeriodType.WEEKLY -> {
-               "Weekly Report ".plus(context.getString(
+               "Weekly Report:  ".plus(context.getString(
                     R.string.week_var,
                     periodStartDate!!.dayOfMonth,
-                    periodStartDate!!.month.name.substring(0, 3).uppercase(),
+                    periodStartDate!!.month.name.lowercase(),
                     periodEndDate!!.dayOfMonth,
-                    periodEndDate!!.month.name.substring(0, 3).uppercase()
+                    periodEndDate!!.month.name.lowercase()
                 ))
             }
             PeriodType.MONTHLY -> {
-                "Monthly Report ".plus(context.getString(
+                "Monthly Report:  ".plus(context.getString(
                     R.string.month_var,
-                    periodStartDate!!.month.name.substring(0, 3).uppercase(),
+                    periodStartDate!!.month.name.lowercase(),
                     periodStartDate!!.year
                 ))
             }
             PeriodType.YEARLY -> {
-                 "Yearly Report ".plus(periodStartDate!!.year.toString())
+                 "Yearly Report:  ".plus(periodStartDate!!.year.toString())
             } },
         180F,
         100F,
@@ -111,7 +111,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
             dateToday.dayOfMonth,
             dateToday.year
         ),
-        1190F,
+        1040F,
         100F,
         sourcePaint
     )
@@ -121,7 +121,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     linePaint.style = Paint.Style.STROKE
     linePaint.strokeWidth = 2F
     linePaint.color = themeColor
-    canvas.drawLine(60F, 130F, 1340F, 130F, linePaint)
+    canvas.drawLine(60F, 130F, 1190F, 130F, linePaint)
 
     //detail summary
     titlePaint.textSize = 20F
@@ -140,7 +140,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
         }
     }
     var i = 1
-    for (text in letsBreakString(resultMsg, 100)) {
+    for (text in letsBreakString(resultMsg, 90)) {
         canvas.drawText(text, 65F, 150F + (i * 30F), titlePaint)
         i++
     }
@@ -176,7 +176,12 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 linePaint.style = Paint.Style.STROKE
                 linePaint.strokeWidth = 2F
                 linePaint.color = themeColor
-                canvas.drawLine(60F, pageHeight-100F, 1340F, pageHeight-100F, linePaint)
+                canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+                headingPaint.color = themeColor
+                headingPaint.textSize = 40F
+                headingPaint.typeface = montserratFont
+                canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
 
                 doc.finishPage(pages[pageNumber - 1])
                 pageNumber++
@@ -243,7 +248,12 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
         linePaint.style = Paint.Style.STROKE
         linePaint.strokeWidth = 2F
         linePaint.color = themeColor
-        canvas.drawLine(60F, pageHeight-100F, 1340F, pageHeight-100F, linePaint)
+        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+        headingPaint.color = themeColor
+        headingPaint.textSize = 40F
+        headingPaint.typeface = montserratFont
+        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
 
         doc.finishPage(pages[pageNumber - 1])
         pageNumber++
@@ -256,6 +266,10 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     }
     if(totalNearExpiry+totalOk>0){
         headingPaint.color = colorYellow
+        headingPaint.textAlign = Paint.Align.LEFT
+        headingPaint.typeface = montserratSemiBold
+        headingPaint.textSize = 24F
+        headingPaint.letterSpacing = 0.1F
         canvas.drawText("USED NEAR EXPIRY",65F,yBondTotals,headingPaint)
 
         for (tracker in trackers.filter { t-> t.tracker.usedNearExpiry || t.tracker.usedWhileOk }){
@@ -265,7 +279,12 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 linePaint.style = Paint.Style.STROKE
                 linePaint.strokeWidth = 2F
                 linePaint.color = themeColor
-                canvas.drawLine(60F, pageHeight-100F, 1340F, pageHeight-100F, linePaint)
+                canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+                headingPaint.color = themeColor
+                headingPaint.textSize = 40F
+                headingPaint.typeface = montserratFont
+                canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
 
                 doc.finishPage(pages[pageNumber - 1])
                 pageNumber++
@@ -332,7 +351,12 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
         linePaint.style = Paint.Style.STROKE
         linePaint.strokeWidth = 2F
         linePaint.color = themeColor
-        canvas.drawLine(60F, pageHeight-100F, 1340F, pageHeight-100F, linePaint)
+        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+        headingPaint.color = themeColor
+        headingPaint.textSize = 40F
+        headingPaint.typeface = montserratFont
+        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
 
         doc.finishPage(pages[pageNumber - 1])
         pageNumber++
@@ -345,6 +369,10 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     }
     if(totalExpired>0){
         headingPaint.color = colorPeach
+        headingPaint.textAlign = Paint.Align.LEFT
+        headingPaint.typeface = montserratSemiBold
+        headingPaint.textSize = 24F
+        headingPaint.letterSpacing = 0.1F
         canvas.drawText("EXPIRED",65F,yBondTotals,headingPaint)
         for (tracker in trackers.filter { t-> t.tracker.gotExpired}){
 
@@ -355,7 +383,12 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 linePaint.style = Paint.Style.STROKE
                 linePaint.strokeWidth = 2F
                 linePaint.color = themeColor
-                canvas.drawLine(60F, pageHeight-100F, 1340F, pageHeight-100F, linePaint)
+                canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+                headingPaint.color = themeColor
+                headingPaint.textSize = 40F
+                headingPaint.typeface = montserratFont
+                canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
 
                 doc.finishPage(pages[pageNumber - 1])
                 pageNumber++
@@ -413,6 +446,39 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
             canvas.drawLine(60F, yBondTotals + (i*90F)+70F, 1000F, yBondTotals + (i*90F)+70F, itemUnderLine)
             i++
         }
+    }
+    yBondTotals += (i * 90F)
+    i= 0
+    yBondTotals +=80F
+    if (yBondTotals + (i*90F) > pageHeight - 200) {
+
+        linePaint.style = Paint.Style.STROKE
+        linePaint.strokeWidth = 2F
+        linePaint.color = themeColor
+        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+        headingPaint.color = themeColor
+        headingPaint.textSize = 40F
+        headingPaint.typeface = montserratFont
+        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
+
+        doc.finishPage(pages[pageNumber - 1])
+        pageNumber++
+        val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+        val page = doc.startPage(pageInfo)
+        page.canvas
+        pages.add(page)
+        
+    }else{
+        linePaint.style = Paint.Style.STROKE
+        linePaint.strokeWidth = 2F
+        linePaint.color = themeColor
+        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+
+        headingPaint.color = themeColor
+        headingPaint.textSize = 40F
+        headingPaint.typeface = montserratFont
+        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
     }
     doc.finishPage(pages[pageNumber-1])
     return doc
