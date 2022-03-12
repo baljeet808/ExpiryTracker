@@ -94,13 +94,13 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
             t.tracker.isUsed
         }.size.toDouble()
         totalProductsUsedNearExpiry = trackers.filter { t ->
-            t.tracker.usedNearExpiry
+            t.tracker.usedNearExpiry || t.tracker.usedWhileOk
         }.size.toDouble()
         totalProductsExpired = trackers.filter { t ->
             t.tracker.gotExpired
         }.size.toDouble()
         totalProductsUsedFresh = trackers.filter { t ->
-            t.tracker.usedWhileFresh || t.tracker.usedWhileOk
+            t.tracker.usedWhileFresh
         }.size.toDouble()
 
         if(totalProductsTracked != 0.0) {

@@ -29,6 +29,7 @@
     <string name="vegetables">Vegetables</string>
     <string name="_2_product_name">2.Choose Product</string>
     <string name="product_name">Product</string>
+    <string name="product_name_var">Product Name: %1$s</string>
     <string name="set_expiry_date">3.Set Expiry Date</string>
     <string name="manufactured_date">Manufactured Date</string>
     <string name="expiry_date">Expiry Date</string>
@@ -86,7 +87,7 @@
     <string name="yearly">YEARLY</string>
     <string name="monthly">MONTHLY</string>
     <string name="weekly">WEEKLY</string>
-    <string name="used_near_expiry">Was Good</string>
+    <string name="used_near_expiry">Used Near Expiry</string>
     <string name="used_near_expiry_2">Used just before expiration</string>
     <string name="products_expired">Expired</string>
     <string name="_0">0</string>
@@ -94,6 +95,10 @@
     <string name="total_tracked">Total Tracked</string>
     <string name="percentage">%1$s%%</string>
     <string name="additional_info1">Total products tracked so far - %1$d</string>
+    <string name="total_product_tracked_var">Total products tracked in this period     - %1$d</string>
+    <string name="total_product_expired_var">Total products expired in this period     - %1$d</string>
+    <string name="total_product_used_near_expiry_var">Total products used near expiry  - %1$d</string>
+    <string name="total_product_used__fresh">Total products used when they where fresh - %1$d</string>
     <string name="additional_info2">Total products tracking right now - %1$d</string>
     <string name="quantity">Quantity</string>
     <string name="no">No.</string>
@@ -141,6 +146,7 @@
     <string name="custom">Custom</string>
     <string name="create_custom">Create Custom </string>
     <string name="category_name">Category Name</string>
+    <string name="category_name_var">Category Name: %1$s</string>
     <string name="take_a_picture">Take A Picture</string>
     <string name="select_from_gallery">Select From Gallery</string>
     <string name="use_cool_icons">Use Cool Icons</string>
@@ -202,4 +208,8 @@
     <string name="preview_your_report">Preview Your Report</string>
     <string name="download">Download</string>
     <string name="loading_preview">Loading Preview…</string>
+    <string name="result_case_good">Bravo, you have used your most of the products when they fresh. Following are glimpse of your successful quest, use them to observe and prepare for the next period.</string>
+    <string name="result_case_improve">Good progress, you tracked your products and did your best to use them freshly. Try using home screen widgets to keep track of tracking. You can do this.</string>
+    <string name="result_case_expired">Products got expired before they can be used. Adding early reminder to individual tracking might help you get good results. Keep going, you got this.</string>
+    <string name="result_case_keep_it_up">Keep it up! you are getting better. Turn on the using daily reminders and get a heads up every morning about your tracking.</string>
 </resources>
