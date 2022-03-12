@@ -1,13 +1,13 @@
 package com.baljeet.expirytracker.fragment.shared
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.databinding.FragmentPdfPreviewBinding
 import com.baljeet.expirytracker.model.RequestPDF
 import com.baljeet.expirytracker.util.createPdfReport
@@ -27,12 +27,10 @@ class PdfPreview : Fragment() {
         bind.apply {
 
 
-            bind.downloadButton.isEnabled = true
+            bind.shareButton.isEnabled = true
 
             backButton.setOnClickListener { activity?.onBackPressed() }
-            downloadButton.setOnClickListener {
-                Toast.makeText(requireContext(),"start downloading", Toast.LENGTH_SHORT).show()
-            }
+
             preparePdf(args.requestData)
         }
         return bind.root
@@ -42,7 +40,21 @@ class PdfPreview : Fragment() {
         request.createPdfReport(requireContext()).getUriOfPdf(requireContext())?.let { uri->
             bind.pdfView.visibility = View.VISIBLE
             bind.pdfView.fromUri(uri).load()
+            bind.shareButton.setOnClickListener {
+                share(uri)
+            }
         }
+    }
+
+    private fun share(uri : Uri){
+        val shareIntent = Intent().apply {
+            this.action = Intent.ACTION_SEND
+            this.putExtra(Intent.EXTRA_STREAM, uri)
+            this.type = "application/pdf"
+            this.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            this.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        }
+        startActivity(Intent.createChooser(shareIntent, "Share"))
     }
 
 }
