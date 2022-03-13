@@ -1,8 +1,8 @@
 package com.baljeet.expirytracker.fragment.analytics
 
 import android.content.res.ColorStateList
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
-import com.baljeet.expirytracker.dataClasses.PDFUri
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.model.*
-import com.baljeet.expirytracker.util.*
+import com.baljeet.expirytracker.util.Constants
+import com.baljeet.expirytracker.util.MyColors
+import com.baljeet.expirytracker.util.SharedPref
+import com.baljeet.expirytracker.util.getUSCurrencyFormat
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
 import java.time.DayOfWeek
@@ -28,10 +34,12 @@ import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.temporal.TemporalAdjusters.firstDayOfYear
 import java.time.temporal.TemporalAdjusters.lastDayOfYear
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class Analytics : Fragment() {
+
+    private var mRewardedAd: RewardedAd? = null
+
 
     private val viewModel : AnalyticsViewModels by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
@@ -41,12 +49,51 @@ class Analytics : Fragment() {
 
     private lateinit var bind : FragmentAnalyticsBinding
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         bind  = FragmentAnalyticsBinding.inflate(inflater,container,false)
         bind.apply {
+
+
+            val adRequest = AdRequest.Builder().build()
+
+            RewardedAd.load(requireContext(),"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d("MainActivity", adError?.message)
+                    mRewardedAd = null
+                }
+
+                override fun onAdLoaded(rewardedAd: RewardedAd) {
+                    Log.d("MainActivity", "Ad was loaded.")
+                    mRewardedAd = rewardedAd
+                }
+            })
+
+            mRewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback(){
+                override fun onAdShowedFullScreenContent() {
+                    // Called when ad is shown.
+                    Log.d("MainActivity", "Ad was shown.")
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                    // Called when ad fails to show.
+                    Log.d("MainActivity", "Ad failed to show.")
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    // Set the ad reference to null so you don't show the ad a second time.
+                    Log.d("MainActivity", "Ad was dismissed.")
+                    mRewardedAd = null
+                }
+            }
+
+
+
 
             val sDate = LocalDateTime.now().withDayOfMonth(1)
             val yMonth = YearMonth.from(LocalDateTime.now())
@@ -317,56 +364,16 @@ class Analytics : Fragment() {
                 }
             }
             
-            downloadButton.setOnClickListener { 
-               viewModel.trackersAfterAllFilters.value?.let {
-                   if(it.isNotEmpty()){
-                       val request = RequestPDF(
-                           trackers =it.toCollection(ArrayList()),
-                           periodStartDate =  viewModel.startDate,
-                           periodEndDate = viewModel.endDate,
-                           totalTracked =  viewModel.totalProductsTracked.toInt(),
-                           totalFresh = viewModel.totalProductsUsedFresh.toInt(),
-                           totalNearExpiry = viewModel.totalProductsUsedNearExpiry.toInt(),
-                           totalExpired = viewModel.totalProductsExpired.toInt(),
-                           resultCase = when {
-                               viewModel.totalProductsExpired.toInt() > (viewModel.totalProductsUsedFresh.toInt() + viewModel.totalProductsUsedNearExpiry.toInt()) -> {
-                                   ResultCase.MORE_EXPIRED
-                               }
-                               viewModel.totalProductsUsedNearExpiry.toInt()> viewModel.totalProductsUsedFresh.toInt() -> {
-                                   ResultCase.NEED_TO_IMPROVE
-                               }
-                               viewModel.totalProductsExpired.toInt() + viewModel.totalProductsUsedNearExpiry.toInt() < viewModel.totalProductsUsedFresh -> {
-                                   ResultCase.GOOD_JOB
-                               }
-                               else -> {
-                                   ResultCase.KEEP_IT_UP
-                               }
-                           },
-                           periodType = when(viewModel.periodFilterLive.value){
-                               Constants.PERIOD_DAILY->{
-                                   PeriodType.DAILY
-                               }
-                               Constants.PERIOD_WEEKLY->{
-                                   PeriodType.WEEKLY
-                               }
-                               Constants.PERIOD_MONTHLY->{
-                                   PeriodType.MONTHLY
-                               }
-                               else->{
-                                   PeriodType.YEARLY
-                               }
-                           },
-                           groupBy = GroupBy.CATEGORIES,
-                           colorDynamics = ColorDynamics.COLORFUL,
-                           useOfImages = UseImages.ON
-                       )
-                       moveToPdfPreview(request)
-                   }else{
-                       Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
-                   }
-               }?: kotlin.run {
-                   Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
-               }
+            downloadButton.setOnClickListener {
+                if (mRewardedAd != null) {
+                    mRewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
+                        fun onUserEarnedReward(rewardItem: RewardItem) {
+                              prepPDFRequest()
+                        }
+                    })
+                } else {
+                    Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
+                }
             }
             removeAds.setOnClickListener { 
                 Toast.makeText(requireContext(),"button to remove ads", Toast.LENGTH_SHORT).show()
@@ -381,10 +388,62 @@ class Analytics : Fragment() {
         }
     }
 
+    fun prepPDFRequest(){
+        viewModel.trackersAfterAllFilters.value?.let {
+            if(it.isNotEmpty()){
+                val request = RequestPDF(
+                    trackers =it.toCollection(ArrayList()),
+                    periodStartDate =  viewModel.startDate,
+                    periodEndDate = viewModel.endDate,
+                    totalTracked =  viewModel.totalProductsTracked.toInt(),
+                    totalFresh = viewModel.totalProductsUsedFresh.toInt(),
+                    totalNearExpiry = viewModel.totalProductsUsedNearExpiry.toInt(),
+                    totalExpired = viewModel.totalProductsExpired.toInt(),
+                    resultCase = when {
+                        viewModel.totalProductsExpired.toInt() > (viewModel.totalProductsUsedFresh.toInt() + viewModel.totalProductsUsedNearExpiry.toInt()) -> {
+                            ResultCase.MORE_EXPIRED
+                        }
+                        viewModel.totalProductsUsedNearExpiry.toInt()> viewModel.totalProductsUsedFresh.toInt() -> {
+                            ResultCase.NEED_TO_IMPROVE
+                        }
+                        viewModel.totalProductsExpired.toInt() + viewModel.totalProductsUsedNearExpiry.toInt() < viewModel.totalProductsUsedFresh -> {
+                            ResultCase.GOOD_JOB
+                        }
+                        else -> {
+                            ResultCase.KEEP_IT_UP
+                        }
+                    },
+                    periodType = when(viewModel.periodFilterLive.value){
+                        Constants.PERIOD_DAILY->{
+                            PeriodType.DAILY
+                        }
+                        Constants.PERIOD_WEEKLY->{
+                            PeriodType.WEEKLY
+                        }
+                        Constants.PERIOD_MONTHLY->{
+                            PeriodType.MONTHLY
+                        }
+                        else->{
+                            PeriodType.YEARLY
+                        }
+                    },
+                    groupBy = GroupBy.CATEGORIES,
+                    colorDynamics = ColorDynamics.COLORFUL,
+                    useOfImages = UseImages.ON
+                )
+                moveToPdfPreview(request)
+            }else{
+                Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
+            }
+        }?: kotlin.run {
+            Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
 
-    fun moveToPdfPreview(request : RequestPDF){
+
+    private fun moveToPdfPreview(request : RequestPDF){
         Navigation.findNavController(requireView()).navigate(AnalyticsDirections.actionAnalyticsToPdfPreview(request))
     }
 

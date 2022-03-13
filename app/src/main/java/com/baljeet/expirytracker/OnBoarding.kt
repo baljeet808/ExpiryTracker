@@ -6,10 +6,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 
 class OnBoarding : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         SharedPref.init(this)
+
+        MobileAds.initialize(applicationContext)
 
         when(SharedPref.themeName){
             Constants.BLUE->{

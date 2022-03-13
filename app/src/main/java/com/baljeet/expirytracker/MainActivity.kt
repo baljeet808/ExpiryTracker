@@ -3,6 +3,7 @@ package com.baljeet.expirytracker
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -16,9 +17,16 @@ import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var bottomNav : BottomNavigationView
     private lateinit var navController : NavController
@@ -76,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         NotificationUtil.createNotificationChannel(applicationContext)
+
     }
 
     private fun seedData() {
