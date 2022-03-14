@@ -63,37 +63,24 @@ class Analytics : Fragment() {
 
             RewardedAd.load(requireContext(),"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d("MainActivity", adError?.message)
                     mRewardedAd = null
                 }
 
                 override fun onAdLoaded(rewardedAd: RewardedAd) {
-                    Log.d("MainActivity", "Ad was loaded.")
                     mRewardedAd = rewardedAd
+                    
                 }
             })
-
-            mRewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback(){
-                override fun onAdShowedFullScreenContent() {
-                    // Called when ad is shown.
-                    Log.d("MainActivity", "Ad was shown.")
-                }
-
-                override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                    // Called when ad fails to show.
-                    Log.d("MainActivity", "Ad failed to show.")
-                }
-
-                override fun onAdDismissedFullScreenContent() {
-                    // Called when ad is dismissed.
-                    // Set the ad reference to null so you don't show the ad a second time.
-                    Log.d("MainActivity", "Ad was dismissed.")
-                    mRewardedAd = null
+            
+            downloadButton.setOnClickListener {
+                if (mRewardedAd != null) {
+                    mRewardedAd?.show(requireActivity()) {
+                        prepPDFRequest()
+                    }
+                } else {
+                    Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
                 }
             }
-
-
-
 
             val sDate = LocalDateTime.now().withDayOfMonth(1)
             val yMonth = YearMonth.from(LocalDateTime.now())
@@ -364,17 +351,7 @@ class Analytics : Fragment() {
                 }
             }
             
-            downloadButton.setOnClickListener {
-                if (mRewardedAd != null) {
-                    mRewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
-                        fun onUserEarnedReward(rewardItem: RewardItem) {
-                              prepPDFRequest()
-                        }
-                    })
-                } else {
-                    Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
-                }
-            }
+
             removeAds.setOnClickListener { 
                 Toast.makeText(requireContext(),"button to remove ads", Toast.LENGTH_SHORT).show()
             }

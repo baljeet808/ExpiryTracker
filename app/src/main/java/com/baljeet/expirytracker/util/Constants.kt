@@ -48,4 +48,8 @@ object Constants {
     const val PURPLE  = "PURPLE"
     const val PINK  = "PINK"
     const val TEAL  = "TEAL"
+
+    //Ad-Unit ids
+    const val REWARDED_AD_ID = "ca-app-pub-1506373039840442/1726823090"
+    const val NATIVE_INLINE_AD_ID = "ca-app-pub-1506373039840442/4902245808"
 }
