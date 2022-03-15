@@ -13,10 +13,11 @@
 
     <ImageView
         android:id="@+id/night_mode_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:src="@drawable/happy_sun"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintStart_toEndOf="@id/guideline5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline6"
@@ -26,10 +27,11 @@
 
     <ImageView
         android:id="@+id/light_mode_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/moon"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintStart_toEndOf="@id/guideline9"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline6"
@@ -43,7 +45,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/settings"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/top_most_line"
         app:layout_constraintEnd_toStartOf="@id/guideline7"
@@ -67,8 +69,8 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/top_most_line"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline5"
+        app:layout_constraintEnd_toStartOf="@id/guideline7"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,14 +82,13 @@
             <TextView
                 android:id="@+id/pro_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/become_pro"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/crown_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -97,14 +98,13 @@
             <TextView
                 android:id="@+id/donate_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/donate"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/pro_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/heart_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -115,14 +115,13 @@
             <TextView
                 android:id="@+id/widgets_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/widgets"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/donate_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/widgets_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -133,8 +132,7 @@
             <TextView
                 android:id="@+id/personalization_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?card_background"
+                android:layout_height="55dp"
                 android:drawablePadding="20dp"
                 android:gravity="center_vertical"
                 android:paddingStart="20dp"
@@ -151,14 +149,13 @@
             <TextView
                 android:id="@+id/feedback_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/feedback"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/personalization_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/feedback_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -169,14 +166,13 @@
             <TextView
                 android:id="@+id/categories_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/categories"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/feedback_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/category_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -186,14 +182,13 @@
             <TextView
                 android:id="@+id/products_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/products"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/categories_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/groceries_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -203,19 +198,30 @@
             <TextView
                 android:id="@+id/notifications_textview"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:text="@string/notifications"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/products_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="?card_background"
                 app:drawableStartCompat="@drawable/notification_bell_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:drawablePadding="20dp"
+                />
+
+            <FrameLayout
+                android:id="@+id/ad_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp"
+                app:layout_constraintTop_toBottomOf="@id/notifications_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
 
 
@@ -235,6 +241,7 @@
                 app:layout_constraintGuide_percent="0.95" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.core.widget.NestedScrollView>
     <androidx.constraintlayout.widget.Guideline

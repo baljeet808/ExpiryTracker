@@ -52,4 +52,8 @@ object Constants {
     //Ad-Unit ids
     const val REWARDED_AD_ID = "ca-app-pub-1506373039840442/1726823090"
     const val NATIVE_INLINE_AD_ID = "ca-app-pub-1506373039840442/4902245808"
+
+    //Test Ad-Unit ids
+    const val TEST_REWARDED_AD_ID = "ca-app-pub-3940256099942544/5224354917"
+    const val TEST_NATIVE_INLINE_AD_ID = "ca-app-pub-3940256099942544/2247696110"
 }

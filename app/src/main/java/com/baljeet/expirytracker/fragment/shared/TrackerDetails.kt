@@ -19,6 +19,7 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentTrackerSummaryBinding
+import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.google.android.gms.ads.AdListener
@@ -188,8 +189,8 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                     setReminderOnValue(trackerViewModel.getTrackerById(navArgs.selectedTrackerId).tracker, isChecked)
                 }
             }
-
-            adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
+            //TODO: remove test ad id before publishing
+            adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
                 .forNativeAd { ad : NativeAd ->
                     // Show the ad.
                     val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
