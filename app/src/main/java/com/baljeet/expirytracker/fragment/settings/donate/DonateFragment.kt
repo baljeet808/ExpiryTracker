@@ -4,8 +4,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.databinding.DeletePopUpLayoutBinding
 import com.baljeet.expirytracker.databinding.FragmentDonateBinding
 import com.baljeet.expirytracker.databinding.ThanksPopUpLayoutBinding
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.MyColors
-import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd

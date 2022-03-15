@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.billingclient.api.*
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
@@ -282,6 +283,47 @@ class Analytics : Fragment() {
             if(categories.isEmpty()){
                 getCategoriesChips()
             }
+
+            val purchasesUpdatedListener   = PurchasesUpdatedListener{
+                    billingResult, purchases ->
+
+            }
+
+            val skuList = ArrayList<String>()
+
+
+
+            var  billingClient = BillingClient.newBuilder(requireContext())
+                .setListener(purchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build()
+
+            skuList.add("android.test.purchased")
+            removeAds.setOnClickListener {
+                 billingClient.startConnection(object : BillingClientStateListener{
+                     override fun onBillingServiceDisconnected() {
+                         
+                     }
+                     override fun onBillingSetupFinished(billingResult: BillingResult) {
+                         if(billingResult.responseCode == BillingClient.BillingResponseCode.OK){
+                              val param = SkuDetailsParams.newBuilder()
+                             param.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
+
+                             billingClient.querySkuDetailsAsync(param.build()){
+                                    billingResults, skuDetailsList->
+
+
+                                 val flowPurchase = BillingFlowParams.newBuilder()
+                                     .setSkuDetails(skuDetailsList!![0])
+                                     .build()
+
+                                  val responseCode = billingClient.launchBillingFlow(requireActivity(),flowPurchase).responseCode
+                                 
+                             }
+                         }
+                     }
+                 })
+            }
         }
         return bind.root
     }
@@ -362,11 +404,7 @@ class Analytics : Fragment() {
                     }
                 }
             }
-            
 
-            removeAds.setOnClickListener { 
-                Toast.makeText(requireContext(),"button to remove ads", Toast.LENGTH_SHORT).show()
-            }
             if(SharedPref.isUserAPro){
                 removeAdsCard.visibility = View.GONE
                 playAdsTo.isGone = true
