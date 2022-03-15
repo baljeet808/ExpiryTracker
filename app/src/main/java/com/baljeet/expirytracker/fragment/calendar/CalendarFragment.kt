@@ -129,6 +129,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
             }
 
             viewModel.trackersForRecycler.observe(viewLifecycleOwner) {
+                noItemLayout.isGone = it.isNotEmpty()
                 trackerAdapter.submitList(it)
                 bind.dayName.text = viewModel.dayYearTextFromDate()
             }

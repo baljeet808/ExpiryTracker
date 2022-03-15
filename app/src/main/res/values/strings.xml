@@ -214,4 +214,6 @@
     <string name="result_case_keep_it_up">Keep it up! you are getting better. Turn on the using daily reminders and get a heads up every morning about your tracking.</string>
     <string name="share">Share</string>
     <string name="personalize_as_you_please">Personalize as you please.</string>
+    <string name="calendar_no_item_text">Tap on underlined dates to see \n expiring products.</string>
+    <string name="calendar_tips">Dates with three underlines \n have 3 or more products expiring.</string>
 </resources>
