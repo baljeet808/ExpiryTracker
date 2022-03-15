@@ -14,100 +14,109 @@ import com.baljeet.expirytracker.util.SharedPref
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var bind: FragmentSettingsBinding
+    private var bind: FragmentSettingsBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         SharedPref.init(requireContext())
         bind = FragmentSettingsBinding.inflate(inflater, container, false)
+        bind?.apply {
 
-        bind.lightModeButton.translationX = 0f
-        bind.lightModeButton.alpha = 0f
-        bind.nightModeButton.translationX = 0f
-        bind.nightModeButton.alpha = 0f
-        if(SharedPref.isNightModeOn){
-            bind.lightModeButton.visibility = View.VISIBLE
-            showMoon()
-        }else{
-            bind.nightModeButton.visibility = View.VISIBLE
-            showSun()
-        }
+            this.lightModeButton.translationX = 0f
+            this.lightModeButton.alpha = 0f
+            this.nightModeButton.translationX = 0f
+            this.nightModeButton.alpha = 0f
+            if (SharedPref.isNightModeOn) {
+                this.lightModeButton.visibility = View.VISIBLE
+                showMoon()
+            } else {
+                this.nightModeButton.visibility = View.VISIBLE
+                showSun()
+            }
 
-        bind.nightModeButton.setOnClickListener {
-            hideSun()
-            Handler(Looper.getMainLooper()).postDelayed({
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                SharedPref.isNightModeOn = true
-            },1000)
-        }
-        bind.lightModeButton.setOnClickListener {
-            hideMoon()
-            Handler(Looper.getMainLooper()).postDelayed({
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            SharedPref.isNightModeOn = false
-            },1000)
-        }
+            this.nightModeButton.setOnClickListener {
+                hideSun()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    SharedPref.isNightModeOn = true
+                }, 1000)
+            }
+            this.lightModeButton.setOnClickListener {
+                hideMoon()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    SharedPref.isNightModeOn = false
+                }, 1000)
+            }
 
-        bind.apply {
-            donateTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToDonateFragment())
-            }
-            feedbackTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToReviewsFragment())
-            }
-            widgetsTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToWidgetMenu())
-            }
-            personalizationTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToPersonalize())
-            }
-            categoriesTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageCategories())
-            }
-            productsTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageProducts())
-            }
-            notificationsTextview.setOnClickListener {
-                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageNotifications())
+            this.apply {
+                donateTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToDonateFragment())
+                }
+                feedbackTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToReviewsFragment())
+                }
+                widgetsTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToWidgetMenu())
+                }
+                personalizationTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToPersonalize())
+                }
+                categoriesTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToManageCategories())
+                }
+                productsTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToManageProducts())
+                }
+                notificationsTextview.setOnClickListener {
+                    Navigation.findNavController(requireView())
+                        .navigate(SettingsFragmentDirections.actionSettingsFragmentToManageNotifications())
+                }
             }
         }
-        return bind.root
+        return bind?.root
     }
 
-    private fun showMoon(){
-        bind.lightModeButton.apply {
-            animate().translationX(300F).alpha(1f).setDuration(1000).
-                    withEndAction {
-                        translationX = 300f
-                        alpha = 1f
-                    }
+
+    private fun showMoon() {
+        bind!!.lightModeButton.apply {
+            animate().translationX(300F).alpha(1f).setDuration(1000).withEndAction {
+                translationX = 300f
+                alpha = 1f
+            }
         }
     }
-    private fun hideSun(){
-        bind.nightModeButton.apply {
-            animate().translationX(0F).alpha(0f).setDuration(1000).
-            withEndAction {
+
+    private fun hideSun() {
+        bind!!.nightModeButton.apply {
+            animate().translationX(0F).alpha(0f).setDuration(1000).withEndAction {
                 translationX = 0f
                 alpha = 0F
                 showMoon()
             }
         }
     }
-    private fun showSun(){
-        bind.nightModeButton.apply {
-            animate().translationX(-300F).alpha(1f).setDuration(1000).
-            withEndAction {
+
+    private fun showSun() {
+        bind!!.nightModeButton.apply {
+            animate().translationX(-300F).alpha(1f).setDuration(1000).withEndAction {
                 translationX = -300f
                 alpha = 1f
             }
         }
     }
-    private fun hideMoon(){
-        bind.lightModeButton.apply {
-            animate().translationX(0F).alpha(0f).setDuration(1000).
-            withEndAction {
+
+    private fun hideMoon() {
+        bind!!.lightModeButton.apply {
+            animate().translationX(0F).alpha(0f).setDuration(1000).withEndAction {
                 translationX = 0f
                 alpha = 0F
                 showSun()
