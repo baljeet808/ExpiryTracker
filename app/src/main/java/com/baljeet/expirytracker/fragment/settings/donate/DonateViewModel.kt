@@ -21,6 +21,9 @@ class DonateViewModel(app : Application) : AndroidViewModel(app) {
         return donationAmount
     }
 
+    fun selectAd(){
+        donationAmount = Constants.AD
+    }
     fun selectCandy(){
         donationAmount = Constants.CANDY
     }

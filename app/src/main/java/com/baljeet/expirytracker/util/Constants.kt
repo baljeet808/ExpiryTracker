@@ -32,6 +32,7 @@ object Constants {
     const val EXPIRED = 4
 
     //Donation amounts
+    const val AD = 0.00
     const val CANDY = 1.29
     const val CHOCOLATE = 2.50
     const val COFFEE = 6.88

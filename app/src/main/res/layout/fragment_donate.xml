@@ -24,13 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/support_expiry_tracker_team"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constrainedWidth="true"
         android:lines="1"
         android:ellipsize="end"
         app:layout_constraintHorizontal_bias="0"
         android:textColor="@color/text_color"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:drawablePadding="5dp"
         app:layout_constraintTop_toBottomOf="@id/back_button"
@@ -61,7 +61,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/candy_card"
+        android:id="@+id/ad_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/support_message"
@@ -70,6 +70,76 @@
         app:strokeColor="@color/text_color"
         app:strokeWidth="0dp"
         android:layout_marginTop="10dp"
+        app:cardCornerRadius="50dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ad_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?card_background">
+
+            <ImageView
+                android:id="@+id/ad_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/video_ad"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ad_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/watch_an_ad"
+                android:textColor="@color/text_color"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintStart_toEndOf="@id/ad_image"
+                />
+
+            <TextView
+                android:id="@+id/ad_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/free"
+                android:textColor="@color/soft_green"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/ad_text"
+                app:layout_constraintTop_toBottomOf="@id/ad_text" />
+
+            <ImageView
+                android:id="@+id/ad_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/heart_24"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/text_color" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/candy_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ad_card"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:strokeColor="@color/text_color"
+        app:strokeWidth="0dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="50dp"
         >
 
@@ -119,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
-                android:src="@drawable/check_circle_24"
+                android:src="@drawable/heart_24"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -186,7 +256,7 @@
                 android:id="@+id/chocolate_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/check_circle_24"
+                android:src="@drawable/heart_24"
                 android:visibility="invisible"
                 app:tint="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -255,7 +325,7 @@
                 android:id="@+id/coffee_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/check_circle_24"
+                android:src="@drawable/heart_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="invisible"
@@ -328,7 +398,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
-                android:src="@drawable/check_circle_24"
+                android:src="@drawable/heart_24"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -395,7 +465,7 @@
                 android:id="@+id/meal_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/check_circle_24"
+                android:src="@drawable/heart_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="invisible"

@@ -216,4 +216,7 @@
     <string name="personalize_as_you_please">Personalize as you please.</string>
     <string name="calendar_no_item_text">Tap on underlined dates to see \n expiring products.</string>
     <string name="calendar_tips">Dates with three underlines \n have 3 or more products expiring.</string>
+    <string name="free">Free</string>
+    <string name="watch_an_ad">Watch an ad</string>
+    <string name="thank_you_note">You are generous! \n Thank you for love and support.</string>
 </resources>
