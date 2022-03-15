@@ -22,6 +22,7 @@ import com.baljeet.expirytracker.databinding.FragmentTrackerSummaryBinding
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
+import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -56,7 +57,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
     ): View {
         bind = FragmentTrackerSummaryBinding.inflate(inflater, container, false)
         bind.apply {
-
+            SharedPref.init(requireContext())
             backButton.setOnClickListener { activity?.onBackPressed() }
             val selectedTracker = trackerViewModel.getTrackerById(navArgs.selectedTrackerId)
             with(selectedTracker){
@@ -189,28 +190,34 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                     setReminderOnValue(trackerViewModel.getTrackerById(navArgs.selectedTrackerId).tracker, isChecked)
                 }
             }
-            //TODO: remove test ad id before publishing
-            adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
-                .forNativeAd { ad : NativeAd ->
-                    // Show the ad.
-                    val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
 
-                    populateAdVIew(ad,adView)
-                    bind.adLayout.isGone = false
-                    bind.adLayout.removeAllViews()
-                    bind.adLayout.addView(adView)
-                    if(activity?.isDestroyed == true){
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }.withAdListener(object : AdListener() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        // Handle the failure by logging, altering the UI, and so on.
-                        bind.adLayout.isGone = true
-                        Log.d("Log for - Ad Failure ","$adError")
-                    }
-                }).build()
-            adLoader.loadAd(AdRequest.Builder().build())
+            if(SharedPref.isUserAPro){
+                bind.adLayout.isGone = true
+            }
+            else{
+                //TODO: remove test ad id before publishing
+                adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
+                    .forNativeAd { ad : NativeAd ->
+                        // Show the ad.
+                        val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
+
+                        populateAdVIew(ad,adView)
+                        bind.adLayout.isGone = false
+                        bind.adLayout.removeAllViews()
+                        bind.adLayout.addView(adView)
+                        if(activity?.isDestroyed == true){
+                            ad.destroy()
+                            return@forNativeAd
+                        }
+                    }.withAdListener(object : AdListener() {
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            // Handle the failure by logging, altering the UI, and so on.
+                            bind.adLayout.isGone = true
+                            Log.d("Log for - Ad Failure ","$adError")
+                        }
+                    }).build()
+                adLoader.loadAd(AdRequest.Builder().build())
+            }
         }
         return bind.root
     }

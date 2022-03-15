@@ -23,8 +23,8 @@ import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.MyColors
 import com.baljeet.expirytracker.util.SharedPref
 import com.baljeet.expirytracker.util.getUSCurrencyFormat
-import com.google.android.gms.ads.*
-import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.chip.Chip
@@ -58,27 +58,39 @@ class Analytics : Fragment() {
         bind  = FragmentAnalyticsBinding.inflate(inflater,container,false)
         bind.apply {
 
+             SharedPref.init(requireContext())
+            if(SharedPref.isUserAPro){
+                playAdsTo.isGone = true
+                removeAdsCard.isGone = true
+                proPrice.isGone = true
+            }
+            else{
+                val adRequest = AdRequest.Builder().build()
+                //TODO: remove test ad id before publishing
+                RewardedAd.load(requireContext(),Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        mRewardedAd = null
+                    }
 
-            val adRequest = AdRequest.Builder().build()
-            //TODO: remove test ad id before publishing
-            RewardedAd.load(requireContext(),Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    mRewardedAd = null
-                }
+                    override fun onAdLoaded(rewardedAd: RewardedAd) {
+                        mRewardedAd = rewardedAd
 
-                override fun onAdLoaded(rewardedAd: RewardedAd) {
-                    mRewardedAd = rewardedAd
-                    
-                }
-            })
+                    }
+                })
+            }
+
             
             downloadButton.setOnClickListener {
-                if (mRewardedAd != null) {
-                    mRewardedAd?.show(requireActivity()) {
-                        prepPDFRequest()
+                if(SharedPref.isUserAPro){
+                    prepPDFRequest()
+                }else{
+                    if (mRewardedAd != null) {
+                        mRewardedAd?.show(requireActivity()) {
+                            prepPDFRequest()
+                        }
+                    } else {
+                        Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
                     }
-                } else {
-                    Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
                 }
             }
 
@@ -365,7 +377,7 @@ class Analytics : Fragment() {
         }
     }
 
-    fun prepPDFRequest(){
+    private fun prepPDFRequest(){
         viewModel.trackersAfterAllFilters.value?.let {
             if(it.isNotEmpty()){
                 val request = RequestPDF(
