@@ -11,6 +11,7 @@
     <application
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="true"
         android:name=".CustomApplication"
         android:allowBackup="true"
         android:fullBackupOnly="true"

@@ -5,13 +5,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -21,8 +21,15 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentTrackerSummaryBinding
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import kotlinx.datetime.*
 import java.time.LocalDateTime
+
 
 enum class PickingFor{
     EXPIRY, MFG, REMINDER
@@ -36,6 +43,11 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
     private var pickedFor : PickingFor = PickingFor.EXPIRY
     private var tempDateTime : kotlinx.datetime.LocalDateTime ? = null
+
+    private lateinit var adLoader : AdLoader
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -176,9 +188,125 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                     setReminderOnValue(trackerViewModel.getTrackerById(navArgs.selectedTrackerId).tracker, isChecked)
                 }
             }
+
+            adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
+                .forNativeAd { ad : NativeAd ->
+                    // Show the ad.
+                    val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
+
+                    populateAdVIew(ad,adView)
+                    bind.adLayout.isGone = false
+                    bind.adLayout.removeAllViews()
+                    bind.adLayout.addView(adView)
+                    if(activity?.isDestroyed == true){
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }.withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        bind.adLayout.isGone = true
+                        Log.d("Log for - Ad Failure ","$adError")
+                    }
+                }).build()
+            adLoader.loadAd(AdRequest.Builder().build())
         }
         return bind.root
     }
+
+
+
+    private fun populateAdVIew(nativeAd: NativeAd, adView: NativeAdView) {
+        // Set the media view.
+        // Set the media view.
+        adView.mediaView = adView.findViewById(R.id.ad_media)
+
+        // Set other ad assets.
+
+        // Set other ad assets.
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+        adView.bodyView = adView.findViewById(R.id.ad_body)
+        adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+        adView.priceView = adView.findViewById(R.id.ad_price)
+        adView.starRatingView = adView.findViewById(R.id.ad_stars)
+        adView.storeView = adView.findViewById(R.id.ad_store)
+        adView.advertiserView = adView.findViewById(R.id.ad_advertiser)
+
+        // The headline and mediaContent are guaranteed to be in every UnifiedNativeAd.
+
+        // The headline and mediaContent are guaranteed to be in every UnifiedNativeAd.
+        (adView.headlineView as TextView).text = nativeAd.headline
+
+
+        nativeAd.mediaContent?.let {
+            adView.mediaView?.setMediaContent(it)
+        }
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.body == null) {
+            adView.bodyView?.visibility = View.INVISIBLE
+        } else {
+            adView.bodyView?.visibility = View.VISIBLE
+            (adView.bodyView as TextView).text = nativeAd.body
+        }
+
+        if (nativeAd.callToAction == null) {
+            adView.callToActionView?.visibility = View.INVISIBLE
+        } else {
+            adView.callToActionView?.visibility = View.VISIBLE
+            (adView.callToActionView as Button).text = nativeAd.callToAction
+        }
+
+        if (nativeAd.icon == null) {
+            adView.iconView?.visibility = View.GONE
+        } else {
+            (adView.iconView as ImageView).setImageDrawable(
+                nativeAd.icon?.drawable
+            )
+            adView.iconView?.visibility = View.VISIBLE
+        }
+
+        if (nativeAd.price == null) {
+            adView.priceView?.visibility = View.INVISIBLE
+        } else {
+            adView.priceView?.visibility = View.VISIBLE
+            (adView.priceView as TextView).text = nativeAd.price
+        }
+
+        if (nativeAd.store == null) {
+            adView.storeView?.visibility = View.INVISIBLE
+        } else {
+            adView.storeView?.visibility = View.VISIBLE
+            (adView.storeView as TextView).text = nativeAd.store
+        }
+
+        if (nativeAd.starRating == null) {
+            adView.starRatingView?.visibility = View.INVISIBLE
+        } else {
+            (adView.starRatingView as RatingBar).rating = nativeAd.starRating?.toFloat()?:0F
+            adView.starRatingView?.visibility = View.VISIBLE
+        }
+
+        if (nativeAd.advertiser == null) {
+            adView.advertiserView?.visibility = View.INVISIBLE
+        } else {
+            (adView.advertiserView as TextView).text = nativeAd.advertiser
+            adView.advertiserView?.visibility = View.VISIBLE
+        }
+
+        // This method tells the Google Mobile Ads SDK that you have finished populating your
+        // native ad view with this native ad.
+
+        // This method tells the Google Mobile Ads SDK that you have finished populating your
+        // native ad view with this native ad.
+        adView.setNativeAd(nativeAd)
+    }
+
 
 
     private fun delete(tracker : Tracker, progressValue: Float){
@@ -189,6 +317,8 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
             }
             updateTracker(tracker)
     }
+
+    
 
     private fun markTrackerAsUsedBasedOnProgress(progressValue : Float, tracker: Tracker){
         when {

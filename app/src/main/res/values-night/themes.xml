@@ -745,6 +745,19 @@
     </style>
 
 
+    <style name="Theme.ExpiryTracker.AdAttribution">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:text">@string/ad_attribution</item>
+        <item name="android:background">#FFCC66</item>
+        <item name="android:width">15dp</item>
+        <item name="android:height">15dp</item>
+    </style>
+
+
     <style name="montserrat_text_color" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/montserrat</item>
     </style>
