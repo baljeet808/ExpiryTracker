@@ -2,11 +2,12 @@ package com.baljeet.expirytracker.fragment.dash
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -29,19 +30,13 @@ import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.Job
 import kotlinx.datetime.Clock
 import kotlinx.datetime.toLocalDateTime
 import java.time.Month
-import java.util.concurrent.TimeUnit
 
 
 class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
-
-    private lateinit var disposable: Disposable
 
     private lateinit var trackerAdapter : TrackerDiffAdapter
     private val categoryVM: CategoryViewModel by viewModels()
@@ -52,14 +47,18 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
 
     private lateinit var bind: FragmentDashBinding
 
+    lateinit var loopHandler : Handler
+
+    private val updateStatus = object : Runnable {
+        override fun run() {
+            setStatus()
+            loopHandler.postDelayed(this,3000)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        disposable = Observable.interval(
-            3000, 3000,
-            TimeUnit.MILLISECONDS
-        )
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::setStatus, this::onError)
+        loopHandler = Handler(Looper.getMainLooper())
     }
 
     override fun onCreateView(
@@ -89,7 +88,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
             it.observe(viewLifecycleOwner) { its ->
                 if (trackerVm.noTrackerIsActive) {
                     noItemView()
-                    disposable.dispose()
+                    loopHandler.removeCallbacks(updateStatus)
                 } else {
                     setDashList(its)
                 }
@@ -185,6 +184,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
             }
             getCategoriesChips()
             getStatus()
+
         }
         trackerVm.favouriteFilter.observe(viewLifecycleOwner) { filter ->
             when (filter) {
@@ -234,6 +234,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
                 }
             }
         }
+        loopHandler = Handler(Looper.getMainLooper())
         return bind.root
     }
 
@@ -275,20 +276,12 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
         bind.addProductFab.visibility = View.GONE
         bind.imageForAnimation.visibility = View.GONE
         bind.addProductButton.visibility = View.VISIBLE
-        disposable.dispose()
-    }
+        loopHandler.removeCallbacks(updateStatus)
 
-    private fun onError(throwable: Throwable) {
-        Toast.makeText(
-            requireContext(),
-            "${throwable.message} error while syncing new updates",
-            Toast.LENGTH_SHORT
-        ).show()
-        disposable.dispose()
     }
 
     private var messageNum = 0
-    private fun setStatus(aLong: Long) {
+    private fun setStatus() {
         bind.imageForAnimation.apply {
             animate().scaleX(1.5f).scaleY(1.5f).alpha(0f).setDuration(1200)
                 .withEndAction {
@@ -369,29 +362,22 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
 
     override fun onPause() {
         super.onPause()
-        disposable.dispose()
+        loopHandler.removeCallbacks(updateStatus)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable.dispose()
+        loopHandler.removeCallbacks(updateStatus)
     }
 
     override fun onStop() {
         super.onStop()
-        disposable.dispose()
+        loopHandler.removeCallbacks(updateStatus)
     }
 
     override fun onResume() {
         super.onResume()
-        if (disposable.isDisposed) {
-            disposable = Observable.interval(
-                3000, 3000,
-                TimeUnit.MILLISECONDS
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setStatus, this::onError)
-        }
+        loopHandler.post(updateStatus)
     }
 
     private fun setTimeAndGreetings() {
