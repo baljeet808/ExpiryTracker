@@ -86,27 +86,37 @@ class SettingsFragment : Fragment() {
             notificationsTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageNotifications())
             }
-            adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
-                .forNativeAd { ad : NativeAd ->
-                    // Show the ad.
-                    val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
+            if(SharedPref.isUserAPro){
+                bind.adLayout.isGone = true
+                bind.illustrationText.isGone = false
+                bind.settingIllustration.isGone = false
+            }   else{
+                adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
+                    .forNativeAd { ad : NativeAd ->
+                        // Show the ad.
+                        val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
 
-                    populateAdVIew(ad,adView)
-                    bind.adLayout.isGone = false
-                    bind.adLayout.removeAllViews()
-                    bind.adLayout.addView(adView)
-                    if(activity?.isDestroyed == true){
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }.withAdListener(object : AdListener() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        // Handle the failure by logging, altering the UI, and so on.
-                        bind.adLayout.isGone = true
-                        Log.d("Log for - Ad Failure ","$adError")
-                    }
-                }).build()
-            adLoader.loadAd(AdRequest.Builder().build())
+                        populateAdVIew(ad,adView)
+                        bind.illustrationText.isGone = true
+                        bind.settingIllustration.isGone = true
+                        bind.adLayout.isGone = false
+                        bind.adLayout.removeAllViews()
+                        bind.adLayout.addView(adView)
+                        if(activity?.isDestroyed == true){
+                            ad.destroy()
+                            return@forNativeAd
+                        }
+                    }.withAdListener(object : AdListener() {
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            // Handle the failure by logging, altering the UI, and so on.
+                            bind.adLayout.isGone = true
+                            bind.illustrationText.isGone = false
+                            bind.settingIllustration.isGone = false
+                            Log.d("Log for - Ad Failure ","$adError")
+                        }
+                    }).build()
+                adLoader.loadAd(AdRequest.Builder().build())
+            }
         }
         return bind.root
     }
