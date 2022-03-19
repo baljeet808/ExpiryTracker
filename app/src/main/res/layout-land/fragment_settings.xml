@@ -236,16 +236,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_bias="0.3"
                 />
-            <TextView
-                android:id="@+id/illustration_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/personalize_as_you_please"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
-                app:layout_constraintTop_toBottomOf="@id/setting_illustration"
-                android:layout_marginTop="20dp"
-                />
 
 
 
