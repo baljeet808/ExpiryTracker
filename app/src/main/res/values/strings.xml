@@ -71,7 +71,7 @@
     <string name="friday_text">FRI</string>
     <string name="saturday_text">SAT</string>
     <string name="_1">1</string>
-    <string name="become_pro">Buy Pro App</string>
+    <string name="become_pro">Upgrade to pro</string>
     <string name="favourites">Favourites</string>
     <string name="widgets">Widgets</string>
     <string name="night_mode">Night Mode</string>
@@ -219,4 +219,20 @@
     <string name="free">Free</string>
     <string name="watch_an_ad">Watch an ad</string>
     <string name="thank_you_note">You are generous! \n Thank you for love and support.</string>
+    <string name="upgrade_to_pro">Upgrade to pro</string>
+    <string name="unlock_all_pro_features">Unlock all PRO features</string>
+    <string name="no_ads">No Ads</string>
+    <string name="unlock_all_widgets">Unlock all widgets</string>
+    <string name="customize_your_theme">Customize your theme</string>
+    <string name="edit_pdf_format">Edit PDF format</string>
+    <string name="unlimited_categories">Unlimited categories</string>
+    <string name="annual">Annual</string>
+    <string name="_monthly">Monthly</string>
+    <string name="recommended">Recommended</string>
+    <string name="billed_yearly">Billed yearly</string>
+    <string name="billed_monthly">Billed monthly</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="subscription_instructions">After purchase is confirmed, payment will be charged to your google play account. Subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of teh current period. You can manage or unsubscribe at any time in Google Play account settings.</string>
+    <string name="_11_99">$ 11.99</string>
+    <string name="_1_99">$ 1.99</string>
 </resources>

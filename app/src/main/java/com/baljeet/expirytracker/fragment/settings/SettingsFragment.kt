@@ -65,6 +65,9 @@ class SettingsFragment : Fragment() {
         }
 
         bind.apply {
+            proTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToBePro())
+            }
             donateTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToDonateFragment())
             }
@@ -88,7 +91,6 @@ class SettingsFragment : Fragment() {
             }
             if(SharedPref.isUserAPro){
                 bind.adLayout.isGone = true
-                bind.illustrationText.isGone = false
                 bind.settingIllustration.isGone = false
             }   else{
                 adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
@@ -97,7 +99,6 @@ class SettingsFragment : Fragment() {
                         val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
 
                         populateAdVIew(ad,adView)
-                        bind.illustrationText.isGone = true
                         bind.settingIllustration.isGone = true
                         bind.adLayout.isGone = false
                         bind.adLayout.removeAllViews()
@@ -110,7 +111,6 @@ class SettingsFragment : Fragment() {
                         override fun onAdFailedToLoad(adError: LoadAdError) {
                             // Handle the failure by logging, altering the UI, and so on.
                             bind.adLayout.isGone = true
-                            bind.illustrationText.isGone = false
                             bind.settingIllustration.isGone = false
                             Log.d("Log for - Ad Failure ","$adError")
                         }

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    tools:context=".fragment.settings.BePro">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_left_32"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upgrade_to_pro"
+        android:layout_marginTop="10dp"
+        app:layout_constrainedWidth="true"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textAllCaps="true"
+        app:layout_constraintHorizontal_bias="0"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:drawablePadding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:drawableEndCompat="@drawable/crown_24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/helper_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unlock_all_pro_features"
+        app:layout_constraintTop_toBottomOf="@id/heading"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:letterSpacing="0.04"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/benefit_no_ads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_ads"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/helper_heading"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/text_color"
+        android:drawableStart="@drawable/ic_baseline_stars_16"
+        android:drawablePadding="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/benefit_all_widgets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unlock_all_widgets"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/benefit_no_ads"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_color"
+        android:drawableStart="@drawable/ic_baseline_stars_16"
+        android:drawablePadding="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/benefit_customize_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/customize_your_theme"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/benefit_all_widgets"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_color"
+        android:drawableStart="@drawable/ic_baseline_stars_16"
+        android:drawablePadding="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/benefit_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_pdf_format"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/benefit_customize_theme"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_color"
+        android:drawableStart="@drawable/ic_baseline_stars_16"
+        android:drawablePadding="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/illustrations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bullseye"
+        app:layout_constraintBottom_toBottomOf="@id/benefit_pdf"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/monthly_card"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        app:strokeWidth="0dp"
+        app:strokeColor="@color/text_color"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toTopOf="@id/guideline_mid_x"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_mid_x"
+        app:layout_constraintEnd_toStartOf="@id/yearly_card"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="5dp"
+        android:layout_marginTop="50dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            >
+            <TextView
+                android:id="@+id/subscription_type_monthly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_monthly"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                />
+
+            <TextView
+                android:id="@+id/monthly_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_1_99"
+                android:textSize="20sp"
+                android:textColor="@color/soft_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/billed_monthly"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="5dp"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/yearly_card"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@id/guideline_mid_x"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_mid_x"
+        app:layout_constraintStart_toEndOf="@id/monthly_card"
+        app:cardCornerRadius="4dp"
+        app:strokeColor="@color/text_color"
+        app:strokeWidth="2dp"
+        app:cardElevation="5dp"
+        android:layout_marginTop="40dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            >
+            <TextView
+                android:id="@+id/subscription_type_yearly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/annual"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_color"
+                />
+            <TextView
+                android:id="@+id/yearly_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_11_99"
+                android:textSize="20sp"
+                android:textColor="@color/soft_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/billed_yearly"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="5dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/yearly_checkbox"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:layout_constraintTop_toBottomOf="@id/guideline_mid_x"
+        app:layout_constraintStart_toStartOf="@id/yearly_card"
+        app:layout_constraintEnd_toEndOf="@id/yearly_card"
+        android:padding="0dp"
+        android:checked="true"
+        android:buttonTint="@color/text_color"
+        android:layout_marginTop="90dp"
+        />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/monthly_checkbox"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        app:layout_constraintTop_toBottomOf="@id/guideline_mid_x"
+        app:layout_constraintStart_toStartOf="@id/monthly_card"
+        app:layout_constraintEnd_toEndOf="@id/monthly_card"
+        android:padding="0dp"
+        android:text="@null"
+        android:buttonTint="@color/text_color"
+        android:checked="false"
+        android:layout_marginTop="90dp"
+        />
+
+    
+
+    <Button
+        android:id="@+id/upgrade_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/monthly_checkbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/crown_24"
+        android:drawableTint="@color/main_background"
+        android:textColor="@color/main_background"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        android:text="@string/upgrade"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/upgrade_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_11_99"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0.2"
+        android:textColor="@color/soft_green"
+        app:layout_constraintStart_toEndOf="@id/upgrade_button"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@id/upgrade_button"
+        app:layout_constraintBottom_toBottomOf="@id/upgrade_button"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/upgrade_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:text="@string/subscription_instructions"
+            />
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_mid_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

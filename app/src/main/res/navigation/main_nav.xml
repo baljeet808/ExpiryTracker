@@ -91,6 +91,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_left_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_bePro"
+            app:destination="@id/bePro"
+            app:enterAnim="@anim/slide_1_in_right"
+            app:exitAnim="@anim/slide_2_out_left"
+            app:popEnterAnim="@anim/slide_3_in_left"
+            app:popExitAnim="@anim/slide_4_out_right" />
     </fragment>
     <fragment
         android:id="@+id/analytics"
@@ -258,4 +265,9 @@
             android:name="requestData"
             app:argType="com.baljeet.expirytracker.model.RequestPDF" />
     </fragment>
+    <fragment
+        android:id="@+id/bePro"
+        android:name="com.baljeet.expirytracker.fragment.settings.BePro"
+        android:label="fragment_be_pro"
+        tools:layout="@layout/fragment_be_pro" />
 </navigation>

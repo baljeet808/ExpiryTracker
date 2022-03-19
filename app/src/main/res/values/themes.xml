@@ -71,7 +71,7 @@
     </style>
 
     <style name="mySolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/main_background</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -82,7 +82,7 @@
     </style>
 
     <style name="myExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -162,7 +162,7 @@
     </style>
 
     <style name="myPeachSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -173,7 +173,7 @@
     </style>
 
     <style name="myPeachExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -251,7 +251,7 @@
     </style>
 
     <style name="myYellowSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -262,7 +262,7 @@
     </style>
 
     <style name="myYellowExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -341,7 +341,7 @@
     </style>
 
     <style name="myGreenSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -352,7 +352,7 @@
     </style>
 
     <style name="myGreenExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -431,7 +431,7 @@
     </style>
 
     <style name="myPurpleSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -442,7 +442,7 @@
     </style>
 
     <style name="myPurpleExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -521,7 +521,7 @@
     </style>
 
     <style name="myPinkSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -532,7 +532,7 @@
     </style>
 
     <style name="myPinkExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -611,7 +611,7 @@
     </style>
 
     <style name="myBlackSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -622,7 +622,7 @@
     </style>
 
     <style name="myBlackExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
@@ -701,7 +701,7 @@
     </style>
 
     <style name="myWhiteSolidButton" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
@@ -712,7 +712,7 @@
     </style>
 
     <style name="myWhiteExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
-        <item name="cornerRadius">40sp</item>
+        <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
