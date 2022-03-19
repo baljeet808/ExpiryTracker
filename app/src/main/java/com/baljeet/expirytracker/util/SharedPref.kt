@@ -1,11 +1,13 @@
 package com.baljeet.expirytracker.util
 import android.content.Context
 import android.content.SharedPreferences
-import java.util.jar.Attributes
 
 object SharedPref {
     private const val MODE = Context.MODE_PRIVATE
     private lateinit var sharedPref: SharedPreferences
+
+
+
     fun init(context : Context) {
         sharedPref = context.getSharedPreferences("Expiry_tracker", MODE )
     }

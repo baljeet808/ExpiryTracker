@@ -57,4 +57,17 @@ object Constants {
     //Test Ad-Unit ids
     const val TEST_REWARDED_AD_ID = "ca-app-pub-3940256099942544/5224354917"
     const val TEST_NATIVE_INLINE_AD_ID = "ca-app-pub-3940256099942544/2247696110"
+
+    //in app products ids
+    const val CANDY_ID = "candy_purchase"
+    const val CHOCOLATE_ID = "chocolate_purchase"
+    const val COFFEE_ID = "coffee_purchase"
+    const val BURGER_ID = "burger_purchase"
+    const val DINNER_ID = "dinner_purchase"
+
+    //subscriptions ids
+    const val MONTHLY_SUBSCRIPTION = "pro_user"
+    const val YEARLY_SUBSCRIPTION = "pro_user_lifetime"
+
+
 }
