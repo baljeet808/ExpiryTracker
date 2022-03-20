@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.util
 import android.content.Context
 import android.content.SharedPreferences
+import com.baljeet.expirytracker.fragment.settings.SubscribeType
 
 object SharedPref {
     private const val MODE = Context.MODE_PRIVATE
@@ -50,6 +51,14 @@ object SharedPref {
     var isUserAPro : Boolean
         get() = sharedPref.getBoolean("isUserAPro", false)
         set(value) = sharedPref.edit { it.putBoolean("isUserAPro", value) }
+
+    var subscriptionIsMonthly : Boolean
+        get() = sharedPref.getBoolean("subscribedMonthly", false)
+        set(value) = sharedPref.edit{ it.putBoolean("subscribedMonthly", value)}
+
+    var subscriptionIsYearly : Boolean
+        get() = sharedPref.getBoolean("subscribedYearly", false)
+        set(value) = sharedPref.edit{ it.putBoolean("subscribedYearly", value)}
 
     var themeName : String
     get() = sharedPref.getString("themeName",Constants.BLUE)!!

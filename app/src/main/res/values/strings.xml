@@ -232,7 +232,10 @@
     <string name="billed_yearly">Billed yearly</string>
     <string name="billed_monthly">Billed monthly</string>
     <string name="upgrade">Upgrade</string>
-    <string name="subscription_instructions">After purchase is confirmed, payment will be charged to your google play account. Subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of teh current period. You can manage or unsubscribe at any time in Google Play account settings.</string>
+    <string name="subscription_instructions">After purchase is confirmed, payment will be charged to your google play account. Subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. You can manage or unsubscribe at any time in Google Play account settings.</string>
     <string name="_11_99">$ 11.99</string>
     <string name="_1_99">$ 1.99</string>
+    <string name="thanks_for_pro_upgrade">Thanks for being a pro member.\nYou have access to all features without any ads.</string>
+    <string name="pro_member_heading">You have Pro Membership</string>
+    <string name="proud_pro_member">Proud Pro Member</string>
 </resources>

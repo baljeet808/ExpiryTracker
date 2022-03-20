@@ -193,6 +193,7 @@ class DonateFragment : Fragment() {
                     else -> Unit
                 }
                 if (selectedOption != DonationOptions.AD) {
+
                     billingClient.startConnection(object : BillingClientStateListener {
                         override fun onBillingServiceDisconnected() {
 

@@ -48,9 +48,6 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
     private lateinit var adLoader : AdLoader
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

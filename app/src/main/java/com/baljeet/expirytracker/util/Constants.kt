@@ -68,6 +68,8 @@ object Constants {
     //subscriptions ids
     const val MONTHLY_SUBSCRIPTION = "pro_user"
     const val YEARLY_SUBSCRIPTION = "pro_user_lifetime"
+    const val LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAychkXfLePi+X9Dl20Z8BCg2MmjZivszjzYaMGIDxNQ3Ad7OjnzXbaJikgU31mlDETvl8p0L0QFpBOzkfCZPuq8mCoMY9iR9G3LsR96KC7THpzLml/3eaDLfL1PMDezJvVRen0FmXdJK0fNsxkicTO0hdKh426slDmnuDstmNIHSFuIoAEw7TbKM7cKOHn+MV9Wv1p6soLXetdi32nTojAJPMK2lXOwdo0qwqBFdaOxaq0h28U5ryIApeXzKMDrNdFFk0G2ZIrNulsu4cCP3C34iS7WcpOzUMHYXGx8TOaM5b6FFIcSWQoziNAeVDCDDcKsRQFmxKRtMdikLGnjyNZQIDAQAB"
 
+    const val MERCHANT_ID = "469387559570636006"
 
 }

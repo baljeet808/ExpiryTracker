@@ -65,6 +65,9 @@ class SettingsFragment : Fragment() {
         }
 
         bind.apply {
+
+            proTextview.text = if(SharedPref.isUserAPro) getString(R.string.proud_pro_member) else getString(R.string.become_pro)
+
             proTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToBePro())
             }
