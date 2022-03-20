@@ -12,6 +12,7 @@ import com.baljeet.expirytracker.databinding.ReminderListItemBinding
 import com.baljeet.expirytracker.interfaces.OnEditReminderTime
 import com.baljeet.expirytracker.interfaces.OnReminderCheckedChanged
 import com.baljeet.expirytracker.util.ImageConvertor
+import com.dwellify.contractorportal.util.TimeConvertor
 import kotlinx.datetime.Month
 
 
@@ -70,9 +71,7 @@ class RemindersAdapter(
                         Month.of(it.monthNumber).name.substring(0, 3),
                         it.dayOfMonth,
                         it.year,
-                        if(it.hour in 1..8) "0".plus(it.hour.toString()) else if (it.hour == 0) "00" else it.hour.toString(),
-                        if(it.minute in 1..8) "0".plus(it.minute.toString()) else if (it.minute == 0) "00" else it.minute.toString(),
-                        if (it.hour>=12) {"PM"} else {"AM"}
+                        TimeConvertor.getTime(it.hour,it.minute,true)
                     )
                 }?: kotlin.run { 
                     context.getString(R.string.no_time)

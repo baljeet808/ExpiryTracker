@@ -1,5 +1,6 @@
 package com.baljeet.expirytracker.fragment.product
 
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
@@ -25,27 +27,20 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentAddTrackerBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
-import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
-import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.toJavaLocalDateTime
 
-class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePickerDialog.OnTimeSetListener {
 
-    private val mfgDatePicker =
-        MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
-            .setTitleText("Manufactured Date").build()
-    private val expiryDatePicker =
-        MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
-            .setTitleText("Expiry Date").build()
-    private val reminderDatePicker =
-        MaterialDatePicker.Builder.datePicker().setTheme(R.style.datePickerTheme)
-            .setTitleText("Set Reminder Date").build()
+enum class LocalDateTimeFor{
+    MFG,EXPIRY,REMINDER
+}
+
+class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private val categoriesWithImages = ArrayList<CategoryAndImage>()
     private val productsWithImages = ArrayList<ProductAndImage>()
@@ -55,11 +50,12 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
     private val productVM: ProductViewModel by activityViewModels()
     private val trackerViewModel: TrackerViewModel by activityViewModels()
 
-
     private lateinit var adapter: OptionsAdapter
     private lateinit var nameAdapter: OptionsAdapter
 
     private lateinit var bind: FragmentAddTrackerBinding
+
+    private var pickingDateTimeFor : LocalDateTimeFor = LocalDateTimeFor.MFG
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,109 +85,31 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
 
 
         bind.expiryClickView.setOnClickListener {
-            expiryDatePicker.show(
-                childFragmentManager,
-                "tag1"
-            )
+            pickingDateTimeFor = LocalDateTimeFor.EXPIRY
+            val current = java.time.LocalDateTime.now()
+            viewModel.getExpiryDate()?.let { expiry->
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,expiry.year,expiry.monthNumber,expiry.dayOfMonth).show()
+            }?: kotlin.run {
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
+            }
         }
-        bind.mfgClickView.setOnClickListener { mfgDatePicker.show(childFragmentManager, "tag2") }
+        bind.mfgClickView.setOnClickListener {
+            pickingDateTimeFor = LocalDateTimeFor.MFG
+            val current = java.time.LocalDateTime.now()
+            viewModel.getMfgDate()?.let { mfg->
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,mfg.year,mfg.monthNumber,mfg.dayOfMonth).show()
+            }?: kotlin.run {
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
+            }
+        }
         bind.reminderDateClickView.setOnClickListener {
-            reminderDatePicker.show(
-                childFragmentManager,
-                "tag3"
-            )
-        }
-
-        expiryDatePicker.addOnPositiveButtonClickListener { its ->
-            val expiryInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
-
-            val expiryDate = expiryInstant.toLocalDateTime(Constants.TIMEZONE)
-
-            viewModel.setExpiryDate(
-                LocalDateTime(
-                    expiryDate.year,
-                    expiryDate.monthNumber,
-                    expiryDate.dayOfMonth,
-                    expiryDate.hour,
-                    expiryDate.minute,
-                    0,
-                    0
-                )
-            )
-            expiryDate.let {
-                bind.expiryDateEdittext.setText(
-                    resources.getString(
-                        R.string.date_string_with_month_name,
-                        Month.of(it.monthNumber).name.substring(0, 3),
-                        it.dayOfMonth,
-                        it.year
-                    )
-                )
+            pickingDateTimeFor = LocalDateTimeFor.REMINDER
+            val current = java.time.LocalDateTime.now()
+            viewModel.reminderDate?.let { reminder->
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,reminder.year,reminder.monthNumber,reminder.dayOfMonth).show()
+            }?: kotlin.run {
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
             }
-
-            bind.mfgDateEdittext.text?.let {
-                if (it.isNotEmpty()) {
-                    bind.completed2Check.visibility = View.VISIBLE
-                    bind.editReminderLayout.visibility = View.VISIBLE
-                }
-            }
-        }
-
-        mfgDatePicker.addOnPositiveButtonClickListener { its ->
-            val mfgInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
-            val mfgDate = mfgInstant.toLocalDateTime(Constants.TIMEZONE)
-
-            viewModel.setMfgDate(
-                LocalDateTime(
-                    mfgDate.year,
-                    mfgDate.monthNumber,
-                    mfgDate.dayOfMonth,
-                    mfgDate.hour,
-                    mfgDate.minute,
-                    0,
-                    0
-                )
-            )
-            mfgDate.let {
-                bind.mfgDateEdittext.setText(
-                    resources.getString(
-                        R.string.date_string_with_month_name,
-                        Month.of(it.monthNumber).name.substring(0, 3),
-                        it.dayOfMonth,
-                        it.year
-                    )
-                )
-            }
-            bind.expiryDateEdittext.text?.let {
-                if (it.isNotEmpty()) {
-                    bind.completed3Check.visibility = View.VISIBLE
-                    bind.addProductButton.visibility = View.VISIBLE
-                }
-            }
-        }
-        reminderDatePicker.addOnPositiveButtonClickListener { its ->
-            val reminderInstant = TimeConvertor.fromEpochMillisecondsToInstant(its)
-            val reminderDate = reminderInstant.toLocalDateTime(Constants.TIMEZONE)
-
-            Log.d("Log for - reminder date  ",reminderDate.toString())
-
-            viewModel.reminderDate = LocalDateTime(
-                reminderDate.year,
-                reminderDate.monthNumber,
-                reminderDate.dayOfMonth,
-                reminderDate.hour,
-                reminderDate.minute,
-                0,
-                0
-            )
-            bind.reminderDateEdittext.text?.let {
-                if (it.isNotEmpty()) {
-                    bind.reminderSetCheck.visibility = View.VISIBLE
-                    bind.addProductButton.visibility = View.VISIBLE
-                }
-            }
-            val currentTime = java.time.LocalDateTime.now()
-            TimePickerDialog(requireContext(),this,currentTime.hour,currentTime.minute,false).show()
         }
 
         bind.categoryClickView.setOnClickListener {
@@ -207,7 +125,8 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             when (checkedId) {
                 bind.remindDayBeforeCheckbox.id -> {
                     bind.reminderDateClickView.isEnabled = false
-                    viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }.let {
+                    val beforeOneDay = viewModel.getExpiryDate()?.toJavaLocalDateTime()?.minusDays(1)
+                    beforeOneDay?.let{
                         viewModel.reminderDate=  LocalDateTime(
                             year = it.year,
                             month = it.month,
@@ -225,9 +144,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                                 Month.of(it.monthNumber).name.substring(0, 3),
                                 it.dayOfMonth,
                                 it.year,
-                                it.hour,
-                                it.minute,
-                                if (it.hour>=12) {"PM"} else {"AM"}
+                                TimeConvertor.getTime(it.hour,it.minute,true)
                             )
                         )
                     }
@@ -238,20 +155,22 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                     viewModel.reminderDate?.let {
                         bind.reminderDateEdittext.setText(
                             resources.getString(
-                                R.string.date_string_with_month_name,
+                                R.string.date_string_with_month_name_and_time,
                                 Month.of(it.monthNumber).name.substring(0, 3),
-                                it.dayOfMonth.minus(1),
-                                it.year
+                                it.dayOfMonth,
+                                it.year,
+                                TimeConvertor.getTime(it.hour,it.minute,true)
                             )
                         )
                     } ?: kotlin.run {
-                        viewModel.getExpiryDate().apply { dayOfMonth.minus(1) }.let {
+                        viewModel.getExpiryDate()?.let {
                             bind.reminderDateEdittext.setText(
                                 resources.getString(
-                                    R.string.date_string_with_month_name,
+                                    R.string.date_string_with_month_name_and_time,
                                     Month.of(it.monthNumber).name.substring(0, 3),
-                                    it.dayOfMonth.minus(1),
-                                    it.year
+                                    it.dayOfMonth,
+                                    it.year ,
+                                    TimeConvertor.getTime(it.hour,it.minute,true)
                                 )
                             )
                         }
@@ -261,7 +180,6 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                 bind.doNotRemindCheckbox.id -> {
                     bind.reminderDateClickView.isEnabled = false
                     bind.reminderDateEdittext.setText(R.string.do_not_remind)
-                    viewModel.reminderDate = null
                     doRemind = false
                 }
             }
@@ -270,6 +188,10 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
         }
 
         bind.addProductButton.setOnClickListener {
+            if(!doRemind){
+                viewModel.reminderDate = null
+            }
+
             val tracker = Tracker(
                 productId = viewModel.getSelectedProduct()?.product?.productId!!,
                 mfgDate = viewModel.getMfgDate(),
@@ -419,11 +341,97 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                     Month.of(it.monthNumber).name.substring(0, 3),
                     it.dayOfMonth,
                     it.year,
-                    it.hour,
-                    it.minute,
-                    if (it.hour>=12) {"PM"} else {"AM"}
+                    TimeConvertor.getTime(it.hour,it.minute,true)
                 )
             )
         }
+    }
+
+    override fun onDateSet(view : DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+         when(pickingDateTimeFor){
+             LocalDateTimeFor.MFG->{
+                     viewModel.setMfgDate(
+                         LocalDateTime(
+                             year,
+                             month,
+                             dayOfMonth,
+                             0,
+                             1,
+                             0,
+                             0
+                         )
+                     )
+                   viewModel.getMfgDate()?.let {
+                     bind.mfgDateEdittext.setText(
+                         resources.getString(
+                             R.string.date_string_with_month_name,
+                             Month.of(it.monthNumber).name.substring(0, 3),
+                             it.dayOfMonth,
+                             it.year
+                         )
+                     )
+                 }
+                 bind.expiryDateEdittext.text?.let {
+                     if (it.isNotEmpty()) {
+                         bind.completed3Check.visibility = View.VISIBLE
+                         bind.addProductButton.visibility = View.VISIBLE
+                     }
+                 }
+             }
+             LocalDateTimeFor.EXPIRY->{
+                 viewModel.setExpiryDate(
+                     LocalDateTime(
+                         year,
+                         month,
+                         dayOfMonth,
+                         23,
+                         58,
+                         0,
+                         0
+                     )
+                 )
+                 viewModel.getExpiryDate()?.let {
+                     bind.expiryDateEdittext.setText(
+                         resources.getString(
+                             R.string.date_string_with_month_name,
+                             Month.of(it.monthNumber).name.substring(0, 3),
+                             it.dayOfMonth,
+                             it.year
+                         )
+                     )
+                 }
+
+                 bind.mfgDateEdittext.text?.let {
+                     if (it.isNotEmpty()) {
+                         bind.completed2Check.visibility = View.VISIBLE
+                         bind.editReminderLayout.visibility = View.VISIBLE
+                     }
+                 }
+             }
+             LocalDateTimeFor.REMINDER->{
+                 val previousDate = viewModel.reminderDate
+                 viewModel.reminderDate = LocalDateTime(
+                     year,
+                     month,
+                     dayOfMonth,
+                     9,
+                     0,
+                     0,
+                     0
+                 )
+                 bind.reminderDateEdittext.text?.let {
+                     if (it.isNotEmpty()) {
+                         bind.reminderSetCheck.visibility = View.VISIBLE
+                         bind.addProductButton.visibility = View.VISIBLE
+                     }
+                 }
+                 val currentTime = java.time.LocalDateTime.now()
+                 previousDate?.let {
+                     TimePickerDialog(requireContext(),this,previousDate.hour,previousDate.minute,false).show()
+                 }?: kotlin.run {
+                     TimePickerDialog(requireContext(),this,currentTime.hour,currentTime.minute,false).show()
+                 }
+             }
+         }
     }
 }

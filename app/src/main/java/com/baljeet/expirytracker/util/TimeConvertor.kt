@@ -46,11 +46,7 @@ object TimeConvertor {
     fun fromEpochMillisecondsToInstant(date : Long) : Instant{
         return Instant.fromEpochMilliseconds(date)
     }
-
-    fun fromLongTimeToInstant(time : Long) : Instant{
-        return Instant.fromEpochMilliseconds(time)
-    }
-
+    
     fun convertStringToJavaLocalDate(date : String): LocalDate{
         val mDate = convertDateStringToLocalDateTime(date)
         return LocalDate.of(mDate!!.year, mDate.month, mDate.dayOfMonth)

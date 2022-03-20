@@ -11,8 +11,8 @@ import kotlinx.datetime.LocalDateTime
 
 class SelectFromViewModel : ViewModel() {
 
-    private lateinit var expiryDate: LocalDateTime
-    private lateinit var mfgDate: LocalDateTime
+    private var expiryDate: LocalDateTime? = null
+    private var mfgDate: LocalDateTime? = null
     var reminderDate: LocalDateTime? = null
 
     private var selectedCategory: CategoryAndImage? = null
@@ -461,7 +461,7 @@ class SelectFromViewModel : ViewModel() {
         expiryDate = date
     }
 
-    fun getExpiryDate(): LocalDateTime {
+    fun getExpiryDate(): LocalDateTime? {
         return expiryDate
     }
 
@@ -469,7 +469,7 @@ class SelectFromViewModel : ViewModel() {
         mfgDate = date
     }
 
-    fun getMfgDate(): LocalDateTime {
+    fun getMfgDate(): LocalDateTime? {
         return mfgDate
     }
 }

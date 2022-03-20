@@ -23,6 +23,7 @@ import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
+import com.dwellify.contractorportal.util.TimeConvertor
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -72,9 +73,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                         Month.of(it.monthNumber).name.substring(0, 3).uppercase(),
                         it.dayOfMonth,
                         it.year,
-                        if(it.hour in 1..8) "0".plus(it.hour.toString()) else if (it.hour == 0) "00" else it.hour.toString(),
-                        if(it.minute in 1..8) "0".plus(it.minute.toString()) else if (it.minute == 0) "00" else it.minute.toString(),
-                        if (it.hour>=12) {"PM"} else {"AM"}
+                        TimeConvertor.getTime(it.hour,it.minute,true)
                     )
                 } ?: kotlin.run {
                     getString(R.string.no_time)
@@ -421,9 +420,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                 Month.of(it.monthNumber).name.substring(0, 3).uppercase(),
                 it.dayOfMonth,
                 it.year,
-                if(it.hour in 1..8) "0".plus(it.hour.toString()) else if (it.hour == 0) "00" else it.hour.toString(),
-                if(it.minute in 1..8) "0".plus(it.minute.toString()) else if (it.minute == 0) "00" else it.minute.toString(),
-                if (it.hour>=12) {"PM"} else {"AM"}
+                TimeConvertor.getTime(it.hour,it.minute,true)
             )
         }
     }
