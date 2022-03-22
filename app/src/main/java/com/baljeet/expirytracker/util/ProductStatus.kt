@@ -6,10 +6,8 @@ import android.widget.Toast
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.repository.TrackerRepository
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
-import kotlinx.datetime.toInstant
+import java.time.Duration
+import java.time.LocalDate
 
 object ProductStatus {
     private val expired = ArrayList<Product>()
@@ -28,15 +26,15 @@ object ProductStatus {
                 healthy.clear()
                 messages.clear()
                 for (tracker in trackers) {
-                    val dateToday = Clock.System.now()
-                    val mfgInstant = tracker.tracker.mfgDate!!.toInstant(TimeZone.UTC)
-                    val expiryInstant = tracker.tracker.expiryDate!!.toInstant(TimeZone.UTC)
 
-                    val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-                    val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
+                    val expiryDate = tracker.tracker.expiryDate
+                    val mfgDate = tracker.tracker.mfgDate
 
-                    val totalHours = totalPeriod.days*24 + totalPeriod.hours
-                    val spentHours = periodSpent.days*24 + periodSpent.hours
+                    val dateToday = LocalDate.now()
+
+                    val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+                    val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
+
 
                     val progressValue =
                         (spentHours.toFloat() / totalHours.toFloat()) * 100

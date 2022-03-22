@@ -11,9 +11,7 @@ import android.provider.MediaStore
 import android.util.TypedValue
 import android.widget.Toast
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.model.PeriodType
-import com.baljeet.expirytracker.model.RequestPDF
-import com.baljeet.expirytracker.model.ResultCase
+import com.baljeet.expirytracker.model.*
 import java.io.FileOutputStream
 import java.time.LocalDateTime
 
@@ -36,6 +34,19 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     val colorGreen = context.getColor(R.color.soft_green)
     val colorPeach = context.getColor(R.color.always_peach)
     val colorYellow = context.getColor(R.color.soft_yellow)
+
+
+    val textColorBlack = when(this.textColor){
+        SelectedTextColor.BLACK->{
+            context.getColor(R.color.black)
+        }
+        SelectedTextColor.BLUE->{
+            context.getColor(R.color.theme_blue)
+        }
+        SelectedTextColor.GREY->{
+            context.getColor(R.color.grey)
+        }
+    }
 
     val themeColor = context.getColor(R.color.theme_blue)
 

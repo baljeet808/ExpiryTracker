@@ -9,10 +9,8 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
-import kotlinx.datetime.toInstant
+import java.time.Duration
+import java.time.LocalDate
 
 class WidgetStackViewAdapter: RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
@@ -58,19 +56,13 @@ class WidgetStackViewAdapter: RemoteViewsService() {
             remoteView.setTextViewText(R.id.expiring_date, context.getString(R.string.date_short_var, tracker.tracker.expiryDate!!.dayOfMonth,
                 tracker.tracker.expiryDate!!.month.name.substring(0,3).uppercase()))
             remoteView.setTextViewText(R.id.expiring_date_year,tracker.tracker.expiryDate!!.year.toString())
-            val dateToday = Clock.System.now()
 
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
+            val dateToday = LocalDate.now()
 
-            val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
-            val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
-
-            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-            val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
-
-            val totalHours = totalPeriod.days * 24 + totalPeriod.hours
-            val spentHours = periodSpent.days * 24 + periodSpent.hours
+            val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+            val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
 
 
             val progressValue =

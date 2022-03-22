@@ -30,7 +30,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
-import kotlinx.datetime.*
+import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -45,7 +46,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
     private val trackerViewModel : TrackerViewModel by viewModels()
 
     private var pickedFor : PickingFor = PickingFor.EXPIRY
-    private var tempDateTime : kotlinx.datetime.LocalDateTime ? = null
+    private var tempDateTime :LocalDateTime ? = null
 
     private lateinit var adLoader : AdLoader
 
@@ -70,7 +71,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                 reminderDateValue.text = tracker.reminderDate?.let {
                     getString(
                         R.string.date_string_with_month_name_and_time_2_lined,
-                        Month.of(it.monthNumber).name.substring(0, 3).uppercase(),
+                        it.month.name.substring(0, 3).uppercase(),
                         it.dayOfMonth,
                         it.year,
                         TimeConvertor.getTime(it.hour,it.minute,true)
@@ -122,16 +123,11 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                 val expiryDate = tracker.expiryDate
                 val mfgDate = tracker.mfgDate
 
-                val dateToday = Clock.System.now()
+                val dateToday = LocalDate.now()
 
-                val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
-                val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
+                val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+                val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
 
-                val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-                val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
-
-                val totalHours = totalPeriod.days * 24 + totalPeriod.hours
-                val spentHours = periodSpent.days * 24 + periodSpent.hours
 
                 val progressValue =
                     (spentHours.toFloat() / totalHours.toFloat()) * 100
@@ -162,16 +158,16 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
                 editExpiryDateButton.setOnClickListener {
                     pickedFor = PickingFor.EXPIRY
-                    DatePickerDialog(requireContext(),this@TrackerDetails,expiryDate.year,expiryDate.monthNumber,expiryDate.dayOfMonth).show()
+                    DatePickerDialog(requireContext(),this@TrackerDetails,expiryDate!!.year,expiryDate.monthValue,expiryDate.dayOfMonth).show()
                 }
                 editReminderButton.setOnClickListener {
                     pickedFor = PickingFor.REMINDER
                     val current = LocalDateTime.now()
-                    DatePickerDialog(requireContext(),this@TrackerDetails,current.year,current.monthValue,current.dayOfMonth).show()
+                    DatePickerDialog(requireContext(),this@TrackerDetails,current!!.year,current.monthValue,current.dayOfMonth).show()
                 }
                 editMfgDateButton.setOnClickListener {
                     pickedFor = PickingFor.MFG
-                    DatePickerDialog(requireContext(),this@TrackerDetails,mfgDate.year,mfgDate.monthNumber,mfgDate.dayOfMonth).show()
+                    DatePickerDialog(requireContext(),this@TrackerDetails,mfgDate!!.year,mfgDate.monthValue,mfgDate.dayOfMonth).show()
                 }
                 deleteButton.setOnClickListener {
                      delete(tracker,progressValue)
@@ -374,13 +370,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        tempDateTime = LocalDateTime(
-            year = year,
-            monthNumber = month,
-            dayOfMonth = dayOfMonth,
-            hour = 0,
-            minute = 0
-        )
+        tempDateTime = LocalDateTime.of(year,month, dayOfMonth, 0, 0)
         val currentTime = LocalDateTime.now()
         when (pickedFor) {
             PickingFor.REMINDER -> {
@@ -402,13 +392,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-         tempDateTime = LocalDateTime(
-             year = tempDateTime!!.year,
-             monthNumber = tempDateTime!!.monthNumber,
-             dayOfMonth = tempDateTime!!.dayOfMonth,
-             hour = hourOfDay,
-             minute = minute
-         )
+         tempDateTime = LocalDateTime.of(tempDateTime!!.year, tempDateTime!!.monthValue, tempDateTime!!.dayOfMonth, hourOfDay, minute)
         updateTracker(trackerViewModel.getTrackerById(navArgs.selectedTrackerId).tracker.apply {
             reminderDate = tempDateTime
             reminderOn = true
@@ -417,7 +401,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
         bind.reminderDateValue.text = tempDateTime?.let {
             getString(
                 R.string.date_string_with_month_name_and_time_2_lined,
-                Month.of(it.monthNumber).name.substring(0, 3).uppercase(),
+                it.month.name.substring(0, 3).uppercase(),
                 it.dayOfMonth,
                 it.year,
                 TimeConvertor.getTime(it.hour,it.minute,true)

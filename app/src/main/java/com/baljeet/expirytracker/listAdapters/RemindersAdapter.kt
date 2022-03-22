@@ -13,7 +13,6 @@ import com.baljeet.expirytracker.interfaces.OnEditReminderTime
 import com.baljeet.expirytracker.interfaces.OnReminderCheckedChanged
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.Month
 
 
 class RemindersAdapter(
@@ -68,7 +67,7 @@ class RemindersAdapter(
                 reminderDateTime.text = tracker.tracker.reminderDate?.let {
                     context.getString(
                         R.string.date_string_with_month_name_and_time,
-                        Month.of(it.monthNumber).name.substring(0, 3),
+                        it.month.name.substring(0, 3),
                         it.dayOfMonth,
                         it.year,
                         TimeConvertor.getTime(it.hour,it.minute,true)

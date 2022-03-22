@@ -1,23 +1,21 @@
 package com.baljeet.expirytracker.util
 
 import com.baljeet.expirytracker.data.Tracker
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
-import kotlinx.datetime.toInstant
+import java.time.Duration
+import java.time.LocalDate
 
 object GetStatus {
 
     fun getStatus(tracker : Tracker): String{
-        val dateToday = Clock.System.now()
-        val mfgInstant = tracker.mfgDate!!.toInstant(TimeZone.UTC)
-        val expiryInstant = tracker.expiryDate!!.toInstant(TimeZone.UTC)
 
-        val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-        val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
+        val expiryDate = tracker.expiryDate
+        val mfgDate = tracker.mfgDate
 
-        val totalHours = totalPeriod.days * 24 + totalPeriod.hours
-        val spentHours = periodSpent.days * 24 + periodSpent.hours
+        val dateToday = LocalDate.now()
+
+        val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+        val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
+
 
         val progressValue =
             (spentHours.toFloat() / totalHours.toFloat()) * 100

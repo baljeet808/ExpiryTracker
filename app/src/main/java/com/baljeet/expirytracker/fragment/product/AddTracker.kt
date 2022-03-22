@@ -31,9 +31,7 @@ import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.Month
-import kotlinx.datetime.toJavaLocalDateTime
+import java.time.LocalDateTime
 
 
 enum class LocalDateTimeFor{
@@ -86,27 +84,27 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
 
         bind.expiryClickView.setOnClickListener {
             pickingDateTimeFor = LocalDateTimeFor.EXPIRY
-            val current = java.time.LocalDateTime.now()
+            val current = LocalDateTime.now()
             viewModel.getExpiryDate()?.let { expiry->
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,expiry.year,expiry.monthNumber,expiry.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,expiry.year,expiry.monthValue,expiry.dayOfMonth).show()
             }?: kotlin.run {
                 DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
             }
         }
         bind.mfgClickView.setOnClickListener {
             pickingDateTimeFor = LocalDateTimeFor.MFG
-            val current = java.time.LocalDateTime.now()
+            val current = LocalDateTime.now()
             viewModel.getMfgDate()?.let { mfg->
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,mfg.year,mfg.monthNumber,mfg.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,mfg.year,mfg.monthValue,mfg.dayOfMonth).show()
             }?: kotlin.run {
                 DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
             }
         }
         bind.reminderDateClickView.setOnClickListener {
             pickingDateTimeFor = LocalDateTimeFor.REMINDER
-            val current = java.time.LocalDateTime.now()
+            val current = LocalDateTime.now()
             viewModel.reminderDate?.let { reminder->
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,reminder.year,reminder.monthNumber,reminder.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,reminder.year,reminder.monthValue,reminder.dayOfMonth).show()
             }?: kotlin.run {
                 DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
             }
@@ -125,23 +123,16 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             when (checkedId) {
                 bind.remindDayBeforeCheckbox.id -> {
                     bind.reminderDateClickView.isEnabled = false
-                    val beforeOneDay = viewModel.getExpiryDate()?.toJavaLocalDateTime()?.minusDays(1)
+                    val beforeOneDay = viewModel.getExpiryDate()?.minusDays(1)
                     beforeOneDay?.let{
-                        viewModel.reminderDate=  LocalDateTime(
-                            year = it.year,
-                            month = it.month,
-                            dayOfMonth = it.dayOfMonth,
-                            hour = 9,
-                            minute = 0,
-                            second = 0
-                        )
+                        viewModel.reminderDate=  LocalDateTime.of(it.year, it.month, it.dayOfMonth, 9, 0, 0)
                     }
 
                     viewModel.reminderDate?.let {
                         bind.reminderDateEdittext.setText(
                             resources.getString(
                                 R.string.date_string_with_month_name_and_time,
-                                Month.of(it.monthNumber).name.substring(0, 3),
+                                it.month.name.substring(0, 3),
                                 it.dayOfMonth,
                                 it.year,
                                 TimeConvertor.getTime(it.hour,it.minute,true)
@@ -156,7 +147,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                         bind.reminderDateEdittext.setText(
                             resources.getString(
                                 R.string.date_string_with_month_name_and_time,
-                                Month.of(it.monthNumber).name.substring(0, 3),
+                                it.month.name.substring(0, 3),
                                 it.dayOfMonth,
                                 it.year,
                                 TimeConvertor.getTime(it.hour,it.minute,true)
@@ -167,7 +158,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                             bind.reminderDateEdittext.setText(
                                 resources.getString(
                                     R.string.date_string_with_month_name_and_time,
-                                    Month.of(it.monthNumber).name.substring(0, 3),
+                                    it.month.name.substring(0, 3),
                                     it.dayOfMonth,
                                     it.year ,
                                     TimeConvertor.getTime(it.hour,it.minute,true)
@@ -332,13 +323,13 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         viewModel.reminderDate = viewModel.reminderDate?.let {
-             LocalDateTime(it.year,it.monthNumber,it.dayOfMonth,hourOfDay,minute)
+             LocalDateTime.of(it.year,it.month,it.dayOfMonth,hourOfDay,minute)
         }
         viewModel.reminderDate?.let {
             bind.reminderDateEdittext.setText(
                 resources.getString(
                     R.string.date_string_with_month_name_and_time,
-                    Month.of(it.monthNumber).name.substring(0, 3),
+                    it.month.name.substring(0, 3),
                     it.dayOfMonth,
                     it.year,
                     TimeConvertor.getTime(it.hour,it.minute,true)
@@ -351,21 +342,19 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
          when(pickingDateTimeFor){
              LocalDateTimeFor.MFG->{
                      viewModel.setMfgDate(
-                         LocalDateTime(
+                         LocalDateTime.of(
                              year,
                              month,
                              dayOfMonth,
                              0,
-                             1,
-                             0,
-                             0
+                             1
                          )
                      )
                    viewModel.getMfgDate()?.let {
                      bind.mfgDateEdittext.setText(
                          resources.getString(
                              R.string.date_string_with_month_name,
-                             Month.of(it.monthNumber).name.substring(0, 3),
+                             it.month.name.substring(0, 3),
                              it.dayOfMonth,
                              it.year
                          )
@@ -380,21 +369,19 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
              }
              LocalDateTimeFor.EXPIRY->{
                  viewModel.setExpiryDate(
-                     LocalDateTime(
+                     LocalDateTime.of(
                          year,
                          month,
                          dayOfMonth,
                          23,
-                         58,
-                         0,
-                         0
+                         58
                      )
                  )
                  viewModel.getExpiryDate()?.let {
                      bind.expiryDateEdittext.setText(
                          resources.getString(
                              R.string.date_string_with_month_name,
-                             Month.of(it.monthNumber).name.substring(0, 3),
+                             it.month.name.substring(0, 3),
                              it.dayOfMonth,
                              it.year
                          )
@@ -410,13 +397,11 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
              }
              LocalDateTimeFor.REMINDER->{
                  val previousDate = viewModel.reminderDate
-                 viewModel.reminderDate = LocalDateTime(
+                 viewModel.reminderDate = LocalDateTime.of(
                      year,
                      month,
                      dayOfMonth,
                      9,
-                     0,
-                     0,
                      0
                  )
                  bind.reminderDateEdittext.text?.let {
@@ -425,7 +410,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                          bind.addProductButton.visibility = View.VISIBLE
                      }
                  }
-                 val currentTime = java.time.LocalDateTime.now()
+                 val currentTime = LocalDateTime.now()
                  previousDate?.let {
                      TimePickerDialog(requireContext(),this,previousDate.hour,previousDate.minute,false).show()
                  }?: kotlin.run {

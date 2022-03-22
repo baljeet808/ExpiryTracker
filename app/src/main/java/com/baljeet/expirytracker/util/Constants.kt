@@ -12,7 +12,7 @@ object Constants {
     const val PRODUCT_STATUS_EXPIRING ="Expiring"
 
     //Timezone
-    val TIMEZONE = TimeZone.currentSystemDefault()
+    val TIMEZONE = TimeZone.UTC
 
     //Favourite options
     const val SHOW_ALL = 1

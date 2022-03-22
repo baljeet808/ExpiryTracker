@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.WidgetStackViewItemBinding
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
-import kotlinx.datetime.toInstant
+import java.time.Duration
+import java.time.LocalDate
 
 
 class TrackerDemoAdapter(private val context: Context) : ListAdapter<TrackerAndProduct, TrackerDemoAdapter.MyViewHolder>(DiffUtil()){
@@ -58,16 +56,11 @@ class TrackerDemoAdapter(private val context: Context) : ListAdapter<TrackerAndP
                 expiringDate.text = context.getString(R.string.date_short_var,it.dayOfMonth,it.month.name.substring(0,3).uppercase())
                 expiringDateYear.text = it.year.toString()
             }
-            val dateToday = Clock.System.now()
+            val dateToday = LocalDate.now()
 
-            val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
-            val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
+            val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+            val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
 
-            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-            val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
-
-            val totalHours = totalPeriod.days * 24 + totalPeriod.hours
-            val spentHours = periodSpent.days * 24 + periodSpent.hours
 
             val progressValue =
                 (spentHours.toFloat() / totalHours.toFloat()) * 100

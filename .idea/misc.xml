@@ -33,6 +33,8 @@
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_fav_outline.xml" value="0.31025641025641026" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_fresh_illustration.xml" value="0.3155" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_icon.xml" value="0.31367521367521367" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_image_off_32.xml" value="0.255" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_image_on_32.xml" value="0.2265" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_notifications.xml" value="0.31842105263157894" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_notifications_off.xml" value="0.31842105263157894" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_right.xml" value="0.31025641025641026" />
@@ -43,6 +45,7 @@
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_today.xml" value="0.31025641025641026" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/image_btn_2_dp_stroke_bg.xml" value="0.2275" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/image_button_2_stroke_round_bg.xml" value="0.2275" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/image_toggle_button_set_32.xml" value="0.2265" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/left_round_bg.xml" value="0.288" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ob_round_background.xml" value="0.288" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/pb_drawable_for_widget.xml" value="0.378125" />

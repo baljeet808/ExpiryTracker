@@ -12,7 +12,6 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
-import kotlinx.datetime.toKotlinLocalDateTime
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
@@ -149,10 +148,10 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     private fun filterByTimePeriod(trackers : List<TrackerAndProduct>, periodFilter : Int,startDate : LocalDateTime, endDate : LocalDateTime) : List<TrackerAndProduct>{
         return  when(periodFilter){
             Constants.PERIOD_DAILY->{
-                trackers.filter { t -> t.tracker.expiryDate?.date == startDate.toKotlinLocalDateTime().date }
+                trackers.filter { t -> t.tracker.expiryDate!!.isEqual(startDate) }
             }
             else->{
-                trackers.filter { t -> t.tracker.expiryDate?.date!! >= startDate.toKotlinLocalDateTime().date && t.tracker.expiryDate!!.date <= endDate.toKotlinLocalDateTime().date }
+                trackers.filter { t -> t.tracker.expiryDate!!.isAfter(startDate) && t.tracker.expiryDate!!.isBefore(endDate) }
             }
         }
     }

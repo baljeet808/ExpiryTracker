@@ -416,7 +416,6 @@ class Analytics : Fragment() {
                         }
                     },
                     groupBy = GroupBy.CATEGORIES,
-                    colorDynamics = ColorDynamics.COLORFUL,
                     useOfImages = UseImages.ON
                 )
                 moveToPdfPreview(request)

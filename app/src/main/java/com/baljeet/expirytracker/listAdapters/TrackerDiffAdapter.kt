@@ -17,10 +17,7 @@ import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
 import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.util.ImageConvertor
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.periodUntil
-import kotlinx.datetime.toInstant
+import java.time.*
 
 class TrackerDiffAdapter(private val context : Context,
                          private val updateTrackerListener :UpdateTrackerListener,
@@ -97,16 +94,10 @@ class TrackerDiffAdapter(private val context : Context,
                 expiringMonthAndDay.text = context.getString(R.string.date_short_var,it.dayOfMonth,it.month.name.substring(0,3).uppercase())
                 expiringYear.text = it.year.toString()
             }
-            val dateToday = Clock.System.now()
+            val dateToday = LocalDateTime.now()
 
-            val mfgInstant = mfgDate!!.toInstant(TimeZone.UTC)
-            val expiryInstant = expiryDate!!.toInstant(TimeZone.UTC)
-
-            val totalPeriod = mfgInstant.periodUntil(expiryInstant, TimeZone.UTC)
-            val periodSpent = mfgInstant.periodUntil(dateToday, TimeZone.UTC)
-
-            val totalHours = totalPeriod.days * 24 + totalPeriod.hours
-            val spentHours = periodSpent.days * 24 + periodSpent.hours
+            val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+            val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
 
             val progressValue =
                 (spentHours.toFloat() / totalHours.toFloat()) * 100
@@ -150,11 +141,11 @@ class TrackerDiffAdapter(private val context : Context,
             openButton.setOnClickListener { openListener.openTrackerInfo(tracker) }
                 markUsedButton.setOnClickListener {
                     isDeleteActionSelected = false
-                    showUndoCountDown(holder,tracker.tracker,progressValue)
+                    showUndoCountDown(holder,tracker.tracker, progressValue)
                 }
                 deleteButton.setOnClickListener {
                     isDeleteActionSelected = true
-                    showUndoCountDown(holder,tracker.tracker,progressValue)
+                    showUndoCountDown(holder,tracker.tracker, progressValue)
                 }
                 undoButton.setOnClickListener {
                     performUndo()

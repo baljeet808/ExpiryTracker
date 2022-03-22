@@ -10,8 +10,6 @@ import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.GetStatus
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class TrackerViewModel(application: Application) : AndroidViewModel(application){
@@ -84,10 +82,10 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
                    afterCategoryFilter
                }
                Constants.SHOW_ONLY_FAVOURITE -> {
-                   afterCategoryFilter.filter { f -> f.tracker.isFavourite == true }
+                   afterCategoryFilter.filter { f -> f.tracker.isFavourite }
                }
                Constants.SHOW_ONLY_NON_FAVOURITE -> {
-                   afterCategoryFilter.filter { f -> f.tracker.isFavourite == false }
+                   afterCategoryFilter.filter { f -> !f.tracker.isFavourite }
                }
                else->afterCategoryFilter
            }

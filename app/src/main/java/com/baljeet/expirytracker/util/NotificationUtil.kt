@@ -3,29 +3,21 @@ package com.baljeet.expirytracker.util
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import android.widget.Toast
-import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toJavaLocalDateTime
-import java.util.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 const val channelName = "Single Product Updates"
 const val channelDescription = "This notification channel is dedicated to show reminders about approaching expiry date of a product on specified time."
-const val notificationId = 1
 const val channelID = "expiry_tracker_88"
 const val titleExtra = "trackerId"
 
 object NotificationUtil {
 
     fun setReminderForProducts(dateTime : LocalDateTime, context : Context, trackerId : Int) {
-
-        val millis = dateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+        val millis = dateTime.toEpochSecond(ZoneId.systemDefault().rules.getOffset(Instant.now()))
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra(titleExtra, trackerId)
-
         val pendingIntent = PendingIntent.getBroadcast(
             context, trackerId, intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT

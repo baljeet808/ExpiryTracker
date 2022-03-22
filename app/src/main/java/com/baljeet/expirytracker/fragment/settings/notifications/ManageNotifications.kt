@@ -33,7 +33,7 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
 
     private lateinit var adapter: RemindersAdapter
 
-    private var tempReminderTime: kotlinx.datetime.LocalDateTime? = null
+    private var tempReminderTime: LocalDateTime? = null
     private var tempTrackerToUpdate: TrackerAndProduct? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,16 +129,12 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val currentTime = LocalDateTime.now()
         TimePickerDialog(requireContext(), this, currentTime.hour, currentTime.minute, false).show()
-        tempReminderTime = kotlinx.datetime.LocalDateTime(
-            year, month, dayOfMonth, 0, 0, 0
-        )
+        tempReminderTime = LocalDateTime.of(year, month, dayOfMonth, 0, 0)
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         tempReminderTime?.let {
-            tempReminderTime = kotlinx.datetime.LocalDateTime(
-                it.year, it.monthNumber, it.dayOfMonth, hourOfDay, minute, 0
-            )
+            tempReminderTime = LocalDateTime.of(it.year, it.month, it.dayOfMonth, hourOfDay, minute)
         }
         tempTrackerToUpdate?.let {
             it.tracker.reminderDate = tempReminderTime

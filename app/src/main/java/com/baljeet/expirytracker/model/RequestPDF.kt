@@ -19,8 +19,9 @@ data class RequestPDF(
     var resultCase : ResultCase = ResultCase.GOOD_JOB,
     var trackers : ArrayList<TrackerAndProduct> = ArrayList(),
     var groupBy : GroupBy = GroupBy.RESULTS,
-    var colorDynamics : ColorDynamics = ColorDynamics.COLORFUL,
-    var useOfImages : UseImages = UseImages.ON
+    var useOfImages : UseImages = UseImages.ON,
+    var textColor : SelectedTextColor = SelectedTextColor.BLACK,
+    var backgroundColor : BackgroundColor = BackgroundColor.WHITE
 ): Parcelable
 
 enum class PeriodType{
@@ -35,8 +36,12 @@ enum class GroupBy {
     CATEGORIES, RESULTS
 }
 
-enum class ColorDynamics {
-    BLACK_N_WHITE, COLORFUL
+enum class SelectedTextColor{
+    BLACK,GREY,BLUE
+}
+
+enum class BackgroundColor{
+    BLACK,WHITE,GREY
 }
 
 enum class UseImages{

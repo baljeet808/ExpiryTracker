@@ -8,7 +8,6 @@ import androidx.core.view.setPadding
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
-import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
 import com.baljeet.expirytracker.interfaces.OnCategorySelected
 import com.baljeet.expirytracker.util.ImageConvertor

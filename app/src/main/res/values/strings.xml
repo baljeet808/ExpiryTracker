@@ -238,4 +238,13 @@
     <string name="thanks_for_pro_upgrade">Thanks for being a pro member.\nYou have access to all features without any ads.</string>
     <string name="pro_member_heading">You have Pro Membership</string>
     <string name="proud_pro_member">Proud Pro Member</string>
+    <string name="hide_images">Hide Images</string>
+    <string name="choose_text_color">Choose Text Color</string>
+    <string name="blue">Blue</string>
+    <string name="black">Black</string>
+    <string name="grey">Grey</string>
+    <string name="group_products_by">Group Products By</string>
+    <string name="tracking_status">Tracking Status</string>
+    <string name="choose_background_color">Choose Background Color</string>
+    <string name="white">White</string>
 </resources>

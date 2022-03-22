@@ -3,9 +3,9 @@ package com.baljeet.expirytracker.data
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.LocalDateTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
+import java.time.LocalDateTime
 
 @Parcelize
 @Entity(tableName = "Tracker")

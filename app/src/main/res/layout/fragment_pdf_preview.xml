@@ -39,6 +39,232 @@
         app:layout_constraintStart_toEndOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/back_button" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/pdf_tools_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/preview_text"
+        android:layout_marginTop="10dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/text_color"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            >
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/image_toggle_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hide_images"
+                app:checkedIcon="@drawable/check_circle_24"
+                android:checkable="true"
+                app:checkedIconVisible="true"
+                android:checked="true"
+                android:textSize="11sp"
+                app:checkedIconTint="@color/main_background"
+                android:textColor="@color/main_background"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/crown_24"
+                app:layout_constraintTop_toTopOf="@id/image_toggle_chip"
+                app:layout_constraintBottom_toBottomOf="@id/image_toggle_chip"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="30dp"
+                />
+
+            <TextView
+                android:id="@+id/choose_text_color_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_text_color"
+                app:layout_constraintTop_toTopOf="@id/color_group"
+                app:layout_constraintBottom_toBottomOf="@id/color_group"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_color"
+                android:textSize="11sp"
+                />
+            <View
+                android:id="@+id/chip_underline"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toBottomOf="@id/image_toggle_chip"
+                />
+
+            <RadioGroup
+                android:id="@+id/color_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/choose_text_color_label"
+                android:layout_marginStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                app:layout_constraintHorizontal_bias="1"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@id/chip_underline"
+                >
+                 <RadioButton
+                     android:id="@+id/radio_button_blue"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/blue"
+                     android:textSize="11sp"
+                     />
+                 <RadioButton
+                     android:id="@+id/radio_button_black"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/black"
+                     android:checked="true"
+                     android:textSize="11sp"
+                     />
+                 <RadioButton
+                     android:id="@+id/radio_button_grey"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/grey"
+                     android:textSize="11sp"
+                     />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/text_color_underline"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toBottomOf="@id/color_group"
+                />
+
+            <TextView
+                android:id="@+id/choose_bg_color_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_background_color"
+                app:layout_constraintTop_toTopOf="@id/bg_color_group"
+                app:layout_constraintBottom_toBottomOf="@id/bg_color_group"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_color"
+                android:textSize="11sp"
+                />
+
+
+            <RadioGroup
+                android:id="@+id/bg_color_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/choose_bg_color_label"
+                android:layout_marginStart="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                app:layout_constraintHorizontal_bias="1"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_color_underline"
+                >
+                <RadioButton
+                    android:id="@+id/radio_button_white_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/white"
+                    android:textSize="11sp"
+                    />
+                <RadioButton
+                    android:id="@+id/radio_button_black_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/black"
+                    android:checked="true"
+                    android:textSize="11sp"
+                    />
+                <RadioButton
+                    android:id="@+id/radio_button_grey_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/grey"
+                    android:textSize="11sp"
+                    />
+            </RadioGroup>
+
+
+            <View
+                android:id="@+id/bg_color_underline"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toBottomOf="@id/bg_color_group"
+                />
+
+            <TextView
+                android:id="@+id/group_by_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/group_products_by"
+                app:layout_constraintTop_toTopOf="@id/group_by_group"
+                app:layout_constraintBottom_toBottomOf="@id/group_by_group"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_color"
+                android:textSize="11sp"
+                />
+
+
+            <RadioGroup
+                android:id="@+id/group_by_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/group_by_label"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintTop_toBottomOf="@id/bg_color_underline"
+                >
+                <RadioButton
+                    android:id="@+id/radio_button_categories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categories"
+                    android:textSize="11sp"
+                    />
+                <RadioButton
+                    android:id="@+id/radio_button_tracking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tracking_status"
+                    android:checked="true"
+                    android:textSize="11sp"
+                    />
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdf_view"
@@ -50,7 +276,7 @@
         app:layout_constraintBottom_toTopOf="@id/share_button"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/preview_text" />
+        app:layout_constraintTop_toBottomOf="@id/pdf_tools_card" />
 
 
     <Button

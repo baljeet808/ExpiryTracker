@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
-import kotlinx.datetime.LocalDateTime
+import java.time.LocalDateTime
 
 @Dao
 interface TrackerDao {
