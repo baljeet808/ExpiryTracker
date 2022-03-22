@@ -15,6 +15,7 @@ data class Tracker(
     var productId: Int,
     var mfgDate: @RawValue LocalDateTime?,
     var expiryDate: @RawValue LocalDateTime?,
+    var usedDate: @RawValue LocalDateTime? = null,
     var reminderDate: @RawValue LocalDateTime?,
     var reminderOn: Boolean,
     var usedWhileOk : Boolean,

@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.baljeet.expirytracker.databinding.FragmentPdfPreviewBinding
 import com.baljeet.expirytracker.model.RequestPDF
+import com.baljeet.expirytracker.util.SharedPref
 import com.baljeet.expirytracker.util.createPdfReport
 import com.baljeet.expirytracker.util.getUriOfPdf
 
@@ -32,6 +34,16 @@ class PdfPreview : Fragment() {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
             preparePdf(args.requestData)
+            SharedPref.init(requireContext())
+            SharedPref.isUserAPro.apply {
+                pdfToolsCard.isEnabled = this
+                proIcon.isGone = this
+            }
+
+            proIcon.setOnClickListener {
+
+            }
+
         }
         return bind.root
     }

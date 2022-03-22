@@ -206,6 +206,7 @@ class TrackerDiffAdapter(private val context : Context,
                 if(progressValue >= 100 ){
                     tracker.gotExpired = true
                     tracker.isUsed = true
+                    tracker.usedDate = LocalDateTime.now()
                 }
                 updateTrackerListener.updateTracker(tracker)
             }else{
@@ -230,6 +231,7 @@ class TrackerDiffAdapter(private val context : Context,
             }
         }
         tracker.isUsed = true
+        tracker.usedDate = LocalDateTime.now()
         updateTrackerListener.updateTracker(tracker)
     }
 

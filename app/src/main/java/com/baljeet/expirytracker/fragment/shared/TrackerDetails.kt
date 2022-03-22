@@ -314,8 +314,9 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
             if(progressValue >= 100 ){
                 tracker.gotExpired = true
                 tracker.isUsed = true
+                tracker.usedDate = LocalDateTime.now()
             }
-            updateTracker(tracker)
+        updateTracker(tracker)
     }
 
     
@@ -336,6 +337,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
             }
         }
         tracker.isUsed = true
+        tracker.usedDate = LocalDateTime.now()
         updateTracker(tracker)
     }
 
