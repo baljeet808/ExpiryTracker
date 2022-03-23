@@ -416,7 +416,9 @@ class Analytics : Fragment() {
                         }
                     },
                     groupBy = GroupBy.CATEGORIES,
-                    useOfImages = UseImages.ON
+                    useOfImages = UseImages.ON,
+                    textColor = SelectedTextColor.BLACK,
+                    backgroundColor = BackgroundColor.WHITE
                 )
                 moveToPdfPreview(request)
             }else{

@@ -264,6 +264,13 @@
         <argument
             android:name="requestData"
             app:argType="com.baljeet.expirytracker.model.RequestPDF" />
+        <action
+            android:id="@+id/action_pdfPreview_to_bePro"
+            app:destination="@id/bePro"
+            app:enterAnim="@anim/slide_1_in_right"
+            app:exitAnim="@anim/slide_2_out_left"
+            app:popEnterAnim="@anim/slide_3_in_left"
+            app:popExitAnim="@anim/slide_4_out_right" />
     </fragment>
     <fragment
         android:id="@+id/bePro"
