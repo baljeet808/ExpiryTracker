@@ -31,7 +31,6 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import java.time.Duration
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -220,6 +219,48 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
     }
 
 
+    private fun updateProgressValue() {
+        bind.apply {
+            with(trackerViewModel.getTrackerById(navArgs.selectedTrackerId)){
+
+                val expiryDate = tracker.expiryDate
+                val mfgDate = tracker.mfgDate
+
+                val dateToday = LocalDateTime.now()
+
+                val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
+                val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
+
+
+                val progressValue =
+                    (spentHours.toFloat() / totalHours.toFloat()) * 100
+                itemProgressbar.apply {
+                    val layerDrawable = progressDrawable as LayerDrawable
+                    val progressDrawableClip = layerDrawable.getDrawable(1)
+                    when {
+                        progressValue >= 100->{
+                            progressDrawableClip.setTint(context.getColor(R.color.progress_bad))
+                            statusText.text = getString(R.string.expired)
+                        }
+                        progressValue >= 80 -> {
+                            progressDrawableClip.setTint(context.getColor(R.color.red_orange))
+                            statusText.text = getString(R.string.expiring)
+                        }
+                        progressValue < 80 && progressValue >= 50 -> {
+                            progressDrawableClip.setTint(context.getColor(R.color.progress_ok))
+                            statusText.text = getString(R.string.still_ok)
+                        }
+                        progressValue < 50 -> {
+                            progressDrawableClip.setTint(context.getColor(R.color.progress_great))
+                            statusText.text = getString(R.string.fresh)
+                        }
+                    }
+                    ObjectAnimator.ofInt(itemProgressbar,"progress",progressValue.toInt()).setDuration(1500).start()
+                }
+            }
+        }
+    }
+
 
     private fun populateAdVIew(nativeAd: NativeAd, adView: NativeAdView) {
         // Set the media view.
@@ -373,6 +414,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
     private fun updateTracker(tracker : Tracker){
         trackerViewModel.updateTracker(tracker)
+        updateProgressValue()
     }
 
 
@@ -408,6 +450,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
         })
         bind.reminderOnOffToggle.isChecked = true
         bind.reminderDateValue.text = tempDateTime?.let {
+            NotificationUtil.setReminderForProducts(it,requireContext(),navArgs.selectedTrackerId)
             getString(
                 R.string.date_string_with_month_name_and_time_2_lined,
                 it.month.name.substring(0, 3).uppercase(),
@@ -416,7 +459,6 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                 TimeConvertor.getTime(it.hour,it.minute,true)
             )
         }
-
     }
 
 }
