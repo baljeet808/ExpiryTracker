@@ -31,9 +31,8 @@ import com.baljeet.expirytracker.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.Job
-import kotlinx.datetime.Clock
-import kotlinx.datetime.toLocalDateTime
 import java.time.Month
+import java.util.*
 
 
 class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
@@ -381,23 +380,22 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
     }
 
     private fun setTimeAndGreetings() {
-        val dateTime = Clock.System.now().toLocalDateTime(Constants.TIMEZONE)
+        val cal = Calendar.getInstance()
         bind.currentDate.text = resources.getString(
             R.string.date_var,
-            Month.of(dateTime.monthNumber).name.substring(0, 3),
-            dateTime.dayOfMonth,
-            dateTime.year
+            Month.of(cal.get(Calendar.MONTH)).name.substring(0, 3),
+            cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.YEAR)
         )
-        // bind.currentTime.text = TimeConvertor.getTime(dateTime.hour,dateTime.minute,true)
         bind.greetingText.apply {
             when {
-                dateTime.hour < 12 -> {
+                cal.get(Calendar.HOUR_OF_DAY) < 12 -> {
                     text = resources.getString(R.string.morning_greeting_text)
                 }
-                dateTime.hour in 12..15 -> {
+               cal.get(Calendar.HOUR_OF_DAY) in 12..15 -> {
                     text = resources.getString(R.string.afternoon_greeting_text)
                 }
-                dateTime.hour >= 16 -> {
+                cal.get(Calendar.HOUR_OF_DAY) >= 16 -> {
                     text = resources.getString(R.string.evening_greeting_text)
                 }
                 else -> Unit

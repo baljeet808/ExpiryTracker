@@ -27,11 +27,16 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentAddTrackerBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
+import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
+import kotlinx.datetime.toLocalDateTime
+import java.time.Clock
 import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 enum class LocalDateTimeFor{
@@ -84,29 +89,29 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
 
         bind.expiryClickView.setOnClickListener {
             pickingDateTimeFor = LocalDateTimeFor.EXPIRY
-            val current = LocalDateTime.now()
+            val cal = Calendar.getInstance()
             viewModel.getExpiryDate()?.let { expiry->
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,expiry.year,expiry.monthValue,expiry.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,expiry.year,expiry.month.value-1,expiry.dayOfMonth).show()
             }?: kotlin.run {
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
             }
         }
         bind.mfgClickView.setOnClickListener {
             pickingDateTimeFor = LocalDateTimeFor.MFG
-            val current = LocalDateTime.now()
+            val cal = Calendar.getInstance()
             viewModel.getMfgDate()?.let { mfg->
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,mfg.year,mfg.monthValue,mfg.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,mfg.year,mfg.month.value-1,mfg.dayOfMonth).show()
             }?: kotlin.run {
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
             }
         }
         bind.reminderDateClickView.setOnClickListener {
             pickingDateTimeFor = LocalDateTimeFor.REMINDER
-            val current = LocalDateTime.now()
+            val cal = Calendar.getInstance()
             viewModel.reminderDate?.let { reminder->
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,reminder.year,reminder.monthValue,reminder.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,reminder.year,reminder.month.value-1,reminder.dayOfMonth).show()
             }?: kotlin.run {
-                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,current.year,current.monthValue,current.dayOfMonth).show()
+                DatePickerDialog(requireContext(),R.style.datePickerTheme,this,cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
             }
         }
 
@@ -344,7 +349,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                      viewModel.setMfgDate(
                          LocalDateTime.of(
                              year,
-                             month,
+                             month+1,
                              dayOfMonth,
                              0,
                              1
@@ -371,7 +376,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                  viewModel.setExpiryDate(
                      LocalDateTime.of(
                          year,
-                         month,
+                         month+1,
                          dayOfMonth,
                          23,
                          58
@@ -399,7 +404,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
                  val previousDate = viewModel.reminderDate
                  viewModel.reminderDate = LocalDateTime.of(
                      year,
-                     month,
+                     month+1,
                      dayOfMonth,
                      9,
                      0

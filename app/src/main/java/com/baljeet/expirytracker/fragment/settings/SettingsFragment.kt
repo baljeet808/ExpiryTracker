@@ -36,6 +36,40 @@ class SettingsFragment : Fragment() {
     ): View {
         SharedPref.init(requireContext())
         bind = FragmentSettingsBinding.inflate(inflater, container, false)
+        if(SharedPref.isUserAPro){
+            bind.adLayout.isGone = true
+            bind.settingIllustration.isGone = false
+        }   else{
+            adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
+                .forNativeAd { ad : NativeAd ->
+                    // Show the ad.
+                    val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
+
+                    populateAdVIew(ad,adView)
+                    bind.settingIllustration.isGone = true
+                    bind.adLayout.isGone = false
+                    bind.adLayout.removeAllViews()
+                    bind.adLayout.addView(adView)
+                    if(activity?.isDestroyed == true){
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }.withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        // Handle the failure by logging, altering the UI, and so on.
+                        bind.adLayout.isGone = true
+                        bind.settingIllustration.isGone = false
+                        Log.d("Log for - Ad Failure ","$adError")
+                    }
+                }).build()
+            adLoader.loadAd(AdRequest.Builder().build())
+        }
+        return bind.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         bind.lightModeButton.translationX = 0f
         bind.lightModeButton.alpha = 0f
@@ -59,8 +93,8 @@ class SettingsFragment : Fragment() {
         bind.lightModeButton.setOnClickListener {
             hideMoon()
             Handler(Looper.getMainLooper()).postDelayed({
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            SharedPref.isNightModeOn = false
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                SharedPref.isNightModeOn = false
             },1000)
         }
 
@@ -92,38 +126,9 @@ class SettingsFragment : Fragment() {
             notificationsTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToManageNotifications())
             }
-            if(SharedPref.isUserAPro){
-                bind.adLayout.isGone = true
-                bind.settingIllustration.isGone = false
-            }   else{
-                adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
-                    .forNativeAd { ad : NativeAd ->
-                        // Show the ad.
-                        val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView
 
-                        populateAdVIew(ad,adView)
-                        bind.settingIllustration.isGone = true
-                        bind.adLayout.isGone = false
-                        bind.adLayout.removeAllViews()
-                        bind.adLayout.addView(adView)
-                        if(activity?.isDestroyed == true){
-                            ad.destroy()
-                            return@forNativeAd
-                        }
-                    }.withAdListener(object : AdListener() {
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                            // Handle the failure by logging, altering the UI, and so on.
-                            bind.adLayout.isGone = true
-                            bind.settingIllustration.isGone = false
-                            Log.d("Log for - Ad Failure ","$adError")
-                        }
-                    }).build()
-                adLoader.loadAd(AdRequest.Builder().build())
-            }
         }
-        return bind.root
     }
-
 
 
     private fun populateAdVIew(nativeAd: NativeAd, adView: NativeAdView) {

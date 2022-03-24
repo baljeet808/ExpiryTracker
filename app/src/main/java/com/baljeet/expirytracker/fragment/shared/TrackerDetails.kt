@@ -123,7 +123,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                 val expiryDate = tracker.expiryDate
                 val mfgDate = tracker.mfgDate
 
-                val dateToday = LocalDate.now()
+                val dateToday = LocalDateTime.now()
 
                 val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
                 val spentHours = Duration.between(mfgDate,dateToday).toMinutes()

@@ -3,6 +3,7 @@ package com.baljeet.expirytracker.util
 import com.baljeet.expirytracker.data.Tracker
 import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 object GetStatus {
 
@@ -11,7 +12,7 @@ object GetStatus {
         val expiryDate = tracker.expiryDate
         val mfgDate = tracker.mfgDate
 
-        val dateToday = LocalDate.now()
+        val dateToday = LocalDateTime.now()
 
         val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
         val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
