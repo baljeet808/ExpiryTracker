@@ -248,4 +248,7 @@
     <string name="tracking_status">Tracking Status</string>
     <string name="choose_background_color">Choose Background Color</string>
     <string name="white">White</string>
+    <string name="pro_features">Pro Features</string>
+    <string name="pro">Pro</string>
+    <string name="pro_required">Pro required</string>
 </resources>

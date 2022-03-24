@@ -49,6 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
+        android:clickable="false"
         app:layout_constraintTop_toBottomOf="@id/preview_text"
         app:layout_constraintBottom_toTopOf="@id/share_button"
         android:layout_marginTop="10dp"
@@ -70,25 +71,16 @@
                 app:checkedIcon="@drawable/check_circle_24"
                 android:checkable="true"
                 app:checkedIconVisible="true"
-                android:checked="true"
+                android:checked="false"
                 android:textSize="11sp"
-                app:checkedIconTint="@color/main_background"
-                android:textColor="@color/main_background"
+                app:checkedIconTint="@color/always_white"
+                android:textColor="@color/always_white"
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/pro_icon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/crown_24"
-                app:layout_constraintTop_toTopOf="@id/image_toggle_chip"
-                app:layout_constraintBottom_toBottomOf="@id/image_toggle_chip"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="30dp"
-                />
+
 
             <TextView
                 android:id="@+id/choose_text_color_label"
@@ -270,7 +262,45 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+    <View
+        android:id="@+id/block_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="6dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:background="@color/transparent_text_color"
+        app:layout_constraintStart_toStartOf="@id/pdf_tools_card"
+        app:layout_constraintEnd_toEndOf="@id/pdf_tools_card"
+        app:layout_constraintTop_toTopOf="@id/pdf_tools_card"
+        app:layout_constraintBottom_toBottomOf="@id/pdf_tools_card"
+        />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        app:layout_constraintTop_toTopOf="@id/pdf_tools_card"
+        app:layout_constraintEnd_toEndOf="@id/pdf_tools_card"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        >
+
+        <Button
+            android:id="@+id/pro_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/pro_required"
+            android:textSize="11sp"
+            app:textAllCaps="false"
+            app:icon="@drawable/crown_24"
+            app:iconTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <com.github.barteksc.pdfviewer.PDFView
