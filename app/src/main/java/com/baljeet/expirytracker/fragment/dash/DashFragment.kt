@@ -383,7 +383,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
         val cal = Calendar.getInstance()
         bind.currentDate.text = resources.getString(
             R.string.date_var,
-            Month.of(cal.get(Calendar.MONTH)).name.substring(0, 3),
+            Month.of(cal.get(Calendar.MONTH)+1).name.substring(0, 3),
             cal.get(Calendar.DAY_OF_MONTH),
             cal.get(Calendar.YEAR)
         )

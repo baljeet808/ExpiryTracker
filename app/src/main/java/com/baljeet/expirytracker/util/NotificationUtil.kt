@@ -3,9 +3,12 @@ package com.baljeet.expirytracker.util
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import kotlinx.datetime.toKotlinLocalDateTime
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.*
 
 const val channelName = "Single Product Updates"
 const val channelDescription = "This notification channel is dedicated to show reminders about approaching expiry date of a product on specified time."
@@ -15,7 +18,11 @@ const val titleExtra = "trackerId"
 object NotificationUtil {
 
     fun setReminderForProducts(dateTime : LocalDateTime, context : Context, trackerId : Int) {
-        val millis = dateTime.toEpochSecond(ZoneId.systemDefault().rules.getOffset(Instant.now()))
+        val cal = Calendar.getInstance()
+        cal.set(dateTime.year,dateTime.monthValue-1,dateTime.dayOfMonth,dateTime.hour,dateTime.minute,dateTime.second)
+
+        Log.d("Log for - calendar date","\n\n\n\n\n\n${cal.time}\n\n\n\n\n")
+
         val intent = Intent(context, NotificationReceiver::class.java)
         intent.putExtra(titleExtra, trackerId)
         val pendingIntent = PendingIntent.getBroadcast(
@@ -23,7 +30,7 @@ object NotificationUtil {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, millis,pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.timeInMillis,pendingIntent)
     }
 
     fun removeReminderForProduct(context : Context , trackerId : Int){

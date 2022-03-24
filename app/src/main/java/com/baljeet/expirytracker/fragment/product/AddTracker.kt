@@ -210,6 +210,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             Log.d("Log for - ","latest tracker id = ${latestTracker.trackerId}")
             viewModel.reminderDate?.let {
                 if(SharedPref.isAlertEnabled && doRemind) {
+                    Log.d("Log for - reminder time","\n\n\n\n\n\n${it.toString()}\n\n\n\n\n\n\n\n\n")
                     NotificationUtil.setReminderForProducts(
                         it,
                         requireContext(),

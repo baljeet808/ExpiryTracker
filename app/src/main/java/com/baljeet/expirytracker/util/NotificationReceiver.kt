@@ -15,6 +15,7 @@ import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 class NotificationReceiver : BroadcastReceiver() {
@@ -70,7 +71,7 @@ class NotificationReceiver : BroadcastReceiver() {
                     )
                 )
             }
-            val dateToday = LocalDate.now()
+            val dateToday = LocalDateTime.now()
 
             val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
             val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
