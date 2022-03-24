@@ -64,15 +64,19 @@ class RemindersAdapter(
                 }
 
                 productName.text = tracker.productAndCategoryAndImage.product.name
-                reminderDateTime.text = tracker.tracker.reminderDate?.let {
+                reminderDate.text = tracker.tracker.reminderDate?.let {
                     context.getString(
-                        R.string.date_string_with_month_name_and_time,
+                        R.string.date_string_with_month_name,
                         it.month.name.substring(0, 3),
                         it.dayOfMonth,
-                        it.year,
-                        TimeConvertor.getTime(it.hour,it.minute,true)
+                        it.year
                     )
                 }?: kotlin.run { 
+                    context.getString(R.string.no_date)
+                }
+                reminderTime.text = tracker.tracker.reminderDate?.let {
+                    TimeConvertor.getTime(it.hour,it.minute,true)
+                }?: kotlin.run {
                     context.getString(R.string.no_time)
                 }
                 onOffToggle.isChecked = tracker.tracker.reminderOn
@@ -80,7 +84,7 @@ class RemindersAdapter(
                      toggleListener.setReminderOnValue(tracker, isChecked)
                 }
                 editButton.setOnClickListener {
-                     editListener.openDateTimePickerToEditReminder(tracker)
+                     editListener.openDateTimePickerToEditReminder(tracker,position)
                 }
             }
         }

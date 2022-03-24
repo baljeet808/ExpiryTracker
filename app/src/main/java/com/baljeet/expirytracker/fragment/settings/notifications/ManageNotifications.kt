@@ -23,6 +23,7 @@ import com.baljeet.expirytracker.listAdapters.RemindersAdapter
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import java.time.LocalDateTime
+import java.util.*
 
 class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedChanged,
     DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -90,19 +91,31 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
         }
         return bind.root
     }
+    private var adapterUpdateIndex = 0
 
-    override fun openDateTimePickerToEditReminder(tracker: TrackerAndProduct) {
-        val currentTime = LocalDateTime.now()
+    override fun openDateTimePickerToEditReminder(tracker: TrackerAndProduct, position : Int) {
+        adapterUpdateIndex = position
+        val currentTime = Calendar.getInstance()
+
         tempTrackerToUpdate = tracker
-        DatePickerDialog(
-            requireContext(),
-            this,
-            currentTime.year,
-            currentTime.monthValue,
-            currentTime.dayOfMonth
-        ).show()
+        tracker.tracker.reminderDate?.let {
+            DatePickerDialog(
+                requireContext(),
+                this,
+                it.year,
+                it.monthValue-1,
+                it.dayOfMonth
+            ).show()
+        }?: kotlin.run {
+            DatePickerDialog(
+                requireContext(),
+                this,
+                currentTime.get(Calendar.YEAR),
+                currentTime.get(Calendar.MONTH),
+                currentTime.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
     }
-
     override fun setReminderOnValue(tracker: TrackerAndProduct, isChecked: Boolean) {
         tracker.tracker.apply {
             reminderOn = isChecked
@@ -127,9 +140,9 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        val currentTime = LocalDateTime.now()
-        TimePickerDialog(requireContext(), this, currentTime.hour, currentTime.minute, false).show()
-        tempReminderTime = LocalDateTime.of(year, month, dayOfMonth, 0, 0)
+        val currentTime = Calendar.getInstance()
+        TimePickerDialog(requireContext(), this, currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE), false).show()
+        tempReminderTime = LocalDateTime.of(year, month+1, dayOfMonth, 0, 0)
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
@@ -152,5 +165,6 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
                 )
             }
         }
+        adapter.notifyItemChanged(adapterUpdateIndex)
     }
 }

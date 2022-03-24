@@ -199,6 +199,7 @@
     <string name="expand_for_detail">Expand for detail!</string>
     <string name="manage_tracking_reminders">Manage Tracking Reminders</string>
     <string name="no_time">No time specified</string>
+    <string name="no_date">No date specified</string>
     <string name="you_are_not_tracking">You are not tracking\n anything yet</string>
     <string name="reminder_schedule">Reminder Schedule</string>
     <string name="download_report">Download Report</string>
