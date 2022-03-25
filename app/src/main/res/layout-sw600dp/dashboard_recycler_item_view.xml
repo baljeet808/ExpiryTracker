@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@color/main_background">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/action_card_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:animateLayoutChanges="true"
+        app:cardBackgroundColor="@color/text_color"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/option_card"
+        app:layout_constraintEnd_toStartOf="@id/open_button"
+        app:layout_constraintStart_toEndOf="@id/favorite_button"
+        app:layout_constraintTop_toTopOf="@id/option_card"
+        app:layout_goneMarginEnd="44dp"
+        app:layout_goneMarginStart="44dp"
+        app:strokeColor="?text_dialog_color"
+        app:strokeWidth="1dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:animateLayoutChanges="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/action_card_background"
+        app:layout_constraintEnd_toEndOf="@id/action_card_background"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/option_card"
+        app:layout_constraintTop_toTopOf="@id/action_card_background"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/mark_used_button"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/image"
+            android:gravity="center"
+            android:text="@string/used"
+            android:textColor="@color/main_background"
+            android:textSize="11sp"
+            android:visibility="visible"
+            app:drawableTint="@color/main_background"
+            app:drawableTopCompat="@drawable/ic_baseline_done_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/count_down_text"
+            app:layout_constraintStart_toEndOf="@id/delete_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginEnd="10dp" />
+
+        <TextView
+            android:id="@+id/delete_button"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/image"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="@color/main_background"
+            android:textSize="11sp"
+            android:visibility="visible"
+            app:drawableTint="@color/main_background"
+            app:drawableTopCompat="@drawable/ic_baseline_delete_forever_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mark_used_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/count_down_text"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/_3"
+            android:textAllCaps="false"
+            android:textColor="@color/main_background"
+            android:textSize="22sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mark_used_button"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/option_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:animateLayoutChanges="true"
+        android:elevation="0dp"
+        android:visibility="visible"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
+        app:layout_constrainedWidth="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttons_layout"
+        app:layout_constraintStart_toStartOf="@id/action_card_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="?text_dialog_color"
+        app:strokeWidth="1dp"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:animateLayoutChanges="true"
+            android:background="?card_background"
+            android:padding="4dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/product_image"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/image"
+                android:src="@drawable/liquor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="5dp" />
+
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:lines="1"
+                android:maxWidth="200dp"
+                android:text="@string/vegetables"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toEndOf="@id/product_image"
+                app:layout_constraintTop_toTopOf="@id/product_image" />
+
+
+            <TextView
+                android:id="@+id/tracking_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/expired"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="@id/product_name"
+                app:layout_constraintTop_toBottomOf="@id/product_name" />
+
+            <TextView
+                android:id="@+id/expiring_month_and_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:padding="0dp"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                tools:text="30 MAR" />
+
+            <TextView
+                android:id="@+id/expiring_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/expiring_month_and_day"
+                app:layout_constraintTop_toBottomOf="@id/expiring_month_and_day"
+                tools:text="2022" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/reminder_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/mfg_date_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/product_name"
+                android:drawableStart="@drawable/ic_notifications"
+                android:drawableTint="?attr/text_dialog_color"
+                android:drawablePadding="5dp"
+                tools:text="29 MAR, 2022\n 11:10 AM" />
+
+            <TextView
+                android:id="@+id/mfg_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="80dp"
+                android:padding="0dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/expiring_month_and_day"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="30 MAR, 2022 \nMFG Date" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/undo_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/theme_peach_light"
+            android:elevation="4dp"
+            android:padding="4dp"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/undo_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/image"
+                android:drawableTop="@drawable/ic_baseline_undo_24"
+                android:drawableTint="@color/main_background"
+                android:gravity="center"
+                android:text="@string/undo"
+                android:textColor="@color/main_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatRadioButton
+        android:id="@+id/favorite_button"
+        android:layout_width="28dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:button="@drawable/fav_button_icon_set"
+        android:buttonTint="?text_dialog_color"
+        android:elevation="8dp"
+        android:padding="2dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/action_card_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/action_card_background"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/open_button"
+        android:layout_width="28dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/image"
+        android:elevation="8dp"
+        android:src="@drawable/ic_right"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/action_card_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/action_card_background"
+        app:tint="?text_dialog_color"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/item_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="12dp"
+        android:indeterminate="false"
+        android:progress="20"
+        android:progressDrawable="@drawable/pb_yellow_drawable"
+        app:layout_constraintEnd_toEndOf="@id/option_card"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/option_card"
+        app:layout_constraintTop_toBottomOf="@id/option_card"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/category_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/image"
+        android:elevation="6dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_passion_fruit"
+        app:layout_constraintEnd_toEndOf="@id/option_card"
+        app:layout_constraintHorizontal_bias=".7"
+        app:layout_constraintStart_toStartOf="@id/option_card"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/circular"
+        app:strokeColor="?text_dialog_color"
+        app:strokeWidth="1dp" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

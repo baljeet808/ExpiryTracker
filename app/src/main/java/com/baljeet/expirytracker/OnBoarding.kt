@@ -1,13 +1,16 @@
 package com.baljeet.expirytracker
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.TelephonyManager
 import androidx.appcompat.app.AppCompatDelegate
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
+import java.util.*
 
 class OnBoarding : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,8 @@ class OnBoarding : AppCompatActivity() {
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
+        val manager = applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        SharedPref.usingTab = Objects.requireNonNull(manager).phoneType == TelephonyManager.PHONE_TYPE_NONE
     }
 
     fun moveToMainActivity() {

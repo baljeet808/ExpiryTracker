@@ -1,10 +1,9 @@
 package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.drawable.LayerDrawable
-import android.os.CountDownTimer
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
@@ -17,14 +16,16 @@ import com.baljeet.expirytracker.databinding.DashboardRecyclerItemViewBinding
 import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.util.ImageConvertor
-import java.time.*
+import com.baljeet.expirytracker.util.SharedPref
+import com.dwellify.contractorportal.util.TimeConvertor
+import java.time.Duration
+import java.time.LocalDateTime
 
 class TrackerDiffAdapter(private val context : Context,
                          private val updateTrackerListener :UpdateTrackerListener,
                          private val openListener : OnTrackerOpenListener
                          ) : ListAdapter<TrackerAndProduct,TrackerDiffAdapter.MyViewHolder>(DiffUtil()) {
 
-    private var isDeleteActionSelected = true
 
     class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<TrackerAndProduct>(){
         override fun areItemsTheSame(oldItem: TrackerAndProduct, newItem: TrackerAndProduct): Boolean {
@@ -140,68 +141,50 @@ class TrackerDiffAdapter(private val context : Context,
                 }
             openButton.setOnClickListener { openListener.openTrackerInfo(tracker) }
                 markUsedButton.setOnClickListener {
-                    isDeleteActionSelected = false
-                    showUndoCountDown(holder,tracker.tracker, progressValue)
+                    performAction(tracker.tracker,progressValue, false)
                 }
                 deleteButton.setOnClickListener {
-                    isDeleteActionSelected = true
-                    showUndoCountDown(holder,tracker.tracker, progressValue)
+                    performAction(tracker.tracker,progressValue, true)
                 }
-                undoButton.setOnClickListener {
-                    performUndo()
-                    hideCountdown(holder)
+            reminderDate?.let {
+                if(tracker.tracker.reminderOn){
+                    it.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(context,R.drawable.ic_notifications),null,null,null)
+                }else{
+                    it.setCompoundDrawablesWithIntrinsicBounds(AppCompatResources.getDrawable(context,R.drawable.ic_notifications_off),null,null,null)
                 }
-        }
-    }
-
-    private fun hideCountdown(holder : MyViewHolder){
-        holder.bind.apply {
-            buttonsLayout.visibility = View.GONE
-            undoLayout.visibility = View.GONE
-            countDownText.visibility = View.GONE
-            expiringMonthAndDay.isGone = !expiringMonthAndDay.isGone
-            expiringYear.isGone = !expiringYear.isGone
-            itemProgressbar.visibility = View.VISIBLE
-            openButton.visibility = View.VISIBLE
-            favoriteButton.visibility = View.VISIBLE
-            categoryImage.visibility = View.VISIBLE
-            deleteButton.visibility = View.VISIBLE
-            markUsedButton.visibility = View.VISIBLE
-        }
-    }
-
-    private fun performUndo(){
-        timer?.cancel()
-    }
-
-    private var timer  : CountDownTimer? = null
-    private fun showUndoCountDown(holder : MyViewHolder, tracker : Tracker, progressValue: Float){
-        var sec = 4
-        holder.bind.apply {
-            undoLayout.visibility = View.VISIBLE
-            countDownText.visibility = View.VISIBLE
-            itemProgressbar.visibility = View.INVISIBLE
-            openButton.visibility = View.GONE
-            favoriteButton.visibility = View.GONE
-            categoryImage.visibility = View.INVISIBLE
-            deleteButton.visibility = View.GONE
-            markUsedButton.visibility = View.GONE
-            timer?.cancel()
-            timer = object : CountDownTimer(2400, 800) {
-                override fun onTick(millisUntilFinished: Long) {
-                    --sec
-                    countDownText.text = sec.toString()
-                }
-                override fun onFinish() {
-                    performAction(tracker, progressValue, holder)
+                tracker.tracker.reminderDate?.let {date->
+                    it.text = context.getString(R.string.date_string_with_month_name_last_and_time_2_lined,
+                        date.dayOfMonth,
+                        date.month.name.substring(0,3).uppercase(),
+                        date.year,
+                        TimeConvertor.getTime(date.hour,date.minute,true)
+                        )
                 }
             }
-            (timer as CountDownTimer).start()
+            mfgDateText?.let {  date->
+                if(SharedPref.usingTab){
+                    if( context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        mfgDateText.isGone = false
+                        tracker.tracker.mfgDate?.let { mfg ->
+                            date.text = context.getString(
+                                R.string.mfg_date_string_with_month_name,
+                                mfg.dayOfMonth,
+                                mfg.month.name.substring(0, 3).uppercase(),
+                                mfg.year
+                            )
+                        } ?: kotlin.run {
+                            date.text = context.getString(R.string.no_date)
+                        }
+                    }else{
+                        mfgDateText.isGone = true
+                    }
+                }
+            }
         }
     }
-
-    private fun performAction(tracker : Tracker, progressValue: Float,holder : MyViewHolder){
-            if(isDeleteActionSelected) {
+    
+    private fun performAction(tracker : Tracker, progressValue: Float, performDelete : Boolean){
+            if(performDelete) {
                 tracker.isArchived = true
                 if(progressValue >= 100 ){
                     tracker.gotExpired = true
@@ -210,29 +193,23 @@ class TrackerDiffAdapter(private val context : Context,
                 }
                 updateTrackerListener.updateTracker(tracker)
             }else{
-                markTrackerAsUsedBasedOnProgress(progressValue,tracker)
+                when {
+                    progressValue >=100->{
+                        tracker.gotExpired = true
+                    }
+                    progressValue >= 80 && progressValue <100 -> {
+                        tracker.usedNearExpiry = true
+                    }
+                    progressValue < 80 && progressValue >= 50 -> {
+                        tracker.usedWhileOk = true
+                    }
+                    progressValue < 50 -> {
+                        tracker.usedWhileFresh = true
+                    }
+                }
+                tracker.isUsed = true
+                tracker.usedDate = LocalDateTime.now()
+                updateTrackerListener.updateTracker(tracker)
             }
-            hideCountdown(holder)
     }
-
-    private fun markTrackerAsUsedBasedOnProgress(progressValue : Float, tracker: Tracker){
-        when {
-            progressValue >=100->{
-                tracker.gotExpired = true
-            }
-            progressValue >= 80 && progressValue <100 -> {
-                tracker.usedNearExpiry = true
-            }
-            progressValue < 80 && progressValue >= 50 -> {
-                tracker.usedWhileOk = true
-            }
-            progressValue < 50 -> {
-                tracker.usedWhileFresh = true
-            }
-        }
-        tracker.isUsed = true
-        tracker.usedDate = LocalDateTime.now()
-        updateTrackerListener.updateTracker(tracker)
-    }
-
 }

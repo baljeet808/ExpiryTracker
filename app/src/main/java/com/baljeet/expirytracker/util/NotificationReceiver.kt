@@ -21,6 +21,7 @@ import java.time.LocalDateTime
 class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
+        SharedPref.init(context)
         if(SharedPref.isAlertEnabled) {
             try {
                 val repository = TrackerRepository(AppDatabase.getDatabase(context).trackerDao())

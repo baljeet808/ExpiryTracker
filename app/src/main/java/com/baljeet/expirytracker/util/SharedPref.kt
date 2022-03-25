@@ -63,4 +63,9 @@ object SharedPref {
     var themeName : String
     get() = sharedPref.getString("themeName",Constants.BLUE)!!
     set(value) = sharedPref.edit{it.putString("themeName",value)}
+
+    var usingTab : Boolean
+        get() = sharedPref.getBoolean("usingTab", false)
+        set(value) = sharedPref.edit{ it.putBoolean("usingTab", value)}
+
 }
