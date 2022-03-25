@@ -1,10 +1,10 @@
 package com.baljeet.expirytracker.fragment.settings.categories
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,7 +31,9 @@ class ManageCategories : Fragment(), OnCategorySelected {
         bind.apply {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
-            categoriesRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+            categoriesRecycler.layoutManager = GridLayoutManager(requireContext(),
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
+                )
             resultsAdapter = SearchResultsAdapter(requireContext(), this@ManageCategories)
             categoriesRecycler.adapter = resultsAdapter
             searchEdittext.doOnTextChanged { text, _, _, _ ->

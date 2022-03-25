@@ -1,5 +1,6 @@
 package com.baljeet.expirytracker.fragment.shared
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,21 +36,22 @@ class IconsGallery : Fragment() , OnIconSelected {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
             iconsAdapter=  SearchIconsAdapter(requireContext(),this@IconsGallery)
-            iconsRecycler.layoutManager = GridLayoutManager(requireContext(),4)
+            iconsRecycler.layoutManager = GridLayoutManager(requireContext(),
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
+                )
             iconsRecycler.adapter = iconsAdapter
             searchEdittext.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().count() > 0) {
                     viewModel.getIconByName(text.toString())
                 } else {
                     viewModel.getAllIcons()
-
                 }
             }
             viewModel.getAllIcons()
             viewModel.readAllData.observe(viewLifecycleOwner) {
                 iconsAdapter.submitList(it)
                 resultsCount.text =
-                    requireContext().getString(R.string.number_of_results_var, it.size?:0)
+                    requireContext().getString(R.string.number_of_results_var, it.size)
             }
         }
         return bind.root

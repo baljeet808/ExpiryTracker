@@ -2,6 +2,7 @@ package com.baljeet.expirytracker.fragment.product
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -68,8 +69,12 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
         bind.reminderDateClickView.isEnabled = false
         bind.closeBtn.setOnClickListener { activity?.onBackPressed() }
 
-        bind.optionsRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
-        bind.nameOptionsRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+        bind.optionsRecycler.layoutManager = GridLayoutManager(requireContext(),
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
+            )
+        bind.nameOptionsRecycler.layoutManager = GridLayoutManager(requireContext(),
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
+            )
 
         bind.nameLayout.visibility = View.GONE
         bind.completedCheck.visibility = View.GONE

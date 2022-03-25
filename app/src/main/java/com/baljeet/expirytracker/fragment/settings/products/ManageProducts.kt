@@ -1,5 +1,6 @@
 package com.baljeet.expirytracker.fragment.settings.products
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +31,9 @@ class ManageProducts : Fragment(), OnProductSelected {
         bind.apply {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
-            productsRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+            productsRecycler.layoutManager = GridLayoutManager(requireContext(),
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
+                )
             resultsAdapter = ProductResultsAdapter(requireContext(), this@ManageProducts)
             productsRecycler.adapter = resultsAdapter
             searchEdittext.doOnTextChanged { text, _, _, _ ->

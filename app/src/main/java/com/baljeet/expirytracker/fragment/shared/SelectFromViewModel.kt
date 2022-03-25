@@ -268,17 +268,6 @@ class SelectFromViewModel : ViewModel() {
         )
         images.add(
             Image(
-                21,
-                "strawberries",
-                "strawberries",
-                "Strawberries"
-                ,mimeType = "asset",
-                uri = Uri.parse(""),
-                bitmap = ""
-            )
-        )
-        images.add(
-            Image(
                 22,
                 "avocado",
                 "avocado",
