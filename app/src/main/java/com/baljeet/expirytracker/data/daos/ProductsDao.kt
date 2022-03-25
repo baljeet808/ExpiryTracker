@@ -3,7 +3,6 @@ package com.baljeet.expirytracker.data.daos
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.baljeet.expirytracker.data.Product
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 @Dao

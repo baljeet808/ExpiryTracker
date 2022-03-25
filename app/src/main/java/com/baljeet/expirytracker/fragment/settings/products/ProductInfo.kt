@@ -33,7 +33,6 @@ import com.baljeet.expirytracker.databinding.DeletePopUpLayoutBinding
 import com.baljeet.expirytracker.databinding.FragmentProductInfoBinding
 import com.baljeet.expirytracker.databinding.ImagePickingOptionsLayoutBinding
 import com.baljeet.expirytracker.fragment.product.CustomViewModel
-import com.baljeet.expirytracker.fragment.settings.categories.CategoryInfoDirections
 import com.baljeet.expirytracker.fragment.shared.IconsViewModel
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.SharedPref

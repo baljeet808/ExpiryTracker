@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
-import io.reactivex.Flowable
 
 @Dao
 interface CategoryDao {
