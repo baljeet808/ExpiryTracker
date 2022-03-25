@@ -1,12 +1,9 @@
 package com.baljeet.expirytracker.data.repository
 
-import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.daos.ImageDao
-import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 class ImageRepository(private val imageDao : ImageDao) {
-    val readAllData : LiveData<List<Image>> = imageDao.readAllImage()
 
     fun addImage(image : Image){
         imageDao.addImage(image)
@@ -14,6 +11,10 @@ class ImageRepository(private val imageDao : ImageDao) {
 
     fun getImageByName(name : String): Image{
         return imageDao.getImageByName(name).first()
+    }
+
+    fun getImagesByName(name : String): List<Image>{
+        return imageDao.getImageByName(name)
     }
 
     fun getAllImages():List<Image>{

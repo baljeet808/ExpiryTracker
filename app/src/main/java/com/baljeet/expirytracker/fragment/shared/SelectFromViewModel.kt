@@ -249,7 +249,7 @@ class SelectFromViewModel : ViewModel() {
                 19,
                 "bell_yellow_pepper",
                 "bell_yellow_pepper",
-                "bell yellow pepper"
+                "Bell yellow pepper"
                 ,mimeType = "asset",
                 uri = Uri.parse(""),
                 bitmap = ""
@@ -272,6 +272,468 @@ class SelectFromViewModel : ViewModel() {
                 "strawberries",
                 "strawberries",
                 "Strawberries"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                22,
+                "avocado",
+                "avocado",
+                "Avocado"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                23,
+                "beetroot",
+                "beetroot",
+                "Beetroot"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                24,
+                "berry",
+                "berry",
+                "Berry"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                25,
+                "blueberry",
+                "blueberry",
+                "Blueberry"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                26,
+                "bread",
+                "bread",
+                "Bread"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                27,
+                "butter",
+                "butter",
+                "Butter"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                28,
+                "cabbage",
+                "cabbage",
+                "Cabbage"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                29,
+                "carrot",
+                "carrot",
+                "Carrot"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                30,
+                "cauliflower",
+                "cauliflower",
+                "Cauliflower"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                31,
+                "cheese",
+                "cheese",
+                "Cheese"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                32,
+                "chicken",
+                "chicken",
+                "Chicken"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                33,
+                "cilantro",
+                "cilantro",
+                "Cilantro"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                34,
+                "cloves",
+                "cloves",
+                "Cloves"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                35,
+                "coconut",
+                "coconut",
+                "Coconut"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                36,
+                "corn",
+                "corn",
+                "Corn"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                37,
+                "cucumber",
+                "cucumber",
+                "Cucumber"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                38,
+                "dragon_fruit",
+                "dragon_fruit",
+                "dragon_fruit"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                39,
+                "eggplant",
+                "eggplant",
+                "eggplant"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                40,
+                "eggs",
+                "eggs",
+                "eggs"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                41,
+                "fish",
+                "fish",
+                "fish"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                42,
+                "green_pepper",
+                "green_pepper",
+                "green_pepper"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                43,
+                "green_chili",
+                "green_chili",
+                "green_chili"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                44,
+                "jalapeno",
+                "jalapeno",
+                "jalapeno"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                45,
+                "kiwi",
+                "kiwi",
+                "kiwi"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                46,
+                "lemon",
+                "lemon",
+                "lemon"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                47,
+                "mango",
+                "mango",
+                "mango"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                48,
+                "milk",
+                "milk",
+                "milk"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                50,
+                "mushrooms",
+                "mushrooms",
+                "mushrooms"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                51,
+                "okra",
+                "okra",
+                "okra"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                52,
+                "onion",
+                "onion",
+                "onion"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                49,
+                "pear",
+                "pear",
+                "pear"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                53,
+                "pomegranate_two",
+                "pomegranate_two",
+                "pomegranate_two"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                54,
+                "pomegranate",
+                "pomegranate",
+                "pomegranate"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                55,
+                "pumpkin",
+                "pumpkin",
+                "pumpkin"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                56,
+                "rosemary",
+                "rosemary",
+                "rosemary"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                57,
+                "shrimp",
+                "shrimp",
+                "shrimp"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                58,
+                "spinach",
+                "spinach",
+                "spinach"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                59,
+                "strawberry",
+                "strawberry",
+                "strawberry"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                61,
+                "sugar",
+                "sugar",
+                "sugar"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                62,
+                "watermelon",
+                "watermelon",
+                "watermelon"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                63,
+                "garlic",
+                "garlic",
+                "garlic"
+                ,mimeType = "asset",
+                uri = Uri.parse(""),
+                bitmap = ""
+            )
+        )
+        images.add(
+            Image(
+                64,
+                "ginger",
+                "ginger",
+                "ginger"
                 ,mimeType = "asset",
                 uri = Uri.parse(""),
                 bitmap = ""
@@ -338,6 +800,30 @@ class SelectFromViewModel : ViewModel() {
             9,
             false
         )
+        defaultCategories.add(
+            Category(
+                11,
+                "Dairy",
+                31,
+                false
+            )
+        )
+        defaultCategories.add(
+            Category(
+                12,
+                "Bakery",
+                26,
+                false
+            )
+        )
+        defaultCategories.add(
+            Category(
+                13,
+                "Herbs and Spices",
+                34,
+                false
+            )
+        )
         defaultCategories.add(fruits)
         defaultCategories.add(vegetables)
         defaultCategories.add(meat)
@@ -355,7 +841,67 @@ class SelectFromViewModel : ViewModel() {
         val products = ArrayList<Product>()
         products.addAll(getFruits())
         products.addAll(getVegetables())
+        products.addAll(getDairy())
+        products.addAll(getMeats())
+        products.addAll(getSpices())
+        products.addAll(getBakery())
+        return products
+    }
 
+    private fun getDairy(): ArrayList<Product>{
+        val products = ArrayList<Product>()
+        products.add(Product(
+            36,
+            "Cheese",
+            11,31,
+            false
+        ))
+
+        products.add(Product(
+            37,
+            "Butter",
+            11,27,
+            false
+        ))
+
+        products.add(Product(
+            38,
+            "Milk",
+            11,48,
+            false
+        ))
+
+        products.add(Product(
+            39,
+            "Eggs",
+            11,40,
+            false
+        ))
+        return products
+    }
+
+    private fun getMeats():ArrayList<Product>{
+        val products = ArrayList<Product>()
+        products.add(Product(
+            40,
+            "Fish",
+            3,41,
+            false
+        ))
+
+        products.add(Product(
+            41,
+            "Chicken",
+            3,32,
+            false
+        ))
+
+        products.add(Product(
+            42,
+            "Shrimp",
+            3,57,
+            false
+        ))
         return products
     }
 
@@ -391,6 +937,108 @@ class SelectFromViewModel : ViewModel() {
             2, 20,
             false
         )
+        products.add(Product(
+            12,
+            "Avocado",
+            2,22,
+            false
+        ))
+        products.add(Product(
+            13,
+            "Beetroot",
+            2,23,
+            false
+        ))
+        products.add(Product(
+            14,
+            "Cabbage",
+            2,28,
+            false
+        ))
+        products.add(Product(
+            15,
+            "Carrot",
+            2,29,
+            false
+        ))
+        products.add(Product(
+            16,
+            "Cauliflower",
+            2,30,
+            false
+        ))
+        products.add(Product(
+            17,
+            "Coconut",
+            2,35,
+            false
+        ))
+        products.add(Product(
+            18,
+            "Corn",
+            2,36,
+            false
+        ))
+        products.add(Product(
+            19,
+            "Cucumber",
+            2,37,
+            false
+        ))
+        products.add(Product(
+            20,
+            "Eggplant",
+            2,39,
+            false
+        ))
+        products.add(Product(
+            21,
+            "Green pepper",
+            2,42,
+            false
+        ))
+        products.add(Product(
+            22,
+            "Mushrooms",
+            2,50,
+            false
+        ))
+        products.add(Product(
+            23,
+            "Okra",
+            2,51,
+            false
+        ))
+        products.add(Product(
+            24,
+            "Onion",
+            2,52,
+            false
+        ))
+        products.add(Product(
+            25,
+            "Pumpkin",
+            2,55,
+            false
+        ))
+        products.add(Product(
+            26,
+            "Spinach",
+            2,58,
+            false
+        ))
+        products.add(Product(
+            43,
+            "Ginger",
+            2,64,
+            false
+        ))
+        products.add(Product(
+            44,
+            "Garlic",
+            2,63,
+            false
+        ))
 
 
         products.add(broccoli)
@@ -398,6 +1046,41 @@ class SelectFromViewModel : ViewModel() {
         products.add(bellPepper)
         products.add(peas)
         products.add(tomato)
+        return products
+    }
+
+    private fun getSpices():ArrayList<Product>{
+        val products = ArrayList<Product>()
+        products.add(Product(
+            45,
+            "Cloves",
+            13,34,
+            false
+        ))
+        products.add(Product(
+            46,
+            "Cilantro",
+            13,33,
+            false
+        ))
+        products.add(Product(
+            47,
+            "Green Chilli",
+            13,43,
+            false
+        ))
+        products.add(Product(
+            48,
+            "Jalapeno",
+            13,44,
+            false
+        ))
+        products.add(Product(
+            49,
+            "Rosemary",
+            13,56,
+            false
+        ))
         return products
     }
 
@@ -445,6 +1128,62 @@ class SelectFromViewModel : ViewModel() {
             1, 15,
             false
         )
+        products.add(
+            Product(
+            27,
+            "Berries",
+            1,   24,
+            false
+        )
+        )
+        products.add(Product(
+            28,
+            "Blueberry",
+            1,   25,
+            false
+        ))
+        products.add(Product(
+            29,
+            "Dragon fruit",
+            1,   38,
+            false
+        ))
+        products.add(Product(
+            30,
+            "Kiwi",
+            1,   45,
+            false
+        ))
+        products.add(Product(
+            31,
+            "Mango",
+            1,   47,
+            false
+        ))
+        products.add(Product(
+            32,
+            "Pear",
+            1,   49,
+            false
+        ))
+        products.add(Product(
+            33,
+            "Pomegranate",
+            1,   53,
+            false
+        ))
+        products.add(Product(
+            34,
+            "Strawberry",
+            1,   59,
+            false
+        ))
+        products.add(Product(
+            35,
+            "Watermelon",
+            1,   62,
+            false
+        ))
 
         products.add(redGrapes)
         products.add(pineApple)
@@ -454,6 +1193,18 @@ class SelectFromViewModel : ViewModel() {
         products.add(banana)
 
 
+        return products
+    }
+
+    private fun getBakery():ArrayList<Product>{
+        val products = ArrayList<Product>()
+
+        products.add(Product(
+            50,
+            "Breads",
+            12,26,
+            false
+        ))
         return products
     }
 
