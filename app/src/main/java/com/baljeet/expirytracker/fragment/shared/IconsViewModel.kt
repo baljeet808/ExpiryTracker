@@ -24,7 +24,7 @@ class IconsViewModel(app : Application) : AndroidViewModel(app) {
     }
 
     fun getIconByName(name : String){
-        readAllData.value =  repository.getImagesByName(name).toCollection(ArrayList())
+        readAllData.value = repository.getImagesByName(name).toCollection(ArrayList())
     }
 
 }
