@@ -46,10 +46,10 @@ class IconsGallery : Fragment() , OnIconSelected {
                 }
             }
             viewModel.getAllIcons()
-            viewModel.iconsResults.observe(viewLifecycleOwner) {
+            viewModel.readAllData.observe(viewLifecycleOwner) {
                 iconsAdapter.submitList(it)
                 resultsCount.text =
-                    requireContext().getString(R.string.number_of_results_var, it.size)
+                    requireContext().getString(R.string.number_of_results_var, it.size?:0)
             }
         }
         return bind.root
