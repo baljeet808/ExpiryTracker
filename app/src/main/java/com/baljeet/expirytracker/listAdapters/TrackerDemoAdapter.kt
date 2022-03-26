@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.WidgetStackViewItemBinding
+import com.baljeet.expirytracker.util.ImageConvertor
 import java.time.Duration
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 class TrackerDemoAdapter(private val context: Context) : ListAdapter<TrackerAndProduct, TrackerDemoAdapter.MyViewHolder>(DiffUtil()){
@@ -39,24 +40,32 @@ class TrackerDemoAdapter(private val context: Context) : ListAdapter<TrackerAndP
         val tracker = getItem(position)
         holder.bind.apply {
             productName.text = tracker.productAndCategoryAndImage.product.name
-            productImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    context,
-                    context.resources.getIdentifier(
-                        tracker.productAndCategoryAndImage.image.imageUrl,
-                        "drawable",
-                        context.packageName
+            when(tracker.productAndCategoryAndImage.image.mimeType){
+                "asset"->{
+                    productImage.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            context,
+                            context.resources.getIdentifier(
+                                tracker.productAndCategoryAndImage.image.imageUrl,
+                                "drawable",
+                                context.packageName
+                            )
+                        )
                     )
-                )
-            )
-
+                }
+                else->{
+                    productImage.setImageBitmap(
+                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                    )
+                }
+            }
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
             expiryDate?.let {
                 expiringDate.text = context.getString(R.string.date_short_var,it.dayOfMonth,it.month.name.substring(0,3).uppercase())
                 expiringDateYear.text = it.year.toString()
             }
-            val dateToday = LocalDate.now()
+            val dateToday = LocalDateTime.now()
 
             val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
             val spentHours = Duration.between(mfgDate,dateToday).toMinutes()

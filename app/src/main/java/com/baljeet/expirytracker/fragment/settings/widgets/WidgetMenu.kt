@@ -29,9 +29,9 @@ class WidgetMenu : Fragment() {
             demoAdapter = TrackerDemoAdapter(requireContext())
             trackersStackView.adapter = demoAdapter
         }
-        viewModel.getActiveTrackersLive().observe(viewLifecycleOwner,{
+        viewModel.getActiveTrackersLive().observe(viewLifecycleOwner){
             demoAdapter.submitList(it)
-        })
+        }
 
         return bind.root
     }

@@ -9,8 +9,9 @@ import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
+import com.baljeet.expirytracker.util.ImageConvertor
 import java.time.Duration
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class WidgetStackViewAdapter: RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
@@ -47,11 +48,21 @@ class WidgetStackViewAdapter: RemoteViewsService() {
         override fun getViewAt(position: Int): RemoteViews {
             val tracker = trackers[position]
             val remoteView = RemoteViews(context.packageName, R.layout.widget_stack_view_item)
-            remoteView.setImageViewResource(R.id.product_image,context.resources.getIdentifier(
-                tracker.productAndCategoryAndImage.image.imageUrl,
-                "drawable",
-                context.packageName
-            ))
+
+            when(tracker.productAndCategoryAndImage.image.mimeType){
+                "asset"->{
+                    remoteView.setImageViewResource(R.id.product_image,context.resources.getIdentifier(
+                        tracker.productAndCategoryAndImage.image.imageUrl,
+                        "drawable",
+                        context.packageName
+                    ))
+                }
+                else->{
+                    remoteView.setImageViewBitmap(R.id.product_image,ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap))
+                }
+            }
+
+
             remoteView.setTextViewText(R.id.product_name,tracker.productAndCategoryAndImage.product.name)
             remoteView.setTextViewText(R.id.expiring_date, context.getString(R.string.date_short_var, tracker.tracker.expiryDate!!.dayOfMonth,
                 tracker.tracker.expiryDate!!.month.name.substring(0,3).uppercase()))
@@ -59,7 +70,7 @@ class WidgetStackViewAdapter: RemoteViewsService() {
 
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
-            val dateToday = LocalDate.now()
+            val dateToday = LocalDateTime.now()
 
             val totalHours = Duration.between(mfgDate,expiryDate).toMinutes()
             val spentHours = Duration.between(mfgDate,dateToday).toMinutes()
