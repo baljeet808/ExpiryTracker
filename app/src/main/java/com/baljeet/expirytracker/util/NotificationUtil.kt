@@ -30,7 +30,7 @@ object NotificationUtil {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.timeInMillis,pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.timeInMillis,pendingIntent)
     }
 
     fun removeReminderForProduct(context : Context , trackerId : Int){
