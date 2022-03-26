@@ -58,13 +58,11 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
     pages.add(page1)
 
     val myPaint = Paint()
-    var headingLeft = 50F
+    val headingLeft = 50F
     if(this.useOfImages == UseImages.ON) {
         val bmp = BitmapFactory.decodeResource(context.resources, R.drawable.et_logo_250)
         val scaledBmp = Bitmap.createScaledBitmap(bmp, 90, 90, false)
         canvas.drawBitmap(scaledBmp, headingLeft, 20F, myPaint)
-    }else{
-        headingLeft = 0F
     }
 
     val titlePaint = Paint()
@@ -153,7 +151,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
         }
     }
     var i = 1
-    for (text in letsBreakString(resultMsg, 90)) {
+    for (text in letsBreakString(resultMsg)) {
         canvas.drawText(text, 65F, 150F + (i * 30F), titlePaint)
         i++
     }
@@ -205,7 +203,6 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 yBondTotals = 90F
                 i =0
             }
-            var itemY = 65F
             if(this.useOfImages == UseImages.ON) {
                 val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
                     "asset" -> {
@@ -224,10 +221,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 }
 
                 val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                canvas.drawBitmap(scaledBitmap, itemY, yBondTotals + (i * 90F) - 20F, myPaint)
-            }
-            else{
-                itemY = 0F
+                canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
             }
             canvas.drawText(context.getString(R.string.product_name_var,tracker.productAndCategoryAndImage.product.name),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F),sourcePaint)
             canvas.drawText(context.getString(R.string.category_name_var,tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F)+30F,sourcePaint)
@@ -237,14 +231,21 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 expiryDate.month.name.substring(0,3).uppercase(),
                 expiryDate.dayOfMonth,
                 expiryDate.year
-            ),if(this.useOfImages == UseImages.ON) 600F else 420F,yBondTotals,sourcePaint)
+            ), 600F,yBondTotals,sourcePaint)
             val mfgDate = tracker.tracker.mfgDate!!
             canvas.drawText(context.getString(
                 R.string.mfg_date_var_1,
                 mfgDate.month.name.substring(0,3).uppercase(),
                 mfgDate.dayOfMonth,
                 mfgDate.year
-            ),if(this.useOfImages == UseImages.ON) 600F else 420F,yBondTotals + (i*90F)+30F,sourcePaint)
+            ), 600F ,yBondTotals + (i*90F)+30F,sourcePaint)
+            val usedDate = tracker.tracker.usedDate!!
+            canvas.drawText(context.getString(
+                R.string.used_date_var,
+                usedDate.month.name.substring(0,3).uppercase(),
+                usedDate.dayOfMonth,
+                usedDate.year
+            ), 600F,yBondTotals + (i*90F)+60F,sourcePaint)
 
             val statusLine = Paint()
             statusLine.style = Paint.Style.STROKE
@@ -315,7 +316,6 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 yBondTotals = 90F
                 i =0
             }
-            var itemY = 65F
             if(this.useOfImages == UseImages.ON) {
 
                 val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
@@ -335,9 +335,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 }
 
                 val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                canvas.drawBitmap(scaledBitmap, itemY, yBondTotals + (i * 90F) - 20F, myPaint)
-            }else{
-                itemY = 0F
+                canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
             }
                 canvas.drawText(context.getString(R.string.product_name_var,tracker.productAndCategoryAndImage.product.name),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F),sourcePaint)
             canvas.drawText(context.getString(R.string.category_name_var,tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F)+30F,sourcePaint)
@@ -347,14 +345,22 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 expiryDate.month.name.substring(0,3).uppercase(),
                 expiryDate.dayOfMonth,
                 expiryDate.year
-            ),if(this.useOfImages == UseImages.ON) 600F else 420F,yBondTotals + (i*90F),sourcePaint)
+            ), 600F,yBondTotals + (i*90F),sourcePaint)
             val mfgDate = tracker.tracker.mfgDate!!
             canvas.drawText(context.getString(
                 R.string.mfg_date_var_1,
                 mfgDate.month.name.substring(0,3).uppercase(),
                 mfgDate.dayOfMonth,
                 mfgDate.year
-            ),if(this.useOfImages == UseImages.ON) 600F else 420F,yBondTotals + (i*90F)+30F,sourcePaint)
+            ),600F,yBondTotals + (i*90F)+30F,sourcePaint)
+            val usedDate = tracker.tracker.usedDate!!
+            canvas.drawText(context.getString(
+                R.string.used_date_var,
+                usedDate.month.name.substring(0,3).uppercase(),
+                usedDate.dayOfMonth,
+                usedDate.year
+            ),600F ,yBondTotals + (i*90F)+60F,sourcePaint)
+
 
             val statusLine = Paint()
             statusLine.style = Paint.Style.STROKE
@@ -426,7 +432,6 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 yBondTotals = 90F
                 i =0
             }
-            var itemX = 65F
             if(this.useOfImages == UseImages.ON) {
                 val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
                     "asset" -> {
@@ -446,8 +451,6 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
 
                 val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
                 canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
-            }else {
-                    itemX = 0F
             }
                 canvas.drawText(context.getString(R.string.product_name_var,tracker.productAndCategoryAndImage.product.name),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F),sourcePaint)
             canvas.drawText(context.getString(R.string.category_name_var,tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F)+30F,sourcePaint)
@@ -457,14 +460,22 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 expiryDate.month.name.substring(0,3).uppercase(),
                 expiryDate.dayOfMonth,
                 expiryDate.year
-            ),if(this.useOfImages == UseImages.ON) 600F else 420F,yBondTotals + (i*90F),sourcePaint)
+            ),600F ,yBondTotals + (i*90F),sourcePaint)
             val mfgDate = tracker.tracker.mfgDate!!
             canvas.drawText(context.getString(
                 R.string.mfg_date_var_1,
                 mfgDate.month.name.substring(0,3).uppercase(),
                 mfgDate.dayOfMonth,
                 mfgDate.year
-            ),if(this.useOfImages == UseImages.ON) 600F else 420F,yBondTotals + (i*90F)+30F,sourcePaint)
+            ),600F,yBondTotals + (i*90F)+30F,sourcePaint)
+            val usedDate = tracker.tracker.usedDate!!
+            canvas.drawText(context.getString(
+                R.string.used_date_var,
+                usedDate.month.name.substring(0,3).uppercase(),
+                usedDate.dayOfMonth,
+                usedDate.year
+            ),600F ,yBondTotals + (i*90F)+60F,sourcePaint)
+
 
             val statusLine = Paint()
             statusLine.style = Paint.Style.STROKE
@@ -519,21 +530,21 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
 
 
 
-private fun letsBreakString(text: String, maxLength: Int): ArrayList<String> {
+private fun letsBreakString(text: String): ArrayList<String> {
     val brokenResult = ArrayList<String>()
     val textLength = text.length
 
-    if (textLength > maxLength) {
-        val possibleBreak = textLength.toFloat() / maxLength.toFloat()
+    if (textLength > 90) {
+        val possibleBreak = textLength.toFloat() / 90.toFloat()
         var actualBreak: Int
         if (!possibleBreak.rem(1).equals(0F)) {
-            actualBreak = textLength / maxLength
+            actualBreak = textLength / 90
             actualBreak++
         } else {
             actualBreak = possibleBreak.toInt()
         }
 
-        var lastIndex = maxLength - 1
+        var lastIndex = 90 - 1
         var firstIndex = 0
 
         for (i in 1..actualBreak) {
@@ -558,7 +569,7 @@ private fun letsBreakString(text: String, maxLength: Int): ArrayList<String> {
                 }
             }
             firstIndex = lastIndex + 1
-            lastIndex += maxLength
+            lastIndex += 90
         }
     } else {
         brokenResult.add(text)
