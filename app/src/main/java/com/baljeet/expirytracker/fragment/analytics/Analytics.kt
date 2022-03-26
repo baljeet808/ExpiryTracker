@@ -400,7 +400,7 @@ class Analytics : Fragment() {
                             PeriodType.YEARLY
                         }
                     },
-                    groupBy = GroupBy.CATEGORIES,
+                    groupBy = GroupBy.RESULTS,
                     useOfImages = UseImages.ON,
                     textColor = SelectedTextColor.BLACK,
                     backgroundColor = BackgroundColor.WHITE

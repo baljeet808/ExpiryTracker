@@ -256,7 +256,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                         expiryDate.month.name.substring(0, 3).uppercase(),
                         expiryDate.dayOfMonth,
                         expiryDate.year
-                    ), 600F, yBondTotals, sourcePaint
+                    ), 600F, yBondTotals+ (i * 90F), sourcePaint
                 )
                 val mfgDate = tracker.tracker.mfgDate!!
                 canvas.drawText(
@@ -657,11 +657,14 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
 
         
         for(categorisedTrackers in this.trackers.getGroupedListByCategories()){
-            canvas.drawText(categorisedTrackers.categoryName, 65F, yBondTotals+  (i * 90F) , headingPaint)
+            if(i != 0) {
+                yBondTotals += (80F)
+            }
+            canvas.drawText(categorisedTrackers.categoryName.uppercase(), 65F, yBondTotals+  (i * 90F) , headingPaint)
 
-            for (tracker in trackers.filter { t -> t.tracker.usedWhileFresh }) {
+            for (tracker in categorisedTrackers.trackers) {
 
-                yBondTotals += (60F)
+                yBondTotals += (40F)
                 if (yBondTotals + (i * 90F) > pageHeight - 200) {
 
                     linePaint.style = Paint.Style.STROKE
@@ -714,10 +717,13 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                     sourcePaint
                 )
                 canvas.drawText(
-                    context.getString(
-                        R.string.category_name_var,
-                        tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName
-                    ),
+                    if(tracker.tracker.gotExpired ){
+                        context.getString(R.string.expired)
+                    }else if(tracker.tracker.usedWhileOk|| tracker.tracker.usedNearExpiry){
+                        context.getString(R.string.used_near_expiry)
+                    }else{
+                        context.getString(R.string.freshly_used)
+                    },
                     if (this.useOfImages == UseImages.ON) 180F else 65F,
                     yBondTotals + (i * 90F) + 30F,
                     sourcePaint
@@ -729,7 +735,7 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                         expiryDate.month.name.substring(0, 3).uppercase(),
                         expiryDate.dayOfMonth,
                         expiryDate.year
-                    ), 600F, yBondTotals, sourcePaint
+                    ), 600F, yBondTotals + (i * 90F), sourcePaint
                 )
                 val mfgDate = tracker.tracker.mfgDate!!
                 canvas.drawText(
@@ -740,22 +746,24 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                         mfgDate.year
                     ), 600F, yBondTotals + (i * 90F) + 30F, sourcePaint
                 )
-                val usedDate = tracker.tracker.usedDate!!
-                canvas.drawText(
-                    context.getString(
-                        R.string.used_date_var,
-                        usedDate.month.name.substring(0, 3).uppercase(),
-                        usedDate.dayOfMonth,
-                        usedDate.year
-                    ), 600F, yBondTotals + (i * 90F) + 60F, sourcePaint
-                )
+                tracker.tracker.usedDate?.let {
+                    canvas.drawText(
+                        context.getString(
+                            R.string.used_date_var,
+                            it.month.name.substring(0, 3).uppercase(),
+                            it.dayOfMonth,
+                            it.year
+                        ), 600F, yBondTotals + (i * 90F) + 60F, sourcePaint
+                    )
+                }
+
 
                 val statusLine = Paint()
                 statusLine.style = Paint.Style.STROKE
                 statusLine.strokeWidth = 10F
-                statusLine.color = if(tracker.tracker.gotExpired || tracker.tracker.usedNearExpiry){
+                statusLine.color = if(tracker.tracker.gotExpired ){
                     colorPeach
-                }else if(tracker.tracker.usedWhileOk){
+                }else if(tracker.tracker.usedWhileOk|| tracker.tracker.usedNearExpiry){
                     colorYellow
                 }else{
                     colorGreen
@@ -771,9 +779,9 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                 val itemUnderLine = Paint()
                 itemUnderLine.style = Paint.Style.STROKE
                 itemUnderLine.strokeWidth = 2F
-                itemUnderLine.color = if(tracker.tracker.gotExpired || tracker.tracker.usedNearExpiry){
+                itemUnderLine.color = if(tracker.tracker.gotExpired ){
                     colorPeach
-                }else if(tracker.tracker.usedWhileOk){
+                }else if(tracker.tracker.usedWhileOk|| tracker.tracker.usedNearExpiry){
                     colorYellow
                 }else{
                     colorGreen

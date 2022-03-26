@@ -46,12 +46,14 @@ fun ArrayList<TrackerAndProduct>.getGroupedListByCategories():ArrayList<TrackerB
     }
 
     for(category in categories){
-        list.add(
-            TrackerByCategories(
-            categoryName = category.categoryName,
-            trackers = this.filter { t->t.productAndCategoryAndImage.categoryAndImage.category.categoryId == category.categoryId }
-        )
-        )
+        if(this.filter { t->t.productAndCategoryAndImage.categoryAndImage.category.categoryId == category.categoryId }.filter { t->t.tracker.isUsed }.isNotEmpty()) {
+            list.add(
+                TrackerByCategories(
+                    categoryName = category.categoryName,
+                    trackers = this.filter { t -> (t.productAndCategoryAndImage.categoryAndImage.category.categoryId == category.categoryId) && t.tracker.isUsed }
+                )
+            )
+        }
     }
     return list
 }

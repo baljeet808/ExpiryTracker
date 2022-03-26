@@ -24,9 +24,7 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
         val trackerDao = AppDatabase.getDatabase(app).trackerDao()
         repository = TrackerRepository(trackerDao)
     }
-    var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.getAllTrackers
-    var allFinishedTracker : LiveData<List<TrackerAndProduct>> = repository.getAllFinishedTrackers
-    var allActiveTrackers : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
+    private var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.getAllTrackers
 
     var endDate  : LocalDateTime = getWeekLateDate()
     var startDate : LocalDateTime = getWeekFirstDate()
@@ -148,10 +146,18 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     private fun filterByTimePeriod(trackers : List<TrackerAndProduct>, periodFilter : Int,startDate : LocalDateTime, endDate : LocalDateTime) : List<TrackerAndProduct>{
         return  when(periodFilter){
             Constants.PERIOD_DAILY->{
-                trackers.filter { t -> t.tracker.expiryDate!!.isEqual(startDate) }
+                trackers.filter { t ->
+                    t.tracker.expiryDate!!.year == startDate.year &&
+                            t.tracker.expiryDate!!.month == startDate.month &&
+                            t.tracker.expiryDate!!.dayOfMonth == startDate.dayOfMonth
+                }
             }
             else->{
-                trackers.filter { t -> t.tracker.expiryDate!!.isAfter(startDate) && t.tracker.expiryDate!!.isBefore(endDate) }
+                trackers.filter { t ->
+                    (t.tracker.expiryDate!!.toLocalDate().isAfter(startDate.toLocalDate()) || t.tracker.expiryDate!!.toLocalDate() == startDate.toLocalDate())
+                            &&
+                            (t.tracker.expiryDate!!.toLocalDate().isBefore(endDate.toLocalDate()) || t.tracker.expiryDate!!.toLocalDate() == endDate.toLocalDate())
+                }
             }
         }
     }
