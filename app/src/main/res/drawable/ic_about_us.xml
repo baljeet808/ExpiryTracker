@@ -2,7 +2,7 @@
     android:viewportWidth="1920" android:width="200dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillAlpha="0.1" android:fillColor="#2a94f4"
         android:pathData="M203.1,536.4c-67,362.7 297.1,651 636.7,388.3c594.1,-459.5 300,-278.3 619,-224.7c319,53.6 347.6,-481.4 91.5,-474.5s-334.8,220.1 -602.4,23.7S259,234.2 203.1,536.4z" android:strokeAlpha="0.1"/>
-    <path android:fillColor="#cce9ff" android:pathData="M897.5,667.1m-412.9,0a412.9,412.9 0,1 1,825.8 0a412.9,412.9 0,1 1,-825.8 0"/>
+    <path android:fillColor="?attr/card_background" android:pathData="M897.5,667.1m-412.9,0a412.9,412.9 0,1 1,825.8 0a412.9,412.9 0,1 1,-825.8 0"/>
     <path android:fillColor="#0b4870" android:pathData="M439.3,515.7m-61.6,0a61.6,61.6 0,1 1,123.2 0a61.6,61.6 0,1 1,-123.2 0"/>
     <path android:fillColor="?attr/colorPrimary" android:pathData="M477.8,372.3m-32.6,0a32.6,32.6 0,1 1,65.2 0a32.6,32.6 0,1 1,-65.2 0"/>
     <path android:fillColor="#0b4870" android:pathData="M543.1,469m-10.8,0a10.8,10.8 0,1 1,21.6 0a10.8,10.8 0,1 1,-21.6 0"/>

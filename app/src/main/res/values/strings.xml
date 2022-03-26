@@ -40,7 +40,7 @@
     <string name="date_string_with_month_name_and_time_2_lined">%1$s. %2$d, %3$d \n%4$s </string>
     <string name="date_string_with_month_name_last_and_time_2_lined"> %1$d %2$s. %3$d \n%4$s </string>
     <string name="track">Track</string>
-    <string name="lets_s_track_a_product">Lets\'s Track a Product !</string>
+    <string name="lets_s_track_a_product">Track a Product</string>
     <string name="expiry_date_8th_aug_2021">Expiring On - 8th Aug, 2021</string>
     <string name="expiry_date_var">Expiring On - %1$s. %2$d, %3$d</string>
     <string name="expiry_date_var_1">Expiry date: %1$s. %2$d, %3$d</string>

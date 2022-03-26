@@ -67,6 +67,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/top_most_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline5"
@@ -198,8 +199,8 @@
 
             <FrameLayout
                 android:id="@+id/ad_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:minHeight="200dp"
                 app:layout_constraintTop_toBottomOf="@id/notifications_textview"
                 app:layout_constraintStart_toStartOf="parent"
@@ -211,15 +212,15 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/setting_illustration"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 tools:srcCompat="@tools:sample/avatars"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_settings_illustrations"
                 app:layout_constraintTop_toBottomOf="@id/notifications_textview"
-                app:layout_constraintStart_toEndOf="@id/guideline4"
-                app:layout_constraintEnd_toStartOf="@id/guideline8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintVertical_bias="0.5"
                 />
 
 

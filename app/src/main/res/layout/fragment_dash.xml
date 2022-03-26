@@ -10,11 +10,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/no_tracker_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:animateLayoutChanges="true"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        app:layout_constraintStart_toEndOf="@id/guideline_at_start"
+        app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
+        app:layout_constraintTop_toBottomOf="@id/guideline_at_top"
+        app:layout_constraintBottom_toTopOf="@id/add_product_button"
+        >
 
         <TextView
             android:id="@+id/slogan_text"
@@ -37,14 +42,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/illustration_view"
-            android:layout_width="250dp"
-            android:layout_height="300dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="25dp"
             android:src="@drawable/ic_fresh_illustration"
             android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/slogan_text"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.3"
             tools:visibility="visible" />
 
@@ -374,6 +380,7 @@
         android:elevation="5dp"
         android:text="@string/lets_s_track_a_product"
         android:visibility="gone"
+        app:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintStart_toEndOf="@id/guideline_at_start"
