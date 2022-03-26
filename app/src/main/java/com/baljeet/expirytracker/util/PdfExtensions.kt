@@ -166,364 +166,665 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
 
     var yBondTotals = yBondDescription + 240F
 
-    val headingPaint = Paint()
-    headingPaint.textAlign = Paint.Align.LEFT
-    headingPaint.typeface = montserratSemiBold
-    headingPaint.textSize = 24F
-    headingPaint.letterSpacing = 0.1F
-    headingPaint.color = colorGreen
 
-    i = 0
-    sourcePaint.textSize = 22F
-    sourcePaint.letterSpacing = 0.05F
-    if(totalFresh>0){
-        canvas.drawText("USED FRESH",65F,yBondTotals,headingPaint)
 
-        for (tracker in trackers.filter { t-> t.tracker.usedWhileFresh }){
 
-            yBondTotals += (60F)
-            if (yBondTotals + (i*90F)  > pageHeight - 200) {
+    if(this.groupBy == GroupBy.RESULTS) {
 
-                linePaint.style = Paint.Style.STROKE
-                linePaint.strokeWidth = 2F
-                linePaint.color = themeColor
-                canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
-
-                headingPaint.color = themeColor
-                headingPaint.textSize = 40F
-                headingPaint.typeface = montserratFont
-                canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
-
-                doc.finishPage(pages[pageNumber - 1])
-                pageNumber++
-                val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
-                val page = doc.startPage(pageInfo)
-                canvas = page.canvas
-                pages.add(page)
-                yBondTotals = 90F
-                i =0
-            }
-            if(this.useOfImages == UseImages.ON) {
-                val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                    "asset" -> {
-                        BitmapFactory.decodeResource(
-                            context.resources,
-                            context.resources.getIdentifier(
-                                tracker.productAndCategoryAndImage.image.imageUrl,
-                                "drawable",
-                                context.packageName
-                            )
-                        )
-                    }
-                    else -> {
-                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                    }
-                }
-
-                val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
-            }
-            canvas.drawText(context.getString(R.string.product_name_var,tracker.productAndCategoryAndImage.product.name),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F),sourcePaint)
-            canvas.drawText(context.getString(R.string.category_name_var,tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F)+30F,sourcePaint)
-            val expiryDate = tracker.tracker.expiryDate!!
-            canvas.drawText(context.getString(
-                R.string.expiry_date_var_1,
-                expiryDate.month.name.substring(0,3).uppercase(),
-                expiryDate.dayOfMonth,
-                expiryDate.year
-            ), 600F,yBondTotals,sourcePaint)
-            val mfgDate = tracker.tracker.mfgDate!!
-            canvas.drawText(context.getString(
-                R.string.mfg_date_var_1,
-                mfgDate.month.name.substring(0,3).uppercase(),
-                mfgDate.dayOfMonth,
-                mfgDate.year
-            ), 600F ,yBondTotals + (i*90F)+30F,sourcePaint)
-            val usedDate = tracker.tracker.usedDate!!
-            canvas.drawText(context.getString(
-                R.string.used_date_var,
-                usedDate.month.name.substring(0,3).uppercase(),
-                usedDate.dayOfMonth,
-                usedDate.year
-            ), 600F,yBondTotals + (i*90F)+60F,sourcePaint)
-
-            val statusLine = Paint()
-            statusLine.style = Paint.Style.STROKE
-            statusLine.strokeWidth = 10F
-            statusLine.color = colorGreen
-            canvas.drawLine(1000F, yBondTotals + (i*90F)-30F, 1000F, yBondTotals + (i*90F)+70F, statusLine)
-
-            val itemUnderLine = Paint()
-            itemUnderLine.style = Paint.Style.STROKE
-            itemUnderLine.strokeWidth = 2F
-            itemUnderLine.color = colorGreen
-            canvas.drawLine(60F, yBondTotals + (i*90F)+70F, 1000F, yBondTotals + (i*90F)+70F, itemUnderLine)
-            i++
-        }
-    }
-    yBondTotals += (i * 90F)
-    i= 0
-    yBondTotals +=80F
-    if (yBondTotals  > pageHeight - 200) {
-
-        linePaint.style = Paint.Style.STROKE
-        linePaint.strokeWidth = 2F
-        linePaint.color = themeColor
-        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
-
-        headingPaint.color = themeColor
-        headingPaint.textSize = 40F
-        headingPaint.typeface = montserratFont
-        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
-
-        doc.finishPage(pages[pageNumber - 1])
-        pageNumber++
-        val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
-        val page = doc.startPage(pageInfo)
-        canvas = page.canvas
-        pages.add(page)
-        yBondTotals = 90F
-        i =0
-    }
-    if(totalNearExpiry+totalOk>0){
-        headingPaint.color = colorYellow
+        val headingPaint = Paint()
         headingPaint.textAlign = Paint.Align.LEFT
         headingPaint.typeface = montserratSemiBold
         headingPaint.textSize = 24F
         headingPaint.letterSpacing = 0.1F
-        canvas.drawText("USED NEAR EXPIRY",65F,yBondTotals,headingPaint)
+        headingPaint.color = colorGreen
 
-        for (tracker in trackers.filter { t-> t.tracker.usedNearExpiry || t.tracker.usedWhileOk }){
-            yBondTotals += (60F)
-            if (yBondTotals + (i*90F) > pageHeight - 200) {
+        i = 0
+        sourcePaint.textSize = 22F
+        sourcePaint.letterSpacing = 0.05F
 
-                linePaint.style = Paint.Style.STROKE
-                linePaint.strokeWidth = 2F
-                linePaint.color = themeColor
-                canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
 
-                headingPaint.color = themeColor
-                headingPaint.textSize = 40F
-                headingPaint.typeface = montserratFont
-                canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
+        if (totalFresh > 0) {
+            canvas.drawText("USED FRESH", 65F, yBondTotals, headingPaint)
 
-                doc.finishPage(pages[pageNumber - 1])
-                pageNumber++
-                val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
-                val page = doc.startPage(pageInfo)
-                canvas = page.canvas
-                pages.add(page)
-                yBondTotals = 90F
-                i =0
-            }
-            if(this.useOfImages == UseImages.ON) {
+            for (tracker in trackers.filter { t -> t.tracker.usedWhileFresh }) {
 
-                val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                    "asset" -> {
-                        BitmapFactory.decodeResource(
-                            context.resources,
-                            context.resources.getIdentifier(
-                                tracker.productAndCategoryAndImage.image.imageUrl,
-                                "drawable",
-                                context.packageName
-                            )
-                        )
-                    }
-                    else -> {
-                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                    }
+                yBondTotals += (60F)
+                if (yBondTotals + (i * 90F) > pageHeight - 200) {
+
+                    linePaint.style = Paint.Style.STROKE
+                    linePaint.strokeWidth = 2F
+                    linePaint.color = themeColor
+                    canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+                    headingPaint.color = themeColor
+                    headingPaint.textSize = 40F
+                    headingPaint.typeface = montserratFont
+                    canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+                    doc.finishPage(pages[pageNumber - 1])
+                    pageNumber++
+                    val pageInfo =
+                        PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+                    val page = doc.startPage(pageInfo)
+                    canvas = page.canvas
+                    pages.add(page)
+                    yBondTotals = 90F
+                    i = 0
                 }
+                if (this.useOfImages == UseImages.ON) {
+                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                        "asset" -> {
+                            BitmapFactory.decodeResource(
+                                context.resources,
+                                context.resources.getIdentifier(
+                                    tracker.productAndCategoryAndImage.image.imageUrl,
+                                    "drawable",
+                                    context.packageName
+                                )
+                            )
+                        }
+                        else -> {
+                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                        }
+                    }
 
-                val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                }
+                canvas.drawText(
+                    context.getString(
+                        R.string.product_name_var,
+                        tracker.productAndCategoryAndImage.product.name
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F),
+                    sourcePaint
+                )
+                canvas.drawText(
+                    context.getString(
+                        R.string.category_name_var,
+                        tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F) + 30F,
+                    sourcePaint
+                )
+                val expiryDate = tracker.tracker.expiryDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.expiry_date_var_1,
+                        expiryDate.month.name.substring(0, 3).uppercase(),
+                        expiryDate.dayOfMonth,
+                        expiryDate.year
+                    ), 600F, yBondTotals, sourcePaint
+                )
+                val mfgDate = tracker.tracker.mfgDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.mfg_date_var_1,
+                        mfgDate.month.name.substring(0, 3).uppercase(),
+                        mfgDate.dayOfMonth,
+                        mfgDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 30F, sourcePaint
+                )
+                val usedDate = tracker.tracker.usedDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.used_date_var,
+                        usedDate.month.name.substring(0, 3).uppercase(),
+                        usedDate.dayOfMonth,
+                        usedDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 60F, sourcePaint
+                )
+
+                val statusLine = Paint()
+                statusLine.style = Paint.Style.STROKE
+                statusLine.strokeWidth = 10F
+                statusLine.color = colorGreen
+                canvas.drawLine(
+                    1000F,
+                    yBondTotals + (i * 90F) - 30F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    statusLine
+                )
+
+                val itemUnderLine = Paint()
+                itemUnderLine.style = Paint.Style.STROKE
+                itemUnderLine.strokeWidth = 2F
+                itemUnderLine.color = colorGreen
+                canvas.drawLine(
+                    60F,
+                    yBondTotals + (i * 90F) + 70F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    itemUnderLine
+                )
+                i++
             }
-                canvas.drawText(context.getString(R.string.product_name_var,tracker.productAndCategoryAndImage.product.name),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F),sourcePaint)
-            canvas.drawText(context.getString(R.string.category_name_var,tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F)+30F,sourcePaint)
-            val expiryDate = tracker.tracker.expiryDate!!
-            canvas.drawText(context.getString(
-                R.string.expiry_date_var_1,
-                expiryDate.month.name.substring(0,3).uppercase(),
-                expiryDate.dayOfMonth,
-                expiryDate.year
-            ), 600F,yBondTotals + (i*90F),sourcePaint)
-            val mfgDate = tracker.tracker.mfgDate!!
-            canvas.drawText(context.getString(
-                R.string.mfg_date_var_1,
-                mfgDate.month.name.substring(0,3).uppercase(),
-                mfgDate.dayOfMonth,
-                mfgDate.year
-            ),600F,yBondTotals + (i*90F)+30F,sourcePaint)
-            val usedDate = tracker.tracker.usedDate!!
-            canvas.drawText(context.getString(
-                R.string.used_date_var,
-                usedDate.month.name.substring(0,3).uppercase(),
-                usedDate.dayOfMonth,
-                usedDate.year
-            ),600F ,yBondTotals + (i*90F)+60F,sourcePaint)
-
-
-            val statusLine = Paint()
-            statusLine.style = Paint.Style.STROKE
-            statusLine.strokeWidth = 10F
-            statusLine.color = colorYellow
-            canvas.drawLine(1000F, yBondTotals + (i*90F)-30F, 1000F, yBondTotals + (i*90F)+70F, statusLine)
-
-            val itemUnderLine = Paint()
-            itemUnderLine.style = Paint.Style.STROKE
-            itemUnderLine.strokeWidth = 2F
-            itemUnderLine.color = colorYellow
-            canvas.drawLine(60F, yBondTotals + (i*90F)+70F, 1000F, yBondTotals + (i*90F)+70F, itemUnderLine)
-            i++
         }
+        yBondTotals += (i * 90F)
+        i = 0
+        yBondTotals += 80F
+        if (yBondTotals > pageHeight - 200) {
+
+            linePaint.style = Paint.Style.STROKE
+            linePaint.strokeWidth = 2F
+            linePaint.color = themeColor
+            canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+            headingPaint.color = themeColor
+            headingPaint.textSize = 40F
+            headingPaint.typeface = montserratFont
+            canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+            doc.finishPage(pages[pageNumber - 1])
+            pageNumber++
+            val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+            val page = doc.startPage(pageInfo)
+            canvas = page.canvas
+            pages.add(page)
+            yBondTotals = 90F
+            i = 0
+        }
+
+
+        if (totalNearExpiry + totalOk > 0) {
+            headingPaint.color = colorYellow
+            headingPaint.textAlign = Paint.Align.LEFT
+            headingPaint.typeface = montserratSemiBold
+            headingPaint.textSize = 24F
+            headingPaint.letterSpacing = 0.1F
+            canvas.drawText("USED NEAR EXPIRY", 65F, yBondTotals, headingPaint)
+
+            for (tracker in trackers.filter { t -> t.tracker.usedNearExpiry || t.tracker.usedWhileOk }) {
+                yBondTotals += (60F)
+                if (yBondTotals + (i * 90F) > pageHeight - 200) {
+
+                    linePaint.style = Paint.Style.STROKE
+                    linePaint.strokeWidth = 2F
+                    linePaint.color = themeColor
+                    canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+                    headingPaint.color = themeColor
+                    headingPaint.textSize = 40F
+                    headingPaint.typeface = montserratFont
+                    canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+                    doc.finishPage(pages[pageNumber - 1])
+                    pageNumber++
+                    val pageInfo =
+                        PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+                    val page = doc.startPage(pageInfo)
+                    canvas = page.canvas
+                    pages.add(page)
+                    yBondTotals = 90F
+                    i = 0
+                }
+                if (this.useOfImages == UseImages.ON) {
+
+                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                        "asset" -> {
+                            BitmapFactory.decodeResource(
+                                context.resources,
+                                context.resources.getIdentifier(
+                                    tracker.productAndCategoryAndImage.image.imageUrl,
+                                    "drawable",
+                                    context.packageName
+                                )
+                            )
+                        }
+                        else -> {
+                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                        }
+                    }
+
+                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                }
+                canvas.drawText(
+                    context.getString(
+                        R.string.product_name_var,
+                        tracker.productAndCategoryAndImage.product.name
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F),
+                    sourcePaint
+                )
+                canvas.drawText(
+                    context.getString(
+                        R.string.category_name_var,
+                        tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F) + 30F,
+                    sourcePaint
+                )
+                val expiryDate = tracker.tracker.expiryDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.expiry_date_var_1,
+                        expiryDate.month.name.substring(0, 3).uppercase(),
+                        expiryDate.dayOfMonth,
+                        expiryDate.year
+                    ), 600F, yBondTotals + (i * 90F), sourcePaint
+                )
+                val mfgDate = tracker.tracker.mfgDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.mfg_date_var_1,
+                        mfgDate.month.name.substring(0, 3).uppercase(),
+                        mfgDate.dayOfMonth,
+                        mfgDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 30F, sourcePaint
+                )
+                val usedDate = tracker.tracker.usedDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.used_date_var,
+                        usedDate.month.name.substring(0, 3).uppercase(),
+                        usedDate.dayOfMonth,
+                        usedDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 60F, sourcePaint
+                )
+
+
+                val statusLine = Paint()
+                statusLine.style = Paint.Style.STROKE
+                statusLine.strokeWidth = 10F
+                statusLine.color = colorYellow
+                canvas.drawLine(
+                    1000F,
+                    yBondTotals + (i * 90F) - 30F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    statusLine
+                )
+
+                val itemUnderLine = Paint()
+                itemUnderLine.style = Paint.Style.STROKE
+                itemUnderLine.strokeWidth = 2F
+                itemUnderLine.color = colorYellow
+                canvas.drawLine(
+                    60F,
+                    yBondTotals + (i * 90F) + 70F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    itemUnderLine
+                )
+                i++
+            }
+        }
+        yBondTotals += (i * 90F)
+        i = 0
+        yBondTotals += 80F
+        if (yBondTotals > pageHeight - 200) {
+
+            linePaint.style = Paint.Style.STROKE
+            linePaint.strokeWidth = 2F
+            linePaint.color = themeColor
+            canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+            headingPaint.color = themeColor
+            headingPaint.textSize = 40F
+            headingPaint.typeface = montserratFont
+            canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+            doc.finishPage(pages[pageNumber - 1])
+            pageNumber++
+            val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+            val page = doc.startPage(pageInfo)
+            canvas = page.canvas
+            pages.add(page)
+            yBondTotals = 90F
+            i = 0
+        }
+
+
+
+        if (totalExpired > 0) {
+            headingPaint.color = colorPeach
+            headingPaint.textAlign = Paint.Align.LEFT
+            headingPaint.typeface = montserratSemiBold
+            headingPaint.textSize = 24F
+            headingPaint.letterSpacing = 0.1F
+            canvas.drawText("EXPIRED", 65F, yBondTotals, headingPaint)
+            for (tracker in trackers.filter { t -> t.tracker.gotExpired }) {
+
+                yBondTotals += (60F)
+
+                if (yBondTotals + (i * 90F) > pageHeight - 200) {
+
+                    linePaint.style = Paint.Style.STROKE
+                    linePaint.strokeWidth = 2F
+                    linePaint.color = themeColor
+                    canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+                    headingPaint.color = themeColor
+                    headingPaint.textSize = 40F
+                    headingPaint.typeface = montserratFont
+                    canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+                    doc.finishPage(pages[pageNumber - 1])
+                    pageNumber++
+                    val pageInfo =
+                        PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+                    val page = doc.startPage(pageInfo)
+                    canvas = page.canvas
+                    pages.add(page)
+                    yBondTotals = 90F
+                    i = 0
+                }
+                if (this.useOfImages == UseImages.ON) {
+                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                        "asset" -> {
+                            BitmapFactory.decodeResource(
+                                context.resources,
+                                context.resources.getIdentifier(
+                                    tracker.productAndCategoryAndImage.image.imageUrl,
+                                    "drawable",
+                                    context.packageName
+                                )
+                            )
+                        }
+                        else -> {
+                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                        }
+                    }
+
+                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                }
+                canvas.drawText(
+                    context.getString(
+                        R.string.product_name_var,
+                        tracker.productAndCategoryAndImage.product.name
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F),
+                    sourcePaint
+                )
+                canvas.drawText(
+                    context.getString(
+                        R.string.category_name_var,
+                        tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F) + 30F,
+                    sourcePaint
+                )
+                val expiryDate = tracker.tracker.expiryDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.expiry_date_var_1,
+                        expiryDate.month.name.substring(0, 3).uppercase(),
+                        expiryDate.dayOfMonth,
+                        expiryDate.year
+                    ), 600F, yBondTotals + (i * 90F), sourcePaint
+                )
+                val mfgDate = tracker.tracker.mfgDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.mfg_date_var_1,
+                        mfgDate.month.name.substring(0, 3).uppercase(),
+                        mfgDate.dayOfMonth,
+                        mfgDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 30F, sourcePaint
+                )
+                val usedDate = tracker.tracker.usedDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.used_date_var,
+                        usedDate.month.name.substring(0, 3).uppercase(),
+                        usedDate.dayOfMonth,
+                        usedDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 60F, sourcePaint
+                )
+
+
+                val statusLine = Paint()
+                statusLine.style = Paint.Style.STROKE
+                statusLine.strokeWidth = 10F
+                statusLine.color = colorPeach
+                canvas.drawLine(
+                    1000F,
+                    yBondTotals + (i * 90F) - 30F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    statusLine
+                )
+
+                val itemUnderLine = Paint()
+                itemUnderLine.style = Paint.Style.STROKE
+                itemUnderLine.strokeWidth = 2F
+                itemUnderLine.color = colorPeach
+                canvas.drawLine(
+                    60F,
+                    yBondTotals + (i * 90F) + 70F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    itemUnderLine
+                )
+                i++
+            }
+        }
+        yBondTotals += (i * 90F)
+        i = 0
+        yBondTotals += 80F
+        if (yBondTotals + (i * 90F) > pageHeight - 200) {
+
+            linePaint.style = Paint.Style.STROKE
+            linePaint.strokeWidth = 2F
+            linePaint.color = themeColor
+            canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+            headingPaint.color = themeColor
+            headingPaint.textSize = 40F
+            headingPaint.typeface = montserratFont
+            canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+            doc.finishPage(pages[pageNumber - 1])
+            pageNumber++
+            val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+            val page = doc.startPage(pageInfo)
+            page.canvas
+            pages.add(page)
+
+        } else {
+            linePaint.style = Paint.Style.STROKE
+            linePaint.strokeWidth = 2F
+            linePaint.color = themeColor
+            canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+            headingPaint.color = themeColor
+            headingPaint.textSize = 40F
+            headingPaint.typeface = montserratFont
+            canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+        }
+
     }
-    yBondTotals += (i * 90F)
-    i= 0
-    yBondTotals +=80F
-    if (yBondTotals  > pageHeight - 200) {
-
-        linePaint.style = Paint.Style.STROKE
-        linePaint.strokeWidth = 2F
-        linePaint.color = themeColor
-        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
-
-        headingPaint.color = themeColor
-        headingPaint.textSize = 40F
-        headingPaint.typeface = montserratFont
-        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
-
-        doc.finishPage(pages[pageNumber - 1])
-        pageNumber++
-        val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
-        val page = doc.startPage(pageInfo)
-        canvas = page.canvas
-        pages.add(page)
-        yBondTotals = 90F
-        i =0
-    }
-    if(totalExpired>0){
-        headingPaint.color = colorPeach
+    else{
+        val headingPaint = Paint()
         headingPaint.textAlign = Paint.Align.LEFT
         headingPaint.typeface = montserratSemiBold
         headingPaint.textSize = 24F
         headingPaint.letterSpacing = 0.1F
-        canvas.drawText("EXPIRED",65F,yBondTotals,headingPaint)
-        for (tracker in trackers.filter { t-> t.tracker.gotExpired}){
-
-            yBondTotals += (60F)
-
-            if (yBondTotals + (i*90F) > pageHeight - 200) {
-
-                linePaint.style = Paint.Style.STROKE
-                linePaint.strokeWidth = 2F
-                linePaint.color = themeColor
-                canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
-
-                headingPaint.color = themeColor
-                headingPaint.textSize = 40F
-                headingPaint.typeface = montserratFont
-                canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
-
-                doc.finishPage(pages[pageNumber - 1])
-                pageNumber++
-                val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
-                val page = doc.startPage(pageInfo)
-                canvas = page.canvas
-                pages.add(page)
-                yBondTotals = 90F
-                i =0
-            }
-            if(this.useOfImages == UseImages.ON) {
-                val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                    "asset" -> {
-                        BitmapFactory.decodeResource(
-                            context.resources,
-                            context.resources.getIdentifier(
-                                tracker.productAndCategoryAndImage.image.imageUrl,
-                                "drawable",
-                                context.packageName
-                            )
-                        )
-                    }
-                    else -> {
-                        ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                    }
-                }
-
-                val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
-            }
-                canvas.drawText(context.getString(R.string.product_name_var,tracker.productAndCategoryAndImage.product.name),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F),sourcePaint)
-            canvas.drawText(context.getString(R.string.category_name_var,tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName),if(this.useOfImages == UseImages.ON) 180F else 65F,yBondTotals + (i*90F)+30F,sourcePaint)
-            val expiryDate = tracker.tracker.expiryDate!!
-            canvas.drawText(context.getString(
-                R.string.expiry_date_var_1,
-                expiryDate.month.name.substring(0,3).uppercase(),
-                expiryDate.dayOfMonth,
-                expiryDate.year
-            ),600F ,yBondTotals + (i*90F),sourcePaint)
-            val mfgDate = tracker.tracker.mfgDate!!
-            canvas.drawText(context.getString(
-                R.string.mfg_date_var_1,
-                mfgDate.month.name.substring(0,3).uppercase(),
-                mfgDate.dayOfMonth,
-                mfgDate.year
-            ),600F,yBondTotals + (i*90F)+30F,sourcePaint)
-            val usedDate = tracker.tracker.usedDate!!
-            canvas.drawText(context.getString(
-                R.string.used_date_var,
-                usedDate.month.name.substring(0,3).uppercase(),
-                usedDate.dayOfMonth,
-                usedDate.year
-            ),600F ,yBondTotals + (i*90F)+60F,sourcePaint)
-
-
-            val statusLine = Paint()
-            statusLine.style = Paint.Style.STROKE
-            statusLine.strokeWidth = 10F
-            statusLine.color = colorPeach
-            canvas.drawLine(1000F, yBondTotals + (i*90F)-30F, 1000F, yBondTotals + (i*90F)+70F, statusLine)
-
-            val itemUnderLine = Paint()
-            itemUnderLine.style = Paint.Style.STROKE
-            itemUnderLine.strokeWidth = 2F
-            itemUnderLine.color = colorPeach
-            canvas.drawLine(60F, yBondTotals + (i*90F)+70F, 1000F, yBondTotals + (i*90F)+70F, itemUnderLine)
-            i++
-        }
-    }
-    yBondTotals += (i * 90F)
-    i= 0
-    yBondTotals +=80F
-    if (yBondTotals + (i*90F) > pageHeight - 200) {
-
-        linePaint.style = Paint.Style.STROKE
-        linePaint.strokeWidth = 2F
-        linePaint.color = themeColor
-        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
-
         headingPaint.color = themeColor
-        headingPaint.textSize = 40F
-        headingPaint.typeface = montserratFont
-        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
 
-        doc.finishPage(pages[pageNumber - 1])
-        pageNumber++
-        val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
-        val page = doc.startPage(pageInfo)
-        page.canvas
-        pages.add(page)
+        i = 0
+        sourcePaint.textSize = 22F
+        sourcePaint.letterSpacing = 0.05F
+
         
-    }else{
-        linePaint.style = Paint.Style.STROKE
-        linePaint.strokeWidth = 2F
-        linePaint.color = themeColor
-        canvas.drawLine(60F, pageHeight-100F, 1190F, pageHeight-100F, linePaint)
+        for(categorisedTrackers in this.trackers.getGroupedListByCategories()){
+            canvas.drawText(categorisedTrackers.categoryName, 65F, yBondTotals+  (i * 90F) , headingPaint)
 
-        headingPaint.color = themeColor
-        headingPaint.textSize = 40F
-        headingPaint.typeface = montserratFont
-        canvas.drawText(pageNumber.toString(),1150F,pageHeight-50F, headingPaint)
+            for (tracker in trackers.filter { t -> t.tracker.usedWhileFresh }) {
+
+                yBondTotals += (60F)
+                if (yBondTotals + (i * 90F) > pageHeight - 200) {
+
+                    linePaint.style = Paint.Style.STROKE
+                    linePaint.strokeWidth = 2F
+                    linePaint.color = themeColor
+                    canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+                    headingPaint.color = themeColor
+                    headingPaint.textSize = 40F
+                    headingPaint.typeface = montserratFont
+                    canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+                    doc.finishPage(pages[pageNumber - 1])
+                    pageNumber++
+                    val pageInfo =
+                        PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+                    val page = doc.startPage(pageInfo)
+                    canvas = page.canvas
+                    pages.add(page)
+                    yBondTotals = 90F
+                    i = 0
+                }
+                if (this.useOfImages == UseImages.ON) {
+                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                        "asset" -> {
+                            BitmapFactory.decodeResource(
+                                context.resources,
+                                context.resources.getIdentifier(
+                                    tracker.productAndCategoryAndImage.image.imageUrl,
+                                    "drawable",
+                                    context.packageName
+                                )
+                            )
+                        }
+                        else -> {
+                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                        }
+                    }
+
+                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                }
+                canvas.drawText(
+                    context.getString(
+                        R.string.product_name_var,
+                        tracker.productAndCategoryAndImage.product.name
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F),
+                    sourcePaint
+                )
+                canvas.drawText(
+                    context.getString(
+                        R.string.category_name_var,
+                        tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName
+                    ),
+                    if (this.useOfImages == UseImages.ON) 180F else 65F,
+                    yBondTotals + (i * 90F) + 30F,
+                    sourcePaint
+                )
+                val expiryDate = tracker.tracker.expiryDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.expiry_date_var_1,
+                        expiryDate.month.name.substring(0, 3).uppercase(),
+                        expiryDate.dayOfMonth,
+                        expiryDate.year
+                    ), 600F, yBondTotals, sourcePaint
+                )
+                val mfgDate = tracker.tracker.mfgDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.mfg_date_var_1,
+                        mfgDate.month.name.substring(0, 3).uppercase(),
+                        mfgDate.dayOfMonth,
+                        mfgDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 30F, sourcePaint
+                )
+                val usedDate = tracker.tracker.usedDate!!
+                canvas.drawText(
+                    context.getString(
+                        R.string.used_date_var,
+                        usedDate.month.name.substring(0, 3).uppercase(),
+                        usedDate.dayOfMonth,
+                        usedDate.year
+                    ), 600F, yBondTotals + (i * 90F) + 60F, sourcePaint
+                )
+
+                val statusLine = Paint()
+                statusLine.style = Paint.Style.STROKE
+                statusLine.strokeWidth = 10F
+                statusLine.color = if(tracker.tracker.gotExpired || tracker.tracker.usedNearExpiry){
+                    colorPeach
+                }else if(tracker.tracker.usedWhileOk){
+                    colorYellow
+                }else{
+                    colorGreen
+                }
+                canvas.drawLine(
+                    1000F,
+                    yBondTotals + (i * 90F) - 30F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    statusLine
+                )
+
+                val itemUnderLine = Paint()
+                itemUnderLine.style = Paint.Style.STROKE
+                itemUnderLine.strokeWidth = 2F
+                itemUnderLine.color = if(tracker.tracker.gotExpired || tracker.tracker.usedNearExpiry){
+                    colorPeach
+                }else if(tracker.tracker.usedWhileOk){
+                    colorYellow
+                }else{
+                    colorGreen
+                }
+                canvas.drawLine(
+                    60F,
+                    yBondTotals + (i * 90F) + 70F,
+                    1000F,
+                    yBondTotals + (i * 90F) + 70F,
+                    itemUnderLine
+                )
+                i++
+            }
+        }
+
+        yBondTotals += (i * 90F)
+        i = 0
+        yBondTotals += 80F
+        if (yBondTotals + (i * 90F) > pageHeight - 200) {
+
+            linePaint.style = Paint.Style.STROKE
+            linePaint.strokeWidth = 2F
+            linePaint.color = themeColor
+            canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+            headingPaint.color = themeColor
+            headingPaint.textSize = 40F
+            headingPaint.typeface = montserratFont
+            canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+
+            doc.finishPage(pages[pageNumber - 1])
+            pageNumber++
+            val pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
+            val page = doc.startPage(pageInfo)
+            page.canvas
+            pages.add(page)
+
+        } else {
+            linePaint.style = Paint.Style.STROKE
+            linePaint.strokeWidth = 2F
+            linePaint.color = themeColor
+            canvas.drawLine(60F, pageHeight - 100F, 1190F, pageHeight - 100F, linePaint)
+
+            headingPaint.color = themeColor
+            headingPaint.textSize = 40F
+            headingPaint.typeface = montserratFont
+            canvas.drawText(pageNumber.toString(), 1150F, pageHeight - 50F, headingPaint)
+        }
+
     }
+
     doc.finishPage(pages[pageNumber-1])
     return doc
 }

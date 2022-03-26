@@ -91,6 +91,7 @@
     <string name="monthly">MONTHLY</string>
     <string name="weekly">WEEKLY</string>
     <string name="used_near_expiry">Used Near Expiry</string>
+    <string name="used_near_expiry_2_line">Used Near \nExpiry</string>
     <string name="used_near_expiry_2">Used just before expiration</string>
     <string name="products_expired">Expired</string>
     <string name="_0">0</string>

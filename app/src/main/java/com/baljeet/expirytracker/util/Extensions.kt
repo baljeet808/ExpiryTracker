@@ -5,7 +5,10 @@ import android.content.ContentResolver
 import android.icu.text.NumberFormat
 import android.net.Uri
 import android.provider.MediaStore
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import java.util.*
+import kotlin.collections.ArrayList
 
 @SuppressLint("Range")
 fun ContentResolver.getFileName(uri : Uri): String{
@@ -31,6 +34,32 @@ fun ContentResolver.getContentType(uri : Uri): String{
 fun Double.getUSCurrencyFormat(): String {
     return NumberFormat.getCurrencyInstance(Locale.US).format(this)
 }
+
+fun ArrayList<TrackerAndProduct>.getGroupedListByCategories():ArrayList<TrackerByCategories> {
+    val list = ArrayList<TrackerByCategories>()
+
+    val categories = ArrayList<Category>()
+    for(tracker in this){
+        if(!categories.contains(tracker.productAndCategoryAndImage.categoryAndImage.category)){
+           categories.add(tracker.productAndCategoryAndImage.categoryAndImage.category)
+        }
+    }
+
+    for(category in categories){
+        list.add(
+            TrackerByCategories(
+            categoryName = category.categoryName,
+            trackers = this.filter { t->t.productAndCategoryAndImage.categoryAndImage.category.categoryId == category.categoryId }
+        )
+        )
+    }
+    return list
+}
+
+data class TrackerByCategories(
+    var categoryName : String,
+    var trackers : List<TrackerAndProduct>
+)
 
 
 
