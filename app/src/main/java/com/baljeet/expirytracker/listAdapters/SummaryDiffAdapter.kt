@@ -37,22 +37,26 @@ class SummaryDiffAdapter(private val context: Context) : ListAdapter<TrackerAndP
             productCategory?.text = tracker.productAndCategoryAndImage.categoryAndImage.category.categoryName
             if(tracker.tracker.usedWhileFresh){
                 trackingResult.text = context.getString(R.string.freshly_used)
+                trackingResult.setTextColor(context.getColor(R.color.soft_green))
                 statusColor.setBackgroundColor(context.getColor(R.color.soft_green))
             }
             if(tracker.tracker.usedWhileOk){
                 trackingResult.text = context.getString(R.string.good_condition)
+                trackingResult.setTextColor(context.getColor(R.color.soft_yellow))
                 statusColor.setBackgroundColor(context.getColor(R.color.soft_yellow))
             }
             if(tracker.tracker.usedNearExpiry){
                 trackingResult.text = context.getString(R.string.used_near_expiry_2)
+                trackingResult.setTextColor(context.getColor(R.color.red_orange))
                 statusColor.setBackgroundColor(context.getColor(R.color.red_orange))
             }
             if(tracker.tracker.gotExpired){
                 trackingResult.text =context.getString(R.string.expired)
+                trackingResult.setTextColor(context.getColor(R.color.soft_red))
                 statusColor.setBackgroundColor(context.getColor(R.color.soft_red))
             }
 
-            expiryDate.text = tracker.tracker.expiryDate?.let {
+            expiryDate?.text = tracker.tracker.expiryDate?.let {
                 context.getString(R.string.expiry_date_var_1,
                     it.month.name.substring(0,3).uppercase(),
                     it.dayOfMonth,
@@ -61,6 +65,14 @@ class SummaryDiffAdapter(private val context: Context) : ListAdapter<TrackerAndP
             }
             mfgDate?.text = tracker.tracker.mfgDate?.let {
                 context.getString(R.string.mfg_date_var_1,
+                    it.month.name.substring(0,3).uppercase(),
+                    it.dayOfMonth,
+                    it.year
+                )
+            }
+
+            usedDate.text = tracker.tracker.usedDate?.let {
+                context.getString(R.string.used_date_var,
                     it.month.name.substring(0,3).uppercase(),
                     it.dayOfMonth,
                     it.year

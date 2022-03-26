@@ -22,7 +22,6 @@ import com.baljeet.expirytracker.model.*
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.MyColors
 import com.baljeet.expirytracker.util.SharedPref
-import com.baljeet.expirytracker.util.getUSCurrencyFormat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
@@ -62,7 +61,6 @@ class Analytics : Fragment() {
             if(SharedPref.isUserAPro){
                 playAdsTo.isGone = true
                 removeAdsCard.isGone = true
-                proPrice.isGone = true
             }
             else{
                 val adRequest = AdRequest.Builder().build()
@@ -219,16 +217,6 @@ class Analytics : Fragment() {
                 }
             }
 
-            viewModel.allActiveTrackers.observe(viewLifecycleOwner) {
-                additionalTrackingInfo1.text =
-                    requireContext().getString(R.string.additional_info2, it?.size ?: 0)
-            }
-
-            viewModel.allFinishedTracker.observe(viewLifecycleOwner) {
-                additionalTrackingInfo2.text =
-                    requireContext().getString(R.string.additional_info1, it?.size ?: 0)
-            }
-
             favouriteToggle.apply {
                 setOnClickListener {
                     viewModel.favouriteFilter.value?.let { filter ->
@@ -369,9 +357,6 @@ class Analytics : Fragment() {
             if(SharedPref.isUserAPro){
                 removeAdsCard.visibility = View.GONE
                 playAdsTo.isGone = true
-            }
-            else{
-                proPrice.text = 1.99.getUSCurrencyFormat()
             }
         }
     }

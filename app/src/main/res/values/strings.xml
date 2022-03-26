@@ -45,6 +45,7 @@
     <string name="expiry_date_var">Expiring On - %1$s. %2$d, %3$d</string>
     <string name="expiry_date_var_1">Expiry date: %1$s. %2$d, %3$d</string>
     <string name="mfg_date_var_1">Mfg date: %1$s. %2$d, %3$d</string>
+    <string name="used_date_var">Used date: %1$s. %2$d, %3$d</string>
     <string name="expiring_date_var">%1$d %2$s, %3$d</string>
     <string name="date_var">%1$s. %2$d, %3$d</string>
     <string name="manufactured_date_8th_aug_2021">8th Aug, 2021</string>

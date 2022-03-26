@@ -44,7 +44,7 @@
                         android:id="@+id/time_period_card"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="5dp"
                         app:cardCornerRadius="15dp"
                         app:layout_constraintEnd_toStartOf="@id/guideline4"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -285,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal"
-                        app:layout_constraintEnd_toStartOf="@id/guideline4"
+                        app:layout_constraintEnd_toStartOf="@id/guideline3"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
                         app:layout_constraintTop_toBottomOf="@id/category_layout">
 
@@ -295,7 +295,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="15dp"
-                            android:layout_marginBottom="15dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:checkable="true"
                             android:elevation="5dp"
@@ -356,8 +356,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginStart="15dp"
-                            android:layout_marginBottom="15dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:checkable="true"
                             android:elevation="5dp"
@@ -421,8 +422,8 @@
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toStartOf="@id/guideline4"
-                        app:layout_constraintStart_toEndOf="@id/guideline2"
-                        app:layout_constraintTop_toBottomOf="@id/first_row"
+                        app:layout_constraintStart_toEndOf="@id/guideline3"
+                        app:layout_constraintTop_toBottomOf="@id/category_layout"
 
                         >
 
@@ -430,8 +431,9 @@
                             android:id="@+id/used_fresh_card"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginEnd="15dp"
+                            android:layout_marginStart="15dp"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:checkable="true"
@@ -494,7 +496,7 @@
                             android:id="@+id/total_tracked_card"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginStart="15dp"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
@@ -553,6 +555,8 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline2"
                         android:layout_width="wrap_content"
@@ -560,6 +564,12 @@
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.05" />
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline4"
                         android:layout_width="wrap_content"
@@ -577,12 +587,13 @@
                     app:layout_constraintTop_toBottomOf="@id/top_bar">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/graph_card"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:elevation="5dp"
                         app:cardCornerRadius="15dp"
-                        app:layout_constraintEnd_toStartOf="@id/guideline41"
+                        app:layout_constraintEnd_toStartOf="@id/guideline31"
                         app:layout_constraintStart_toEndOf="@id/guideline21"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -721,14 +732,13 @@
 
                             <TextView
                                 android:id="@+id/second_attribute_text"
-                                android:layout_width="120dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:drawablePadding="5dp"
                                 android:ellipsize="end"
                                 android:gravity="start"
                                 android:lines="1"
-                                android:autoSizeTextType="uniform"
                                 android:text="@string/used_near_expiry"
                                 app:drawableStartCompat="@drawable/ic_baseline_circle_18"
                                 app:drawableTint="@color/soft_yellow"
@@ -755,12 +765,137 @@
                     </com.google.android.material.card.MaterialCardView>
 
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/download_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toEndOf="@id/guideline31"
+                        app:layout_constraintEnd_toStartOf="@id/guideline41"
+                        app:layout_constraintTop_toTopOf="@id/graph_card"
+                        app:layout_constraintBottom_toBottomOf="@id/graph_card">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/download_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/remove_ads_card"
+                            android:layout_margin="5dp"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="5dp"
+                            >
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:animateLayoutChanges="true"
+                                >
+
+                                <Button
+                                    android:id="@+id/download_button"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                                    app:icon="@drawable/ic_round_download_24"
+                                    android:text="@string/download_report"
+                                    app:textAllCaps="false"
+                                    android:textSize="12sp"
+                                    app:iconTint="@color/text_color"
+                                    android:textColor="@color/text_color"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    />
+                                <TextView
+                                    android:id="@+id/play_ads_to"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/watch_ad"
+                                    android:textColor="@color/soft_yellow"
+                                    android:textSize="11sp"
+                                    app:layout_constraintBottom_toBottomOf="@id/download_button"
+                                    app:layout_constraintEnd_toEndOf="@id/download_button"
+                                    app:layout_constraintStart_toStartOf="@id/download_button"
+                                    android:layout_marginBottom="1dp"
+
+                                    />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/remove_ads_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/download_card"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_margin="5dp"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="5dp"
+                            >
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:animateLayoutChanges="true"
+                                >
+
+                                <Button
+                                    android:id="@+id/remove_ads"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                                    app:icon="@drawable/crown_24"
+                                    android:text="@string/be_pro"
+                                    app:textAllCaps="false"
+                                    android:textSize="12sp"
+                                    app:iconTint="@color/text_color"
+                                    app:iconPadding="15dp"
+                                    android:textColor="@color/text_color"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    />
+                                <TextView
+                                    android:id="@+id/become_pro"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/remove_ads"
+                                    android:textColor="@color/soft_yellow"
+                                    android:textSize="11sp"
+                                    app:layout_constraintBottom_toBottomOf="@id/remove_ads"
+                                    app:layout_constraintEnd_toEndOf="@id/remove_ads"
+                                    app:layout_constraintStart_toStartOf="@id/remove_ads"
+                                    android:layout_marginBottom="1dp"
+                                    app:layout_constraintHorizontal_bias="0.7"
+                                    />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.05" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline31"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.6" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline41"
@@ -772,134 +907,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/download_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/graph_layout"
-                    android:layout_marginBottom="20dp">
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/download_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/remove_ads_card"
-                        app:layout_constraintStart_toEndOf="@id/guideline_left"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_margin="5dp"
-                        app:cardCornerRadius="15dp"
-                        app:cardElevation="5dp"
-                        >
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:animateLayoutChanges="true"
-                            >
-
-                            <Button
-                                android:id="@+id/download_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                                app:icon="@drawable/ic_round_download_24"
-                                android:text="@string/download_report"
-                                app:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:iconTint="@color/text_color"
-                                android:textColor="@color/text_color"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                />
-                            <TextView
-                                android:id="@+id/play_ads_to"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/watch_ad"
-                                android:textColor="@color/soft_yellow"
-                                android:textSize="11sp"
-                                app:layout_constraintBottom_toBottomOf="@id/download_button"
-                                app:layout_constraintEnd_toEndOf="@id/download_button"
-                                app:layout_constraintStart_toStartOf="@id/download_button"
-                                android:layout_marginBottom="1dp"
-
-                                />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/remove_ads_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/guideline_right"
-                        app:layout_constraintStart_toEndOf="@id/download_card"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_margin="5dp"
-                        app:cardCornerRadius="15dp"
-                        app:cardElevation="5dp"
-                        >
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:animateLayoutChanges="true"
-                            >
-
-                            <Button
-                                android:id="@+id/remove_ads"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                                app:icon="@drawable/crown_24"
-                                android:text="@string/be_pro"
-                                app:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:iconTint="@color/text_color"
-                                app:iconPadding="15dp"
-                                android:textColor="@color/text_color"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                />
-                            <TextView
-                                android:id="@+id/become_pro"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/remove_ads"
-                                android:textColor="@color/soft_yellow"
-                                android:textSize="11sp"
-                                app:layout_constraintBottom_toBottomOf="@id/remove_ads"
-                                app:layout_constraintEnd_toEndOf="@id/remove_ads"
-                                app:layout_constraintStart_toStartOf="@id/remove_ads"
-                                android:layout_marginBottom="1dp"
-                                app:layout_constraintHorizontal_bias="0.7"
-                                />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.05" />
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.95" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
