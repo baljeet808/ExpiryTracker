@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="280dp"
+    android:minHeight="120dp"
+    android:updatePeriodMillis="1800000"
+    android:previewImage="@drawable/free_widget"
+    android:initialLayout="@layout/tracking_info_widget"
+    android:description="@string/app_widget_description"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:previewLayout="@layout/tracking_info_widget"
+    android:targetCellHeight="2"
+    android:targetCellWidth="4"
+    android:initialKeyguardLayout="@layout/tracking_info_widget"
+/>

@@ -67,6 +67,8 @@
     <color name="text_color">#EDEDED</color>
     <color name="theme_color">#171717</color>
 
+    <color name="widget_inner_card_color">#525252</color>
+
     <color name="soft_red">#f8333c</color>
     <color name="soft_green">#00a878</color>
     <color name="soft_yellow">#FFD25A</color>

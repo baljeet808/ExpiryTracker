@@ -78,7 +78,7 @@
     <color name="transparent_text_color">#55171717</color>
     <color name="always_white">#EDEDED</color>
 
-
+    <color name="widget_inner_card_color">#E5ECE9</color>
 
     <color name="tab_background">#C9BFC9</color>
     <color name="red_orange">#FF5349</color>

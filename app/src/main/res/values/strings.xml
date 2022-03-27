@@ -255,4 +255,8 @@
     <string name="pro_features">Pro Features</string>
     <string name="pro">Pro</string>
     <string name="pro_required">Pro required</string>
+    <string name="refresh">Refresh</string>
+    <string name="configure">Configure</string>
+    <string name="total_tracking">Total Tracking</string>
+    <string name="total_expiry_tracking_var">Tracking %1$d Products</string>
 </resources>

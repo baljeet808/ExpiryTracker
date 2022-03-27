@@ -10,6 +10,7 @@ import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.util.ImageConvertor
+import com.baljeet.expirytracker.widgets.WIDGET_ID
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -62,6 +63,9 @@ class WidgetStackViewAdapter: RemoteViewsService() {
                 }
             }
 
+            val fillIntent = Intent()
+            fillIntent.putExtra(WIDGET_ID,88)
+            remoteView.setOnClickFillInIntent(R.id.refresh_button,fillIntent)
 
             remoteView.setTextViewText(R.id.product_name,tracker.productAndCategoryAndImage.product.name)
             remoteView.setTextViewText(R.id.expiring_date, context.getString(R.string.date_short_var, tracker.tracker.expiryDate!!.dayOfMonth,
