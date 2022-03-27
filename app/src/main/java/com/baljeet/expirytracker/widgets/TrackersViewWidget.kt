@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.baljeet.expirytracker.R
@@ -35,42 +36,44 @@ class TrackersViewWidget : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    override fun onReceive(context: Context, intent: Intent?) {
+    override fun onAppWidgetOptionsChanged(
+        context: Context?,
+        appWidgetManager: AppWidgetManager?,
+        appWidgetId: Int,
+        newOptions: Bundle?
+    ) {
+        AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(appWidgetId,R.id.trackers_stack_view)
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+    }
+
+    override fun onReceive(context: Context?, intent: Intent?) {
         if(intent?.action == WIDGET_VIEW_SYNC){
-            val appWidgetID = intent.getIntExtra("appWidgetId",0)
-            AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(appWidgetID,R.id.trackers_stack_view)
-            updateTrackerViewsWidget(context, AppWidgetManager.getInstance(context),appWidgetID)
+            val appWidgetId = intent.getIntExtra("appWidgetId",0)
+            AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(appWidgetId,R.id.trackers_stack_view)
         }
         super.onReceive(context, intent)
     }
-}
 
-internal fun updateTrackerViewsWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-    val widgetText = context.getString(R.string.appwidget_text)
-    // Construct the RemoteViews object
-    val views = RemoteViews(context.packageName, R.layout.trackers_view_widget)
-
-    Toast.makeText(context,"updating ", Toast.LENGTH_SHORT).show()
+    companion object {
+        internal fun updateTrackerViewsWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+            val views = RemoteViews(context.packageName, R.layout.trackers_view_widget)
 
 
-    val trackers = ArrayList<TrackerAndProduct>()
+            val serviceIntent = Intent(context, WidgetStackViewAdapter::class.java)
+            serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,appWidgetId)
+            serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
+            views.setRemoteAdapter(R.id.trackers_stack_view,serviceIntent)
 
-    val trackerDao = AppDatabase.getDatabase(context.applicationContext).trackerDao()
-    val repository = TrackerRepository(trackerDao)
 
-    val serviceIntent = Intent(context, WidgetStackViewAdapter::class.java)
-    serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,appWidgetId)
-    serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
-    views.setRemoteAdapter(R.id.trackers_stack_view,serviceIntent)
-    
+            val clickIntent = Intent(context,TrackersViewWidget::class.java)
+            clickIntent.action = WIDGET_VIEW_SYNC
+            clickIntent.putExtra("appWidgetId", appWidgetId)
+            val pendingRefreshIntent = PendingIntent.getBroadcast(context,appWidgetId,clickIntent, PendingIntent.FLAG_IMMUTABLE)
 
-    val clickIntent = Intent(context,TrackersViewWidget::class.java)
-    clickIntent.action = WIDGET_VIEW_SYNC
-    clickIntent.putExtra("appWidgetId", appWidgetId)
-    val pendingRefreshIntent = PendingIntent.getBroadcast(context,0,clickIntent, PendingIntent.FLAG_IMMUTABLE)
+            views.setOnClickPendingIntent(R.id.refresh_button,pendingRefreshIntent)
 
-    views.setOnClickPendingIntent(R.id.refresh_button,pendingRefreshIntent)
-
-    // Instruct the widget manager to update the widget
-    appWidgetManager.updateAppWidget(appWidgetId, views)
+            // Instruct the widget manager to update the widget
+            appWidgetManager.updateAppWidget(appWidgetId, views)
+        }
+    }
 }
