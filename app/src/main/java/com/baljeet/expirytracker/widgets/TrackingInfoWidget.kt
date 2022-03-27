@@ -45,7 +45,7 @@ override fun onDeleted(context: Context, appWidgetIds: IntArray) {
         if(intent?.action == WIDGET_SYNC){
             val appWidgetID = intent.getIntExtra("appWidgetId",0)
             updateAppWidget(context, AppWidgetManager.getInstance(context),appWidgetID)
-            Toast.makeText(context,"Tracking Synced", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"Tracking synced", Toast.LENGTH_SHORT).show()
         }
         super.onReceive(context, intent)
     }
@@ -55,6 +55,8 @@ override fun onDeleted(context: Context, appWidgetIds: IntArray) {
 
 internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
     val trackers = ArrayList<TrackerAndProduct>()
+
+    Toast.makeText(context,"updating ", Toast.LENGTH_SHORT).show()
 
     val trackerDao = AppDatabase.getDatabase(context.applicationContext).trackerDao()
     val repository = TrackerRepository(trackerDao)

@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:animateLayoutChanges="true"
     android:layout_margin="5dp"
-    android:background="@drawable/widget_list_item_bg"
-   >
+    android:background="@drawable/app_widget_inner_view_background">
 
     <ImageView
         android:id="@+id/product_image"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -26,14 +26,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:ellipsize="end"
-        android:gravity="start"
-        android:text="@string/vegetables"
-        android:lines="1"
-        android:textAllCaps="false"
+        android:layout_marginTop="5dp"
         android:layout_toStartOf="@id/expiring_date"
         android:layout_toEndOf="@id/product_image"
-        android:layout_marginTop="5dp" />
+        android:ellipsize="end"
+        android:gravity="start"
+        android:lines="1"
+        android:text="@string/vegetables"
+        android:textAllCaps="false"
+        android:textColor="?android:attr/textColorPrimary" />
 
 
     <TextView
@@ -45,11 +46,12 @@
         android:layout_marginTop="8dp"
         android:layout_toStartOf="@id/expiring_date"
         android:layout_toEndOf="@id/product_image"
+        android:textColor="?android:attr/textColorPrimary"
         android:ellipsize="end"
+        android:textSize="12sp"
         android:gravity="start"
         android:lines="1"
-        android:text="@string/still_ok"
-        android:textStyle="italic" />
+        android:text="@string/still_ok" />
 
 
 
@@ -57,22 +59,15 @@
         android:id="@+id/expiring_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="0dp"
         android:padding="0dp"
-        android:textSize="20sp"
-        />
-    <TextView
-        android:id="@+id/expiring_date_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:padding="0dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/proxima_nova_alt_light"
         android:textSize="14sp"
-        android:layout_below="@id/expiring_date"
+        tools:text="MAR 24,\n2022"
         />
 
     <ProgressBar
@@ -83,7 +78,7 @@
         android:indeterminate="false"
         android:progress="20"
         android:progressTint="@color/theme_peach_light"
-        android:layout_below="@id/product_image"
+        android:layout_below="@id/status"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"

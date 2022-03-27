@@ -1,12 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.ExpiryTracker.AppWidget.Container"
+    android:theme="@style/Theme.ExpiryTracker.AppWidgetContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/widget_hollow_bg"
-    android:theme="@style/Theme.ExpiryTracker.AppWidgetContainer">
+    android:background="@drawable/widget_hollow_bg">
 
     <TextView
         android:id="@+id/heading"
@@ -14,11 +12,9 @@
         android:layout_height="wrap_content"
         android:text="@string/active_trackers"
         android:fontFamily="@font/montserrat"
-        android:textColor="@color/always_white"
+        android:textColor="?android:attr/textColorPrimary"
         android:letterSpacing="0.05"
         android:textStyle="bold"
-        android:background="@drawable/widget_round_top_bar_bg"
-        android:backgroundTint="@color/black"
         android:textAlignment="textStart"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
@@ -33,15 +29,15 @@
         android:text="@string/refresh"
         android:elevation="5dp"
         android:drawablePadding="10dp"
-        android:textColor="@color/always_white"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_alignParentEnd="true"
         android:paddingStart="10dp"
         android:paddingEnd="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        app:drawableStartCompat="@drawable/ic_refresh_18"
-        app:drawableTint="@color/always_white"
-        tools:ignore="RelativeOverlap" />
+        android:drawableStart="@drawable/ic_refresh_18"
+        android:drawableTint="?android:attr/textColorPrimary"
+        tools:ignore="RelativeOverlap,UseCompatTextViewDrawableXml" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -56,5 +52,6 @@
             android:padding="0dp"
             />
     </FrameLayout>
+
 
 </RelativeLayout>

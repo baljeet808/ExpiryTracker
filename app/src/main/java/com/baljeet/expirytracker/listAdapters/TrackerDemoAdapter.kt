@@ -62,8 +62,7 @@ class TrackerDemoAdapter(private val context: Context) : ListAdapter<TrackerAndP
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
             expiryDate?.let {
-                expiringDate.text = context.getString(R.string.date_short_var,it.dayOfMonth,it.month.name.substring(0,3).uppercase())
-                expiringDateYear.text = it.year.toString()
+                expiringDate.text = context.getString(R.string.date_string_with_month_name_2_lined,it.dayOfMonth,it.month.name.substring(0,3).uppercase(), it.year)
             }
             val dateToday = LocalDateTime.now()
 
