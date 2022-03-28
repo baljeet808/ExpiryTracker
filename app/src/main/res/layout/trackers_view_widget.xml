@@ -1,10 +1,57 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.ExpiryTracker.AppWidget.Container"
     android:theme="@style/Theme.ExpiryTracker.AppWidgetContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_hollow_bg">
+
+    <RelativeLayout
+        android:id="@+id/pro_block_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="5dp"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.95"
+            android:background="@color/black"
+            android:contentDescription="@string/block_screen" />
+        <TextView
+            android:id="@+id/pro_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/become_pro_to_unlock_this_widget"
+            android:textAlignment="center"
+            android:textColor="@color/always_white"
+            android:elevation="6dp"
+            android:fontFamily="@font/montserrat"
+            android:letterSpacing="0.05"
+            android:textSize="11sp"
+            />
+
+        <Button
+            android:id="@+id/check_now_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="11sp"
+            android:padding="0dp"
+            android:layout_below="@id/pro_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/check_now"
+            app:textAllCaps="false"
+            android:textColor="@color/always_white"
+            />
+
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/heading"

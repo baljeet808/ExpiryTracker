@@ -276,4 +276,7 @@
     <string name="pro_feature_icon">Pro feature icon</string>
     <string name="tracking_stats">Tracking Stats</string>
     <string name="tracking_88_products">Tracking 88 products</string>
+    <string name="become_pro_to_unlock_this_widget">Become Pro to unlock this widget</string>
+    <string name="check_now">Check Now</string>
+    <string name="block_screen">block screen</string>
 </resources>
