@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp"
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <RelativeLayout
+            android:id="@+id/pro_widget"
+            style="@style/Widget.ExpiryTracker.AppWidget.Container"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/widget_hollow_bg"
+            android:theme="@style/Theme.ExpiryTracker.AppWidgetContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:letterSpacing="0.05"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/active_trackers"
+                android:textAlignment="textStart"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/refresh_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="4dp"
+                android:elevation="5dp"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/refresh"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="11sp"
+                app:drawableStartCompat="@drawable/ic_refresh_14"
+                app:drawableTint="?android:attr/textColorPrimary"
+                tools:ignore="RelativeOverlap" />
+
+
+            <RelativeLayout
+                android:id="@+id/tracker_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/heading"
+                android:layout_margin="5dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/app_widget_inner_view_background"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/product1_image"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/milk" />
+
+
+                <TextView
+                    android:id="@+id/product1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toStartOf="@id/expiring1_date"
+                    android:layout_toEndOf="@id/product1_image"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:lines="1"
+                    android:text="@string/milk"
+                    android:textAllCaps="false"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/status1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/product1_name"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toStartOf="@id/expiring1_date"
+                    android:layout_toEndOf="@id/product1_image"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:lines="1"
+                    android:text="@string/expiring"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:id="@+id/expiring1_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/proxima_nova_alt_light"
+                    android:padding="0dp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="12sp"
+                    android:text="@string/mar_27_n2022" />
+
+                <ProgressBar
+                    android:id="@+id/item1_progressbar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/status1"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:indeterminate="false"
+                    android:progress="80"
+                    android:progressTint="@color/theme_peach_light" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tracker_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tracker_1"
+                android:layout_margin="5dp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/app_widget_inner_view_background"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/product2_image"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:contentDescription="@string/image"
+                    android:src="@drawable/avocado" />
+
+
+                <TextView
+                    android:id="@+id/product2_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toStartOf="@id/expiring2_date"
+                    android:layout_toEndOf="@id/product2_image"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:lines="1"
+                    android:text="@string/avocado"
+                    android:textAllCaps="false"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/status2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/product2_name"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toStartOf="@id/expiring2_date"
+                    android:layout_toEndOf="@id/product2_image"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:lines="1"
+                    android:text="@string/fresh"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:id="@+id/expiring2_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/proxima_nova_alt_light"
+                    android:padding="0dp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="12sp"
+                    android:text="@string/mar_28_n2022" />
+
+                <ProgressBar
+                    android:id="@+id/item2_progressbar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/status2"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:indeterminate="false"
+                    android:progress="20"
+                    android:progressTint="@color/theme_peach_light" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/widget_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0"
+            android:text="@string/trackers_window"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/guideline_left"
+            app:layout_constraintTop_toTopOf="@id/pro_widget"
+            app:layout_constraintBottom_toTopOf="@id/widget_size"
+            />
+
+        <TextView
+            android:id="@+id/widget_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/size_3_2"
+            android:textSize="11sp"
+            app:layout_constraintTop_toBottomOf="@id/widget_name"
+            app:layout_constraintStart_toEndOf="@id/guideline_left"
+            app:layout_constraintBottom_toTopOf="@id/add_button"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_button"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:elevation="10dp"
+            android:enabled="true"
+            android:text="@string/_add"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ob_round_background"
+            app:layout_constraintTop_toBottomOf="@id/widget_size"
+            app:layout_constraintStart_toEndOf="@id/guideline_left"
+            app:layout_constraintBottom_toBottomOf="@id/pro_widget"
+            app:textAllCaps="false" />
+
+        <ImageView
+            android:id="@+id/pro_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/crown_512"
+            app:layout_constraintStart_toEndOf="@id/guideline_left"
+            app:layout_constraintBottom_toTopOf="@id/widget_name"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/pro_feature_icon" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

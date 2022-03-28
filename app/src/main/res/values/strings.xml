@@ -96,6 +96,10 @@
     <string name="used_near_expiry_2">Used just before expiration</string>
     <string name="products_expired">Expired</string>
     <string name="_0">0</string>
+    <string name="_22">22</string>
+    <string name="_18">18</string>
+    <string name="_20">20</string>
+    <string name="_28">28</string>
     <string name="used_fresh">Used Fresh</string>
     <string name="total_tracked">Total Tracked</string>
     <string name="percentage">%1$s%%</string>
@@ -141,10 +145,13 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+    <string name="tracking_info_widget_description">Quick glance over the statistics of on going tracking. i.e. Number of Products which are fresh, still OK, expiring and already expired.  </string>
+    <string name="tracker_view_widget_description">More descriptive glance of ongoing tracking. ie. product image, product name, tracking status and expiry date.</string>
     <string name="active_trackers">Active Trackers</string>
     <string name="still_ok">Still OK</string>
     <string name="widget_adding_instructions">Click Add Button to add widget to your home screen. Widget is handy tools to get quick status of your product tracking.</string>
     <string name="add">Add to Home Screen</string>
+    <string name="_add">Add</string>
     <string name="make_it_yours">Make it yours</string>
     <string name="change_color">Change Theme Color</string>
     <string name="_3">3</string>
@@ -260,4 +267,13 @@
     <string name="configure">Configure</string>
     <string name="total_tracking">Total Tracking</string>
     <string name="total_expiry_tracking_var">Tracking %1$d Products</string>
+    <string name="avocado">Avocado</string>
+    <string name="mar_27_n2022">MAR 27,\n2022</string>
+    <string name="mar_28_n2022">MAR 28,\n2022</string>
+    <string name="milk">Milk</string>
+    <string name="trackers_window">Trackers Window</string>
+    <string name="size_3_2">Size: 3*2</string>
+    <string name="pro_feature_icon">Pro feature icon</string>
+    <string name="tracking_stats">Tracking Stats</string>
+    <string name="tracking_88_products">Tracking 88 products</string>
 </resources>
