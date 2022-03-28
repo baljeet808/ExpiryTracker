@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.Navigation
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.PurchaseInfo
 import com.baljeet.expirytracker.util.Constants
@@ -101,27 +102,22 @@ class SplashFragment : Fragment(), BillingProcessor.IBillingHandler {
                 SharedPref.isUserAPro = it.purchaseData.autoRenewing
                 SharedPref.subscriptionIsMonthly = it.purchaseData.autoRenewing
                 monthlySubscriptionChecked.postValue(true)
-                Toast.makeText(requireContext(),"monthly subscription successfully fetched", Toast.LENGTH_SHORT).show()
             } ?: kotlin.run {
                 SharedPref.isUserAPro = false
                 SharedPref.subscriptionIsMonthly = false
                 monthlySubscriptionChecked.postValue(true)
-                Toast.makeText(requireContext(),"monthly subscription fetch null", Toast.LENGTH_SHORT).show()
             }
             yearlyPurchaseInfo = billingProcess?.getSubscriptionPurchaseInfo(Constants.YEARLY_SUBSCRIPTION)
             yearlyPurchaseInfo?.let {
                 SharedPref.isUserAPro = it.purchaseData.autoRenewing
                 SharedPref.subscriptionIsYearly = it.purchaseData.autoRenewing
                 yearlySubscriptionChecked.postValue(true)
-                Toast.makeText(requireContext(),"monthly subscription successfully fetched", Toast.LENGTH_SHORT).show()
-
             } ?: kotlin.run {
                 SharedPref.isUserAPro = false
                 SharedPref.subscriptionIsYearly = false
                 yearlySubscriptionChecked.postValue(true)
             }
         }else{
-            Toast.makeText(requireContext(),"billing services not available", Toast.LENGTH_SHORT).show()
             SharedPref.isUserAPro = false
             SharedPref.subscriptionIsMonthly = false
             SharedPref.subscriptionIsYearly = false
@@ -132,9 +128,15 @@ class SplashFragment : Fragment(), BillingProcessor.IBillingHandler {
 
     private fun moveToMain(){
         Handler(Looper.getMainLooper()).postDelayed({
-            (activity as OnBoarding).moveToMainActivity()
+            if(SharedPref.hasOnboarded) {
+                (activity as OnBoarding).moveToMainActivity()
+            }else {
+                Navigation.findNavController(requireView()).navigate(SplashFragmentDirections.actionSplashFragmentToImpressiveTrackers())
+            }
         },1000)
+
     }
+
 
     override fun onDestroy() {
         billingProcess?.release()

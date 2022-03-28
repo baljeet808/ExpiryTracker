@@ -279,4 +279,10 @@
     <string name="become_pro_to_unlock_this_widget">Become Pro to unlock this widget</string>
     <string name="check_now">Check Now</string>
     <string name="block_screen">block screen</string>
+    <string name="color_coded_tracking_progress">Color coded tracking progress</string>
+    <string name="mark_tracker_as_favourite">Mark tracker as favourite</string>
+    <string name="quick_and_easy_editing">Quick and easy editing</string>
+    <string name="track_expiry_date">Track Expiry date</string>
+    <string name="with_responsive_and_descriptive_ui">With responsive and descriptive UI</string>
+    <string name="welcome_aboard">Welcome aboard</string>
 </resources>

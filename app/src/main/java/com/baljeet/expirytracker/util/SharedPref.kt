@@ -30,6 +30,12 @@ object SharedPref {
             it.putBoolean("hasBeenSeeded",value)
         }
 
+    var hasOnboarded: Boolean
+        get() = sharedPref.getBoolean("hasOnboarded",false)
+        set(value) = sharedPref.edit {
+            it.putBoolean("hasOnboarded",value)
+        }
+
     var isNightModeOn: Boolean
         get() = sharedPref.getBoolean("isNightModeOn",false)
 
@@ -67,5 +73,7 @@ object SharedPref {
     var usingTab : Boolean
         get() = sharedPref.getBoolean("usingTab", false)
         set(value) = sharedPref.edit{ it.putBoolean("usingTab", value)}
+
+
 
 }

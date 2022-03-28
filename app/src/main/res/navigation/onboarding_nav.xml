@@ -9,5 +9,18 @@
         android:id="@+id/splashFragment"
         android:name="com.baljeet.expirytracker.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_impressiveTrackers"
+            app:destination="@id/impressiveTrackers"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@anim/slide_up_from_top"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/impressiveTrackers"
+        android:name="com.baljeet.expirytracker.fragment.onboarding.ImpressiveTrackers"
+        android:label="fragment_impressive_trackers"
+        tools:layout="@layout/fragment_impressive_trackers" />
 </navigation>
