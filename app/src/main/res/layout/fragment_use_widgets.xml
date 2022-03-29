@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    tools:context=".fragment.onboarding.UseWidgets">
+
+
+    <TextView
+        android:id="@+id/first_point_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/useful_widgets"
+        android:textAllCaps="true"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="20dp"
+        app:fontFamily="@font/montserrat_bold"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+
+    <ImageView
+        android:id="@+id/widget"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:rotation="-10"
+        android:src="@drawable/free_widget"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_point_text"
+        app:layout_constraintHorizontal_bias="0.2"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/image" />
+    <ImageView
+        android:id="@+id/analyze_lottie"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:rotation="15"
+        android:src="@drawable/pro_widget"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_point_text"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:contentDescription="@string/image" />
+
+
+    <TextView
+        android:id="@+id/second_point_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/responsive_ui"
+        android:textAllCaps="true"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+        app:fontFamily="@font/montserrat_bold"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/widget" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/improve_lottie"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/second_point_text"
+        app:lottie_autoPlay="true"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:lottie_fileName="responsive_layout.json"
+        app:lottie_loop="true" />
+
+
+    <TextView
+        android:id="@+id/first_supporting_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/use_descriptive_widgets_n_supports_phones_and_tablets"
+        app:layout_constraintTop_toBottomOf="@id/improve_lottie"
+        app:layout_constraintStart_toStartOf="@id/first_point_text"
+        app:layout_constraintEnd_toEndOf="@id/first_point_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        />
+    <View
+        android:layout_width="200dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/text_color"
+        app:layout_constraintStart_toStartOf="@id/first_supporting_text"
+        app:layout_constraintEnd_toEndOf="@id/first_supporting_text"
+        app:layout_constraintTop_toBottomOf="@id/first_supporting_text"
+        />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        app:layout_constraintGuide_percent="0.05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        app:layout_constraintGuide_percent="0.95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        app:layout_constraintGuide_percent="0.06"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

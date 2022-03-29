@@ -131,7 +131,7 @@ class SplashFragment : Fragment(), BillingProcessor.IBillingHandler {
             if(SharedPref.hasOnboarded) {
                 (activity as OnBoarding).moveToMainActivity()
             }else {
-                Navigation.findNavController(requireView()).navigate(SplashFragmentDirections.actionSplashFragmentToImpressiveTrackers())
+                Navigation.findNavController(requireView()).navigate(SplashFragmentDirections.actionSplashFragmentToWelcomePage())
             }
         },1000)
 

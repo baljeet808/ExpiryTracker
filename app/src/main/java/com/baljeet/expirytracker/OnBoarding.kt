@@ -2,14 +2,14 @@ package com.baljeet.expirytracker
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
 import android.telephony.TelephonyManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import java.util.*
 
 class OnBoarding : AppCompatActivity() {
@@ -17,6 +17,11 @@ class OnBoarding : AppCompatActivity() {
         SharedPref.init(this)
 
         MobileAds.initialize(applicationContext)
+            if (SharedPref.isNightModeOn) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
 
         when(SharedPref.themeName){
             Constants.BLUE->{
@@ -45,11 +50,6 @@ class OnBoarding : AppCompatActivity() {
             }
         }
 
-        if(SharedPref.isNightModeOn){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
         val manager = applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

@@ -285,4 +285,16 @@
     <string name="track_expiry_date">Track Expiry date</string>
     <string name="with_responsive_and_descriptive_ui">With responsive and descriptive UI</string>
     <string name="welcome_aboard">Welcome aboard</string>
+    <string name="analyze_amp_improve"><![CDATA[Analyze & Improve]]></string>
+    <string name="analyze">Analyze</string>
+    <string name="improve">Improve</string>
+    <string name="will_provide_periodic_reports_n_and_helps_you_improve">Will provide periodic reports\n And helps you improve.</string>
+    <string name="set_reminders">Set Reminders</string>
+    <string name="save_money">Save Money</string>
+    <string name="set_dedicated_reminders_n_and_take_cost_effective_measures">Set dedicated reminders\n And take cost effective measures</string>
+    <string name="next">Next</string>
+    <string name="useful_widgets">Useful Widgets</string>
+    <string name="responsive_ui">Responsive UI</string>
+    <string name="use_descriptive_widgets_n_supports_phones_and_tablets">Use descriptive widgets\n Supports phones and tablets</string>
+    <string name="sit_back_and_relax_n_we_will_keep_track_of_expiry_dates">Sit back and relax.\n We will keep track of expiry dates</string>
 </resources>

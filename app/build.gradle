@@ -90,5 +90,8 @@ dependencies {
     //Subscriptions library
     implementation 'com.anjlab.android.iab.v3:library:2.0.3'
 
+    //lottie
+    implementation 'com.airbnb.android:lottie:3.0.0'
+
 
 }

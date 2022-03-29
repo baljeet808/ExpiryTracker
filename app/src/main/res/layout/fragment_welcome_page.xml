@@ -4,74 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
+    android:animateLayoutChanges="true"
+    android:background="?attr/window_top_bar"
     tools:context=".fragment.onboarding.WelcomePage">
 
-    <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:letterSpacing="0.05"
-        android:text="@string/welcome_aboard"
-        android:textColor="@color/text_color"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/montserrat"
-        app:layout_constraintEnd_toStartOf="@id/guideline_right"
-        app:layout_constraintStart_toEndOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/main_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline_mid"
+        />
 
-    <androidx.appcompat.widget.AppCompatRadioButton
-        android:id="@+id/first_point_star"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardElevation="5dp"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@id/content_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:button="@drawable/ic_fav_outline"
-        android:buttonTint="@color/text_color"
-        android:padding="2dp"
+        android:layout_marginBottom="20dp"
+        android:animateLayoutChanges="true"
         android:visibility="visible"
-        tools:visibility="visible"
-        app:layout_constraintStart_toEndOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/welcome_text"
-        android:layout_marginTop="60dp"
-        />
-
-    <TextView
-        android:id="@+id/first_point_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/first_point_star"
-        app:layout_constraintEnd_toStartOf="@id/guideline_right"
-        app:layout_constraintTop_toTopOf="@id/first_point_star"
-        app:layout_constraintBottom_toBottomOf="@id/first_point_star"
-        android:text="Track expiration of any kind of product"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/text_color"
-        />
-    <TextView
-        android:id="@+id/first_supporting_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Use pre loaded categories and products list"
-        app:layout_constraintTop_toBottomOf="@id/first_point_text"
-        app:layout_constraintStart_toStartOf="@id/first_point_text"
-        app:layout_constraintEnd_toEndOf="@id/first_point_text"
-        android:textSize="11sp"
-        android:layout_marginTop="5dp"
-        />
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="240dp"
-        android:layout_height="260dp"
-        app:layout_constraintTop_toBottomOf="@id/first_supporting_text"
-        app:layout_constraintStart_toEndOf="@id/guideline_left"
-        app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/categories_round"
-        app:layout_constraintVertical_bias="0.2"
-        />
+        app:layout_constraintTop_toBottomOf="@id/container">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabBackground="@drawable/onboarding_pager_selector"
+            app:tabGravity="center"
+            app:tabIconTint="@color/text_color"
+            app:tabIndicatorHeight="0dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -87,11 +89,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
+        android:id="@+id/guideline_mid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.4" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
