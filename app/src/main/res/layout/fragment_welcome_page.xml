@@ -5,24 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="?attr/window_top_bar"
+    android:background="@color/main_background"
     tools:context=".fragment.onboarding.WelcomePage">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/main_background"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guideline_mid"
-        />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:cardElevation="5dp"
-        android:layout_margin="20dp"
-        app:cardCornerRadius="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="10dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@id/content_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -29,8 +29,8 @@ class WelcomePage : Fragment() {
             bind.apply {
                 val fragmentList = arrayListOf<Fragment>(
                     ImpressiveTrackers(),
-                    WatchReports(),
                     UseWidgets(),
+                    WatchReports(),
                     SaveMoney()
                 )
 
