@@ -81,12 +81,27 @@
             >
 
             <TextView
+            android:id="@+id/qna_textview"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/faq"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:drawableStartCompat="@drawable/qa_24"
+            app:drawableEndCompat="@drawable/ic_arrow_right_32"
+            android:drawablePadding="20dp"
+            />
+
+            <TextView
                 android:id="@+id/pro_textview"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="@string/become_pro"
                 android:gravity="center_vertical"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/qna_textview"
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

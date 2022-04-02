@@ -102,6 +102,9 @@ class SettingsFragment : Fragment() {
 
             proTextview.text = if(SharedPref.isUserAPro) getString(R.string.proud_pro_member) else getString(R.string.become_pro)
 
+            qnaTextview.setOnClickListener {
+                Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToFAQ())
+            }
             proTextview.setOnClickListener {
                 Navigation.findNavController(requireView()).navigate(SettingsFragmentDirections.actionSettingsFragmentToBePro())
             }

@@ -297,4 +297,6 @@
     <string name="responsive_ui">Responsive UI</string>
     <string name="use_descriptive_widgets_n_supports_phones_and_tablets">Use descriptive widgets\n Supports phones and tablets</string>
     <string name="sit_back_and_relax_n_we_will_keep_track_of_expiry_dates">Sit back and relax.\n We will keep track of expiry dates</string>
+    <string name="faq">Frequently Asked Questions</string>
+    <string name="faq_sub_heading">A list of commonly asked questions, tap on questions to see the answers. If didn\'t find what you looking for write an email to support team with your query by tapping on the upper right icon. We will do our best to reply to your queries. Thank you.</string>
 </resources>

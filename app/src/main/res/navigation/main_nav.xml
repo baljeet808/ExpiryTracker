@@ -98,6 +98,13 @@
             app:exitAnim="@anim/slide_2_out_left"
             app:popEnterAnim="@anim/slide_3_in_left"
             app:popExitAnim="@anim/slide_4_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_FAQ"
+            app:destination="@id/FAQ"
+            app:enterAnim="@anim/slide_1_in_right"
+            app:exitAnim="@anim/slide_2_out_left"
+            app:popEnterAnim="@anim/slide_3_in_left"
+            app:popExitAnim="@anim/slide_4_out_right" />
     </fragment>
     <fragment
         android:id="@+id/analytics"
@@ -285,4 +292,17 @@
         android:name="com.baljeet.expirytracker.fragment.settings.BePro"
         android:label="fragment_be_pro"
         tools:layout="@layout/fragment_be_pro" />
+    <fragment
+        android:id="@+id/FAQ"
+        android:name="com.baljeet.expirytracker.fragment.settings.faq.FAQ"
+        android:label="fragment_f_a_q"
+        tools:layout="@layout/fragment_f_a_q" >
+        <action
+            android:id="@+id/action_FAQ_to_reviewsFragment"
+            app:destination="@id/reviewsFragment"
+            app:enterAnim="@anim/slide_1_in_right"
+            app:exitAnim="@anim/slide_2_out_left"
+            app:popEnterAnim="@anim/slide_3_in_left"
+            app:popExitAnim="@anim/slide_4_out_right" />
+    </fragment>
 </navigation>
