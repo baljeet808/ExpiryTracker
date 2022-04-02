@@ -27,7 +27,7 @@ class WelcomePage : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bind.apply {
             bind.apply {
-                val fragmentList = arrayListOf<Fragment>(
+                val fragmentList = arrayListOf(
                     ImpressiveTrackers(),
                     UseWidgets(),
                     WatchReports(),
@@ -36,7 +36,7 @@ class WelcomePage : Fragment() {
 
                 val mAdapter = ViewPagerAdapter(
                     fragmentList,
-                    activity?.supportFragmentManager!!,
+                    childFragmentManager,
                     lifecycle
                 )
                 bind.tabDots.apply {
