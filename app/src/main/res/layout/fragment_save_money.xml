@@ -10,6 +10,7 @@
 
 
 
+
     <TextView
         android:id="@+id/first_point_text"
         android:layout_width="0dp"
