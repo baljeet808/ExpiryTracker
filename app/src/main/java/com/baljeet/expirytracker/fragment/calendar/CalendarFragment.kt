@@ -22,7 +22,7 @@ import com.baljeet.expirytracker.interfaces.OnDateSelectedListener
 import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.CalendarAdapter
-import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
+import com.baljeet.expirytracker.listAdapters.TrackersCalAdapter
 import com.baljeet.expirytracker.model.DayWithProducts
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.MyColors
@@ -37,7 +37,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
     private val categoryVM: CategoryViewModel by viewModels()
     private val categories = ArrayList<Category>()
 
-    private lateinit var trackerAdapter: TrackerDiffAdapter
+    private lateinit var trackerAdapter: TrackersCalAdapter
 
     private lateinit var calendarAdapter: CalendarAdapter
 
@@ -96,14 +96,14 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
             }
         }
 
-        bind.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+        bind.appBar?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             val value = ((-1F) * verticalOffset) / 1000
             bind.secondTopMostLine.scaleX = value
         })
         bind.trackerRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             trackerAdapter =
-                TrackerDiffAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment)
+                TrackersCalAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment)
             adapter = trackerAdapter
         }
 
