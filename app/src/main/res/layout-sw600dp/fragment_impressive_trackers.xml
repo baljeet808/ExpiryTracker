@@ -294,7 +294,7 @@
         android:id="@+id/first_supporting_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sit_back_and_relax_n_we_will_keep_track_of_expiry_dates"
+        android:text="@string/sit_back_and_relax_we_will_keep_track_of_expiry_dates"
         app:layout_constraintTop_toBottomOf="@id/option_card"
         app:layout_constraintStart_toStartOf="@id/first_point_text"
         app:layout_constraintEnd_toEndOf="@id/first_point_text"

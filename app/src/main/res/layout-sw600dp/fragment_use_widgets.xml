@@ -91,7 +91,7 @@
         android:id="@+id/first_supporting_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/use_descriptive_widgets_n_supports_phones_and_tablets"
+        android:text="@string/use_descriptive_widgets_supports_phones_and_tablets"
         app:layout_constraintTop_toBottomOf="@id/improve_lottie"
         app:layout_constraintStart_toStartOf="@id/first_point_text"
         app:layout_constraintEnd_toEndOf="@id/first_point_text"
