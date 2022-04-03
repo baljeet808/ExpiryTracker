@@ -11,8 +11,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/ic_arrow_left_32"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
@@ -22,8 +22,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/feedback_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/ic_mail"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
@@ -67,7 +67,7 @@
         android:id="@+id/question_answers_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -63,7 +63,7 @@ class FAQ : Fragment() {
         ))
         qnAList.add(QnA(
             question = "Other issues",
-            answer = "If you have any other questions or suggestions, you can click Feedback and send us an email via 88KBDev@gmail.com, thank you!\n"
+            answer = "If you have any other questions or suggestions, you can click on Email button in top right corner and send us an email, thank you!\n"
         ))
         return qnAList
     }
