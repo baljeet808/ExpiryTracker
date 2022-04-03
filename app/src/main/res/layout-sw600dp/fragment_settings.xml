@@ -134,7 +134,7 @@
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableStartCompat="@drawable/widgets_24"
+                app:drawableStartCompat="@drawable/ic_phone_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:drawablePadding="20dp"
                 />
@@ -147,7 +147,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/personalization"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
-                app:drawableStartCompat="@drawable/personalization"
+                app:drawableStartCompat="@drawable/ic_laptop_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +164,7 @@
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableStartCompat="@drawable/feedback_24"
+                app:drawableStartCompat="@drawable/ic_feedback_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:drawablePadding="20dp"
                 />
@@ -179,7 +179,7 @@
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableStartCompat="@drawable/category_24"
+                app:drawableStartCompat="@drawable/ic_options_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:drawablePadding="20dp"
                 />
@@ -193,7 +193,7 @@
                 android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableStartCompat="@drawable/groceries_24"
+                app:drawableStartCompat="@drawable/ic_dairy_products"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:drawablePadding="20dp"
                 />
