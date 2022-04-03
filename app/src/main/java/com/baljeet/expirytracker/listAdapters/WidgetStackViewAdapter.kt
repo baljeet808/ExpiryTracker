@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.appcompat.content.res.AppCompatResources
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.AppDatabase
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.util.ImageConvertor
+import com.dwellify.contractorportal.util.TimeConvertor
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -65,10 +67,31 @@ class WidgetStackViewAdapter: RemoteViewsService() {
             val expiryDate = tracker.tracker.expiryDate
             val mfgDate = tracker.tracker.mfgDate
             val dateToday = LocalDateTime.now()
+            val reminderDate = tracker.tracker.reminderDate
 
             remoteView.setTextViewText(R.id.product_name,tracker.productAndCategoryAndImage.product.name)
             expiryDate?.let {
                 remoteView.setTextViewText(R.id.expiring_date, context.getString(R.string.date_string_with_month_name_2_lined,it.dayOfMonth,it.month.name.substring(0,3).uppercase(), it.year))
+            }
+
+            reminderDate?.let {
+                if(tracker.tracker.reminderOn){
+                    remoteView.setImageViewResource(R.id.bell_icon,context.resources.getIdentifier(
+                        "ic_notifications","drawable",context.packageName
+                    ))
+                }else{
+                    remoteView.setImageViewResource(R.id.bell_icon,context.resources.getIdentifier(
+                        "ic_notifications_off","drawable",context.packageName
+                    ))
+                }
+                tracker.tracker.reminderDate?.let {date->
+                    remoteView.setTextViewText(R.id.reminder_date, context.getString(R.string.date_string_with_month_name_last_and_time_2_lined,
+                        date.dayOfMonth,
+                        date.month.name.substring(0,3).uppercase(),
+                        date.year,
+                        TimeConvertor.getTime(date.hour,date.minute,true)
+                    ))
+                }
             }
 
 
