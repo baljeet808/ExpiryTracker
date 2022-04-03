@@ -1,11 +1,12 @@
 package com.baljeet.expirytracker.fragment.settings.faq
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.databinding.FragmentFAQBinding
 import com.baljeet.expirytracker.listAdapters.QnAAdapter
@@ -23,7 +24,22 @@ class FAQ : Fragment() {
         bind = FragmentFAQBinding.inflate(inflater, container, false)
         bind.apply {
             backButton.setOnClickListener { activity?.onBackPressed() }
-            feedbackButton.setOnClickListener{Navigation.findNavController(requireView()).navigate(FAQDirections.actionFAQToReviewsFragment())}
+            feedbackButton.setOnClickListener{
+                val selectorIntent = Intent(Intent.ACTION_SENDTO)
+                selectorIntent.data = Uri.parse("mailto:")
+
+                val deviceName = android.os.Build.MODEL
+                val apiVersion = android.os.Build.VERSION.SDK_INT
+                val appVersion = requireContext().packageManager.getPackageInfo(requireContext().packageName,0).versionName
+
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("88KBDev@gmail.com"))
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[ExpiryTracker]-Feedback (DeviceName-${deviceName}, AppVersion-${appVersion}),ApiCode-${apiVersion}")
+                emailIntent.selector = selectorIntent
+
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+
+            }
             questionAnswersRecycler.layoutManager = LinearLayoutManager(requireContext())
             questionAnswersRecycler.adapter = QnAAdapter(getQnAList(),requireContext())
         }
