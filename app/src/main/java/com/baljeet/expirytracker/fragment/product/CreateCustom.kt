@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.FileProvider
+import androidx.core.view.setPadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,6 +28,7 @@ import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.FragmentCreateCustomBinding
+import com.baljeet.expirytracker.fragment.shared.IconsViewModel
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.getContentType
 import com.baljeet.expirytracker.util.getFileName
@@ -40,6 +43,7 @@ class CreateCustom : Fragment() {
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val productViewModel :  ProductViewModel by viewModels()
     private val imageViewModel : ImageViewModel by viewModels()
+    private val iconViewModel : IconsViewModel by activityViewModels()
 
     private val viewModel : CustomViewModel by activityViewModels()
 
@@ -108,6 +112,7 @@ class CreateCustom : Fragment() {
 
     private fun clearEverything(){
         viewModel.croppedImage = null
+        iconViewModel.selectedIcon = null
     }
 
     override fun onCreateView(
@@ -134,9 +139,24 @@ class CreateCustom : Fragment() {
                 Toast.makeText(requireContext(),"category is null", Toast.LENGTH_SHORT).show()
             }
 
-            viewModel.croppedImage?.let {
-                showImageInPreview(it)
+            iconViewModel.selectedIcon?.let {
+                optionImage.setPadding(60)
+                optionImage.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        resources.getIdentifier(
+                            it.imageUrl,
+                            "drawable",
+                            requireContext().packageName
+                        )
+                    )
+                )
+            }?: kotlin.run {
+                viewModel.croppedImage?.let {
+                    showImageInPreview(it)
+                }
             }
+
 
             nameEdittext.doOnTextChanged { text, _, _, _ ->
                 if(text.toString().count() >2){
@@ -199,28 +219,40 @@ class CreateCustom : Fragment() {
             }
 
             addProductButton.setOnClickListener {
-                  imageViewModel.addImage(viewModel.croppedImage!!)
-                  val image = imageViewModel.getImageByName(viewModel.croppedImage?.imageName!!)
-                  when(navArgs.itemType){
-                      "Category"->{
-                          categoryViewModel.addCategory(Category(
-                              categoryId = 0,
-                              categoryName = nameEdittext.text.toString(),
-                              imageId = image.imageId,
-                              false
-                          ))
-                      }
-                      else->{
-                          productViewModel.addProduct(Product(
-                              productId = 0,
-                              name = nameEdittext.text.toString(),
-                              categoryId = navArgs.selectedCategory?.categoryId!!,
-                              imageId = image.imageId,
-                              false
-                          ))
-                          Log.d("Log for - ","ran completely")
-                      }
-                  }
+
+
+                val imageId = iconViewModel.selectedIcon?.imageId ?: kotlin.run {
+                    viewModel.croppedImage?.let {
+                        imageViewModel.addImage(it)
+                        imageViewModel.getImageByName(it.imageName).imageId
+                    }
+                }
+                imageId?.let {
+                    when (navArgs.itemType) {
+                        "Category" -> {
+                            categoryViewModel.addCategory(
+                                Category(
+                                    categoryId = 0,
+                                    categoryName = nameEdittext.text.toString(),
+                                    imageId = imageId,
+                                    false
+                                )
+                            )
+                        }
+                        else -> {
+                            productViewModel.addProduct(
+                                Product(
+                                    productId = 0,
+                                    name = nameEdittext.text.toString(),
+                                    categoryId = navArgs.selectedCategory?.categoryId!!,
+                                    imageId = imageId,
+                                    false
+                                )
+                            )
+                            Log.d("Log for - ", "ran completely")
+                        }
+                    }
+                }
                 activity?.onBackPressed()
             }
 
@@ -241,9 +273,25 @@ class CreateCustom : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.croppedImage?.let {
-            showImageInPreview(it)
+
+        iconViewModel.selectedIcon?.let {
+            bind.optionImage.setPadding(60)
+            bind.optionImage.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    requireContext(),
+                    resources.getIdentifier(
+                        it.imageUrl,
+                        "drawable",
+                        requireContext().packageName
+                    )
+                )
+            )
+        }?: kotlin.run {
+            viewModel.croppedImage?.let {
+                showImageInPreview(it)
+            }
         }
+
     }
 
 }
