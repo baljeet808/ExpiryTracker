@@ -1,0 +1,205 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.ExpiryTracker.AppWidget.Container"
+    android:theme="@style/Theme.ExpiryTracker.AppWidgetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_hollow_bg">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:letterSpacing="0.05"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="5dp"
+        tools:text="Tracking 8 products"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textAlignment="textStart"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="5dp"
+        android:text="@string/refresh"
+        android:textColor="?android:attr/textColorPrimary"
+        android:drawableStart="@drawable/ic_refresh_18"
+        android:drawableTint="?android:attr/textColorPrimary"
+        tools:ignore="RelativeOverlap,UseCompatTextViewDrawableXml" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/heading"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/first_row"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/near_expiry_card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@drawable/app_widget_inner_view_background"
+                tools:ignore="NestedWeights">
+
+
+                    <TextView
+                        android:id="@+id/near_expiry_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textSize="28sp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:lines="2"
+                        android:text="@string/expiring"
+                        />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ok_num_card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@drawable/app_widget_inner_view_background">
+
+
+                    <TextView
+                        android:id="@+id/ok_products_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textSize="28sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:lines="2"
+                        android:text="@string/still_ok"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/second_row"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/fresh_card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@drawable/app_widget_inner_view_background"
+                tools:ignore="NestedWeights">
+
+                    <TextView
+                        android:id="@+id/fresh_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textSize="28sp"
+                        android:textColor="?android:attr/textColorPrimary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:lines="2"
+                        android:text="@string/fresh"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expired_card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:background="@drawable/app_widget_inner_view_background">
+
+                    <TextView
+                        android:id="@+id/expired_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="0.6"
+                        android:text="@string/_0"
+                        android:textSize="28sp"
+                        android:textColor="?android:attr/textColorPrimary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/expired"
+                        android:lines="2"
+                        android:textColor="?android:attr/textColorPrimary" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
