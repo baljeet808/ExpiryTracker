@@ -9,13 +9,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
-import android.widget.Toast
 import androidx.navigation.NavDeepLinkBuilder
 import com.baljeet.expirytracker.MainActivity
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.AppDatabase
-import com.baljeet.expirytracker.data.relations.TrackerAndProduct
-import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.listAdapters.WidgetStackViewAdapter
 import com.baljeet.expirytracker.util.SharedPref
 
