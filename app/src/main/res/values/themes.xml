@@ -59,7 +59,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_blue</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -240,7 +240,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_yellow</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -330,7 +330,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_green</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -420,7 +420,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_purple</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -510,7 +510,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_pink</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -600,7 +600,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_black</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -690,7 +690,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:lineSpacingExtra">5dp</item>
-        <item name="android:textColor">@color/text_dialog_color_white</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">15sp</item>
     </style>
 
