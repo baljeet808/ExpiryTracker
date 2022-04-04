@@ -22,18 +22,18 @@
         android:id="@+id/support_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:drawablePadding="8dp"
         android:ellipsize="end"
         android:fontFamily="@font/montserrat"
         android:gravity="center_vertical"
         android:letterSpacing="0.05"
         android:lines="1"
-        android:text="@string/review_expiry_tracker_app"
+        android:text="@string/share_amp_rate"
         android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:drawableEndCompat="@drawable/ic_feedback"
+        app:drawableEndCompat="@drawable/heart_happy"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintHorizontal_bias="0"
@@ -53,69 +53,70 @@
 
     <ImageView
         android:id="@+id/expression_face"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/heart_neutral"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_hug_84"
         app:layout_constraintTop_toBottomOf="@id/review_message_text"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         android:contentDescription="@string/rating_expression_image_description" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
+
+    <TextView
+        android:id="@+id/quote_text"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="1.0"
-        android:progressTint="?text_dialog_color"
-        android:contentDescription="@string/rating_bar_content_description"
+        android:text="@string/aesop_quote"
+        app:fontFamily="@font/proxima_nova_condensed_light"
+        android:textSize="20sp"
+        android:lineHeight="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/expression_face"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintTop_toBottomOf="@id/expression_face"
         />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/review_comment_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/your_thoughts"
-        app:errorEnabled="true"
-        app:hintTextColor="#757575"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        android:layout_marginTop="20dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/review_comment_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0.05"
-            android:lineSpacingExtra="5dp"
-            android:textColor="@color/text_color"
-            android:minLines="4"
-            android:gravity="start"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
         android:id="@+id/submit_button"
-        android:layout_width="250dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_margin="40dp"
         android:elevation="10dp"
-        android:enabled="false"
-        android:text="@string/submit"
+        android:enabled="true"
+        android:text="@string/share_with_your_friends"
+        android:textSize="14sp"
+        app:textAllCaps="false"
+        app:icon="@drawable/ic_sharing"
+        app:iconTint="@null"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/review_comment_layout" />
+        app:layout_constraintBottom_toTopOf="@id/review_button"
+        app:layout_constraintTop_toBottomOf="@id/quote_text"
+        />
+
+
+    <Button
+        android:id="@+id/review_button"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:elevation="10dp"
+        android:enabled="true"
+        android:text="@string/review_on_play_store"
+        android:textSize="14sp"
+        app:textAllCaps="false"
+        app:icon="@drawable/ic_playstore"
+        app:iconTint="@null"
+        app:layout_constraintTop_toBottomOf="@id/submit_button"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/guideline2"
+        />
+
 
 
     <androidx.constraintlayout.widget.Guideline

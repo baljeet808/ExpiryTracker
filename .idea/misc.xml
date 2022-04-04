@@ -41,6 +41,7 @@
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_feedback.xml" value="0.363" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_flaticon.xml" value="0.363" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_fresh_illustration.xml" value="0.3155" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_hug_84.xml" value="0.284" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_icon.xml" value="0.31367521367521367" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_image_off_32.xml" value="0.255" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/drawable/ic_image_on_32.xml" value="0.2265" />
@@ -102,7 +103,7 @@
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_create_custom.xml" value="0.264" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_dash.xml" value="0.2" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_donate.xml" value="0.264" />
-        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_f_a_q.xml" value="0.536" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_f_a_q.xml" value="0.4" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_icons_gallery.xml" value="0.264" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_image_editor.xml" value="0.264" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/fragment_impressive_trackers.xml" value="0.2" />
@@ -126,16 +127,18 @@
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-land/widget_stack_view_item.xml" value="0.4" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/calendar_trackers_item_view.xml" value="0.275465715418153" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/dashboard_recycler_item_view.xml" value="0.264" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_analytics.xml" value="0.18098958333333334" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_be_pro.xml" value="0.275465715418153" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_create_custom.xml" value="0.4" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_donate.xml" value="0.18098958333333334" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_f_a_q.xml" value="0.18098958333333334" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_icons_gallery.xml" value="0.18098958333333334" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_impressive_trackers.xml" value="0.18098958333333334" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_manage_categories.xml" value="0.18098958333333334" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_manage_products.xml" value="0.264" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_pdf_preview.xml" value="0.2" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_personalize.xml" value="0.18098958333333334" />
-        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_reviews.xml" value="0.264" />
+        <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_reviews.xml" value="0.2" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_save_money.xml" value="0.18098958333333334" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_settings.xml" value="0.275465715418153" />
         <entry key="..\:/Users/homey/Documents/Projects/android projects/personal/ExpiryTracker/app/src/main/res/layout-sw600dp/fragment_splash.xml" value="0.18098958333333334" />

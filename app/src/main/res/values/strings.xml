@@ -115,7 +115,7 @@
     <string name="good_condition">Used in good condition</string>
     <string name="result">Result</string>
     <string name="support_expiry_tracker_team">Support Expiry Tracker Team</string>
-    <string name="review_expiry_tracker_app">Share you feedback</string>
+    <string name="review_expiry_tracker_app">Share your feedback</string>
     <string name="review_message">We would love to hear your thoughts regarding our App. We are working hard to provide a better and easy user experience.</string>
     <string name="grateful_note">Hey there! This is a donation Page. You could treat us with a meal or a candy here. We will be very grateful for your kind support. Anyway we are already grateful to you for choosing this app. Thank you so much.</string>
     <string name="personal_note">Craving for more customizations? We got you covered. Dig in and experiment.</string>
@@ -128,7 +128,7 @@
     <string name="your_thoughts">Your thoughts</string>
     <string name="rating_bar_content_description">This is a bar which can be used to rate the app on Google Play store directly.</string>
     <string name="rating_expression_image_description">Image which shows developer emotions when get rated</string>
-    <string name="_5_rating_hint">Spread love with your words for us.</string>
+    <string name="_5_rating_hint">Spread love with your kind words for us.</string>
     <string name="_3_rating_hint">How can we improve.</string>
     <string name="_2_rating_hint">How can we improve.</string>
     <string name="_1_rating_hint">Let us know what went wrong.</string>
@@ -306,4 +306,9 @@
     <string name="icon_search_note">Select out of hundreds of icons. Start by typing name of your product below</string>
     <string name="welcome_to_n_expiry_tracker">Welcome to \n Expiry Tracker</string>
     <string name="welcome_to_expiry_tracker">Welcome to Expiry Tracker</string>
+    <string name="share_amp_rate"><![CDATA[Share & Rate]]></string>
+    <string name="aesop_quote">“No act of kindness, no matter how small, is ever wasted.” – Aesop</string>
+    <string name="share_with_your_friends">Share with your friends</string>
+    <string name="review_on_play_store">Review on play store</string>
+    <string name="no_tracker_note">Not Enough tracking data\n right now to generate reports.</string>
 </resources>

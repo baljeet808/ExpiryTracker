@@ -59,8 +59,8 @@ class Analytics : Fragment() {
 
              SharedPref.init(requireContext())
             if(SharedPref.isUserAPro){
-                playAdsTo.isGone = true
-                removeAdsCard.isGone = true
+                buyProButton.isGone = true
+                adIcon.isGone = true
             }
             else{
                 val adRequest = AdRequest.Builder().build()
@@ -78,7 +78,7 @@ class Analytics : Fragment() {
             }
 
             
-            downloadButton.setOnClickListener {
+            downloadPdfButton.setOnClickListener {
                 if(SharedPref.isUserAPro){
                     prepPDFRequest()
                 }else{
@@ -271,7 +271,8 @@ class Analytics : Fragment() {
                 getCategoriesChips()
             }
 
-            removeAds.setOnClickListener {
+            buyProButton.setOnClickListener {
+                 Navigation.findNavController(requireView()).navigate(AnalyticsDirections.actionAnalyticsToBePro())
             }
         }
         return bind.root
@@ -320,7 +321,10 @@ class Analytics : Fragment() {
             viewModel.trackersAfterAllFilters.observe(viewLifecycleOwner) {
                 viewModel.calculatedAllFields(it)
                 setGraphValues()
-                summaryAdapter.submitList(it.filter { r -> r.tracker.isUsed })
+                it?.let {
+                    noItemLayout.isGone = it.isNotEmpty()
+                    summaryAdapter.submitList(it.filter { r -> r.tracker.isUsed })
+                }
             }
 
             viewModel.periodFilterLive.observe(viewLifecycleOwner) {
@@ -355,8 +359,8 @@ class Analytics : Fragment() {
             }
 
             if(SharedPref.isUserAPro){
-                removeAdsCard.visibility = View.GONE
-                playAdsTo.isGone = true
+                buyProButton.isGone = true
+                adIcon.isGone = true
             }
         }
     }

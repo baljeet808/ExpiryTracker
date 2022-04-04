@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.databinding.FragmentReviewsBinding
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.tasks.Task
 
 
 class ReviewsFragment : Fragment() {
 
-    private lateinit var bind : FragmentReviewsBinding
-    private val viewModel : ReviewViewModel by viewModels()
+    private lateinit var bind: FragmentReviewsBinding
+
+    private var reviewInfo: ReviewInfo? = null
+    private lateinit var reviewManager: ReviewManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,33 +28,35 @@ class ReviewsFragment : Fragment() {
         bind.apply {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
-            bind.ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
-                when(rating){
-                    1F ->{
-                        expressionFace.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.heart_crying))
-                        reviewCommentLayout.hint = getString(R.string._1_rating_hint)
-                    }
-                    2F->{
-                        expressionFace.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.heart_fainted))
-                        reviewCommentLayout.hint = getString(R.string._2_rating_hint)
-                    }
-                    3F->{
-                        expressionFace.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.heart_sad))
-                        reviewCommentLayout.hint = getString(R.string._3_rating_hint)
-                    }
-                    4F->{
-                        expressionFace.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.heart_excited))
-                        reviewCommentLayout.hint = requireContext().getString(R.string.your_thoughts)
-                    }
-                    5F->{
-                        expressionFace.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.heart_happy))
-                        reviewCommentLayout.hint = getString(R.string._5_rating_hint)
-                    }
+            reviewManager = ReviewManagerFactory.create(requireContext())
+            val managerInfoTask: Task<ReviewInfo> = reviewManager.requestReviewFlow()
+            managerInfoTask.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    reviewInfo = task.result
+                } else {
+                    Toast.makeText(requireContext(), "review failed to start", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                submitButton.isEnabled = true
             }
-
+            return bind.root
         }
-        return bind.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bind.submitButton.setOnClickListener {
+            startReviewFlow()
+        }
+    }
+
+    private fun startReviewFlow(){
+        reviewInfo?.let {
+            val flow = reviewManager.launchReviewFlow(requireActivity(),it)
+            flow.addOnCompleteListener {
+                Toast.makeText(requireContext(), "review uploaded", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
 }

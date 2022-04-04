@@ -118,6 +118,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_left_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_analytics_to_bePro"
+            app:destination="@id/bePro"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/addProduct"
