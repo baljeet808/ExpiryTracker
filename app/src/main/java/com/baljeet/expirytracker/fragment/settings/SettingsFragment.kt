@@ -40,7 +40,7 @@ class SettingsFragment : Fragment() {
             bind.adLayout.isGone = true
             bind.settingIllustration.isGone = false
         }   else{
-            adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
+            adLoader = AdLoader.Builder(requireContext(), Constants.NATIVE_INLINE_AD_ID)
                 .forNativeAd { ad : NativeAd ->
                     // Show the ad.
                     val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView

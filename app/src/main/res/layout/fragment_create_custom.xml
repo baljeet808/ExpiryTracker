@@ -190,8 +190,8 @@
 
                 <ImageView
                     android:id="@+id/option_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:contentDescription="@string/image"
                     android:padding="1dp"
                     android:src="@mipmap/ic_launcher_foreground"
@@ -217,156 +217,65 @@
             app:layout_constraintTop_toBottomOf="@id/option_card" />
 
 
-        <com.google.android.material.card.MaterialCardView
+        <Button
             android:id="@+id/camera_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="50dp"
+            android:elevation="10dp"
+            android:enabled="true"
+            android:text="@string/take_a_picture"
+            android:textSize="14sp"
+            app:textAllCaps="false"
+            app:icon="@drawable/camera"
+            app:iconTint="@null"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toTopOf="@id/gallery_card"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/preview_title"
-            app:strokeColor="@color/text_color"
-            app:strokeWidth="0dp">
+            />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/camera_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?card_background">
 
-                <ImageView
-                    android:id="@+id/camera_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:contentDescription="@string/image"
-                    android:src="@drawable/camera"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/camera_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:text="@string/take_a_picture"
-                    android:textColor="@color/text_color"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
+        <Button
             android:id="@+id/gallery_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="50dp"
+            android:elevation="10dp"
+            android:enabled="true"
+            android:text="@string/select_from_gallery"
+            android:textSize="14sp"
+            app:textAllCaps="false"
+            app:icon="@drawable/gallery"
+            app:iconTint="@null"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toTopOf="@id/icons_card"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/camera_card"
-            app:strokeColor="@color/text_color"
-            app:strokeWidth="0dp">
+            />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/gallery_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?card_background">
 
-                <ImageView
-                    android:id="@+id/gallery_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:contentDescription="@string/image"
-                    android:src="@drawable/gallery"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/gallery_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:text="@string/select_from_gallery"
-                    android:textColor="@color/text_color"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
+        <Button
             android:id="@+id/icons_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:cardCornerRadius="50dp"
+            android:elevation="10dp"
+            android:enabled="true"
+            android:text="@string/use_cool_icons"
+            android:textSize="14sp"
+            app:textAllCaps="false"
+            app:icon="@drawable/ic_flaticon"
+            app:iconTint="@null"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toTopOf="@id/add_product_button"
             app:layout_constraintEnd_toStartOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/gallery_card"
-            app:strokeColor="@color/text_color"
-            app:strokeWidth="0dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/icons_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?card_background">
-
-                <ImageView
-                    android:id="@+id/icons_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:contentDescription="@string/image"
-                    android:src="@drawable/widgets_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/icon_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:text="@string/use_cool_icons"
-                    android:textColor="@color/text_color"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
+            />
 
         <Button
             android:id="@+id/add_product_button"

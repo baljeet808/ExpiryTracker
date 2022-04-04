@@ -150,6 +150,7 @@
                 app:layout_constraintBottom_toTopOf="@id/guideline511"
                 app:layout_constraintStart_toEndOf="@id/guideline211"
                 app:layout_constraintEnd_toStartOf="@id/guideline311"
+                app:layout_constraintVertical_bias="0"
                 >
 
                 <TextView
@@ -186,154 +187,69 @@
                     app:layout_constraintStart_toStartOf="@id/image_heading"
                     app:layout_constraintTop_toBottomOf="@id/image_heading" />
 
-                <com.google.android.material.card.MaterialCardView
+                <Button
                     android:id="@+id/camera_card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/underline_view_2"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:elevation="10dp"
+                    android:enabled="true"
+                    android:text="@string/take_a_picture"
+                    android:textSize="14sp"
+                    app:textAllCaps="false"
+                    app:icon="@drawable/camera"
+                    app:iconTint="@null"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    app:layout_constraintBottom_toTopOf="@id/gallery_card"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:strokeColor="@color/text_color"
-                    app:strokeWidth="0dp"
-                    app:cardCornerRadius="30dp"
-                    >
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/underline_view_2"
+                    />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/camera_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?card_background">
 
-                        <ImageView
-                            android:id="@+id/camera_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/camera"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/camera_text"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/take_a_picture"
-                            android:textColor="@color/text_color"
-                            android:gravity="center"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
+                <Button
                     android:id="@+id/gallery_card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/camera_card"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:elevation="10dp"
+                    android:enabled="true"
+                    android:text="@string/select_from_gallery"
+                    android:textSize="14sp"
+                    app:textAllCaps="false"
+                    app:icon="@drawable/gallery"
+                    app:iconTint="@null"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    app:layout_constraintBottom_toTopOf="@id/icons_card"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:strokeColor="@color/text_color"
-                    app:strokeWidth="0dp"
-                    android:visibility="visible"
-                    app:cardCornerRadius="25dp"
-                    >
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/camera_card"
+                    />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/gallery_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?card_background">
 
-                        <ImageView
-                            android:id="@+id/gallery_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/gallery"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/gallery_text"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/select_from_gallery"
-                            android:textColor="@color/text_color"
-                            android:gravity="center"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
+                <Button
                     android:id="@+id/icons_card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/gallery_card"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:elevation="10dp"
+                    android:enabled="true"
+                    android:text="@string/use_cool_icons"
+                    android:textSize="14sp"
+                    app:textAllCaps="false"
+                    app:icon="@drawable/ic_flaticon"
+                    app:iconTint="@null"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:strokeColor="@color/text_color"
-                    app:strokeWidth="0dp"
-                    android:visibility="visible"
-                    app:cardCornerRadius="25dp"
-                    >
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/icons_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?card_background">
-
-                        <ImageView
-                            android:id="@+id/icons_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:contentDescription="@string/image"
-                            android:src="@drawable/widgets_24"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/icon_text"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/use_cool_icons"
-                            android:textColor="@color/text_color"
-                            android:gravity="center"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gallery_card"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView

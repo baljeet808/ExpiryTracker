@@ -64,8 +64,7 @@ class Analytics : Fragment() {
             }
             else{
                 val adRequest = AdRequest.Builder().build()
-                //TODO: remove test ad id before publishing
-                RewardedAd.load(requireContext(),Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                RewardedAd.load(requireContext(),Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
                         mRewardedAd = null
                     }

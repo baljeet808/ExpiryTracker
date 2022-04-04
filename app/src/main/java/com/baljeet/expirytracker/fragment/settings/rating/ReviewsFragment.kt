@@ -1,5 +1,6 @@
 package com.baljeet.expirytracker.fragment.settings.rating
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ class ReviewsFragment : Fragment() {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
             reviewManager = ReviewManagerFactory.create(requireContext())
-            val managerInfoTask: Task<ReviewInfo> = reviewManager.requestReviewFlow()
+            val managerInfoTask = reviewManager.requestReviewFlow()
             managerInfoTask.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     reviewInfo = task.result
@@ -44,19 +45,24 @@ class ReviewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bind.submitButton.setOnClickListener {
+        bind.reviewButton.setOnClickListener {
             startReviewFlow()
+        }
+        bind.submitButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra("Share this","https://play.google.com/store/apps/details?id=com.baljeet.expirytracker")
+            val chooser = Intent.createChooser(intent,"Share using....")
+            startActivity(chooser)
         }
     }
 
     private fun startReviewFlow(){
         reviewInfo?.let {
             val flow = reviewManager.launchReviewFlow(requireActivity(),it)
-            flow.addOnCompleteListener {
-                Toast.makeText(requireContext(), "review uploaded", Toast.LENGTH_SHORT).show()
-            }
+        }?: kotlin.run { 
+            Toast.makeText(requireContext(),"review info not initiated", Toast.LENGTH_SHORT).show()
         }
-
     }
 
 }
