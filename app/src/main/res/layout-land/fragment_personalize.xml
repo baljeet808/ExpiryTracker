@@ -213,7 +213,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:checkable="true"
-                app:cardBackgroundColor="@color/teal_200"
+                app:cardBackgroundColor="@color/theme_teal"
                 app:cardCornerRadius="10dp"
                 app:checkedIcon="@drawable/check_circle_24"
                 app:layout_constraintEnd_toStartOf="@id/guideline41"

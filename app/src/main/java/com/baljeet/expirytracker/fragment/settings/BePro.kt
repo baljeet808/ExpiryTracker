@@ -215,7 +215,7 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
     private fun showThankYouPopup() {
         dialogBuilder = AlertDialog.Builder(requireContext())
         val popUpBinding = ThanksPopUpLayoutBinding.inflate(LayoutInflater.from(requireContext()))
-        popUpBinding.infoIcon.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.crown_512))
+        popUpBinding.infoIcon.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_crown_34))
         popUpBinding.thanksNote.text = getString(R.string.thanks_for_pro_upgrade)
         dialogBuilder.setView(popUpBinding.root)
         thanksDialog = dialogBuilder.setCancelable(true).create()

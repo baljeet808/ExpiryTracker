@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@id/back_button"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline_mid"
-        app:drawableEndCompat="@drawable/heart_24" />
+        app:drawableEndCompat="@drawable/heart" />
 
     <TextView
         android:id="@+id/support_message"
@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0"
         android:text="@string/grateful_note"
         android:drawablePadding="25dp"
-        app:drawableBottomCompat="@drawable/thank_you_64" />
+        app:drawableBottomCompat="@drawable/thank_you" />
 
     <View
         android:layout_width="100dp"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
-                android:src="@drawable/video_ad"
+                android:src="@drawable/ic_ad"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
-                android:src="@drawable/heart_24"
+                android:src="@drawable/heart1"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -207,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
-                android:src="@drawable/heart_24"
+                android:src="@drawable/heart1"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -274,7 +274,7 @@
                 android:id="@+id/chocolate_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/heart_24"
+                android:src="@drawable/heart1"
                 android:visibility="invisible"
                 app:tint="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -308,7 +308,7 @@
                 android:id="@+id/coffee_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cup_of_coffee"
+                android:src="@drawable/mug"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -343,7 +343,7 @@
                 android:id="@+id/coffee_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/heart_24"
+                android:src="@drawable/heart1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="invisible"
@@ -382,7 +382,7 @@
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
                 android:rotation="45"
-                android:src="@drawable/burger"
+                android:src="@drawable/hamburger"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -416,7 +416,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/image"
-                android:src="@drawable/heart_24"
+                android:src="@drawable/heart1"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -483,7 +483,7 @@
                 android:id="@+id/meal_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/heart_24"
+                android:src="@drawable/heart1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="invisible"

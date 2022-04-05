@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
@@ -80,28 +81,31 @@ class OptionsAdapter(
             productList?.let {
                 val product = productList[position-1]
                 holder.bind.optionTitle.text = product.product.name
-
-                product.image.mimeType.let {
-                    when(it){
-                        "asset"->{
-                            holder.bind.optionImage.setImageDrawable(
-                                AppCompatResources.getDrawable(
-                                    context,
-                                    context.resources.getIdentifier(
-                                        product.image.imageUrl,
-                                        "drawable",
-                                        context.packageName
-                                    )
-                                )
-                            )
-                        }
-                        else->{
-                            holder.bind.optionImage.setImageBitmap(
-                                ImageConvertor.stringToBitmap(product.image.bitmap)
-                            )
-                        }
-                    }
-                }
+                 try {
+                     product.image.mimeType.let {
+                         when (it) {
+                             "asset" -> {
+                                 holder.bind.optionImage.setImageDrawable(
+                                     AppCompatResources.getDrawable(
+                                         context,
+                                         context.resources.getIdentifier(
+                                             product.image.imageUrl,
+                                             "drawable",
+                                             context.packageName
+                                         )
+                                     )
+                                 )
+                             }
+                             else -> {
+                                 holder.bind.optionImage.setImageBitmap(
+                                     ImageConvertor.stringToBitmap(product.image.bitmap)
+                                 )
+                             }
+                         }
+                     }
+                 }catch (e: Exception){
+                     Toast.makeText(context,"product - ${product.product.name}\n image - ${product.image.imageUrl}", Toast.LENGTH_SHORT).show()
+                 }
             }
             selectedCategory?.let {
                 if (it == position) {

@@ -36,11 +36,11 @@
                 android:paddingTop="5dp"
                 android:paddingEnd="0dp"
                 android:paddingBottom="5dp"
+                android:text="@string/tracking_88_products"
                 android:textAlignment="textStart"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/always_white"
                 android:textSize="11sp"
-                android:textStyle="bold"
-                android:text="@string/tracking_88_products" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/refresh_button"
@@ -55,9 +55,9 @@
                 android:paddingBottom="5dp"
                 android:textSize="11sp"
                 android:text="@string/refresh"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/always_white"
                 android:drawableStart="@drawable/ic_refresh_14"
-                android:drawableTint="?android:attr/textColorPrimary"
+                android:drawableTint="@color/always_white"
                 tools:ignore="RelativeOverlap,UseCompatTextViewDrawableXml" />
 
             <LinearLayout

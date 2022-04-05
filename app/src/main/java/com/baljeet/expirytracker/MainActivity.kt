@@ -17,10 +17,7 @@ import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         SharedPref.init(this)
+
+        MobileAds.initialize(applicationContext)
 
         when(SharedPref.themeName){
             Constants.BLUE->{
@@ -63,6 +62,9 @@ class MainActivity : AppCompatActivity() {
             }
             Constants.PINK->{
                 setTheme(R.style.PinkTheme)
+            }
+            Constants.TEAL->{
+                setTheme(R.style.TealTheme)
             }
         }
 

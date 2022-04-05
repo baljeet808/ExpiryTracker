@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/back_button"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
-        app:drawableEndCompat="@drawable/qa_24"
+        app:drawableEndCompat="@drawable/faq"
         />
 
     <TextView

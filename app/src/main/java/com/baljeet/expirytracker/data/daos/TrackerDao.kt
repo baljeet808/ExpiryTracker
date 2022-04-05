@@ -1,11 +1,13 @@
 package com.baljeet.expirytracker.data.daos
 
+import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import java.time.LocalDateTime
 
+@Keep
 @Dao
 interface TrackerDao {
 

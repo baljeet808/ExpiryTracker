@@ -6,5 +6,5 @@ appWidgetInnerRadius attribute value
     android:shape="rectangle">
 
     <corners android:radius="16dp" />
-    <solid android:color="@color/widget_inner_card_color" />
+    <solid android:color="?android:attr/colorBackground" />
 </shape>

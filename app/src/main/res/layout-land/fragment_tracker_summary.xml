@@ -61,7 +61,7 @@
                         android:layout_height="90dp"
                         android:contentDescription="@string/image"
                         android:padding="12dp"
-                        android:src="@drawable/drinks"
+                        android:src="@drawable/whiskey"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

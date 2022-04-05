@@ -1,11 +1,13 @@
 package com.baljeet.expirytracker.data.repository
 
 
+import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.daos.ProductsDao
 import com.baljeet.expirytracker.data.relations.ProductAndImage
 
+@Keep
 class ProductRepository(private val productDao : ProductsDao) {
 
     val readAllData : LiveData<List<Product>> = productDao.readAllProducts()

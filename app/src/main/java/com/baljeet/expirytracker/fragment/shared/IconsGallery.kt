@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.databinding.FragmentIconsGalleryBinding
+import com.baljeet.expirytracker.fragment.product.CustomViewModel
 import com.baljeet.expirytracker.interfaces.OnIconSelected
 import com.baljeet.expirytracker.listAdapters.SearchIconsAdapter
 
@@ -20,6 +21,7 @@ class IconsGallery : Fragment() , OnIconSelected {
 
     private lateinit var bind : FragmentIconsGalleryBinding
     private val viewModel : IconsViewModel by activityViewModels()
+    private val customVM : CustomViewModel by activityViewModels()
 
     private lateinit var iconsAdapter: SearchIconsAdapter
 
@@ -56,6 +58,7 @@ class IconsGallery : Fragment() , OnIconSelected {
 
     override fun selectThisIcon(image: Image) {
         viewModel.selectedIcon= image
+        customVM.croppedImage = image
         activity?.onBackPressed()
     }
 }

@@ -62,6 +62,10 @@ class FAQ : Fragment() {
             answer = "Please follow the instructions below : \n\n1. Go back to 'settings' page in app and open widget screens.\n\n2. Tap on 'Add' button for desired widget there. Which will show a pop-up window. Then click Automatically add.\n\nVia home screen : -\n\n1. Long press the blank area on home screen\n\n2. Click on the Widgets button that appear on main screen.\n\n3. Find Expiry tracker app there.\n\n4. Long press a widget and drag it to the position you want.\n"
         ))
         qnAList.add(QnA(
+            question = "How to switch to dark mode?",
+            answer = "To switch between Dark and Light theme color do as follow:\n\n1. Go back to 'settings' page in app\n\n2. Tap on Sun or Moon icon on the top of screen.\n"
+        ))
+        qnAList.add(QnA(
             question = "Other issues",
             answer = "If you have any other questions or suggestions, you can click on Email button in top right corner and send us an email, thank you!\n"
         ))

@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
@@ -43,7 +42,6 @@ class CreateCustom : Fragment() {
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val productViewModel :  ProductViewModel by viewModels()
     private val imageViewModel : ImageViewModel by viewModels()
-    private val iconViewModel : IconsViewModel by activityViewModels()
 
     private val viewModel : CustomViewModel by activityViewModels()
 
@@ -112,7 +110,6 @@ class CreateCustom : Fragment() {
 
     private fun clearEverything(){
         viewModel.croppedImage = null
-        iconViewModel.selectedIcon = null
     }
 
     override fun onCreateView(
@@ -132,32 +129,9 @@ class CreateCustom : Fragment() {
             formIsComplete.observe(viewLifecycleOwner) {
                 addProductButton.isEnabled = it
             }
-
-            navArgs.selectedCategory?.let {
-                Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
-            }?: kotlin.run {
-                Toast.makeText(requireContext(),"category is null", Toast.LENGTH_SHORT).show()
+            viewModel.croppedImage?.let {
+                showImageInPreview(it)
             }
-
-            iconViewModel.selectedIcon?.let {
-                optionImage.setPadding(60)
-                optionImage.setImageDrawable(
-                    AppCompatResources.getDrawable(
-                        requireContext(),
-                        resources.getIdentifier(
-                            it.imageUrl,
-                            "drawable",
-                            requireContext().packageName
-                        )
-                    )
-                )
-            }?: kotlin.run {
-                viewModel.croppedImage?.let {
-                    showImageInPreview(it)
-                }
-            }
-
-
             nameEdittext.doOnTextChanged { text, _, _, _ ->
                 if(text.toString().count() >2){
                     previewTitle.text = text.toString()
@@ -221,12 +195,15 @@ class CreateCustom : Fragment() {
             addProductButton.setOnClickListener {
 
 
-                val imageId = iconViewModel.selectedIcon?.imageId ?: kotlin.run {
-                    viewModel.croppedImage?.let {
-                        imageViewModel.addImage(it)
-                        imageViewModel.getImageByName(it.imageName).imageId
+                val imageId = viewModel.croppedImage?.let {
+                        if(it.mimeType == "asset"){
+                            it.imageId
+                        }else{
+                            imageViewModel.addImage(it)
+                            imageViewModel.getImageByName(it.imageName).imageId
+                        }
                     }
-                }
+
                 imageId?.let {
                     when (navArgs.itemType) {
                         "Category" -> {
@@ -266,31 +243,32 @@ class CreateCustom : Fragment() {
 
     private fun showImageInPreview(image : Image){
         bind.apply {
-            optionImage.setImageBitmap(ImageConvertor.stringToBitmap(image.bitmap))
+            if(image.mimeType == "asset")  {
+                optionImage.setPadding(60)
+                optionImage.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        resources.getIdentifier(
+                            image.imageUrl,
+                            "drawable",
+                            requireContext().packageName
+                        )
+                    )
+                )
+            } else{
+                optionImage.setPadding(0)
+                optionImage.setImageBitmap(ImageConvertor.stringToBitmap(image.bitmap))
+            }
             imageIsSelected.postValue(true)
         }
     }
 
     override fun onResume() {
         super.onResume()
-
-        iconViewModel.selectedIcon?.let {
-            bind.optionImage.setPadding(60)
-            bind.optionImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    requireContext(),
-                    resources.getIdentifier(
-                        it.imageUrl,
-                        "drawable",
-                        requireContext().packageName
-                    )
-                )
-            )
-        }?: kotlin.run {
-            viewModel.croppedImage?.let {
+        viewModel.croppedImage?.let {
                 showImageInPreview(it)
-            }
         }
+
 
     }
 

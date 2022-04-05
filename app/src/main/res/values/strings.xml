@@ -310,5 +310,5 @@
     <string name="aesop_quote">“No act of kindness, no matter how small, is ever wasted.” – Aesop</string>
     <string name="share_with_your_friends">Share with your friends</string>
     <string name="review_on_play_store">Review on play store</string>
-    <string name="no_tracker_note">Not Enough tracking data\n right now to generate reports.</string>
+    <string name="no_tracker_note">Not Enough tracking data\n to generate reports.</string>
 </resources>

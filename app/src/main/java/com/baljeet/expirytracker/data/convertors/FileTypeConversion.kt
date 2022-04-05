@@ -1,8 +1,10 @@
 package com.baljeet.expirytracker.data.convertors
 
 import android.net.Uri
+import androidx.annotation.Keep
 import androidx.room.TypeConverter
 
+@Keep
 class FileTypeConversion {
 
     @TypeConverter

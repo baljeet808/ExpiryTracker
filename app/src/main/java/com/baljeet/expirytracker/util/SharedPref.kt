@@ -67,13 +67,15 @@ object SharedPref {
         set(value) = sharedPref.edit{ it.putBoolean("subscribedYearly", value)}
 
     var themeName : String
-    get() = sharedPref.getString("themeName",Constants.BLUE)!!
+    get() = sharedPref.getString("themeName",Constants.TEAL)!!
     set(value) = sharedPref.edit{it.putString("themeName",value)}
 
     var usingTab : Boolean
         get() = sharedPref.getBoolean("usingTab", false)
         set(value) = sharedPref.edit{ it.putBoolean("usingTab", value)}
 
-
+    var reviewCompleted : Boolean
+        get() = sharedPref.getBoolean("reviewCompleted", false)
+        set(value) = sharedPref.edit{ it.putBoolean("reviewCompleted", value)}
 
 }

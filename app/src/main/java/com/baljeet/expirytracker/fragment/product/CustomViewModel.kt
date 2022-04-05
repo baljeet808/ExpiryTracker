@@ -9,5 +9,4 @@ class CustomViewModel(app : Application) : AndroidViewModel(app) {
     val context  = getApplication<CustomApplication>()
 
     var croppedImage : Image? = null
-
 }

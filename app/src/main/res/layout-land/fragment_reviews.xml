@@ -32,7 +32,7 @@
         android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:drawableEndCompat="@drawable/heart_happy"
+        app:drawableEndCompat="@drawable/love"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintHorizontal_bias="0"

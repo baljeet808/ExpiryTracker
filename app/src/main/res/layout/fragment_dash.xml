@@ -355,7 +355,6 @@
         android:elevation="4dp"
         android:text="@string/track_product"
         app:icon="@android:drawable/ic_input_add"
-        app:iconTint="@color/always_white"
         app:layout_constraintBottom_toTopOf="@+id/guideline_at_bottom"
         app:layout_constraintEnd_toStartOf="@id/guideline_at_end"
         app:layout_constraintHorizontal_bias="1"

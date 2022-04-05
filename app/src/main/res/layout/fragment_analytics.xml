@@ -76,7 +76,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/daily"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/weekly_radio_button"
@@ -89,7 +89,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/weekly"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/monthly_radio_button"
@@ -102,7 +102,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/monthly"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/yearly_radio_button"
@@ -115,7 +115,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/yearly"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                             </RadioGroup>
                         </LinearLayout>
@@ -896,10 +896,9 @@
 
             <ImageView
                 android:id="@+id/illustrations"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:minHeight="250dp"
-                android:src="@drawable/ic_accountant"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/presentation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -919,7 +918,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginTop="20dp"
                 />
 

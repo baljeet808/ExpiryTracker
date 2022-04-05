@@ -26,6 +26,8 @@
     <color name="theme_green_light">#557147</color>
     <color name="theme_black">#141414</color>
     <color name="theme_black_light">#333333</color>
+    <color name="theme_teal">#98EEF6</color>
+    <color name="theme_teal_light">#B5F2F8</color>
     <color name="theme_white">#B6B9B7</color>
     <color name="theme_white_light">#D5D7D6</color>
 
@@ -40,6 +42,7 @@
     <color name="card_background_peach">#FAEFF1</color>
     <color name="card_background_yellow">#FFFDD6</color>
     <color name="card_background_green">#DEE7DA</color>
+    <color name="card_background_teal">#85CCD3</color>
     <color name="card_background_purple">#FBEEF9</color>
     <color name="card_background_pink">#F2B7C6</color>
     <color name="card_background_black">#CCCCCC</color>
@@ -49,6 +52,7 @@
     <color name="text_dialog_color_peach">#290100</color>
     <color name="text_dialog_color_yellow">#292600</color>
     <color name="text_dialog_color_green">#095256</color>
+    <color name="text_dialog_color_teal">#066F78</color>
     <color name="text_dialog_color_purple">#430F39</color>
     <color name="text_dialog_color_pink">#110307</color>
     <color name="text_dialog_color_black">#292929</color>
@@ -58,6 +62,7 @@
     <color name="window_top_bar_peach">#AB364B</color>
     <color name="window_top_bar_yellow">#F5E400</color>
     <color name="window_top_bar_green">#394B2F</color>
+    <color name="window_top_bar_teal">#30ACB8</color>
     <color name="window_top_bar_purple">#731963</color>
     <color name="window_top_bar_pink">#D9305A</color>
     <color name="window_top_bar_black">#141414</color>

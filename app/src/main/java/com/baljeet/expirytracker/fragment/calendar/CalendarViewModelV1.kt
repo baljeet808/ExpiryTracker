@@ -34,7 +34,7 @@ class CalendarViewModelV1(app : Application) : AndroidViewModel(app) {
     val selectedDayOfMonth = MutableLiveData<kotlinx.datetime.LocalDateTime>()
     private var allTrackerLive : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
     var favouriteFilter = MutableLiveData<Int>()
-    var categoryFilter = MutableLiveData<Category>()
+    var categoryFilter = MutableLiveData(Category(0, "Products", 0,false))
     private var noTrackerIsActive = false
 
     private var filteredTrackers = MediatorLiveData<List<TrackerAndProduct>>().apply {

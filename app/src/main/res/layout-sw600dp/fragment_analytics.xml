@@ -67,7 +67,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/daily"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/weekly_radio_button"
@@ -80,7 +80,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/weekly"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/monthly_radio_button"
@@ -93,7 +93,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/monthly"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                                 <RadioButton
                                     android:id="@+id/yearly_radio_button"
@@ -106,7 +106,7 @@
                                     android:fontFamily="@font/montserrat"
                                     android:text="@string/yearly"
                                     android:textAlignment="center"
-                                    android:textColor="?text_dialog_color" />
+                                    android:textColor="@color/text_color" />
 
                             </RadioGroup>
                         </LinearLayout>
@@ -900,9 +900,9 @@
 
         <ImageView
             android:id="@+id/illustrations"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:src="@drawable/ic_accountant"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/presentation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

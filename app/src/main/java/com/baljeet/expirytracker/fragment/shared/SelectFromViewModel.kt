@@ -49,7 +49,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 1,
-                "fruits",
+                "fruit",
                 "fruits",
                 "fruits" ,
                 mimeType = "asset",
@@ -60,7 +60,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 2,
-                "vegetable",
+                "vegetables",
                 "vegetables",
                 "vegetables"
                 ,mimeType = "asset",
@@ -82,7 +82,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 4,
-                "document",
+                "documents",
                 "document",
                 "document"
                 ,mimeType = "asset",
@@ -104,7 +104,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 6,
-                "packed_food",
+                "tea_bag",
                 "packed_food",
                 "packed_food"
                 ,mimeType = "asset",
@@ -115,7 +115,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 7,
-                "liquor",
+                "whiskey",
                 "liquor",
                 "liquor"
                 ,mimeType = "asset",
@@ -126,7 +126,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 8,
-                "drinks",
+                "water",
                 "drinks",
                 "drinks"
                 ,mimeType = "asset",
@@ -148,7 +148,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 10,
-                "apple",
+                "ic_apple",
                 "apple",
                 "Apple"
                 ,mimeType = "asset",
@@ -170,7 +170,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 12,
-                "grapes",
+                "grape",
                 "grapes",
                 "Grapes"
                 ,mimeType = "asset",
@@ -247,7 +247,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 19,
-                "bell_yellow_pepper",
+                "bell_pepper",
                 "bell_yellow_pepper",
                 "Bell yellow pepper"
                 ,mimeType = "asset",
@@ -269,7 +269,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 22,
-                "avocado",
+                "ic_avocado",
                 "avocado",
                 "Avocado"
                 ,mimeType = "asset",
@@ -291,7 +291,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 24,
-                "berry",
+                "berries",
                 "berry",
                 "Berry"
                 ,mimeType = "asset",
@@ -379,7 +379,7 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 32,
-                "chicken",
+                "hen",
                 "chicken",
                 "Chicken"
                 ,mimeType = "asset",
@@ -500,9 +500,9 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 43,
-                "green_chili",
-                "green_chili",
-                "green_chili"
+                "green_chili_pepper",
+                "green_chilli_pepper",
+                "green_chilli_pepper"
                 ,mimeType = "asset",
                 uri = Uri.parse(""),
                 bitmap = ""
@@ -555,9 +555,9 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 48,
-                "milk",
-                "milk",
-                "milk"
+                "milk_box",
+                "milk_box",
+                "milk_box"
                 ,mimeType = "asset",
                 uri = Uri.parse(""),
                 bitmap = ""
@@ -566,9 +566,9 @@ class SelectFromViewModel : ViewModel() {
         images.add(
             Image(
                 50,
-                "mushrooms",
-                "mushrooms",
-                "mushrooms"
+                "mushroom",
+                "mushroom",
+                "mushroom"
                 ,mimeType = "asset",
                 uri = Uri.parse(""),
                 bitmap = ""

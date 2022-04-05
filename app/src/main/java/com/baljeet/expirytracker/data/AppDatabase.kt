@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.data
 
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -12,6 +13,8 @@ import com.baljeet.expirytracker.data.daos.ImageDao
 import com.baljeet.expirytracker.data.daos.ProductsDao
 import com.baljeet.expirytracker.data.daos.TrackerDao
 
+
+@Keep
 @Database(entities = [Product::class,Category::class,Image::class,Tracker::class],version =1 , exportSchema = false)
 @TypeConverters(DateConverters::class, FileTypeConversion::class)
 abstract class AppDatabase :RoomDatabase(){

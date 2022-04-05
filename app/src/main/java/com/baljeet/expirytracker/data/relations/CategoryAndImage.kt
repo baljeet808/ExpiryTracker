@@ -1,12 +1,14 @@
 package com.baljeet.expirytracker.data.relations
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Image
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Parcelize
 data class CategoryAndImage(
     @Embedded val category: Category,

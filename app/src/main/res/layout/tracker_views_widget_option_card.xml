@@ -39,7 +39,7 @@
                 android:paddingBottom="5dp"
                 android:text="@string/active_trackers"
                 android:textAlignment="textStart"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/always_white"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
@@ -56,10 +56,10 @@
                 android:paddingEnd="5dp"
                 android:paddingBottom="5dp"
                 android:text="@string/refresh"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/always_white"
                 android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_refresh_14"
-                app:drawableTint="?android:attr/textColorPrimary"
+                app:drawableTint="@color/always_white"
                 tools:ignore="RelativeOverlap" />
 
 
@@ -83,7 +83,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
                     android:contentDescription="@string/image"
-                    android:src="@drawable/milk" />
+                    android:src="@drawable/milk_box" />
 
 
                 <TextView
@@ -172,7 +172,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
                     android:contentDescription="@string/image"
-                    android:src="@drawable/avocado" />
+                    android:src="@drawable/ic_avocado" />
 
 
                 <TextView
@@ -289,7 +289,7 @@
             android:id="@+id/pro_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/crown_512"
+            android:src="@drawable/ic_crown_34"
             app:layout_constraintStart_toEndOf="@id/guideline_left"
             app:layout_constraintBottom_toTopOf="@id/widget_name"
             android:layout_marginBottom="10dp"

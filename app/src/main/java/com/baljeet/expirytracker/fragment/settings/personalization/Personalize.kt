@@ -50,6 +50,9 @@ class Personalize : Fragment() {
             Constants.PINK->{
                 pinkThemeCardBtn.isChecked = true
             }
+            Constants.TEAL->{
+                tealThemeCardBtn.isChecked = true
+            }
         }
 
              backButton.setOnClickListener { activity?.onBackPressed() }
@@ -113,7 +116,7 @@ class Personalize : Fragment() {
                 unCheckAllColorCards()
                 tealThemeCardBtn.isChecked = true
                 SharedPref.themeName = Constants.TEAL
-                activity?.setTheme(R.style.PeachTheme)
+                activity?.setTheme(R.style.TealTheme)
                 activity?.recreate()
             }
         }
@@ -121,7 +124,7 @@ class Personalize : Fragment() {
     }
 
 
-    fun unCheckAllColorCards(){
+    private fun unCheckAllColorCards(){
         bind.apply {
             blueThemeCardBtn.isChecked = false
             peachThemeCardBtn.isChecked = false

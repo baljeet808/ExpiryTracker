@@ -50,7 +50,7 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     }
 
     var favouriteFilter = MutableLiveData<Int>()
-    var categoryFilter = MutableLiveData<Category>()
+    var categoryFilter = MutableLiveData(Category(0, "Products", 0,false))
 
     var trackersAfterAllFilters = MediatorLiveData<List<TrackerAndProduct>>().apply{
         addSource(favouriteFilter){

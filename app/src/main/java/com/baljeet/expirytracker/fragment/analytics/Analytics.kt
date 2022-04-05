@@ -64,7 +64,7 @@ class Analytics : Fragment() {
             }
             else{
                 val adRequest = AdRequest.Builder().build()
-                RewardedAd.load(requireContext(),Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                RewardedAd.load(requireContext(),Constants.PDF_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
                         mRewardedAd = null
                     }
@@ -254,11 +254,9 @@ class Analytics : Fragment() {
                         if (categoryLayout.isGone) {
                             categoryLayout.visibility = View.VISIBLE
                             productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
-                            productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
                         } else {
                             categoryLayout.visibility = View.GONE
                             productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                            productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
                         }
                     }
                 }
@@ -321,7 +319,7 @@ class Analytics : Fragment() {
                 viewModel.calculatedAllFields(it)
                 setGraphValues()
                 it?.let {
-                    noItemLayout.isGone = it.isNotEmpty()
+                    noItemLayout.isGone = it.any { r -> r.tracker.isUsed }
                     summaryAdapter.submitList(it.filter { r -> r.tracker.isUsed })
                 }
             }
@@ -531,8 +529,9 @@ class Analytics : Fragment() {
                 if (!cats.isNullOrEmpty()) {
                     bind.categoriesChoiceList.apply {
                         categories.clear()
+                        categories.add(Category(0, "Products", 0,false))
                         categories.addAll(cats)
-                        for (category in cats) {
+                        for (category in categories) {
                             val chip = Chip(requireContext())
                             chip.text = category.categoryName
                             chip.id = category.categoryId
@@ -559,7 +558,6 @@ class Analytics : Fragment() {
 
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-            bind.productCategoryChip.setTextColor(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.always_white))
         }
     }
 

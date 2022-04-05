@@ -36,8 +36,9 @@
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/guideline_top"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
-        app:drawableEndCompat="@drawable/crown_24" />
+        app:drawableEndCompat="@drawable/ic_crown_34" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/helper_heading"
@@ -282,8 +283,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="80dp"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/crown_24"
-        android:drawableTint="@color/main_background"
+        android:drawableLeft="@drawable/ic_crown_34"
+        android:drawableTint="@null"
         android:textColor="@color/main_background"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"

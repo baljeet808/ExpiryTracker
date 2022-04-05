@@ -1,11 +1,13 @@
 package com.baljeet.expirytracker.data.repository
 
+import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.daos.TrackerDao
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import java.time.LocalDateTime
 
+@Keep
 class TrackerRepository(private val trackerDao: TrackerDao) {
 
     val readAllTrackers : LiveData<List<TrackerAndProduct>> = trackerDao.readAllTracker()

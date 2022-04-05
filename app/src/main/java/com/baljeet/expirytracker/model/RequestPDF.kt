@@ -1,11 +1,13 @@
 package com.baljeet.expirytracker.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.time.LocalDateTime
 
+@Keep
 @Parcelize
 data class RequestPDF(
     var periodType : PeriodType = PeriodType.DAILY,

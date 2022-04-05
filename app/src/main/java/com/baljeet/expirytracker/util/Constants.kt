@@ -51,12 +51,12 @@ object Constants {
     const val TEAL  = "TEAL"
 
     //Ad-Unit ids
-    const val REWARDED_AD_ID = "ca-app-pub-1506373039840442/1726823090"
-    const val NATIVE_INLINE_AD_ID = "ca-app-pub-1506373039840442/4902245808"
+    const val PDF_REWARDED_AD_ID = "ca-app-pub-9764366035521912/3783774676"
+    const val DONATE_REWARDED_AD_ID = "ca-app-pub-9764366035521912/9586765699"
+    const val SETTING_NATIVE_INLINE_AD_ID = "ca-app-pub-9764366035521912/4713712967"
+    const val TRACKER_DETAIL_NATIVE_INLINE_AD_ID = "ca-app-pub-9764366035521912/7148304613"
+    const val DASH_INTERSTITIAL_AD_ID = "ca-app-pub-9764366035521912/6605433038"
 
-    //Test Ad-Unit ids
-    const val TEST_REWARDED_AD_ID = "ca-app-pub-3940256099942544/5224354917"
-    const val TEST_NATIVE_INLINE_AD_ID = "ca-app-pub-3940256099942544/2247696110"
 
     //in app products ids
     const val CANDY_ID = "candy_purchase"

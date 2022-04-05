@@ -75,6 +75,7 @@
     <style name="myExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -165,7 +166,8 @@
 
     <style name="myPeachExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/main_background</item>
+        <item name="iconTint">@color/main_background</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -177,7 +179,7 @@
         <item name="chipMinHeight">25dp</item>
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
-        <item name="checkedIconTint">@color/always_white</item>
+        <item name="checkedIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_peach</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -254,8 +256,9 @@
 
     <style name="myYellowExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/main_background</item>
         <item name="textAllCaps">false</item>
+        <item name="iconTint">@color/main_background</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
         <item name="fontFamily">@font/montserrat</item>
@@ -344,7 +347,8 @@
 
     <style name="myGreenExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/main_background</item>
+        <item name="iconTint">@color/main_background</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -356,13 +360,105 @@
         <item name="chipMinHeight">25dp</item>
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
-        <item name="checkedIconTint">@color/always_white</item>
+        <item name="checkedIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_green</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
 
     <style name="textGreenStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+
+
+    <!-- teal theme -->
+
+    <style name="TealTheme" parent="BaseTheme">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/theme_teal</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/main_background</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/theme_teal_light</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/status_bar</item>
+        <!-- Customize your theme here. -->
+        <item name="background">@color/main_background</item>
+        <item name="cardBackgroundColor">@color/card_background_teal</item>
+        <item name="materialButtonStyle">@style/myTealSolidButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/myTealExtendedFloatingButton</item>
+        <item name="chipStyle">@style/myTealChoiceChipTheme</item>
+        <item name="imageButtonStyle">@style/myTealImageButtonStyle</item>
+        <item name="android:textViewStyle">@style/myTealTextStyle</item>
+        <item name="materialCardViewStyle">@style/myTealCardViewStyle</item>
+        <item name="text_dialog_color">@color/text_dialog_color_teal</item>
+        <item name="card_background">@color/card_background_teal</item>
+        <item name="window_top_bar">@color/window_top_bar_teal</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="myTealCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background_teal</item>
+        <item name="rippleColor">@color/text_dialog_color_teal</item>
+        <item name="checkedIconTint">@color/text_color</item>
+        <item name="strokeColor">@color/stroke_color</item>
+        <item name="cardElevation">5dp</item>
+    </style>
+
+    <style name="myTealTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="myTealImageButtonStyle" parent="Widget.MaterialComponents.TimePicker.ImageButton">
+        <item name="tint">@color/text_dialog_color_teal</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="myTealSolidButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">5sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="backgroundTint">@color/button_color_set</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myTealExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="cornerRadius">5sp</item>
+        <item name="android:textColor">@color/main_background</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="myTealChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipMinHeight">25dp</item>
+        <item name="android:minWidth">60dp</item>
+        <item name="checkedIcon">@drawable/check_circle_24</item>
+        <item name="checkedIconTint">@color/main_background</item>
+        <item name="android:textColor">@color/main_background</item>
+        <item name="chipBackgroundColor">@color/window_top_bar_teal</item>
+        <item name="android:textAppearance">@style/textStyleForChip</item>
+    </style>
+
+    <style name="textTealStyleForChip" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textSize">12sp</item>
         <item name="android:letterSpacing">0.05</item>
@@ -435,6 +531,7 @@
     <style name="myPurpleExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -446,8 +543,8 @@
         <item name="chipMinHeight">25dp</item>
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
-        <item name="checkedIconTint">@color/black</item>
-        <item name="android:textColor">@color/text_dialog_color_purple</item>
+        <item name="checkedIconTint">@color/always_white</item>
+        <item name="android:textColor">@color/always_white</item>
         <item name="chipBackgroundColor">@color/window_top_bar_purple</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
@@ -524,7 +621,8 @@
 
     <style name="myPinkExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/main_background</item>
+        <item name="iconTint">@color/main_background</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -536,7 +634,7 @@
         <item name="chipMinHeight">25dp</item>
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
-        <item name="checkedIconTint">@color/always_white</item>
+        <item name="checkedIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_pink</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -603,7 +701,7 @@
 
     <style name="myBlackSolidButton" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/black</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">60dp</item>
@@ -615,6 +713,7 @@
     <style name="myBlackExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -704,7 +803,8 @@
 
     <style name="myWhiteExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/main_background</item>
+        <item name="iconTint">@color/main_background</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>

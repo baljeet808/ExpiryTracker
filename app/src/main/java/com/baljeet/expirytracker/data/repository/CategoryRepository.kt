@@ -1,11 +1,13 @@
 package com.baljeet.expirytracker.data.repository
 
+import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.daos.CategoryDao
 import com.baljeet.expirytracker.data.relations.CategoryAndImage
 import io.reactivex.Flowable
 
+@Keep
 class CategoryRepository(private val categoryDao : CategoryDao){
 
     val readAllData : LiveData<List<Category>> = categoryDao.readAllCategories()

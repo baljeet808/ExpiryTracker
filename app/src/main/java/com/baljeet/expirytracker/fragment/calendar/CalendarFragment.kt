@@ -150,7 +150,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
                                 R.color.black
                             )
                         )
-                        bind.productCategoryChip.setTextColor(requireContext().getColor(R.color.main_background))
+                       
                     } else {
                         bind.categoryLayout.visibility = View.GONE
                         bind.productCategoryChip.chipBackgroundColor = ColorStateList.valueOf(
@@ -158,13 +158,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
                                 requireContext(),
                                 R.attr.window_top_bar,
                                 R.color.black
-                            )
-                        )
-                        bind.productCategoryChip.setTextColor(
-                            MyColors.getColorByAttr(
-                                requireContext(),
-                                R.attr.text_dialog_color,
-                                R.color.always_white
                             )
                         )
                     }
@@ -187,8 +180,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
                 if (!cats.isNullOrEmpty()) {
                     bind.categoriesChoiceList.apply {
                         categories.clear()
+                        categories.add(Category(0, "Products", 0,false))
                         categories.addAll(cats)
-                        for (category in cats) {
+                        for (category in categories) {
                             val chip = Chip(requireContext())
                             chip.text = category.categoryName
                             chip.id = category.categoryId
@@ -219,13 +213,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
                     requireContext(),
                     R.attr.window_top_bar,
                     R.color.black
-                )
-            )
-            bind.productCategoryChip.setTextColor(
-                MyColors.getColorByAttr(
-                    requireContext(),
-                    R.attr.text_dialog_color,
-                    R.color.always_white
                 )
             )
         }

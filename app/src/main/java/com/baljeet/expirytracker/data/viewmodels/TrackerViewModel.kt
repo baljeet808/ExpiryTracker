@@ -17,33 +17,30 @@ class TrackerViewModel(application: Application) : AndroidViewModel(application)
 
     private val trackerDao = AppDatabase.getDatabase(application).trackerDao()
     private val repository : TrackerRepository =  TrackerRepository(trackerDao)
-    private var readAllTracker : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
-    var statusFilter : MutableLiveData<String> = MutableLiveData<String>()
-    var categoryFilter : MutableLiveData<Category> = MutableLiveData<Category>()
+    var readAllTracker : LiveData<List<TrackerAndProduct>> = repository.readAllTrackers
+    var statusFilter  = MutableLiveData(Constants.PRODUCT_STATUS_ALL)
+    var categoryFilter  = MutableLiveData(Category(0, "Products", 0,false))
     var favouriteFilter : MutableLiveData<Int> = MutableLiveData()
 
     var noTrackerIsActive = false
 
     var filteredTrackers  = MediatorLiveData<List<TrackerAndProduct>>().apply {
         addSource(readAllTracker){ allTracker->
-            noTrackerIsActive = checkIfNoTrackerIsActive(allTracker)
+            noTrackerIsActive = allTracker.isNullOrEmpty()
             this.postValue( filterTrackers(favouriteFilter.value?:1,allTracker, statusFilter.value?:Constants.PRODUCT_STATUS_ALL,categoryFilter.value?: Category(0,"Products",0,false)))
         }
         addSource(statusFilter){ status->
-            noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
+            noTrackerIsActive = readAllTracker.value.isNullOrEmpty()
             this.postValue(filterTrackers(favouriteFilter.value?:1,readAllTracker.value?:ArrayList(), status,categoryFilter.value?:Category(0,"Products",0,false)))
         }
         addSource(categoryFilter){ category->
-            noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
+            noTrackerIsActive = readAllTracker.value.isNullOrEmpty()
             this.postValue(filterTrackers(favouriteFilter.value?:1,readAllTracker.value?:ArrayList(), statusFilter.value?:Constants.PRODUCT_STATUS_ALL,category))
         }
         addSource(favouriteFilter){ favFilter->
-            noTrackerIsActive = checkIfNoTrackerIsActive(readAllTracker.value?:ArrayList())
+            noTrackerIsActive = readAllTracker.value.isNullOrEmpty()
             this.postValue(filterTrackers(favFilter,readAllTracker.value?:ArrayList(), statusFilter.value?:Constants.PRODUCT_STATUS_ALL,categoryFilter.value?:Category(0,"Products",0,false)))
         }
-    }
-    private fun checkIfNoTrackerIsActive(trackers : List<TrackerAndProduct>): Boolean{
-        return trackers.isNullOrEmpty()
     }
 
     fun addTracker(newTracker : Tracker){

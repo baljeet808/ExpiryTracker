@@ -1,8 +1,10 @@
 package com.baljeet.expirytracker.data.repository
 
+import androidx.annotation.Keep
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.daos.ImageDao
 
+@Keep
 class ImageRepository(private val imageDao : ImageDao) {
 
     fun addImage(image : Image){

@@ -138,7 +138,7 @@ class DonateFragment : Fragment() {
 
             val adRequest = AdRequest.Builder().build()
             RewardedAd.load(requireContext(),
-                Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                Constants.DONATE_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
                         mRewardedAd = null
                     }
@@ -210,7 +210,7 @@ class DonateFragment : Fragment() {
                                         .setSkuDetails(skuDetailsList!![0])
                                         .build()
 
-                                    val responseCode = billingClient.launchBillingFlow(
+                                    billingClient.launchBillingFlow(
                                         requireActivity(),
                                         flowPurchase
                                     ).responseCode
