@@ -17,7 +17,7 @@
     <color name="theme_peach">#AB364B</color>
     <color name="theme_peach_light">#C4455C</color>
     <color name="theme_yellow">#F6D013</color>
-    <color name="theme_yellow_light">#FAE789</color>
+    <color name="theme_yellow_light">#F6D013</color>
     <color name="theme_pink">#E36387</color>
     <color name="theme_pink_light">#EA86A2</color>
     <color name="theme_purple">#741B66</color>
@@ -27,9 +27,9 @@
     <color name="theme_black">#141414</color>
     <color name="theme_black_light">#333333</color>
     <color name="theme_teal">#98EEF6</color>
-    <color name="theme_teal_light">#B5F2F8</color>
+    <color name="theme_teal_light">#98EEF6</color>
     <color name="theme_white">#B6B9B7</color>
-    <color name="theme_white_light">#D5D7D6</color>
+    <color name="theme_white_light">#B6B9B7</color>
 
     <color name="theme_blue_half_transparent">#556272a4</color>
     <color name="status_bar">#FFFFFFFF</color>
@@ -50,13 +50,13 @@
 
     <color name="text_dialog_color_blue">#343F56</color>
     <color name="text_dialog_color_peach">#290100</color>
-    <color name="text_dialog_color_yellow">#292600</color>
+    <color name="text_dialog_color_yellow">#93890E</color>
     <color name="text_dialog_color_green">#095256</color>
     <color name="text_dialog_color_teal">#066F78</color>
     <color name="text_dialog_color_purple">#430F39</color>
     <color name="text_dialog_color_pink">#110307</color>
     <color name="text_dialog_color_black">#292929</color>
-    <color name="text_dialog_color_white">#655B53</color>
+    <color name="text_dialog_color_white">#9E9B99</color>
 
     <color name="window_top_bar_blue">#6272a4</color>
     <color name="window_top_bar_peach">#AB364B</color>

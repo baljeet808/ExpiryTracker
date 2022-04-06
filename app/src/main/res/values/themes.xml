@@ -84,6 +84,7 @@
     <style name="myExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -175,6 +176,7 @@
     <style name="myPeachExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -263,7 +265,8 @@
 
     <style name="myYellowExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="iconTint">@color/black</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -274,9 +277,9 @@
     <style name="myYellowChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipMinHeight">25dp</item>
         <item name="android:minWidth">60dp</item>
-        <item name="checkedIcon">@drawable/check_circle_24</item>
-        <item name="checkedIconTint">@color/always_white</item>
-        <item name="android:textColor">@color/text_dialog_color_yellow</item>
+        <item name="checkedIcon">@drawable/check_circle_black_24</item>
+        <item name="checkedIconTint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_yellow</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
@@ -354,6 +357,7 @@
     <style name="myGreenExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -444,7 +448,8 @@
 
     <style name="myTealExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="iconTint">@color/black</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -535,6 +540,7 @@
     <style name="myPurpleExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -625,6 +631,7 @@
     <style name="myPinkExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -715,6 +722,7 @@
     <style name="myBlackExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
         <item name="android:textColor">@color/always_white</item>
+        <item name="iconTint">@color/always_white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -805,7 +813,8 @@
 
     <style name="myWhiteExtendedFloatingButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="cornerRadius">5sp</item>
-        <item name="android:textColor">@color/always_white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="iconTint">@color/black</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">16sp</item>
         <item name="android:minHeight">40dp</item>
@@ -816,9 +825,9 @@
     <style name="myWhiteChoiceChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipMinHeight">25dp</item>
         <item name="android:minWidth">60dp</item>
-        <item name="checkedIcon">@drawable/check_circle_24</item>
-        <item name="checkedIconTint">@color/always_white</item>
-        <item name="android:textColor">@color/text_dialog_color_white</item>
+        <item name="checkedIcon">@drawable/check_circle_black_24</item>
+        <item name="checkedIconTint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_white</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
     </style>
@@ -890,7 +899,7 @@
     </style>
 
     <style name="datePickerTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/text_dialog_color_blue</item>
+        <item name="colorPrimary">?attr/text_dialog_color</item>
         <item name="colorOnPrimary">@color/main_background</item>
         <item name="colorSurface">@color/main_background</item>
         <item name="android:headerMonthTextAppearance">@style/Theme.ExpiryTracker</item>

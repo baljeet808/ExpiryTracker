@@ -310,6 +310,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
                             chip.text = category.categoryName
                             chip.id = category.categoryId
                             chip.isCheckedIconVisible = true
+
                             chip.isChecked = 
                                 trackerVm.categoryFilter.value?.let { cat ->
                                     cat.categoryId == category.categoryId
