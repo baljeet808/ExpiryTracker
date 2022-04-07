@@ -8,8 +8,11 @@ import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import android.util.TypedValue
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.model.*
 import java.io.FileOutputStream
@@ -212,24 +215,30 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                     i = 0
                 }
                 if (this.useOfImages == UseImages.ON) {
-                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                        "asset" -> {
-                            BitmapFactory.decodeResource(
-                                context.resources,
-                                context.resources.getIdentifier(
+                    try {
+                        val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                            "asset" -> {
+                                val vectorDrawable = ResourcesCompat.getDrawable(context.resources, context.resources.getIdentifier(
                                     tracker.productAndCategoryAndImage.image.imageUrl,
                                     "drawable",
                                     context.packageName
+                                ), context.theme)!!
+                                vectorDrawable.toBitmap(
+                                    vectorDrawable.intrinsicWidth,
+                                    vectorDrawable.intrinsicHeight,
+                                    Bitmap.Config.ARGB_8888
                                 )
-                            )
+                            }
+                            else -> {
+                                ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                            }
                         }
-                        else -> {
-                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                        }
-                    }
 
-                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                        canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                    }catch (e : java.lang.Exception){
+                        Log.d("Log for - ","${e.printStackTrace()}")
+                    }
                 }
                 canvas.drawText(
                     context.getString(
@@ -362,25 +371,30 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                     i = 0
                 }
                 if (this.useOfImages == UseImages.ON) {
-
-                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                        "asset" -> {
-                            BitmapFactory.decodeResource(
-                                context.resources,
-                                context.resources.getIdentifier(
+                    try {
+                        val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                            "asset" -> {
+                                val vectorDrawable = ResourcesCompat.getDrawable(context.resources, context.resources.getIdentifier(
                                     tracker.productAndCategoryAndImage.image.imageUrl,
                                     "drawable",
                                     context.packageName
+                                ), context.theme)!!
+                                vectorDrawable.toBitmap(
+                                    vectorDrawable.intrinsicWidth,
+                                    vectorDrawable.intrinsicHeight,
+                                    Bitmap.Config.ARGB_8888
                                 )
-                            )
+                            }
+                            else -> {
+                                ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                            }
                         }
-                        else -> {
-                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                        }
-                    }
 
-                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                        canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                    }catch (e : java.lang.Exception){
+                        Log.d("Log for - ","${e.printStackTrace()}")
+                    }
                 }
                 canvas.drawText(
                     context.getString(
@@ -516,24 +530,30 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                     i = 0
                 }
                 if (this.useOfImages == UseImages.ON) {
-                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                        "asset" -> {
-                            BitmapFactory.decodeResource(
-                                context.resources,
-                                context.resources.getIdentifier(
+                    try {
+                        val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                            "asset" -> {
+                                val vectorDrawable = ResourcesCompat.getDrawable(context.resources, context.resources.getIdentifier(
                                     tracker.productAndCategoryAndImage.image.imageUrl,
                                     "drawable",
                                     context.packageName
+                                ), context.theme)!!
+                                vectorDrawable.toBitmap(
+                                    vectorDrawable.intrinsicWidth,
+                                    vectorDrawable.intrinsicHeight,
+                                    Bitmap.Config.ARGB_8888
                                 )
-                            )
+                            }
+                            else -> {
+                                ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                            }
                         }
-                        else -> {
-                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                        }
-                    }
 
-                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                        canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                    }catch (e : java.lang.Exception){
+                        Log.d("Log for - ","${e.printStackTrace()}")
+                    }
                 }
                 canvas.drawText(
                     context.getString(
@@ -688,24 +708,30 @@ fun RequestPDF.createPdfReport(context: Context) : PdfDocument{
                     i = 0
                 }
                 if (this.useOfImages == UseImages.ON) {
-                    val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
-                        "asset" -> {
-                            BitmapFactory.decodeResource(
-                                context.resources,
-                                context.resources.getIdentifier(
+                    try {
+                        val bitmap = when (tracker.productAndCategoryAndImage.image.mimeType) {
+                            "asset" -> {
+                                val vectorDrawable = ResourcesCompat.getDrawable(context.resources, context.resources.getIdentifier(
                                     tracker.productAndCategoryAndImage.image.imageUrl,
                                     "drawable",
                                     context.packageName
+                                ), context.theme)!!
+                                vectorDrawable.toBitmap(
+                                    vectorDrawable.intrinsicWidth,
+                                    vectorDrawable.intrinsicHeight,
+                                    Bitmap.Config.ARGB_8888
                                 )
-                            )
+                            }
+                            else -> {
+                                ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
+                            }
                         }
-                        else -> {
-                            ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
-                        }
-                    }
 
-                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
-                    canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false)
+                        canvas.drawBitmap(scaledBitmap, 65F, yBondTotals + (i * 90F) - 20F, myPaint)
+                    }catch (e : java.lang.Exception){
+                        Log.d("Log for - ","${e.printStackTrace()}")
+                    }
                 }
                 canvas.drawText(
                     context.getString(

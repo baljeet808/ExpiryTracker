@@ -81,7 +81,7 @@ class Analytics : Fragment(), ShowImagePreview {
 
             
             downloadPdfButton.setOnClickListener {
-                if(SharedPref.isUserAPro){
+                if(true){
                     prepPDFRequest()
                 }else{
                     if (mRewardedAd != null) {
