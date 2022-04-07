@@ -1,9 +1,10 @@
-package com.baljeet.expirytracker.fragment.settings
+package com.baljeet.expirytracker.fragment.settings.pro
 
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.PurchaseInfo
 import com.anjlab.android.iab.v3.SkuDetails
@@ -24,17 +26,11 @@ import com.baljeet.expirytracker.util.SharedPref
 enum class SubscribeType{
     MONTH,YEAR
 }
-class BePro : Fragment(), BillingProcessor.IBillingHandler {
-
-
-    private var billingProcess : BillingProcessor? = null
-    private var purchaseInfo : PurchaseInfo? = null
-
+class BePro : Fragment() {
+    private val viewModel : BeProViewModel by activityViewModels()
 
     private lateinit var thanksDialog: AlertDialog
     private lateinit var dialogBuilder: AlertDialog.Builder
-
-
 
     private lateinit var bind : FragmentBeProBinding
 
@@ -46,13 +42,11 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
     ): View {
         bind = FragmentBeProBinding.inflate(inflater, container, false)
         SharedPref.init(requireContext())
-        getSubscriptionDetails()
         if (SharedPref.isUserAPro){
             layoutChangesForPro()
         }else{
             layoutChangesForNormalUser()
         }
-
         return bind.root
     }
 
@@ -62,25 +56,48 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
             backButton.setOnClickListener{
                 activity?.onBackPressed()
             }
-
-            monthlyCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                   updateCards(!isChecked)
-                    yearlyCheckbox.isChecked = !isChecked
+            viewModel.purchaseCompleteFor.observe(viewLifecycleOwner){
+                when (it) {
+                    Constants.MONTHLY_SUBSCRIPTION -> {
+                        onProductPurchased(Constants.MONTHLY_SUBSCRIPTION)
+                    }
+                    Constants.YEARLY_SUBSCRIPTION -> {
+                        onProductPurchased(Constants.YEARLY_SUBSCRIPTION)
+                    }
+                    else -> {
+                        Log.d("Log for - order id", it)
+                    }
+                }
             }
-            yearlyCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                updateCards(isChecked)
-                monthlyCheckbox.isChecked = !isChecked
-            }
-
-            billingProcess =  BillingProcessor.newBillingProcessor(requireContext(),Constants.LICENSE_KEY,this@BePro)
-            billingProcess?.initialize()
-
-            upgradeButton.setOnClickListener {
-                billingProcess?.subscribe(requireActivity(),if(subscribeFor == SubscribeType.MONTH) Constants.MONTHLY_SUBSCRIPTION else Constants.YEARLY_SUBSCRIPTION)
+            viewModel.skuLiveList.observe(viewLifecycleOwner){
+                setPrices(it)
             }
 
             settingsButton.setOnClickListener {
                 activity?.onBackPressed()
+            }
+        }
+    }
+
+    private fun setPrices(list : MutableList<com.android.billingclient.api.SkuDetails>){
+        bind.apply {
+            for (sku in list){
+                when{
+                    sku.title.contains("month",true)->{
+                        monthlyPrice.text = sku.price
+                        monthlyCard.setOnClickListener {
+                            updateCards(false)
+                            viewModel.purchaseItem(requireActivity(),sku)
+                        }
+                    }
+                    sku.title.contains("year",true)->{
+                        yearlyPrice.text = sku.price
+                        yearlyCard.setOnClickListener {
+                            updateCards(true)
+                            viewModel.purchaseItem(requireActivity(),sku)
+                        }
+                    }
+                }
             }
         }
     }
@@ -98,7 +115,7 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
             }
     }
 
-    override fun onProductPurchased(productId: String, details: PurchaseInfo?) {
+    private fun onProductPurchased(productId: String) {
         showThankYouPopup()
         if(productId == Constants.MONTHLY_SUBSCRIPTION){
             SharedPref.isUserAPro = true
@@ -115,66 +132,13 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
         }
     }
 
-    override fun onPurchaseHistoryRestored() {
-    }
-
-    override fun onBillingError(errorCode: Int, error: Throwable?) {
-    }
-
-    override fun onBillingInitialized() {
-    }
-
-    override fun onDestroy() {
-        billingProcess?.release()
-        super.onDestroy()
-    }
-
-    private fun getSubscriptionDetails(){
-        if(billingProcess?.isConnected == true){
-            billingProcess?.getSubscriptionListingDetailsAsync(Constants.MONTHLY_SUBSCRIPTION,object : BillingProcessor.ISkuDetailsResponseListener{
-                override fun onSkuDetailsResponse(products: MutableList<SkuDetails>?) {
-                      products?.let {
-                          if(it.any()){
-                              it.firstOrNull()?.let { product ->
-                                   bind.apply {
-                                       monthlyPrice.text  = product.priceValue.toString().plus( " ${product.currency}")
-                                   }
-                              }
-                          }
-                      }
-                }
-
-                override fun onSkuDetailsError(error: String?) {
-                }
-
-            })
-            billingProcess?.getSubscriptionListingDetailsAsync(Constants.YEARLY_SUBSCRIPTION,object : BillingProcessor.ISkuDetailsResponseListener{
-                override fun onSkuDetailsResponse(products: MutableList<SkuDetails>?) {
-                    products?.let {
-                        if(it.any()){
-                            it.firstOrNull()?.let { product ->
-                                bind.apply {
-                                    yearlyPrice.text  = product.priceValue.toString().plus( " ${product.currency}")
-                                }
-                            }
-                        }
-                    }
-                }
-
-                override fun onSkuDetailsError(error: String?) {
-                }
-
-            })
-        }
-    }
-
     private fun layoutChangesForPro(){
         bind.apply {
             if(SharedPref.subscriptionIsMonthly){
                 yearlyCard.isGone = true
-                yearlyCheckbox.isGone = true
+
                 monthlyCard.strokeWidth = 2
-                monthlyCheckbox.isGone = true
+
                 heading.text = getString(R.string.proud_pro_member)
                 helperHeading.text = getString(R.string.pro_member_heading)
                 upgradeButton.isGone = true
@@ -183,9 +147,9 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
             if(SharedPref.subscriptionIsYearly)
             {
                 monthlyCard.isGone = true
-                yearlyCheckbox.isGone = true
+
                 yearlyCard.strokeWidth = 2
-                monthlyCheckbox.isGone = true
+
                 heading.text = getString(R.string.proud_pro_member)
                 helperHeading.text = getString(R.string.pro_member_heading)
                 upgradeButton.isGone = true
@@ -198,12 +162,10 @@ class BePro : Fragment(), BillingProcessor.IBillingHandler {
         bind.apply {
             monthlyCard.isGone = false
             yearlyCard.isGone = false
-            yearlyCheckbox.isGone = false
+
             yearlyCard.strokeWidth = 2
             monthlyCard.strokeWidth = 0
-            monthlyCheckbox.isGone = false
-            yearlyCheckbox.isChecked = true
-            monthlyCheckbox.isChecked = false
+
             heading.text = getString(R.string.become_pro)
             helperHeading.text = getString(R.string.unlock_all_pro_features)
             upgradeButton.isGone = false

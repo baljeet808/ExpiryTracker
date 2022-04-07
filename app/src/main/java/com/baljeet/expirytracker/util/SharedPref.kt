@@ -1,7 +1,7 @@
 package com.baljeet.expirytracker.util
 import android.content.Context
 import android.content.SharedPreferences
-import com.baljeet.expirytracker.fragment.settings.SubscribeType
+import com.baljeet.expirytracker.fragment.settings.pro.SubscribeType
 
 object SharedPref {
     private const val MODE = Context.MODE_PRIVATE

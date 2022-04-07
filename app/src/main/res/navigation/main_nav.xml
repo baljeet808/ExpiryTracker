@@ -296,7 +296,7 @@
     </fragment>
     <fragment
         android:id="@+id/bePro"
-        android:name="com.baljeet.expirytracker.fragment.settings.BePro"
+        android:name="com.baljeet.expirytracker.fragment.settings.pro.BePro"
         android:label="fragment_be_pro"
         tools:layout="@layout/fragment_be_pro" />
     <fragment
