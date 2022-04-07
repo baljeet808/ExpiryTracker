@@ -13,6 +13,7 @@ import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.CalendarTrackersItemBinding
 import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
+import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.util.ImageConvertor
 import java.time.Duration
@@ -20,7 +21,8 @@ import java.time.LocalDateTime
 
 class TrackersCalAdapter(private val context : Context,
                          private val updateTrackerListener :UpdateTrackerListener,
-                         private val openListener : OnTrackerOpenListener
+                         private val openListener : OnTrackerOpenListener ,
+                         private val showImage : ShowImagePreview
                          ) : ListAdapter<TrackerAndProduct,TrackersCalAdapter.MyViewHolder>(DiffUtil()) {
 
 
@@ -63,6 +65,7 @@ class TrackersCalAdapter(private val context : Context,
                     productImage.setImageBitmap(
                         ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
                     )
+                    productImage.setOnClickListener { showImage.openImagePreviewFor(tracker.productAndCategoryAndImage.image) }
                 }
             }
             when(tracker.productAndCategoryAndImage.categoryAndImage.image.mimeType){
@@ -82,6 +85,7 @@ class TrackersCalAdapter(private val context : Context,
                     categoryImage.setImageBitmap(
                         ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.categoryAndImage.image.bitmap)
                     )
+                    categoryImage.setOnClickListener { showImage.openImagePreviewFor(tracker.productAndCategoryAndImage.categoryAndImage.image) }
                 }
             }
 

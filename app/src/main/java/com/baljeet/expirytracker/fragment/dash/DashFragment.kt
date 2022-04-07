@@ -19,12 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentDashBinding
 import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
+import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.util.*
@@ -35,7 +37,7 @@ import java.time.Month
 import java.util.*
 
 
-class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
+class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, ShowImagePreview {
 
     private lateinit var trackerAdapter : TrackerDiffAdapter
     private val categoryVM: CategoryViewModel by viewModels()
@@ -83,7 +85,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
         }
 
         bind.trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        trackerAdapter = TrackerDiffAdapter(requireContext(),this, this)
+        trackerAdapter = TrackerDiffAdapter(requireContext(),this, this, this)
         bind.trackerRecyclerView.adapter = trackerAdapter
 
         trackerVm.filteredTrackers.let {
@@ -399,6 +401,10 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener {
 
     override fun openTrackerInfo(tracker: TrackerAndProduct) {
         Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionDashFragmentToTrackerDetails(tracker.tracker.trackerId))
+    }
+
+    override fun openImagePreviewFor(image: Image) {
+        Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionGlobalImagePreview(image))
     }
 }
 

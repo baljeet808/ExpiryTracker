@@ -169,6 +169,7 @@
     <string name="_1_give_it_a_name">1. Give it a name</string>
     <string name="edit_your_photo">Edit Your Photo</string>
     <string name="image_editor_instruction">Drag photo by swipe or pinch to zoom in and out to fit the photo in frame.</string>
+    <string name="image_preview_instruction">Drag photo by swipe or pinch to zoom in and out to take a good look.</string>
     <string name="save">save</string>
     <string name="manage_categories">Manage Categories</string>
     <string name="manage_products">Manage Products</string>

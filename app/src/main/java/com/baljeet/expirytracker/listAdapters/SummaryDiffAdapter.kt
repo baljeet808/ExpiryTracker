@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.databinding.ReportListItemBinding
+import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.util.ImageConvertor
 
 
-class SummaryDiffAdapter(private val context: Context) : ListAdapter<TrackerAndProduct,SummaryDiffAdapter.MyViewHolder>(DiffUtil()) {
+class SummaryDiffAdapter(private val context: Context, private val showImage : ShowImagePreview) : ListAdapter<TrackerAndProduct,SummaryDiffAdapter.MyViewHolder>(DiffUtil()) {
     class MyViewHolder(val bind: ReportListItemBinding) : RecyclerView.ViewHolder(bind.root)
 
     class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<TrackerAndProduct>(){
@@ -97,6 +98,7 @@ class SummaryDiffAdapter(private val context: Context) : ListAdapter<TrackerAndP
                     productImage.setImageBitmap(
                         ImageConvertor.stringToBitmap(tracker.productAndCategoryAndImage.image.bitmap)
                     )
+                    productImage.setOnClickListener { showImage.openImagePreviewFor(tracker.productAndCategoryAndImage.image) }
                     productImage.setPadding(0)
                 }
             }

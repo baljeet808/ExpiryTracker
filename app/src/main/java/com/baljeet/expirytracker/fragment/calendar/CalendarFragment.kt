@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.databinding.FragmentCalendarV1Binding
+import com.baljeet.expirytracker.fragment.dash.DashFragmentDirections
 import com.baljeet.expirytracker.interfaces.OnDateSelectedListener
 import com.baljeet.expirytracker.interfaces.OnTrackerOpenListener
+import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.CalendarAdapter
 import com.baljeet.expirytracker.listAdapters.TrackersCalAdapter
@@ -31,7 +34,7 @@ import com.google.android.material.chip.Chip
 
 
 class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListener,
-    OnTrackerOpenListener {
+    OnTrackerOpenListener, ShowImagePreview {
     private lateinit var bind: FragmentCalendarV1Binding
     private val viewModel: CalendarViewModelV1 by viewModels()
     private val categoryVM: CategoryViewModel by viewModels()
@@ -103,7 +106,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
         bind.trackerRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             trackerAdapter =
-                TrackersCalAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment)
+                TrackersCalAdapter(requireContext(), this@CalendarFragment, this@CalendarFragment, this@CalendarFragment)
             adapter = trackerAdapter
         }
 
@@ -231,5 +234,10 @@ class CalendarFragment : Fragment(), OnDateSelectedListener, UpdateTrackerListen
             .navigate(
                 CalendarFragmentDirections.actionCalendarFragmentToTrackerDetails(tracker.tracker.trackerId)
             )
+    }
+
+
+    override fun openImagePreviewFor(image: Image) {
+        Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionGlobalImagePreview(image))
     }
 }

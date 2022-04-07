@@ -14,6 +14,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Tracker
@@ -97,6 +98,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                         optionImage.setImageBitmap(
                             ImageConvertor.stringToBitmap(productAndCategoryAndImage.image.bitmap)
                         )
+                        optionImage.setOnClickListener { Navigation.findNavController(requireView()).navigate(TrackerDetailsDirections.actionGlobalImagePreview(productAndCategoryAndImage.image)) }
                     }
                 }
                 when(productAndCategoryAndImage.categoryAndImage.image.mimeType){
@@ -116,6 +118,8 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                         categoryImage.setImageBitmap(
                             ImageConvertor.stringToBitmap(productAndCategoryAndImage.categoryAndImage.image.bitmap)
                         )
+                        categoryImage.setOnClickListener { Navigation.findNavController(requireView()).navigate(TrackerDetailsDirections.actionGlobalImagePreview(productAndCategoryAndImage.categoryAndImage.image)) }
+
                     }
                 }
 

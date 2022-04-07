@@ -312,4 +312,20 @@
             app:popEnterAnim="@anim/slide_3_in_left"
             app:popExitAnim="@anim/slide_4_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/imagePreview"
+        android:name="com.baljeet.expirytracker.fragment.shared.ImagePreview"
+        android:label="fragment_image_preview"
+        tools:layout="@layout/fragment_image_preview" >
+        <argument
+            android:name="imageToPreview"
+            app:argType="com.baljeet.expirytracker.data.Image" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_imagePreview"
+        app:destination="@id/imagePreview"
+        app:enterAnim="@anim/slide_up_from_bottom"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@anim/slide_down_from_bottom" />
 </navigation>

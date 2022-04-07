@@ -15,8 +15,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
+import com.baljeet.expirytracker.fragment.dash.DashFragmentDirections
+import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.model.*
 import com.baljeet.expirytracker.util.Constants
@@ -35,7 +38,7 @@ import java.time.temporal.TemporalAdjusters.firstDayOfYear
 import java.time.temporal.TemporalAdjusters.lastDayOfYear
 import kotlin.math.roundToInt
 
-class Analytics : Fragment() {
+class Analytics : Fragment(), ShowImagePreview {
 
     private var mRewardedAd: RewardedAd? = null
 
@@ -312,7 +315,7 @@ class Analytics : Fragment() {
             }
 
             summaryListView.layoutManager = LinearLayoutManager(requireContext())
-            summaryAdapter = SummaryDiffAdapter(requireContext())
+            summaryAdapter = SummaryDiffAdapter(requireContext(), this@Analytics)
             summaryListView.adapter = summaryAdapter
 
             viewModel.trackersAfterAllFilters.observe(viewLifecycleOwner) {
@@ -559,6 +562,10 @@ class Analytics : Fragment() {
             bind.categoryLayout.visibility = View.GONE
             bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
         }
+    }
+
+    override fun openImagePreviewFor(image: Image) {
+        Navigation.findNavController(requireView()).navigate(DashFragmentDirections.actionGlobalImagePreview(image))
     }
 
 }
