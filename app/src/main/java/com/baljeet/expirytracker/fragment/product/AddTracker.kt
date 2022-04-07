@@ -12,10 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import android.widget.Toast
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
@@ -33,11 +35,13 @@ import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
-import kotlinx.datetime.toLocalDateTime
-import java.time.Clock
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 enum class LocalDateTimeFor{
@@ -48,6 +52,8 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
 
     private val categoriesWithImages = ArrayList<CategoryAndImage>()
     private val productsWithImages = ArrayList<ProductAndImage>()
+
+
 
     private val viewModel: SelectFromViewModel by activityViewModels()
     private val categoryVM: CategoryViewModel by activityViewModels()
@@ -60,6 +66,14 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
     private lateinit var bind: FragmentAddTrackerBinding
 
     private var pickingDateTimeFor : LocalDateTimeFor = LocalDateTimeFor.MFG
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.incCount()
+    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -215,7 +229,7 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             Log.d("Log for - ","latest tracker id = ${latestTracker.trackerId}")
             viewModel.reminderDate?.let {
                 if(SharedPref.isAlertEnabled && doRemind) {
-                    Log.d("Log for - reminder time","\n\n\n\n\n\n${it.toString()}\n\n\n\n\n\n\n\n\n")
+                    Log.d("Log for - reminder time","\n\n\n\n\n\n${it}\n\n\n\n\n\n\n\n\n")
                     NotificationUtil.setReminderForProducts(
                         it,
                         requireContext(),
@@ -226,7 +240,24 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
             }
             activity?.onBackPressed()
         }
+
         return bind.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showAd()
+    }
+
+    private fun showAd(){
+        viewModel.mInterstitialAd.observe(viewLifecycleOwner){
+            it?.fullScreenContentCallback = object : FullScreenContentCallback(){
+                override fun onAdShowedFullScreenContent() {
+                    viewModel.mInterstitialAd.postValue(null)
+                }
+            }
+            it?.show(requireActivity())
+        }
     }
 
     override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory: Boolean) {
