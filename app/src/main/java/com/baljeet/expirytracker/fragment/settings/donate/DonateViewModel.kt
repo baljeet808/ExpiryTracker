@@ -2,6 +2,7 @@ package com.baljeet.expirytracker.fragment.settings.donate
 
 import android.app.Activity
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -23,7 +24,11 @@ class DonateViewModel(app : Application): AndroidViewModel(app) {
         val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
             if(billingResult.responseCode == BillingClient.BillingResponseCode.OK ){
                 purchases?.let {
-                    purchaseComplete.postValue(true)
+                    for(purchase in it){
+                        if(purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged){
+                            validatePurchase(purchase)
+                        }
+                    }
                 }
             }else{
                 purchaseComplete.postValue(false)
@@ -40,6 +45,19 @@ class DonateViewModel(app : Application): AndroidViewModel(app) {
             BillingFlowParams.newBuilder().setSkuDetails(sku)
                 .build() )
     }
+
+    private fun validatePurchase(purchase : Purchase){
+        val ackParams = AcknowledgePurchaseParams.newBuilder()
+            .setPurchaseToken(purchase.purchaseToken)
+            .build()
+
+        val listener = AcknowledgePurchaseResponseListener {
+            Log.d("Log for - ","acknowledged")
+            purchaseComplete.postValue(true)
+        }
+        billingClient.acknowledgePurchase(ackParams,listener)
+    }
+
 
 
     private fun connectToGooglePlayBilling(){

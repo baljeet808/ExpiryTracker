@@ -1,17 +1,18 @@
-package com.baljeet.expirytracker.fragment.settings.pro
+package com.baljeet.expirytracker.widgets
 
 import android.app.Activity
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.android.billingclient.api.*
 import com.baljeet.expirytracker.CustomApplication
 import com.baljeet.expirytracker.util.Constants
 import kotlinx.coroutines.launch
 
-class BeProViewModel(app: Application): AndroidViewModel(app) {
+
+class SplashViewModel(app: Application): AndroidViewModel(app) {
     val context = getApplication<CustomApplication>()
     private var billingClient: BillingClient
 
@@ -24,9 +25,9 @@ class BeProViewModel(app: Application): AndroidViewModel(app) {
             if(billingResult.responseCode == BillingClient.BillingResponseCode.OK ){
                 purchases?.let {
                     for(purchase in purchases){
-                       if(purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged){
-                           validatePurchase(purchase)
-                       }
+                        if(purchase.purchaseState == Purchase.PurchaseState.PURCHASED){
+                            purchaseCompleteFor.postValue(purchase.skus.get(0))
+                        }
                     }
                 }
             }else{
@@ -40,24 +41,13 @@ class BeProViewModel(app: Application): AndroidViewModel(app) {
         connectToGooglePlayBilling()
     }
 
-    private fun validatePurchase(purchase : Purchase){
-        val ackParams = AcknowledgePurchaseParams.newBuilder()
-            .setPurchaseToken(purchase.purchaseToken)
-            .build()
-
-        val listener = AcknowledgePurchaseResponseListener {
-            Log.d("Log for - ","acknowledged")
-            purchaseCompleteFor.postValue(purchase.skus[0])
-        }
-        billingClient.acknowledgePurchase(ackParams,listener)
-    }
-
     fun purchaseItem(activity : Activity, sku: SkuDetails){
         billingClient.launchBillingFlow(activity,
             BillingFlowParams.newBuilder().setSkuDetails(sku)
                 .build() )
     }
 
+   
 
     private fun connectToGooglePlayBilling(){
         viewModelScope.launch {
@@ -68,7 +58,7 @@ class BeProViewModel(app: Application): AndroidViewModel(app) {
                     }
 
                     override fun onBillingSetupFinished(result: BillingResult) {
-                        if (result.responseCode == BillingClient.BillingResponseCode.OK ){
+                        if (result.responseCode == BillingClient.BillingResponseCode.OK){
                             getProductDetails()
                         }
                     }
