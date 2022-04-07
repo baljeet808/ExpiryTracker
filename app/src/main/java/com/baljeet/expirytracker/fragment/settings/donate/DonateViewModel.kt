@@ -47,15 +47,15 @@ class DonateViewModel(app : Application): AndroidViewModel(app) {
     }
 
     private fun validatePurchase(purchase : Purchase){
-        val ackParams = AcknowledgePurchaseParams.newBuilder()
+        val ackParams = ConsumeParams.newBuilder()
             .setPurchaseToken(purchase.purchaseToken)
             .build()
 
-        val listener = AcknowledgePurchaseResponseListener {
+        val listener = ConsumeResponseListener { billingResult, s ->
             Log.d("Log for - ","acknowledged")
             purchaseComplete.postValue(true)
         }
-        billingClient.acknowledgePurchase(ackParams,listener)
+        billingClient.consumeAsync(ackParams,listener)
     }
 
 

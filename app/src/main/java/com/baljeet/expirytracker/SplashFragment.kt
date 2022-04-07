@@ -24,7 +24,7 @@ import com.baljeet.expirytracker.widgets.SplashViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
 
-class SplashFragment : Fragment(), PurchasesUpdatedListener {
+class SplashFragment : Fragment() {
 
     private lateinit var cardLayout : MaterialCardView
 
@@ -71,9 +71,5 @@ class SplashFragment : Fragment(), PurchasesUpdatedListener {
 
     override fun onDestroy() {
         super.onDestroy()
-    }
-
-    override fun onPurchasesUpdated(p0: BillingResult, p1: MutableList<Purchase>?) {
-
     }
 }

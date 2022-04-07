@@ -2,9 +2,9 @@ package com.baljeet.expirytracker.widgets
 
 import android.app.Activity
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.android.billingclient.api.*
 import com.baljeet.expirytracker.CustomApplication
@@ -59,33 +59,20 @@ class SplashViewModel(app: Application): AndroidViewModel(app) {
 
                     override fun onBillingSetupFinished(result: BillingResult) {
                         if (result.responseCode == BillingClient.BillingResponseCode.OK){
-                            getProductDetails()
+                            billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS
+                            ) { billingResult, mutableList ->
+                                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                                    mutableList.let {
+                                        for (purchase in it) {
+                                            Log.d("Log for - sku - ", purchase.toString())
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             )
-        }
-    }
-
-
-    private fun getProductDetails(){
-        val skuList = ArrayList<String>()
-        skuList.clear()
-        skuList.add(Constants.MONTHLY_SUBSCRIPTION)
-        skuList.add(Constants.YEARLY_SUBSCRIPTION)
-
-        val productsDetailQuery =  SkuDetailsParams.newBuilder()
-            .setSkusList(skuList)
-            .setType(BillingClient.SkuType.SUBS)
-            .build()
-        billingClient.querySkuDetailsAsync(
-            productsDetailQuery
-        ) { result, list ->
-            if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                list?.let {
-                    skuLiveList.postValue(it)
-                }
-            }
         }
     }
 }
