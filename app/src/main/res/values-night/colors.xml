@@ -87,4 +87,6 @@
 
     <color name="tab_background">#343F56</color>
     <color name="red_orange">#FF5349</color>
+
+    <color name="faq_main_color">#FFFFFF</color>
 </resources>
