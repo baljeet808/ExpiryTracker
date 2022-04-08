@@ -30,8 +30,7 @@ class SplashFragment : Fragment() {
 
     private val viewModel : SplashViewModel by viewModels()
 
-
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,5 +74,6 @@ class SplashFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.closeBillingConnection()
     }
 }

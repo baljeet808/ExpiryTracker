@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
+import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
 import java.util.*
 
@@ -13,10 +14,11 @@ import java.util.*
 class SplashViewModel(app: Application) : AndroidViewModel(app) {
 
     val userInfoChecked  =MutableLiveData(false)
+    lateinit var billingClient: BillingClient
 
     fun checkForActivePurchases(context: Context) {
         val listener = PurchasesUpdatedListener { p0, p1 -> }
-        val billingClient = BillingClient.newBuilder(context)
+        billingClient = BillingClient.newBuilder(context)
             .enablePendingPurchases()
             .setListener(listener)
             .build()
@@ -35,8 +37,42 @@ class SplashViewModel(app: Application) : AndroidViewModel(app) {
                         Objects.requireNonNull(purchasesResult.purchasesList).isNotEmpty()
                     ) {
                         Log.d("Log for - purchases ", purchasesResult.purchasesList.toString())
-                        SharedPref.isUserAPro = true
-                        SharedPref.subscriptionIsMonthly = true
+                        for (purchase in purchasesResult.purchasesList!!){
+                            if(purchase.isAcknowledged){
+                                 if(purchase.skus[0].contains(Constants.MONTHLY_SUBSCRIPTION)){
+                                     SharedPref.isUserAPro = true
+                                     SharedPref.subscriptionIsMonthly = true
+                                     SharedPref.subscriptionIsYearly = false
+                                     userInfoChecked.postValue(true)
+                                 }else if(purchase.skus[0].contains(Constants.YEARLY_SUBSCRIPTION)){
+                                     SharedPref.isUserAPro = true
+                                     SharedPref.subscriptionIsYearly = true
+                                     SharedPref.subscriptionIsMonthly = false
+                                     userInfoChecked.postValue(true)
+                                 }
+                            }else{
+                                val ackParams = ConsumeParams.newBuilder()
+                                    .setPurchaseToken(purchase.purchaseToken)
+                                    .build()
+
+                                val listen = ConsumeResponseListener { _, s ->
+                                    Log.d("Log for - completed acknowledgment ","acknowledged")
+                                    if(purchase.skus[0].contains(Constants.MONTHLY_SUBSCRIPTION)){
+                                        SharedPref.isUserAPro = true
+                                        SharedPref.subscriptionIsMonthly = true
+                                        SharedPref.subscriptionIsYearly = false
+                                        userInfoChecked.postValue(true)
+                                    }else if(purchase.skus[0].contains(Constants.YEARLY_SUBSCRIPTION)){
+                                        SharedPref.isUserAPro = true
+                                        SharedPref.subscriptionIsYearly = true
+                                        SharedPref.subscriptionIsMonthly = false
+                                        userInfoChecked.postValue(true)
+                                    }
+                                }
+                                billingClient.consumeAsync(ackParams,listen)
+                            }
+                        }
+
                         userInfoChecked.postValue(true)
                     } else {
                         Log.d("Log for - purchases", "no subs")
@@ -52,6 +88,12 @@ class SplashViewModel(app: Application) : AndroidViewModel(app) {
                 Log.d("billingprocess", "onBillingServiceDisconnected")
             }
         })
+    }
+
+    fun closeBillingConnection(){
+        if(billingClient.isReady){
+            billingClient.endConnection()
+        }
     }
 
 

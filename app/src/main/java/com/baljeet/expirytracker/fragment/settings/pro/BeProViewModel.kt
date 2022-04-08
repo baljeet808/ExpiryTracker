@@ -41,12 +41,13 @@ class BeProViewModel(app: Application): AndroidViewModel(app) {
     }
 
     private fun validatePurchase(purchase : Purchase){
+
         val ackParams = ConsumeParams.newBuilder()
             .setPurchaseToken(purchase.purchaseToken)
             .build()
 
         val listener = ConsumeResponseListener { _, s ->
-            Log.d("Log for - ","acknowledged")
+            Log.d("Log for - completed acknowledgment ","acknowledged")
             purchaseCompleteFor.postValue(purchase.skus[0])
         }
         billingClient.consumeAsync(ackParams,listener)

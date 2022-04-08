@@ -8,14 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.anjlab.android.iab.v3.BillingProcessor
-import com.anjlab.android.iab.v3.PurchaseInfo
-import com.anjlab.android.iab.v3.SkuDetails
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.databinding.FragmentBeProBinding
 import com.baljeet.expirytracker.databinding.ThanksPopUpLayoutBinding
