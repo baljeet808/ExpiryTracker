@@ -46,8 +46,12 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-
+        viewModel.checkForActivePurchases(requireContext())
+        viewModel.userInfoChecked.observe(viewLifecycleOwner){
+            if(it){
+                moveToMain()
+            }
+        }
     }
 
     override fun onResume() {
