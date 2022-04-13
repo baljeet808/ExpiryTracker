@@ -38,7 +38,7 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
 
     var mInterstitialAd = MediatorLiveData<InterstitialAd?>().apply {
         addSource(countForAd) {
-            if (it % 2 == 0) {
+            if (/*it % 2 == 0*/ true) {
                 if(!SharedPref.isUserAPro) {
                     loadAdForAddTracker()
                 }

@@ -16,7 +16,6 @@ class OnBoarding : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         SharedPref.init(this)
 
-        MobileAds.initialize(applicationContext)
             if (SharedPref.isNightModeOn) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {

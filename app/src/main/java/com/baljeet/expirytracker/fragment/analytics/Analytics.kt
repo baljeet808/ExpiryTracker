@@ -67,7 +67,7 @@ class Analytics : Fragment(), ShowImagePreview {
             }
             else{
                 val adRequest = AdRequest.Builder().build()
-                RewardedAd.load(requireContext(),Constants.PDF_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                RewardedAd.load(requireContext(),Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
                         mRewardedAd = null
                     }
