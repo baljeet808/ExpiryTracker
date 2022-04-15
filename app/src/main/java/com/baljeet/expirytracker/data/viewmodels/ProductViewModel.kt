@@ -48,6 +48,14 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         searchResults.value =  repository.searchProductByText(text)
     }
 
+    fun searchByTextInCategory(text : String , categoryId: Int){
+        searchResults.value =  repository.searchProductByTextInCategory(text, categoryId)
+    }
+
+    fun getAllProductsInCategory(categoryId: Int){
+        searchResults.value = repository.getAllProductsInCategory(categoryId)
+    }
+
     fun getAllProducts(){
         searchResults.value = repository.getAllProducts()
     }

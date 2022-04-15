@@ -77,13 +77,12 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, S
 
         bind.addProductFab.setOnClickListener {
             Navigation.findNavController(requireView())
-                .navigate(R.id.action_dashFragment_to_addProduct)
+                .navigate(R.id.action_dashFragment_to_addTrackerV2)
         }
         bind.addProductButton.setOnClickListener {
             Navigation.findNavController(requireView())
-                .navigate(DashFragmentDirections.actionDashFragmentToAddProduct())
+                .navigate(R.id.action_dashFragment_to_addTrackerV2)
         }
-
         bind.trackerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         trackerAdapter = TrackerDiffAdapter(requireContext(),this, this, this)
         bind.trackerRecyclerView.adapter = trackerAdapter

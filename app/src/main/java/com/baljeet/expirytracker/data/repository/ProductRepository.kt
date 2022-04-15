@@ -29,6 +29,14 @@ class ProductRepository(private val productDao : ProductsDao) {
         return productDao.searchProductsByText(text)
     }
 
+    fun searchProductByTextInCategory(text : String , categoryId: Int): List<ProductAndImage>{
+        return productDao.searchProductByTextInCategory(text, categoryId)
+    }
+
+    fun getAllProductsInCategory(categoryId: Int):List<ProductAndImage>{
+        return productDao.getAllProductsInCategory(categoryId)
+    }
+
     fun getAllProducts():List<ProductAndImage>{
         return productDao.getAllProducts()
     }

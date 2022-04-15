@@ -10,15 +10,15 @@
         android:label="fragment_dash"
         tools:layout="@layout/fragment_dash" >
         <action
-            android:id="@+id/action_dashFragment_to_addProduct"
-            app:destination="@id/addProduct"
+            android:id="@+id/action_dashFragment_to_trackerDetails"
+            app:destination="@id/trackerDetails"
             app:enterAnim="@anim/slide_up_from_bottom"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/slide_down_from_bottom" />
         <action
-            android:id="@+id/action_dashFragment_to_trackerDetails"
-            app:destination="@id/trackerDetails"
+            android:id="@+id/action_dashFragment_to_addTrackerV2"
+            app:destination="@id/addTrackerV2"
             app:enterAnim="@anim/slide_up_from_bottom"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
@@ -121,19 +121,6 @@
         <action
             android:id="@+id/action_analytics_to_bePro"
             app:destination="@id/bePro"
-            app:enterAnim="@anim/slide_up_from_bottom"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/slide_down_from_bottom" />
-    </fragment>
-    <fragment
-        android:id="@+id/addProduct"
-        android:name="com.baljeet.expirytracker.fragment.product.AddTracker"
-        android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_tracker" >
-        <action
-            android:id="@+id/action_addProduct_to_createCustom"
-            app:destination="@id/createCustom"
             app:enterAnim="@anim/slide_up_from_bottom"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
@@ -328,4 +315,17 @@
         app:exitAnim="@android:anim/fade_out"
         app:popEnterAnim="@android:anim/fade_in"
         app:popExitAnim="@anim/slide_down_from_bottom" />
+    <fragment
+        android:id="@+id/addTrackerV2"
+        android:name="com.baljeet.expirytracker.fragment.product.AddTrackerV2"
+        android:label="fragment_add_tracker_v2"
+        tools:layout="@layout/fragment_add_tracker_v2" >
+        <action
+            android:id="@+id/action_addTrackerV2_to_createCustom"
+            app:destination="@id/createCustom"
+            app:enterAnim="@anim/slide_up_from_bottom"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/slide_down_from_bottom" />
+    </fragment>
 </navigation>

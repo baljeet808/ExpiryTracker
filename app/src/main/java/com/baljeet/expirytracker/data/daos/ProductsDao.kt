@@ -32,9 +32,18 @@ interface ProductsDao {
     @Query("SELECT * FROM products WHERE name LIKE :text || '%' and isDeleted == :isDeleted")
     fun searchProductsByText(text : String, isDeleted: Boolean = false) : List<ProductAndImage>
 
+
+    @Transaction
+    @Query("SELECT * FROM products WHERE name LIKE :text || '%' and isDeleted == :isDeleted and categoryId == :categoryId")
+    fun searchProductByTextInCategory(text : String, categoryId: Int, isDeleted: Boolean = false) : List<ProductAndImage>
+
     @Transaction
     @Query("SELECT * FROM products where isDeleted == :isDeleted ORDER BY productId DESC")
     fun getAllProducts(isDeleted: Boolean = false): List<ProductAndImage>
+
+    @Transaction
+    @Query("SELECT * FROM products where isDeleted == :isDeleted and categoryId == :categoryId ORDER BY productId DESC")
+    fun getAllProductsInCategory(categoryId: Int,isDeleted: Boolean = false): List<ProductAndImage>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateProduct(product : Product)
