@@ -171,7 +171,7 @@
             app:popExitAnim="@anim/slide_down_from_bottom" />
         <argument
             android:name="selectedCategory"
-            app:argType="com.baljeet.expirytracker.data.Category"
+            app:argType="com.baljeet.expirytracker.data.relations.CategoryAndImage"
             app:nullable="true" />
         <action
             android:id="@+id/action_createCustom_to_iconsGallery"

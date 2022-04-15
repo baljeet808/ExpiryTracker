@@ -26,8 +26,8 @@ interface ImageDao {
     fun getImageByName(name : String): List<Image>
 
     @Transaction
-    @Query("Select * From images")
-    fun getAllImages():List<Image>
+    @Query("Select * From images WHERE mimeType == :mime")
+    fun getAllImages(mime : String = "asset"):List<Image>
 
     @Transaction
     @Query("SELECT * FROM images WHERE imageName LIKE :text || '%'")

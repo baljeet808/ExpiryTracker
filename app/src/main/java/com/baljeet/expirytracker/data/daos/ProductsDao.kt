@@ -24,8 +24,8 @@ interface ProductsDao {
     fun readProductWithImagesById(id : Int) : List<ProductAndImage>
 
     @Transaction
-    @Query("SELECT * FROM products WHERE name == :name and isDeleted == :isDeleted")
-    fun readProductByName(name : String, isDeleted: Boolean = false) : List<ProductAndImage>
+    @Query("SELECT * FROM products WHERE name ==:text and isDeleted == :isDeleted")
+    fun readProductByName(text : String, isDeleted: Boolean = false) : List<ProductAndImage>
 
 
     @Transaction

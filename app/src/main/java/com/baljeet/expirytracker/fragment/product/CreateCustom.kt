@@ -3,10 +3,13 @@ package com.baljeet.expirytracker.fragment.product
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
@@ -27,7 +30,6 @@ import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.FragmentCreateCustomBinding
-import com.baljeet.expirytracker.fragment.shared.IconsViewModel
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.getContentType
 import com.baljeet.expirytracker.util.getFileName
@@ -42,6 +44,8 @@ class CreateCustom : Fragment() {
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val productViewModel :  ProductViewModel by viewModels()
     private val imageViewModel : ImageViewModel by viewModels()
+
+    private val trackerViewModel :AddTrackerViewModel by activityViewModels()
 
     private val viewModel : CustomViewModel by activityViewModels()
 
@@ -221,7 +225,7 @@ class CreateCustom : Fragment() {
                                 Product(
                                     productId = 0,
                                     name = nameEdittext.text.toString(),
-                                    categoryId = navArgs.selectedCategory?.categoryId!!,
+                                    categoryId = navArgs.selectedCategory?.category?.categoryId!!,
                                     imageId = imageId,
                                     false
                                 )
@@ -230,7 +234,24 @@ class CreateCustom : Fragment() {
                         }
                     }
                 }
+                Handler(Looper.myLooper()!!).postDelayed({
+                if(navArgs.itemType == "Category"){
+                        val categories = categoryViewModel.readCategoryByName(nameEdittext.text.toString())
+                        if(categories.isNotEmpty()){
+                            trackerViewModel.selectedCategory = categories.firstOrNull()
+                            trackerViewModel.categoryGiven.postValue(true)
+                        }
+                }else{
+                    trackerViewModel.categoryGiven.postValue(true)
+                    trackerViewModel.selectedCategory = navArgs.selectedCategory
+                    val products = productViewModel.readProductByName(nameEdittext.text.toString())
+                    if(products.isNotEmpty()){
+                        trackerViewModel.selectedProduct = products.firstOrNull()
+                        trackerViewModel.productGiven.postValue(true)
+                    }
+                }
                 activity?.onBackPressed()
+                },150)
             }
 
         }
@@ -259,6 +280,7 @@ class CreateCustom : Fragment() {
                 optionImage.setPadding(0)
                 optionImage.setImageBitmap(ImageConvertor.stringToBitmap(image.bitmap))
             }
+            optionImage.imageTintList = null
             imageIsSelected.postValue(true)
         }
     }
@@ -268,8 +290,6 @@ class CreateCustom : Fragment() {
         viewModel.croppedImage?.let {
                 showImageInPreview(it)
         }
-
-
     }
 
 }

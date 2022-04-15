@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isGone
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.navigation.Navigation
@@ -50,10 +52,21 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
     private lateinit var productResultAdapter: ProductResultsAdapter
     private val catViewModel: CategoryViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
-    private val viewModel: AddTrackerViewModel by viewModels()
+    private val viewModel: AddTrackerViewModel by activityViewModels()
     private val trackerViewModel: TrackerViewModel by viewModels()
 
     private var pickingDateTimeFor : LocalDateTimeFor = LocalDateTimeFor.MFG
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        clearViewModel()
+                        isEnabled = false
+                        activity?.onBackPressed()
+                    }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,16 +100,21 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                     )
                 }
             )
-            closeBtn.setOnClickListener { activity?.onBackPressed() }
+            closeBtn.setOnClickListener {
+                clearViewModel()
+                activity?.onBackPressed()
+            }
         }
         return bind.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeEverything()
+    }
+
+    private fun observeEverything(){
         bind.apply {
-
-
             val formCompleted = MediatorLiveData<Boolean>().apply {
                 this.value = false
                 addSource(viewModel.categoryGiven) {
@@ -135,7 +153,6 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                     }
                 }
             }
-
             formCompleted.observe(viewLifecycleOwner) {
                 addTrackerButton.isGone = it.not()
             }
@@ -147,12 +164,15 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                 }
                 if(categoryRecycler.isGone){
                     categoryRecycler.isGone = false
+                    viewModel.selectedProduct = null
                     viewModel.productGiven.postValue(false)
                 }
             }
             categoryNameLayout.setEndIconOnClickListener {
                 if(categoryRecycler.isGone){
                     categoryRecycler.isGone = false
+                    viewModel.selectedProduct = null
+                    viewModel.productGiven.postValue(false)
                 }
             }
 
@@ -188,7 +208,9 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                         selectedCategoryIcon.setImage(category.image, requireContext())
                         nameLayout.isGone = false
                         productViewModel.getAllProductsInCategory(category.category.categoryId)
-                        viewModel.productGiven.postValue(false)
+                        viewModel.selectedProduct?: kotlin.run{
+                            viewModel.productGiven.postValue(false)
+                        }
                     }
                 }
                 categoryRecycler.isGone = it
@@ -420,6 +442,7 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
         }
     }
 
+
     override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
         viewModel.reminderDate = viewModel.reminderDate?.let {
             LocalDateTime.of(it.year,it.month,it.dayOfMonth,hourOfDay,minute)
@@ -483,8 +506,23 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
         Navigation.findNavController(requireView()).navigate(
             AddTrackerV2Directions.actionAddTrackerV2ToCreateCustom(
                 itemType = if (optionIsCategory) "Category" else "Product",
-                selectedCategory = if (optionIsCategory) null else viewModel.selectedCategory?.category
+                selectedCategory = if (optionIsCategory) null else viewModel.selectedCategory
             )
         )
+    }
+
+    private fun  clearViewModel(){
+        viewModel.apply {
+            productGiven.postValue(false)
+            categoryGiven.postValue(false)
+            mfgGiven.postValue(true)
+            expiryGiven.postValue(false)
+            reminderGiven.postValue(false)
+            selectedProduct = null
+            selectedCategory = null
+            mfgDate = LocalDateTime.now()
+            expiryDate = null
+            reminderDate = null
+        }
     }
 }

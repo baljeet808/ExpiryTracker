@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.listAdapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,19 +41,22 @@ class SearchIconsAdapter (
         val image = getItem(position)
         holder.bind.apply {
             optionTitle.visibility = View.GONE
-
-            optionImage.setImageDrawable(
-                AppCompatResources.getDrawable(
-                    context,
-                    context.resources.getIdentifier(
-                        image.imageUrl,
-                        "drawable",
-                        context.packageName
+            try {
+                optionImage.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        context,
+                        context.resources.getIdentifier(
+                            image.imageUrl,
+                            "drawable",
+                            context.packageName
+                        )
                     )
                 )
-            )
-            optionImage.setPadding(30)
-            optionLayout.setOnClickListener { listener.selectThisIcon(image) }
+                optionImage.setPadding(30)
+                optionLayout.setOnClickListener { listener.selectThisIcon(image) }
+            }catch (e : Exception){
+                Log.d("Log for - image icon error for ", image.imageName)
+            }
         }
     }
 }

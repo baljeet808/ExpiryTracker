@@ -194,6 +194,7 @@
                     android:layout_height="140dp"
                     android:contentDescription="@string/image"
                     android:padding="1dp"
+                    app:tint="?attr/text_dialog_color"
                     android:src="@mipmap/ic_launcher_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
