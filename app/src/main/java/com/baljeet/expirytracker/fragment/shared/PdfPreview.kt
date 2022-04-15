@@ -71,21 +71,6 @@ class PdfPreview : Fragment() {
                 pdfRequestUpdated.postValue(true)
             }
 
-            bgColorGroup.setOnCheckedChangeListener { _, btnId ->
-                when (btnId) {
-                    radioButtonBlackBg.id -> {
-                        requestData?.backgroundColor = BackgroundColor.BLACK
-                    }
-                    radioButtonGreyBg.id -> {
-                        requestData?.backgroundColor = BackgroundColor.GREY
-                    }
-                    radioButtonWhiteBg.id -> {
-                        requestData?.backgroundColor = BackgroundColor.WHITE
-                    }
-                }
-                pdfRequestUpdated.postValue(true)
-            }
-            
             groupByGroup.setOnCheckedChangeListener { _, btnId ->
                 when (btnId) {
                     radioButtonCategories.id -> {

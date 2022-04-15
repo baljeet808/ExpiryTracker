@@ -690,12 +690,6 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
             6,
             false
         )
-        val liquor = Category(
-            7,
-            "Liquor",
-            7,
-            false
-        )
         val drinks = Category(
             8,
             "Drinkable",
@@ -736,7 +730,6 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
         defaultCategories.add(vegetables)
         defaultCategories.add(meat)
         defaultCategories.add(subscription)
-        defaultCategories.add(liquor)
         defaultCategories.add(document)
         defaultCategories.add(drinks)
         defaultCategories.add(fastFood)

@@ -406,8 +406,7 @@ class Analytics : Fragment(), ShowImagePreview {
                     },
                     groupBy = GroupBy.RESULTS,
                     useOfImages = UseImages.ON,
-                    textColor = SelectedTextColor.BLACK,
-                    backgroundColor = BackgroundColor.WHITE
+                    textColor = SelectedTextColor.BLACK
                 )
                 moveToPdfPreview(request)
             }else{

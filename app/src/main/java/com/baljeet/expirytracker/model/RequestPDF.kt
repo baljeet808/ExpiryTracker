@@ -22,8 +22,7 @@ data class RequestPDF(
     var trackers : ArrayList<TrackerAndProduct> = ArrayList(),
     var groupBy : GroupBy = GroupBy.RESULTS,
     var useOfImages : UseImages = UseImages.ON,
-    var textColor : SelectedTextColor = SelectedTextColor.BLACK,
-    var backgroundColor : BackgroundColor = BackgroundColor.WHITE
+    var textColor : SelectedTextColor = SelectedTextColor.BLACK
 ): Parcelable
 
 enum class PeriodType{
@@ -40,10 +39,6 @@ enum class GroupBy {
 
 enum class SelectedTextColor{
     BLACK,GREY,BLUE
-}
-
-enum class BackgroundColor{
-    BLACK,WHITE,GREY
 }
 
 enum class UseImages{
