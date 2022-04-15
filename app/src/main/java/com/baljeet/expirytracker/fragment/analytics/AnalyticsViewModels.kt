@@ -7,7 +7,6 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.baljeet.expirytracker.CustomApplication
 import com.baljeet.expirytracker.data.AppDatabase
-import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import com.baljeet.expirytracker.data.repository.TrackerRepository
 import com.baljeet.expirytracker.util.Constants
@@ -50,28 +49,17 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
     }
 
     var favouriteFilter = MutableLiveData<Int>()
-    var categoryFilter = MutableLiveData(Category(0, "Products", 0,false))
 
     var trackersAfterAllFilters = MediatorLiveData<List<TrackerAndProduct>>().apply{
         addSource(favouriteFilter){
-            this.value = filterByCategoryAndFavourites(
+            this.value = filterByFavourites(
                 trackersAfterPeriodFilter.value?:ArrayList(),
-                categoryFilter.value?: Category(0,"Products",0,false),
                 it?:Constants.SHOW_ALL
             )
         }
-        addSource(categoryFilter){
-            this.value = filterByCategoryAndFavourites(
-                trackersAfterPeriodFilter.value?:ArrayList(),
-                it?: Category(0,"Products",0,false),
-                favouriteFilter.value?:Constants.SHOW_ALL
-            )
-
-        }
         addSource(trackersAfterPeriodFilter){
-            this.value = filterByCategoryAndFavourites(
+            this.value = filterByFavourites(
                 it?:ArrayList(),
-                categoryFilter.value?: Category(0,"Products",0,false),
                 favouriteFilter.value?:Constants.SHOW_ALL
             )
         }
@@ -104,6 +92,10 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
             totalProductsUsedNearExpiryPercentage = ((totalProductsUsedNearExpiry/ totalProductsTracked) * 100.0)
             totalProductsExpiredPercentage = ((totalProductsExpired / totalProductsTracked) * 100.0)
             totalProductsUsedFreshPercentage = ((totalProductsUsedFresh / totalProductsTracked) * 100.0)
+        }else{
+            totalProductsUsedNearExpiryPercentage = 0.0
+            totalProductsExpiredPercentage = 0.0
+            totalProductsUsedFreshPercentage = 0.0
         }
     }
 
@@ -127,16 +119,16 @@ class AnalyticsViewModels(app : Application): AndroidViewModel(app) {
         return endDate
     }
 
-    private fun filterByCategoryAndFavourites(trackers : List<TrackerAndProduct>, category : Category, favFilter : Int): List<TrackerAndProduct>{
+    private fun filterByFavourites(trackers : List<TrackerAndProduct>, favFilter : Int): List<TrackerAndProduct>{
         return when(favFilter){
             Constants.SHOW_ALL->{
                 trackers
             }
             Constants.SHOW_ONLY_FAVOURITE->{
-                trackers.filter { t -> t.productAndCategoryAndImage.product.categoryId == category.categoryId && t.tracker.isFavourite }
+                trackers.filter { t ->  t.tracker.isFavourite }
             }
             Constants.SHOW_ONLY_NON_FAVOURITE->{
-                trackers.filter { t -> t.productAndCategoryAndImage.product.categoryId == category.categoryId && !t.tracker.isFavourite }
+                trackers.filter { t -> !t.tracker.isFavourite }
             }
             else-> ArrayList()
         }

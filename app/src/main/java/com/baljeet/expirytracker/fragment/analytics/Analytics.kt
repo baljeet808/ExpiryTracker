@@ -1,6 +1,5 @@
 package com.baljeet.expirytracker.fragment.analytics
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,22 +13,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Image
-import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
 import com.baljeet.expirytracker.databinding.FragmentAnalyticsBinding
 import com.baljeet.expirytracker.fragment.dash.DashFragmentDirections
 import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.listAdapters.SummaryDiffAdapter
 import com.baljeet.expirytracker.model.*
 import com.baljeet.expirytracker.util.Constants
-import com.baljeet.expirytracker.util.MyColors
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
 import java.time.DayOfWeek
 import java.time.LocalDateTime
@@ -44,8 +39,6 @@ class Analytics : Fragment(), ShowImagePreview {
 
 
     private val viewModel : AnalyticsViewModels by viewModels()
-    private val categoryVM: CategoryViewModel by viewModels()
-    private val categories = ArrayList<Category>()
 
     private lateinit var summaryAdapter : SummaryDiffAdapter
 
@@ -251,26 +244,6 @@ class Analytics : Fragment(), ShowImagePreview {
                 viewModel.showingGraphFor.postValue(Constants.TOTAL_TRACKED)
             }
 
-            productCategoryChip.apply {
-                setOnClickListener {
-                    categoryLayout.apply {
-                        if (categoryLayout.isGone) {
-                            categoryLayout.visibility = View.VISIBLE
-                            productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.text_dialog_color,R.color.black))
-                        } else {
-                            categoryLayout.visibility = View.GONE
-                            productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
-                        }
-                    }
-                }
-                text = viewModel.categoryFilter.value?.categoryName ?: kotlin.run {
-                    "Products"
-                }
-            }
-            if(categories.isEmpty()){
-                getCategoriesChips()
-            }
-
             buyProButton.setOnClickListener {
                  Navigation.findNavController(requireView()).navigate(AnalyticsDirections.actionAnalyticsToBePro())
             }
@@ -440,9 +413,9 @@ class Analytics : Fragment(), ShowImagePreview {
 
              when(viewModel.showingGraphFor.value){
                 Constants.TOTAL_TRACKED->{
-                    okForegroundProgressbar.progress = viewModel.totalProductsUsedNearExpiryPercentage.roundToInt()
-                    freshForegroundProgressbar.progress = (viewModel.totalProductsUsedFreshPercentage + viewModel.totalProductsUsedNearExpiryPercentage).roundToInt()
-                    expiredForegroundProgressbar.progress = (viewModel.totalProductsUsedFreshPercentage + viewModel.totalProductsUsedNearExpiryPercentage + viewModel.totalProductsExpiredPercentage).roundToInt()
+                    okForegroundProgressbar.progress = viewModel.totalProductsUsedNearExpiryPercentage.toInt()
+                    freshForegroundProgressbar.progress = (viewModel.totalProductsUsedFreshPercentage + viewModel.totalProductsUsedNearExpiryPercentage).toInt()
+                    expiredForegroundProgressbar.progress = (viewModel.totalProductsUsedFreshPercentage + viewModel.totalProductsUsedNearExpiryPercentage + viewModel.totalProductsExpiredPercentage).toInt()
                     expiredForegroundProgressbar.visibility = View.VISIBLE
                     freshForegroundProgressbar.visibility = View.VISIBLE
                     okForegroundProgressbar.visibility = View.VISIBLE
@@ -519,47 +492,6 @@ class Analytics : Fragment(), ShowImagePreview {
                     totalTrackedCard.isChecked= false
                 }
             }
-        }
-    }
-
-    private fun getCategoriesChips() {
-        viewModel.categoryFilter.value?.let {
-            bind.productCategoryChip.text = it.categoryName
-        }
-        categoryVM.readAllCategories?.let {
-            it.observe(viewLifecycleOwner) { cats ->
-                if (!cats.isNullOrEmpty()) {
-                    bind.categoriesChoiceList.apply {
-                        categories.clear()
-                        categories.add(Category(0, "Products", 0,false))
-                        categories.addAll(cats)
-                        for (category in categories) {
-                            val chip = Chip(requireContext())
-                            chip.text = category.categoryName
-                            chip.id = category.categoryId
-                            chip.isCheckedIconVisible = true
-                            chip.isChecked =
-                                viewModel.categoryFilter.value?.let { cat ->
-                                    cat.categoryId == category.categoryId
-                                } ?: false
-                            addView(chip)
-                        }
-                    }
-                }
-            }
-        }
-        bind.categoriesChoiceList.setOnCheckedChangeListener { _, checkedId ->
-            val category = categories.firstOrNull { c->c.categoryId == checkedId }
-            category?.let {
-                bind.productCategoryChip.text = category.categoryName
-                viewModel.categoryFilter.postValue(category)
-            }?: kotlin.run {
-                bind.productCategoryChip.text = resources.getString(R.string.products)
-                viewModel.categoryFilter.postValue(Category(0, "Products", 0,false))
-            }
-
-            bind.categoryLayout.visibility = View.GONE
-            bind.productCategoryChip.chipBackgroundColor  = ColorStateList.valueOf(MyColors.getColorByAttr(requireContext(),R.attr.window_top_bar,R.color.black))
         }
     }
 
