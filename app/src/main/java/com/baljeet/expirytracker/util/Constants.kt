@@ -31,14 +31,6 @@ object Constants {
     const val USED_WHEN_FRESH = 3
     const val EXPIRED = 4
 
-    //Donation amounts
-    const val AD = 0.00
-    const val CANDY = 1.29
-    const val CHOCOLATE = 2.50
-    const val COFFEE = 6.88
-    const val BURGER = 12.07
-    const val MEAL = 29.99
-
     //Theme names
     const val GREEN  = "GREEN"
     const val BLUE  = "BLUE"
@@ -60,6 +52,7 @@ object Constants {
     //Test Ad-Unit ids
     const val TEST_REWARDED_AD_ID = "ca-app-pub-3940256099942544/5224354917"
     const val TEST_NATIVE_INLINE_AD_ID = "ca-app-pub-3940256099942544/2247696110"
+    const val TEST_INTERSTITIAL_AD_ID = "ca-app-pub-3940256099942544/1033173712"
 
 
     //in app products ids

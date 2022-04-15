@@ -18,6 +18,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     private val repository : ProductRepository
     var productsByCategoryWithImage : MutableLiveData<List<ProductAndImage>> = MutableLiveData()
 
+
     init {
         val productsDao = AppDatabase.getDatabase(application).productDao()
         repository = ProductRepository(productsDao)

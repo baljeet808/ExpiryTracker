@@ -12,12 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
-import android.widget.Toast
 import android.widget.ViewAnimator
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
@@ -30,30 +28,19 @@ import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentAddTrackerBinding
 import com.baljeet.expirytracker.fragment.shared.SelectFromViewModel
 import com.baljeet.expirytracker.listAdapters.OptionsAdapter
-import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import java.time.LocalDateTime
 import java.util.*
 
-
-enum class LocalDateTimeFor{
-    MFG,EXPIRY,REMINDER
-}
 
 class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private val categoriesWithImages = ArrayList<CategoryAndImage>()
     private val productsWithImages = ArrayList<ProductAndImage>()
-
-
 
     private val viewModel: SelectFromViewModel by activityViewModels()
     private val categoryVM: CategoryViewModel by activityViewModels()
@@ -65,16 +52,12 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
 
     private lateinit var bind: FragmentAddTrackerBinding
 
-    private var pickingDateTimeFor : LocalDateTimeFor = LocalDateTimeFor.MFG
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.incCount()
     }
-
-
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -261,7 +244,6 @@ class AddTracker : Fragment(), OptionsAdapter.OnOptionSelectedListener, TimePick
     }
 
     override fun onOptionSelected(position: Int, checkVisibility: Int, optionIsCategory: Boolean) {
-
         if (position == -1) {
             Navigation.findNavController(requireView()).navigate(
                 AddTrackerDirections.actionAddProductToCreateCustom(

@@ -2,12 +2,16 @@ package com.baljeet.expirytracker.util
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.Context
 import android.graphics.drawable.LayerDrawable
 import android.icu.text.NumberFormat
 import android.net.Uri
 import android.provider.MediaStore
+import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import com.baljeet.expirytracker.R
 import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Tracker
 import com.baljeet.expirytracker.data.relations.TrackerAndProduct
 import java.time.Duration
@@ -100,6 +104,28 @@ fun Tracker.getTrackingStatus():ActiveTrackingStatus{
       }
 }
 
+
+fun ImageView.setImage(image : Image, context : Context){
+    when (image.mimeType) {
+        "asset" -> {
+            this.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    context,
+                    resources.getIdentifier(
+                        image.imageUrl,
+                        "drawable",
+                        context.packageName
+                    )
+                )
+            )
+        }
+        else -> {
+            this.setImageBitmap(
+                ImageConvertor.stringToBitmap(image.bitmap)
+            )
+        }
+    }
+}
 
 
 

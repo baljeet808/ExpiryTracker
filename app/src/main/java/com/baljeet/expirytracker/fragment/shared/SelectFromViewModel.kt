@@ -25,9 +25,8 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
     var i=0
 
 
-    private var expiryDate: LocalDateTime? = null
-    private var mfgDate: LocalDateTime? = null
-    var reminderDate: LocalDateTime? = null
+
+
 
     private var selectedCategory: CategoryAndImage? = null
     private var selectedProduct: ProductAndImage? = null
@@ -38,7 +37,7 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
 
     var mInterstitialAd = MediatorLiveData<InterstitialAd?>().apply {
         addSource(countForAd) {
-            if (/*it % 2 == 0*/ true) {
+            if (it % 2 == 0) {
                 if(!SharedPref.isUserAPro) {
                     loadAdForAddTracker()
                 }
@@ -55,7 +54,7 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
             context,
-            Constants.DASH_INTERSTITIAL_AD_ID,
+            Constants.TEST_INTERSTITIAL_AD_ID,
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(error: LoadAdError) {
@@ -1256,21 +1255,5 @@ class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
             )
         )
         return products
-    }
-
-    fun setExpiryDate(date: LocalDateTime) {
-        expiryDate = date
-    }
-
-    fun getExpiryDate(): LocalDateTime? {
-        return expiryDate
-    }
-
-    fun setMfgDate(date: LocalDateTime) {
-        mfgDate = date
-    }
-
-    fun getMfgDate(): LocalDateTime? {
-        return mfgDate
     }
 }

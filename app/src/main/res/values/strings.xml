@@ -312,4 +312,7 @@
     <string name="share_with_your_friends">Share with your friends</string>
     <string name="review_on_play_store">Review on play store</string>
     <string name="no_tracker_note">Not Enough tracking data\n to generate reports.</string>
+    <string name="create_new">Create New</string>
+    <string name="can_t_find_your_category">Can\'t find your category?</string>
+    <string name="can_t_find_your_product">Can\'t find your product?</string>
 </resources>
