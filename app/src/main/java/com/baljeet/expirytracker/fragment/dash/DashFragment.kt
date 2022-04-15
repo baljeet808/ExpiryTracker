@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ import com.baljeet.expirytracker.interfaces.ShowImagePreview
 import com.baljeet.expirytracker.interfaces.UpdateTrackerListener
 import com.baljeet.expirytracker.listAdapters.TrackerDiffAdapter
 import com.baljeet.expirytracker.util.*
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.Job
@@ -42,6 +44,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, S
     private lateinit var trackerAdapter : TrackerDiffAdapter
     private val categoryVM: CategoryViewModel by viewModels()
     private val trackerVm: TrackerViewModel by activityViewModels()
+    private val viewModel : DashViewModel by activityViewModels()
 
     private val messages = ArrayList<String>()
     private val categories = ArrayList<Category>()
@@ -71,10 +74,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, S
             View.VISIBLE
         SharedPref.init(requireContext())
         setTimeAndGreetings()
-
         trackerVm
-
-
         bind.addProductFab.setOnClickListener {
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_dashFragment_to_addTrackerV2)
@@ -227,6 +227,23 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, S
         return bind.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showAd()
+    }
+
+
+    private fun showAd(){
+        viewModel.mInterstitialAd.observe(viewLifecycleOwner){
+            it?.fullScreenContentCallback = object : FullScreenContentCallback(){
+                override fun onAdShowedFullScreenContent() {
+                    viewModel.mInterstitialAd.postValue(null)
+                }
+            }
+            it?.show(requireActivity())
+        }
+    }
+
     private fun setDashList(list: List<TrackerAndProduct>) {
         if (list.isNullOrEmpty()) {
             Log.d("Log for - dash","no tracker view called")
@@ -368,6 +385,7 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, S
     override fun onResume() {
         super.onResume()
         loopHandler.post(updateStatus)
+        viewModel.incCount()
     }
 
     private fun setTimeAndGreetings() {

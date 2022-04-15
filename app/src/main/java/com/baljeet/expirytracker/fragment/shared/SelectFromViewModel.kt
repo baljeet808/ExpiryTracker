@@ -3,86 +3,21 @@ package com.baljeet.expirytracker.fragment.shared
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import com.baljeet.expirytracker.CustomApplication
 import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.Image
 import com.baljeet.expirytracker.data.Product
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
-import com.baljeet.expirytracker.data.relations.ProductAndImage
-import com.baljeet.expirytracker.util.Constants
-import com.baljeet.expirytracker.util.SharedPref
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import java.time.LocalDateTime
 
 class SelectFromViewModel(app: Application) : AndroidViewModel(app) {
     val context = getApplication<CustomApplication>()
-    var countForAd = MutableLiveData(0)
-    var i=0
 
-
-
-
-
-    private var selectedCategory: CategoryAndImage? = null
-    private var selectedProduct: ProductAndImage? = null
     private val categoryList = ArrayList<Category>()
     private fun addToCategories(categories: ArrayList<Category>) {
         categoryList.addAll(categories)
     }
 
-    var mInterstitialAd = MediatorLiveData<InterstitialAd?>().apply {
-        addSource(countForAd) {
-            if (it % 2 == 0) {
-                if(!SharedPref.isUserAPro) {
-                    loadAdForAddTracker()
-                }
-            }
-        }
-    }
-
-    fun incCount(){
-        countForAd.postValue(i++)
-    }
-
-
-    private fun loadAdForAddTracker() {
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(
-            context,
-            Constants.TEST_INTERSTITIAL_AD_ID,
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    mInterstitialAd.postValue(null)
-                }
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    mInterstitialAd.postValue(ad)
-                }
-            })
-    }
-
-    fun setSelectedCategory(category: CategoryAndImage?) {
-        selectedCategory = category
-    }
-
-    fun getSelectedCategory(): CategoryAndImage? {
-        return selectedCategory
-    }
 
     private val productList = ArrayList<Product>()
-    fun setSelectedProduct(product: ProductAndImage?) {
-        selectedProduct = product
-    }
-
-    fun getSelectedProduct(): ProductAndImage? {
-        return selectedProduct
-    }
 
     init {
         addToCategories(getDefaultCategories())
