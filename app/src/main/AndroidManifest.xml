@@ -54,7 +54,7 @@ package="com.baljeet.expirytracker">
 
     <meta-data
         android:name="com.google.android.gms.ads.APPLICATION_ID"
-        android:value="ca-app-pub-9764366035521912~3787644103" />
+        android:value="ca-app-pub-1506373039840442~7553864843" />
 
     <service
         android:name=".listAdapters.WidgetStackViewAdapter"

@@ -81,6 +81,33 @@
                 app:layout_constraintStart_toEndOf="@id/guideline21"
                 app:layout_constraintTop_toBottomOf="@id/personalize_message" />
 
+            <ImageView
+                android:id="@+id/ad_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_ad"
+                app:layout_constraintStart_toEndOf="@id/color_heading"
+                app:layout_constraintTop_toTopOf="@id/color_heading"
+                app:layout_constraintBottom_toBottomOf="@id/color_heading"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/image" />
+
+            <TextView
+                android:id="@+id/ad_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:letterSpacing="0.05"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/watch_ad_for_theme"
+                android:textSize="13sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline41"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toBottomOf="@id/color_heading" />
+
+
+
             <Button
                 android:layout_width="0dp"
                 android:layout_height="2dp"
@@ -100,7 +127,7 @@
                 app:layout_constraintEnd_toStartOf="@id/pink_theme_card_btn"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toEndOf="@id/guideline21"
-                app:layout_constraintTop_toBottomOf="@id/color_heading"
+                app:layout_constraintTop_toBottomOf="@id/ad_message"
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.card.MaterialCardView
@@ -114,7 +141,7 @@
                 app:checkedIcon="@drawable/check_circle_24"
                 app:layout_constraintEnd_toStartOf="@id/black_theme_card_btn"
                 app:layout_constraintStart_toEndOf="@id/blue_theme_card_btn"
-                app:layout_constraintTop_toBottomOf="@id/color_heading"
+                app:layout_constraintTop_toBottomOf="@id/ad_message"
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.card.MaterialCardView
@@ -129,7 +156,7 @@
                 app:checkedIconTint="@color/always_white"
                 app:layout_constraintEnd_toStartOf="@id/guideline41"
                 app:layout_constraintStart_toEndOf="@id/pink_theme_card_btn"
-                app:layout_constraintTop_toBottomOf="@id/color_heading"
+                app:layout_constraintTop_toBottomOf="@id/ad_message"
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.card.MaterialCardView
@@ -222,6 +249,62 @@
                 app:layout_constraintStart_toEndOf="@id/yellow_theme_card_btn"
                 app:layout_constraintTop_toBottomOf="@id/green_theme_card_btn"
                 app:strokeWidth="1dp" />
+
+
+
+            <TextView
+                android:id="@+id/dark_mode_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/montserrat"
+                android:letterSpacing="0.05"
+                android:text="@string/dark_mode"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintTop_toBottomOf="@id/peach_theme_card_btn" />
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintEnd_toEndOf="@id/dark_mode_heading"
+                app:layout_constraintStart_toStartOf="@id/dark_mode_heading"
+                app:layout_constraintTop_toBottomOf="@id/dark_mode_heading" />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/day_night_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/dark_mode_heading"
+                app:layout_constraintStart_toEndOf="@id/guideline21"
+                app:layout_constraintEnd_toStartOf="@id/guideline41"
+                app:strokeColor="@color/text_color"
+                app:strokeWidth="0dp"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="50dp"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/candy_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?card_background">
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/dark_mode_toggle"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dark_mode_off"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline21"

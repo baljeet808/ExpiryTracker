@@ -24,8 +24,6 @@ class DonateFragment : Fragment() {
 
     private lateinit var bind: FragmentDonateBinding
 
-    private var mRewardedAd: RewardedAd? = null
-
     private val viewModel : DonateViewModel by activityViewModels()
 
     private lateinit var thanksDialog: AlertDialog
@@ -39,21 +37,6 @@ class DonateFragment : Fragment() {
         bind = FragmentDonateBinding.inflate(inflater, container, false)
         bind.apply {
             backButton.setOnClickListener { activity?.onBackPressed() }
-            adCard.setOnClickListener {
-                showRewardAD()
-            }
-            val adRequest = AdRequest.Builder().build()
-            RewardedAd.load(requireContext(),
-                Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        mRewardedAd = null
-                    }
-
-                    override fun onAdLoaded(rewardedAd: RewardedAd) {
-                        mRewardedAd = rewardedAd
-
-                    }
-                })
 
             viewModel.skuLiveList.observe(viewLifecycleOwner){
                  setUpPrices(it)
@@ -67,17 +50,6 @@ class DonateFragment : Fragment() {
         return bind.root
     }
 
-    private fun showRewardAD() {
-        if (mRewardedAd != null) {
-            mRewardedAd?.show(requireActivity()) {
-                showThankYouPopup()
-            }
-        } else {
-            Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
-        }
-    }
-
-
 
     private fun showThankYouPopup() {
         dialogBuilder = AlertDialog.Builder(requireContext())
@@ -88,6 +60,9 @@ class DonateFragment : Fragment() {
         thanksDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         thanksDialog.show()
     }
+
+
+
 
     private fun setUpPrices(list : MutableList<SkuDetails>){
         bind.apply {

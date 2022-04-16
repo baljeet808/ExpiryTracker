@@ -309,10 +309,15 @@
     <string name="welcome_to_expiry_tracker">Welcome to Expiry Tracker</string>
     <string name="share_amp_rate"><![CDATA[Share & Rate]]></string>
     <string name="aesop_quote">“No act of kindness, no matter how small, is ever wasted.” – Aesop</string>
+    <string name="kb_quote">“You are awesome.” – 88KB</string>
     <string name="share_with_your_friends">Share with your friends</string>
     <string name="review_on_play_store">Review on play store</string>
     <string name="no_tracker_note">Not Enough tracking data\n to generate reports.</string>
     <string name="create_new">Create New</string>
     <string name="can_t_find_your_category">Can\'t find your category?</string>
     <string name="can_t_find_your_product">Can\'t find your product?</string>
+    <string name="watch_ad_for_theme">Watch an Ad to set your desired theme color.</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="dark_mode_off">Dark mode off</string>
+    <string name="dark_mode_on">Dark mode on</string>
 </resources>

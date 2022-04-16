@@ -72,73 +72,6 @@
             android:animateLayoutChanges="true">
 
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/ad_card"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="50dp"
-                app:layout_constraintEnd_toStartOf="@id/guideline_right"
-                app:layout_constraintStart_toEndOf="@id/guideline_left"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/text_color"
-                app:strokeWidth="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/ad_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?card_background">
-
-                    <ImageView
-                        android:id="@+id/ad_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:contentDescription="@string/image"
-                        android:src="@drawable/ic_ad"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/ad_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/watch_an_ad"
-                        android:textColor="@color/text_color"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/ad_image"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.1" />
-
-                    <TextView
-                        android:id="@+id/ad_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/free"
-                        android:textColor="@color/soft_green"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/ad_text"
-                        app:layout_constraintTop_toBottomOf="@id/ad_text" />
-
-                    <ImageView
-                        android:id="@+id/ad_check"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:contentDescription="@string/image"
-                        android:src="@drawable/heart1"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/text_color" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/candy_card"
@@ -148,7 +81,7 @@
                 app:cardCornerRadius="50dp"
                 app:layout_constraintEnd_toStartOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/guideline_left"
-                app:layout_constraintTop_toBottomOf="@id/ad_card"
+                app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/text_color"
                 app:strokeWidth="0dp">
 
@@ -479,7 +412,41 @@
                         app:tint="@color/text_color" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.card.MaterialCardView>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/love_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_love_girl"
+                android:background="@drawable/ic_love_girl"
+                android:elevation="5dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/meal_card"
+                app:layout_constraintBottom_toTopOf="@id/quote_text"
+                />
+
+
+            <TextView
+                android:id="@+id/quote_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kb_quote"
+                app:fontFamily="@font/proxima_nova_condensed_light"
+                android:textSize="20sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                app:layout_constraintStart_toEndOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/love_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_left"
