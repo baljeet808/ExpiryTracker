@@ -3,7 +3,10 @@ package com.baljeet.expirytracker.fragment.shared
 import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.graphics.drawable.LayerDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +34,9 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
@@ -48,6 +54,11 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
     private var pickedFor : PickingFor = PickingFor.EXPIRY
     private var tempDateTime :LocalDateTime ? = null
+
+
+    private var reviewInfo: ReviewInfo? = null
+    private lateinit var reviewManager: ReviewManager
+
 
     private lateinit var adLoader : AdLoader
 
@@ -193,8 +204,14 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
 
             if(SharedPref.isUserAPro){
                 bind.adLayout.isGone = true
+                youtubeBtn.isGone = false
+                playStoreBtn.isGone = false
+                facebookBtn.isGone = false
             }
             else{
+                youtubeBtn.isGone = true
+                playStoreBtn.isGone = true
+                facebookBtn.isGone = true
                 adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
                     .forNativeAd { ad : NativeAd ->
                         // Show the ad.
@@ -217,10 +234,79 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                     }).build()
                 adLoader.loadAd(AdRequest.Builder().build())
             }
+
+            reviewManager = ReviewManagerFactory.create(requireContext())
+            val managerInfoTask = reviewManager.requestReviewFlow()
+            managerInfoTask.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    reviewInfo = task.result
+                } else {
+                    Toast.makeText(requireContext(), "review failed to start", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
         return bind.root
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bind.apply {
+            playStoreBtn.setOnClickListener {
+                if(SharedPref.reviewCompleted){
+
+                    try {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.data = Uri.parse("market://details?id=com.baljeet.expirytracker")
+                        startActivity(intent)
+                    } catch (error: ActivityNotFoundException) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=com.baljeet.expirytracker")
+                            )
+                        )
+                    }
+                }else
+                {
+                    SharedPref.reviewCompleted = true
+                    reviewInfo?.let {
+                        reviewManager.launchReviewFlow(requireActivity(),it)
+                    }?: kotlin.run {
+                        Toast.makeText(requireContext(),"review info not initiated", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            youtubeBtn.setOnClickListener {
+                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:4an6gXLwJhc"))
+                val webIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://www.youtube.com/watch?v=4an6gXLwJhc")
+                )
+                try {
+                    startActivity(appIntent)
+                } catch (ex: ActivityNotFoundException) {
+                    startActivity(webIntent)
+                }
+            }
+
+            facebookBtn.setOnClickListener {
+                val facebookId = "fb://page/215172462242076"
+                val urlPage = "http://www.facebook.com/88KBDev"
+
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(facebookId)))
+                } catch (e: Exception) {
+                    Log.e("Log for- facebook ", "Application not installed.")
+                    //Open url web page.
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlPage)))
+                }
+            }
+        }
+    }
 
     private fun updateProgressValue() {
         bind.apply {

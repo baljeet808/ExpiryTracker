@@ -71,8 +71,8 @@
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/top_most_line"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline5"
-        app:layout_constraintEnd_toStartOf="@id/guideline7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,8 +88,8 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/faq"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:drawablePadding="20dp"
@@ -105,8 +105,8 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/qna_textview"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/ic_crown_34"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:drawablePadding="20dp"
@@ -121,8 +121,8 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/pro_textview"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/heart"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -138,8 +138,8 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/donate_textview"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/ic_phone_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -158,8 +158,8 @@
                 android:text="@string/personalization"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 app:drawableStartCompat="@drawable/ic_laptop_24"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginTop="1dp"
                 app:layout_constraintTop_toBottomOf="@id/widgets_textview" />
@@ -176,9 +176,9 @@
                 android:text="@string/share_amp_rate"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 app:drawableStartCompat="@drawable/ic_chat"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
                 app:layout_constraintTop_toBottomOf="@id/personalization_textview" />
 
             <TextView
@@ -189,8 +189,8 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/feedback_textview"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/ic_options_24"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -205,8 +205,8 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/categories_textview"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/ic_dairy_products"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
@@ -221,26 +221,13 @@
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/products_textview"
                 android:layout_marginTop="1dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mid"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline4"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
                 app:drawableStartCompat="@drawable/notification"
                 app:drawableEndCompat="@drawable/ic_arrow_right_32"
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:drawablePadding="20dp"
-                />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/setting_illustration"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:src="@drawable/ic_settings_illustrations"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline_mid"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.3"
                 />
 
 
@@ -270,6 +257,59 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/play_store_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_google_play"
+        app:tint="@null"
+        android:elevation="5dp"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:background="@drawable/circle_main_background"
+        app:layout_constraintTop_toBottomOf="@id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline9"
+        app:layout_constraintBottom_toTopOf="@id/youtube_btn"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/youtube_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_youtube"
+        app:tint="@null"
+        android:elevation="5dp"
+        android:padding="0dp"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:background="@drawable/circle_main_background"
+        app:layout_constraintTop_toBottomOf="@id/play_store_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline9"
+        app:layout_constraintBottom_toTopOf="@id/facebook_btn"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/facebook_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_facebook"
+        app:tint="@null"
+        android:elevation="5dp"
+        android:padding="0dp"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:background="@drawable/circle_main_background"
+        app:layout_constraintTop_toBottomOf="@id/youtube_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"

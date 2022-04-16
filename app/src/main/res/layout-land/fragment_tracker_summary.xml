@@ -465,6 +465,56 @@
 
 
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/play_store_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_google_play"
+        app:tint="@null"
+        android:elevation="5dp"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:background="@drawable/circle_main_background"
+        app:layout_constraintTop_toBottomOf="@id/mark_used_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_outer_mid"
+        app:layout_constraintBottom_toTopOf="@id/youtube_btn"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/youtube_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_youtube"
+        app:tint="@null"
+        android:elevation="5dp"
+        android:padding="0dp"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:background="@drawable/circle_main_background"
+        app:layout_constraintTop_toBottomOf="@id/play_store_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_outer_mid"
+        app:layout_constraintBottom_toTopOf="@id/facebook_btn"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/facebook_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_facebook"
+        app:tint="@null"
+        android:elevation="5dp"
+        android:padding="0dp"
+        app:layout_constraintHorizontal_bias="0.7"
+        android:background="@drawable/circle_main_background"
+        app:layout_constraintTop_toBottomOf="@id/youtube_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_outer_mid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_outer_left"
         android:layout_width="wrap_content"
