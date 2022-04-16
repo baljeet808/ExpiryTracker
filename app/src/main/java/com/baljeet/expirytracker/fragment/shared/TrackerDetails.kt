@@ -28,12 +28,11 @@ import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.NotificationUtil
 import com.baljeet.expirytracker.util.SharedPref
 import com.dwellify.contractorportal.util.TimeConvertor
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -51,6 +50,10 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
     private lateinit var bind : FragmentTrackerSummaryBinding
     private val navArgs : TrackerDetailsArgs by navArgs()
     private val trackerViewModel : TrackerViewModel by viewModels()
+
+
+    private var mRewardedAd: RewardedAd? = null
+
 
     private var pickedFor : PickingFor = PickingFor.EXPIRY
     private var tempDateTime :LocalDateTime ? = null
@@ -248,7 +251,6 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
         }
         return bind.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

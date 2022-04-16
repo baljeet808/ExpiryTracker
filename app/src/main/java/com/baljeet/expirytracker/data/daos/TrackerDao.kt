@@ -18,8 +18,8 @@ interface TrackerDao {
     fun updateTracker(tracker: Tracker)
 
     @Transaction
-    @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
-    fun readAllTracker() : LiveData<List<TrackerAndProduct>>
+    @Query("SELECT * From tracker Where isArchived == :alwaysFalse And isUsed == :alwaysFalse")
+    fun readAllTracker(alwaysFalse : Boolean = false) : LiveData<List<TrackerAndProduct>>
 
     @Transaction
     @Query("SELECT * FROM tracker")
@@ -30,17 +30,17 @@ interface TrackerDao {
     fun getTrackerByID(trackerId: Int) : TrackerAndProduct
 
     @Transaction
-    @Query("SELECT * FROM tracker where (isArchived == ${true} And gotExpired == ${true}) Or isUsed == ${true}")
-    fun getAllFinishedTracker() : LiveData<List<TrackerAndProduct>>
+    @Query("SELECT * FROM tracker where (isArchived == :alwaysTrue And gotExpired == :alwaysTrue) Or isUsed == :alwaysTrue")
+    fun getAllFinishedTracker(alwaysTrue : Boolean = true ) : LiveData<List<TrackerAndProduct>>
 
     @Transaction
-    @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
-    fun getActiveTracker() : List<TrackerAndProduct>
+    @Query("SELECT * From tracker Where isArchived == :alwaysFalse And isUsed == :alwaysFalse")
+    fun getActiveTracker(alwaysFalse : Boolean = false) : List<TrackerAndProduct>
 
 
     @Transaction
-    @Query("SELECT * From tracker Where isArchived == ${false} And isUsed == ${false}")
-    fun getActiveTrackerLive() : LiveData<List<TrackerAndProduct>>
+    @Query("SELECT * From tracker Where isArchived == :alwaysFalse And isUsed == :alwaysFalse")
+    fun getActiveTrackerLive(alwaysFalse : Boolean = false) : LiveData<List<TrackerAndProduct>>
 
 
     @Transaction
