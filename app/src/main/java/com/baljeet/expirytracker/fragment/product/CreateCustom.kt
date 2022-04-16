@@ -81,7 +81,6 @@ class CreateCustom : Fragment() {
 
     private var latestTmpUri: Uri? = null
 
-
     private val takeImageResult =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
@@ -114,6 +113,7 @@ class CreateCustom : Fragment() {
 
     private fun clearEverything(){
         viewModel.croppedImage = null
+        viewModel.once = 1
     }
 
     override fun onCreateView(
@@ -135,6 +135,12 @@ class CreateCustom : Fragment() {
             }
             viewModel.croppedImage?.let {
                 showImageInPreview(it)
+            }
+            navArgs.tempName?.let {
+                if(viewModel.once == 1) {
+                    nameEdittext.setText(it)
+                    viewModel.once = 2
+                }
             }
             nameEdittext.doOnTextChanged { text, _, _, _ ->
                 if(text.toString().count() >2){

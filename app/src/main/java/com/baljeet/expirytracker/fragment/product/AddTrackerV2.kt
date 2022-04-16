@@ -503,10 +503,24 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
     }
 
     private fun moveToCreateNew(optionIsCategory : Boolean){
+        val name = if(optionIsCategory){
+            if(bind.categoryNameEdittext.text.isNullOrBlank()){
+                null
+            }else{
+                bind.categoryNameEdittext.text.toString()
+            }
+        }else{
+            if(bind.productNameEdittext.text.isNullOrBlank()){
+                null
+            }else{
+                bind.productNameEdittext.text.toString()
+            }
+        }
         Navigation.findNavController(requireView()).navigate(
             AddTrackerV2Directions.actionAddTrackerV2ToCreateCustom(
                 itemType = if (optionIsCategory) "Category" else "Product",
-                selectedCategory = if (optionIsCategory) null else viewModel.selectedCategory
+                selectedCategory = if (optionIsCategory) null else viewModel.selectedCategory ,
+                tempName = name
             )
         )
     }
