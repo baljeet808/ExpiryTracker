@@ -1,5 +1,7 @@
 package com.baljeet.expirytracker.fragment.product
 
+import android.content.Context
+import android.content.res.AssetFileDescriptor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -34,6 +36,7 @@ import com.baljeet.expirytracker.util.ImageConvertor
 import com.baljeet.expirytracker.util.getContentType
 import com.baljeet.expirytracker.util.getFileName
 import java.io.File
+
 
 class CreateCustom : Fragment() {
 
@@ -265,7 +268,16 @@ class CreateCustom : Fragment() {
     }
 
     private fun openEditor(image : Image){
-        Navigation.findNavController(requireView()).navigate(CreateCustomDirections.actionCreateCustomToImageEditor(image))
+        val fileDescriptor: AssetFileDescriptor? =
+            requireContext().contentResolver.openAssetFileDescriptor(image.uri, "r")
+        val fileSize = fileDescriptor?.length
+        fileSize?.let {
+            if(it < 6145728) {
+                Navigation.findNavController(requireView()).navigate(CreateCustomDirections.actionCreateCustomToImageEditor(image))
+            }else{
+                Toast.makeText(requireContext(),"File larger then 6 mb not supported", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun showImageInPreview(image : Image){
