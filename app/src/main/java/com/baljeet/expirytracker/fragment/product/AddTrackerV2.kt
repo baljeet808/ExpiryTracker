@@ -173,6 +173,7 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                     categoryRecycler.isGone = false
                     viewModel.selectedProduct = null
                     viewModel.productGiven.postValue(false)
+                    categoryNameEdittext.setText("")
                 }
             }
 
@@ -195,6 +196,7 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
             productNameLayout.setEndIconOnClickListener {
                 if(productRecycler.isGone){
                     productRecycler.isGone = false
+                    productNameEdittext.setText("")
                 }
             }
             productViewModel.searchResults.observe(viewLifecycleOwner) {
