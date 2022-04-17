@@ -88,6 +88,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
+        <item name="chipIconTint">@color/always_white</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="chipBackgroundColor">@color/window_top_bar_blue</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -180,6 +181,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/black</item>
+        <item name="chipIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_peach</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -270,6 +272,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/black</item>
+        <item name="chipIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_yellow</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -361,6 +364,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/black</item>
+        <item name="chipIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_green</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -453,6 +457,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/main_background</item>
+        <item name="chipIconTint">@color/black</item>
         <item name="android:textColor">@color/main_background</item>
         <item name="chipBackgroundColor">@color/window_top_bar_teal</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -544,6 +549,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
+        <item name="chipIconTint">@color/always_white</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="chipBackgroundColor">@color/window_top_bar_purple</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -635,6 +641,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/black</item>
+        <item name="chipIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_pink</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -726,6 +733,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/always_white</item>
+        <item name="chipIconTint">@color/always_white</item>
         <item name="android:textColor">@color/always_white</item>
         <item name="chipBackgroundColor">@color/window_top_bar_black</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>
@@ -817,6 +825,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="checkedIcon">@drawable/check_circle_24</item>
         <item name="checkedIconTint">@color/black</item>
+        <item name="chipIconTint">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="chipBackgroundColor">@color/window_top_bar_white</item>
         <item name="android:textAppearance">@style/textStyleForChip</item>

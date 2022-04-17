@@ -25,13 +25,13 @@
 
     <TextView
         android:id="@+id/product_name"
-        android:layout_width="160dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:maxWidth="160dp"
         android:ellipsize="end"
         android:lines="1"
         tools:text="Rustic Pineapple"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:letterSpacing="0.05"
         app:layout_constraintStart_toEndOf="@id/product_image"
@@ -47,8 +47,8 @@
         app:layout_constraintTop_toBottomOf="@id/product_name"
         app:layout_constraintBottom_toTopOf="@id/reminder_date"
         app:layout_constraintStart_toEndOf="@id/product_image"
-        android:textSize="14sp"
-        android:letterSpacing="0.2"
+        android:textSize="13sp"
+        android:letterSpacing="0.05"
         android:layout_marginStart="15dp"
         android:textColor="@color/text_color"
         />
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/reminder_time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/product_image"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:layout_marginStart="15dp"
         android:textColor="@color/text_color"
         />
