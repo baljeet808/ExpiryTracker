@@ -11,7 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.relations.ProductAndImage
+import com.baljeet.expirytracker.data.Product
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.databinding.FragmentManageProductsBinding
 import com.baljeet.expirytracker.interfaces.OnProductSelected
@@ -21,6 +22,7 @@ class ManageProducts : Fragment(), OnProductSelected {
 
     private lateinit var bind: FragmentManageProductsBinding
     private val viewModel: ProductViewModel by viewModels()
+    private val imageViewModel: ImageViewModel by viewModels()
     private lateinit var resultsAdapter: ProductResultsAdapter
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class ManageProducts : Fragment(), OnProductSelected {
             productsRecycler.layoutManager = GridLayoutManager(requireContext(),
                 if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
                 )
-            resultsAdapter = ProductResultsAdapter(requireContext(), this@ManageProducts)
+            resultsAdapter = ProductResultsAdapter(requireContext(), imageViewModel,this@ManageProducts)
             productsRecycler.adapter = resultsAdapter
             searchEdittext.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().count() > 0) {
@@ -56,9 +58,9 @@ class ManageProducts : Fragment(), OnProductSelected {
         return bind.root
     }
 
-    override fun openInfoOfProduct(productAndImage: ProductAndImage) {
+    override fun openInfoOfProduct(product: Product) {
         Navigation.findNavController(requireView())
-            .navigate(ManageProductsDirections.actionManageProductsToProductInfo(productAndImage))
+            .navigate(ManageProductsDirections.actionManageProductsToProductInfo(product))
     }
 
     override fun onResume() {

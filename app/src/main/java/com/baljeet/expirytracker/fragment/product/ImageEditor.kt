@@ -14,8 +14,6 @@ import com.baljeet.expirytracker.util.ImageConvertor
 class ImageEditor : Fragment() {
     private lateinit var bind : FragmentImageEditorBinding
 
-    private val navArgs : ImageEditorArgs by navArgs()
-
     private val viewModel : CustomViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -25,12 +23,12 @@ class ImageEditor : Fragment() {
         bind = FragmentImageEditorBinding.inflate(inflater, container, false)
 
         bind.apply {
-            imageCropView.setImageBitmap(ImageConvertor.uriToBitmap(navArgs.selectedImage.uri, requireContext()))
+            imageCropView.setImageBitmap(ImageConvertor.uriToBitmap(viewModel.selectedImage?.uri!!, requireContext()))
             closeBtn.setOnClickListener { activity?.onBackPressed() }
 
             saveButton.setOnClickListener {
-                viewModel.croppedImage = navArgs.selectedImage
-                viewModel.croppedImage?.bitmap = ImageConvertor.bitMapToString(imageCropView.croppedImage,navArgs.selectedImage.mimeType).toString()
+                viewModel.croppedImage = viewModel.selectedImage
+                viewModel.croppedImage?.bitmap = ImageConvertor.bitMapToString(imageCropView.croppedImage,viewModel.selectedImage!!.mimeType).toString()
                 activity?.onBackPressed()
             }
         }

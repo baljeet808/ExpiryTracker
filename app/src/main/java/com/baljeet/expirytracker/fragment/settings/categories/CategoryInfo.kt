@@ -2,6 +2,7 @@ package com.baljeet.expirytracker.fragment.settings.categories
 
 
 import android.app.AlertDialog
+import android.content.res.AssetFileDescriptor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
@@ -78,7 +80,8 @@ class CategoryInfo : Fragment() {
                 uri = it,
                 bitmap = ""
             )
-            openEditor(image)
+            customViewModel.selectedImage = image
+            openEditor()
         }
     }
 
@@ -97,7 +100,8 @@ class CategoryInfo : Fragment() {
                         uri = u ,
                         bitmap =""
                     )
-                    openEditor(image)
+                    customViewModel.selectedImage = image
+                    openEditor()
                 }
             }
         }
@@ -128,8 +132,8 @@ class CategoryInfo : Fragment() {
             bind.closeBtn.setOnClickListener {
                 activity?.onBackPressed()
             }
-            val category = navArgs.categoryAndImage
-
+            val category = navArgs.category
+            val image = imageViewModel.getImageById(category.imageId)
             iconViewModel.selectedIcon?.let {
                 imageView.setPadding(60)
                 imageView.setImageDrawable(
@@ -164,14 +168,15 @@ class CategoryInfo : Fragment() {
                         }
                     }
                 }?: kotlin.run {
-                    when (category.image.mimeType) {
+
+                    when (image.mimeType) {
                         "asset" -> {
                             imageView.setPadding(60)
                             imageView.setImageDrawable(
                                 AppCompatResources.getDrawable(
                                     requireContext(),
                                     resources.getIdentifier(
-                                        category.image.imageUrl,
+                                        image.imageUrl,
                                         "drawable",
                                         requireContext().packageName
                                     )
@@ -180,13 +185,13 @@ class CategoryInfo : Fragment() {
                         }
                         else -> {
                             imageView.setPadding(0)
-                            imageView.setImageBitmap(ImageConvertor.stringToBitmap(category.image.bitmap))
+                            imageView.setImageBitmap(ImageConvertor.stringToBitmap(image.bitmap))
                         }
                     }
                 }
             }
 
-            nameEdittext.setText(category.category.categoryName)
+            nameEdittext.setText(category.categoryName)
 
             nameEdittext.doOnTextChanged { _, _, _, _ ->
                 nameChanged.value = true
@@ -204,12 +209,12 @@ class CategoryInfo : Fragment() {
                         imageViewModel.addImage(it)
                         imageViewModel.getImageByName(it.imageName).imageId
                     }  ?: kotlin.run {
-                        category.image.imageId
+                        image.imageId
                     }
                 }
                 viewModel.updateCategory(
                     Category(
-                        categoryId = category.category.categoryId,
+                        categoryId = category.categoryId,
                         categoryName = nameEdittext.text.toString(),
                         imageId = imageId,
                         isDeleted = false
@@ -301,8 +306,8 @@ class CategoryInfo : Fragment() {
                 doNotShowAgainCheckbox.visibility = View.GONE
                 deleteButton.visibility = View.GONE
 
-                productViewModel.deleteAllByCategoryId(navArgs.categoryAndImage.category.categoryId)
-                viewModel.deleteCategory(navArgs.categoryAndImage.category)
+                productViewModel.deleteAllByCategoryId(navArgs.category.categoryId)
+                viewModel.deleteCategory(navArgs.category)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     if(deleteDialog.isShowing){
@@ -321,8 +326,8 @@ class CategoryInfo : Fragment() {
         if(SharedPref.doNotAskBeforeDeletingCategory){
             Handler(Looper.getMainLooper()).postDelayed({
                 if(deleteDialog.isShowing){
-                    productViewModel.deleteAllByCategoryId(navArgs.categoryAndImage.category.categoryId)
-                    viewModel.deleteCategory(navArgs.categoryAndImage.category)
+                    productViewModel.deleteAllByCategoryId(navArgs.category.categoryId)
+                    viewModel.deleteCategory(navArgs.category)
                     deleteDialog.dismiss()
                     activity?.onBackPressed()
                 }
@@ -330,8 +335,18 @@ class CategoryInfo : Fragment() {
         }
     }
 
-    private fun openEditor(image : Image){
-        Navigation.findNavController(requireView()).navigate(CategoryInfoDirections.actionCategoryInfoToImageEditor(image))
+    private fun openEditor(){
+        val fileDescriptor: AssetFileDescriptor? =
+            requireContext().contentResolver.openAssetFileDescriptor(customViewModel.selectedImage!!.uri, "r")
+        val fileSize = fileDescriptor?.length
+        fileDescriptor?.close()
+        fileSize?.let {
+            if(it < 4145728) {
+                Navigation.findNavController(requireView()).navigate(CategoryInfoDirections.actionCategoryInfoToImageEditor())
+            }else{
+                Toast.makeText(requireContext(),"Image larger then 4 mb not supported", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 
@@ -343,7 +358,7 @@ class CategoryInfo : Fragment() {
                 bind.nameBox.isErrorEnabled = true
                 false
             } else {
-                if (text != navArgs.categoryAndImage.category.categoryName) {
+                if (text != navArgs.category.categoryName) {
                     val possibleResults = viewModel.readCategoryByName(text)
                     if (possibleResults.isNotEmpty()) {
                         nameBox.isErrorEnabled = true

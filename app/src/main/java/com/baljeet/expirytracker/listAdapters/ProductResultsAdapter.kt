@@ -7,24 +7,27 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.relations.ProductAndImage
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
 import com.baljeet.expirytracker.interfaces.OnProductSelected
 import com.baljeet.expirytracker.util.ImageConvertor
 
 class ProductResultsAdapter(
     private val context: Context ,
+    private val imageVM : ImageViewModel,
     private val listener : OnProductSelected
-): ListAdapter<ProductAndImage, ProductResultsAdapter.MyViewHolder>(DiffUtil()) {
+): ListAdapter<Product, ProductResultsAdapter.MyViewHolder>(DiffUtil()) {
 
     inner class MyViewHolder(val bind : ItemOptionBinding) : RecyclerView.ViewHolder(bind.root)
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<ProductAndImage>(){
-        override fun areItemsTheSame(oldItem: ProductAndImage, newItem: ProductAndImage): Boolean {
-            return oldItem.product.productId == newItem.product.productId
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Product>(){
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem.productId == newItem.productId
         }
 
-        override fun areContentsTheSame(oldItem: ProductAndImage, newItem: ProductAndImage): Boolean {
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
         }
 
@@ -39,15 +42,16 @@ class ProductResultsAdapter(
 
     override fun onBindViewHolder(holder: ProductResultsAdapter.MyViewHolder, position: Int) {
         val product = getItem(position)
+        val image = imageVM.getImageById(product.imageId)
         holder.bind.apply {
-            optionTitle.text = product.product.name
-            when(product.image.mimeType){
+            optionTitle.text = product.name
+            when(image.mimeType){
                 "asset"->{
                     optionImage.setImageDrawable(
                         AppCompatResources.getDrawable(
                             context,
                             context.resources.getIdentifier(
-                                product.image.imageUrl,
+                                image.imageUrl,
                                 "drawable",
                                 context.packageName
                             )
@@ -57,7 +61,7 @@ class ProductResultsAdapter(
                 }
                 else->{
                     optionImage.setImageBitmap(
-                        ImageConvertor.stringToBitmap(product.image.bitmap)
+                        ImageConvertor.stringToBitmap(image.bitmap)
                     )
                     optionImage.setPadding(0)
                 }

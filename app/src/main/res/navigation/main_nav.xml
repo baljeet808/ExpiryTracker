@@ -171,7 +171,7 @@
             app:popExitAnim="@anim/slide_down_from_bottom" />
         <argument
             android:name="selectedCategory"
-            app:argType="com.baljeet.expirytracker.data.relations.CategoryAndImage"
+            app:argType="com.baljeet.expirytracker.data.Category"
             app:nullable="true" />
         <action
             android:id="@+id/action_createCustom_to_iconsGallery"
@@ -189,11 +189,7 @@
         android:id="@+id/imageEditor"
         android:name="com.baljeet.expirytracker.fragment.product.ImageEditor"
         android:label="fragment_image_editor"
-        tools:layout="@layout/fragment_image_editor" >
-        <argument
-            android:name="selectedImage"
-            app:argType="com.baljeet.expirytracker.data.Image" />
-    </fragment>
+        tools:layout="@layout/fragment_image_editor" />
     <fragment
         android:id="@+id/manageCategories"
         android:name="com.baljeet.expirytracker.fragment.settings.categories.ManageCategories"
@@ -231,8 +227,8 @@
         android:label="fragment_category_info"
         tools:layout="@layout/fragment_category_info" >
         <argument
-            android:name="categoryAndImage"
-            app:argType="com.baljeet.expirytracker.data.relations.CategoryAndImage" />
+            android:name="category"
+            app:argType="com.baljeet.expirytracker.data.Category" />
         <action
             android:id="@+id/action_categoryInfo_to_imageEditor"
             app:destination="@id/imageEditor" />
@@ -246,8 +242,8 @@
         android:label="fragment_product_info"
         tools:layout="@layout/fragment_product_info" >
         <argument
-            android:name="productAndImage"
-            app:argType="com.baljeet.expirytracker.data.relations.ProductAndImage" />
+            android:name="product"
+            app:argType="com.baljeet.expirytracker.data.Product" />
         <action
             android:id="@+id/action_productInfo_to_imageEditor"
             app:destination="@id/imageEditor" />

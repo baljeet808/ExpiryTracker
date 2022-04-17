@@ -2,7 +2,6 @@ package com.baljeet.expirytracker.fragment.product
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,10 +20,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baljeet.expirytracker.R
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.Tracker
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
-import com.baljeet.expirytracker.data.relations.ProductAndImage
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.data.viewmodels.ProductViewModel
 import com.baljeet.expirytracker.data.viewmodels.TrackerViewModel
 import com.baljeet.expirytracker.databinding.FragmentAddTrackerV2Binding
@@ -51,6 +51,7 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
     private lateinit var categoryResultAdapter: SearchResultsAdapter
     private lateinit var productResultAdapter: ProductResultsAdapter
     private val catViewModel: CategoryViewModel by viewModels()
+    private val imageViewModel: ImageViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
     private val viewModel: AddTrackerViewModel by activityViewModels()
     private val trackerViewModel: TrackerViewModel by viewModels()
@@ -86,8 +87,8 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                 RecyclerView.HORIZONTAL,
                 false
             )
-            categoryResultAdapter = SearchResultsAdapter(requireContext(), this@AddTrackerV2)
-            productResultAdapter = ProductResultsAdapter(requireContext(), this@AddTrackerV2)
+            categoryResultAdapter = SearchResultsAdapter(requireContext(), imageViewModel,this@AddTrackerV2)
+            productResultAdapter = ProductResultsAdapter(requireContext(), imageViewModel,this@AddTrackerV2)
             categoryRecycler.adapter = categoryResultAdapter
             productRecycler.adapter = productResultAdapter
             mfgDateEdittext.setText(
@@ -184,9 +185,9 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
 
             productNameEdittext.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().count() > 0) {
-                    productViewModel.searchByTextInCategory(text.toString(), viewModel.selectedCategory?.category?.categoryId?:0)
+                    productViewModel.searchByTextInCategory(text.toString(), viewModel.selectedCategory?.categoryId?:0)
                 } else {
-                    productViewModel.getAllProductsInCategory(viewModel.selectedCategory?.category?.categoryId?:0)
+                    productViewModel.getAllProductsInCategory(viewModel.selectedCategory?.categoryId?:0)
                 }
                 if(productRecycler.isGone){
                     productRecycler.isGone = false
@@ -206,10 +207,11 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
             viewModel.categoryGiven.observe(viewLifecycleOwner) {
                 if (it) {
                     viewModel.selectedCategory?.let { category ->
-                        categoryNameEdittext.setText(category.category.categoryName)
-                        selectedCategoryIcon.setImage(category.image, requireContext())
+                        val image = imageViewModel.getImageById(category.imageId)
+                        categoryNameEdittext.setText(category.categoryName)
+                        selectedCategoryIcon.setImage(image, requireContext())
                         nameLayout.isGone = false
-                        productViewModel.getAllProductsInCategory(category.category.categoryId)
+                        productViewModel.getAllProductsInCategory(category.categoryId)
                         viewModel.selectedProduct?: kotlin.run{
                             viewModel.productGiven.postValue(false)
                         }
@@ -223,8 +225,9 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
             viewModel.productGiven.observe(viewLifecycleOwner){
                 if(it){
                     viewModel.selectedProduct?.let { product->
-                        productNameEdittext.setText(product.product.name)
-                        selectedProductIcon.setImage(product.image, requireContext())
+                        val image = imageViewModel.getImageById(product.imageId)
+                        productNameEdittext.setText(product.name)
+                        selectedProductIcon.setImage(image, requireContext())
                     }
                     dateLayout.isGone = false
                     productNameEdittext.clearFocus()
@@ -401,7 +404,7 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
                 }
 
                 val tracker = Tracker(
-                    productId = viewModel.selectedProduct?.product?.productId!!,
+                    productId = viewModel.selectedProduct?.productId!!,
                     mfgDate = viewModel.mfgDate,
                     expiryDate = viewModel.expiryDate,
                     reminderDate = viewModel.reminderDate,
@@ -494,13 +497,13 @@ class AddTrackerV2 : Fragment(), OnCategorySelected, OnProductSelected,
         }
     }
 
-    override fun openInfoOfCategory(categoryAndImage: CategoryAndImage) {
-        viewModel.selectedCategory = categoryAndImage
+    override fun openInfoOfCategory(category: Category) {
+        viewModel.selectedCategory = category
         viewModel.categoryGiven.postValue(true)
     }
 
-    override fun openInfoOfProduct(productAndImage: ProductAndImage) {
-        viewModel.selectedProduct = productAndImage
+    override fun openInfoOfProduct(product: Product) {
+        viewModel.selectedProduct = product
         viewModel.productGiven.postValue(true)
     }
 

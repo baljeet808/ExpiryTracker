@@ -4,7 +4,6 @@ import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.baljeet.expirytracker.data.Product
-import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 @Keep
 @Dao
@@ -21,29 +20,29 @@ interface ProductsDao {
 
     @Transaction
     @Query("SELECT * FROM products WHERE categoryId == :id")
-    fun readProductWithImagesById(id : Int) : List<ProductAndImage>
+    fun readProductWithImagesById(id : Int) : List<Product>
 
     @Transaction
     @Query("SELECT * FROM products WHERE name ==:text and isDeleted == :isDeleted")
-    fun readProductByName(text : String, isDeleted: Boolean = false) : List<ProductAndImage>
+    fun readProductByName(text : String, isDeleted: Boolean = false) : List<Product>
 
 
     @Transaction
     @Query("SELECT * FROM products WHERE name LIKE :text || '%' and isDeleted == :isDeleted")
-    fun searchProductsByText(text : String, isDeleted: Boolean = false) : List<ProductAndImage>
+    fun searchProductsByText(text : String, isDeleted: Boolean = false) : List<Product>
 
 
     @Transaction
     @Query("SELECT * FROM products WHERE name LIKE :text || '%' and isDeleted == :isDeleted and categoryId == :categoryId")
-    fun searchProductByTextInCategory(text : String, categoryId: Int, isDeleted: Boolean = false) : List<ProductAndImage>
+    fun searchProductByTextInCategory(text : String, categoryId: Int, isDeleted: Boolean = false) : List<Product>
 
     @Transaction
     @Query("SELECT * FROM products where isDeleted == :isDeleted ORDER BY productId DESC")
-    fun getAllProducts(isDeleted: Boolean = false): List<ProductAndImage>
+    fun getAllProducts(isDeleted: Boolean = false): List<Product>
 
     @Transaction
     @Query("SELECT * FROM products where isDeleted == :isDeleted and categoryId == :categoryId ORDER BY productId DESC")
-    fun getAllProductsInCategory(categoryId: Int,isDeleted: Boolean = false): List<ProductAndImage>
+    fun getAllProductsInCategory(categoryId: Int,isDeleted: Boolean = false): List<Product>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateProduct(product : Product)

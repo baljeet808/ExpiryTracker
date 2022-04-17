@@ -11,8 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.baljeet.expirytracker.R
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import com.baljeet.expirytracker.data.Category
 import com.baljeet.expirytracker.data.viewmodels.CategoryViewModel
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.databinding.FragmentManageCategoriesBinding
 import com.baljeet.expirytracker.interfaces.OnCategorySelected
 import com.baljeet.expirytracker.listAdapters.SearchResultsAdapter
@@ -21,6 +22,7 @@ class ManageCategories : Fragment(), OnCategorySelected {
 
     private lateinit var bind: FragmentManageCategoriesBinding
     private val viewModel: CategoryViewModel by viewModels()
+    private val imageViewModel: ImageViewModel by viewModels()
     private lateinit var resultsAdapter: SearchResultsAdapter
 
     override fun onCreateView(
@@ -32,9 +34,9 @@ class ManageCategories : Fragment(), OnCategorySelected {
             backButton.setOnClickListener { activity?.onBackPressed() }
 
             categoriesRecycler.layoutManager = GridLayoutManager(requireContext(),
-                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 6 else 4
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
                 )
-            resultsAdapter = SearchResultsAdapter(requireContext(), this@ManageCategories)
+            resultsAdapter = SearchResultsAdapter(requireContext(), imageViewModel,this@ManageCategories)
             categoriesRecycler.adapter = resultsAdapter
             searchEdittext.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().count() > 0) {
@@ -55,10 +57,10 @@ class ManageCategories : Fragment(), OnCategorySelected {
         return bind.root
     }
 
-    override fun openInfoOfCategory(categoryAndImage: CategoryAndImage) {
+    override fun openInfoOfCategory(category: Category) {
         
         Navigation.findNavController(requireView()).navigate(
-            ManageCategoriesDirections.actionManageCategoriesToCategoryInfo(categoryAndImage)
+            ManageCategoriesDirections.actionManageCategoriesToCategoryInfo(category)
         )
     }
 

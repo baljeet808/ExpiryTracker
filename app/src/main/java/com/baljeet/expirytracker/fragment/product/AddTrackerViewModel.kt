@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.baljeet.expirytracker.CustomApplication
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
-import com.baljeet.expirytracker.data.relations.ProductAndImage
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.Product
 import java.time.LocalDateTime
 
 class AddTrackerViewModel(app: Application): AndroidViewModel(app) {
@@ -13,10 +13,10 @@ class AddTrackerViewModel(app: Application): AndroidViewModel(app) {
     val context = getApplication<CustomApplication>()
 
     var categoryGiven = MutableLiveData(false)
-    var selectedCategory : CategoryAndImage? = null
+    var selectedCategory : Category? = null
 
     var productGiven = MutableLiveData(false)
-    var selectedProduct : ProductAndImage? = null
+    var selectedProduct : Product? = null
 
     var expiryGiven = MutableLiveData(false)
     var expiryDate: LocalDateTime? = null

@@ -1,7 +1,7 @@
 package com.baljeet.expirytracker.interfaces
 
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import com.baljeet.expirytracker.data.Category
 
 interface OnCategorySelected {
-    fun openInfoOfCategory(categoryAndImage : CategoryAndImage)
+    fun openInfoOfCategory(category : Category)
 }

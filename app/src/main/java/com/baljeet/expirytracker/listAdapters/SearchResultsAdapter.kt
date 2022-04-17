@@ -7,24 +7,26 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.baljeet.expirytracker.data.relations.CategoryAndImage
+import com.baljeet.expirytracker.data.Category
+import com.baljeet.expirytracker.data.viewmodels.ImageViewModel
 import com.baljeet.expirytracker.databinding.ItemOptionBinding
 import com.baljeet.expirytracker.interfaces.OnCategorySelected
 import com.baljeet.expirytracker.util.ImageConvertor
 
 class SearchResultsAdapter(
     private val context: Context ,
+    private val imageVM : ImageViewModel,
     private val listener : OnCategorySelected
-): ListAdapter<CategoryAndImage, SearchResultsAdapter.MyViewHolder>(DiffUtil()) {
+): ListAdapter<Category, SearchResultsAdapter.MyViewHolder>(DiffUtil()) {
 
     inner class MyViewHolder(val bind : ItemOptionBinding) : RecyclerView.ViewHolder(bind.root)
 
-    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<CategoryAndImage>(){
-        override fun areItemsTheSame(oldItem: CategoryAndImage, newItem: CategoryAndImage): Boolean {
-            return oldItem.category.categoryId == newItem.category.categoryId
+    class DiffUtil : androidx.recyclerview.widget.DiffUtil.ItemCallback<Category>(){
+        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+            return oldItem.categoryId == newItem.categoryId
         }
 
-        override fun areContentsTheSame(oldItem: CategoryAndImage, newItem: CategoryAndImage): Boolean {
+        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
             return oldItem == newItem
         }
 
@@ -40,14 +42,15 @@ class SearchResultsAdapter(
     override fun onBindViewHolder(holder: SearchResultsAdapter.MyViewHolder, position: Int) {
         val category = getItem(position)
         holder.bind.apply {
-            optionTitle.text = category.category.categoryName
-            when(category.image.mimeType){
+            optionTitle.text = category.categoryName
+            val image = imageVM.getImageById(category.imageId)
+            when(image.mimeType){
                 "asset"->{
                     optionImage.setImageDrawable(
                         AppCompatResources.getDrawable(
                             context,
                             context.resources.getIdentifier(
-                                category.image.imageUrl,
+                                image.imageUrl,
                                 "drawable",
                                 context.packageName
                             )
@@ -57,7 +60,7 @@ class SearchResultsAdapter(
                 }
                 else->{
                     optionImage.setImageBitmap(
-                        ImageConvertor.stringToBitmap(category.image.bitmap)
+                        ImageConvertor.stringToBitmap(image.bitmap)
                     )
                     optionImage.setPadding(0)
                 }

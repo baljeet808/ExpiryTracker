@@ -15,14 +15,12 @@ import kotlinx.coroutines.launch
 
 class CategoryViewModel(application: Application):AndroidViewModel(application) {
     val readAllCategories : LiveData<List<Category>>?
-    val readAllCategoriesWithImages : LiveData<List<CategoryAndImage>>
     private val repository : CategoryRepository
 
     init {
         val categoryDao = AppDatabase.getDatabase(application).categoryDao()
         repository = CategoryRepository(categoryDao)
         readAllCategories = repository.readAllData
-        readAllCategoriesWithImages = repository.readAllCategoriesWithImages
     }
 
     fun addCategory(category: Category){
@@ -36,11 +34,11 @@ class CategoryViewModel(application: Application):AndroidViewModel(application) 
         }
     }
 
-    fun readCategoryByName(name : String): List<CategoryAndImage> {
+    fun readCategoryByName(name : String): List<Category> {
         return repository.readCategoriesByName(name)
     }
 
-    val searchResults = MutableLiveData<List<CategoryAndImage>>(ArrayList())
+    val searchResults = MutableLiveData<List<Category>>(ArrayList())
 
     fun searchCategoryByWord(text : String){
          searchResults.value = repository.searchCategoryByWord(text)

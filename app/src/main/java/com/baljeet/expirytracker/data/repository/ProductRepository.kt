@@ -5,7 +5,6 @@ import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import com.baljeet.expirytracker.data.Product
 import com.baljeet.expirytracker.data.daos.ProductsDao
-import com.baljeet.expirytracker.data.relations.ProductAndImage
 
 @Keep
 class ProductRepository(private val productDao : ProductsDao) {
@@ -17,27 +16,27 @@ class ProductRepository(private val productDao : ProductsDao) {
         productDao.addProduct(product)
     }
 
-    fun readProductByName(name : String): List<ProductAndImage>{
+    fun readProductByName(name : String): List<Product>{
         return productDao.readProductByName(name)
     }
 
-    fun readProductWithImagesById(id : Int) : List<ProductAndImage>{
+    fun readProductWithImagesById(id : Int) : List<Product>{
         return productDao.readProductWithImagesById(id)
     }
 
-    fun searchProductByText(text : String ): List<ProductAndImage>{
+    fun searchProductByText(text : String ): List<Product>{
         return productDao.searchProductsByText(text)
     }
 
-    fun searchProductByTextInCategory(text : String , categoryId: Int): List<ProductAndImage>{
+    fun searchProductByTextInCategory(text : String , categoryId: Int): List<Product>{
         return productDao.searchProductByTextInCategory(text, categoryId)
     }
 
-    fun getAllProductsInCategory(categoryId: Int):List<ProductAndImage>{
+    fun getAllProductsInCategory(categoryId: Int):List<Product>{
         return productDao.getAllProductsInCategory(categoryId)
     }
 
-    fun getAllProducts():List<ProductAndImage>{
+    fun getAllProducts():List<Product>{
         return productDao.getAllProducts()
     }
 

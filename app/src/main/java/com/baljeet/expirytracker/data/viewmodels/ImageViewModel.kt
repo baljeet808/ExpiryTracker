@@ -26,6 +26,10 @@ class ImageViewModel(application : Application): AndroidViewModel(application) {
         return repository.getImageByName(name)
     }
 
+    fun getImageById(id : Int): Image{
+        return repository.getImageById(id)
+    }
+
 
     val searchResults  = MutableLiveData<List<Image>>(ArrayList())
 

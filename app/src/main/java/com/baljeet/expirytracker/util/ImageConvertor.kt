@@ -17,18 +17,18 @@ object ImageConvertor {
             try {
                 val bios = ByteArrayOutputStream()
                 if(format.contains("png",true)){
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, bios)
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 60, bios)
                 }else if(format.contains("jpeg",true) || format.contains("jpg",true)){
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bios)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bios)
                 }
                 else if(format.contains("webp",true)){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         bitmap.compress(Bitmap.CompressFormat.WEBP_LOSSLESS,90,bios)
                     }else{
-                        bitmap.compress(Bitmap.CompressFormat.WEBP,90,bios)
+                        bitmap.compress(Bitmap.CompressFormat.WEBP,60,bios)
                     }
                 }else{
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, bios)
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 60, bios)
                 }
                 val b = bios.toByteArray()
                 Base64.encodeToString(b, Base64.DEFAULT)

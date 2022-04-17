@@ -18,12 +18,13 @@ interface ImageDao {
     @Query("SELECT * FROM images ORDER BY imageId ASC")
     fun readAllImage(): LiveData<List<Image>>
 
-    @Query("SELECT * FROM images WHERE imageId == :id")
-    fun getImageById(id : Int): Image
-
     @Transaction
     @Query("SELECT * FROM images WHERE imageName LIKE :name || '%'")
     fun getImageByName(name : String): List<Image>
+
+    @Transaction
+    @Query("SELECT * FROM images WHERE imageId == :id")
+    fun getImageById(id : Int): Image
 
     @Transaction
     @Query("Select * From images WHERE mimeType == :mime")

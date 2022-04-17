@@ -1,6 +1,5 @@
 package com.baljeet.expirytracker.fragment.product
 
-import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.net.Uri
 import android.os.Bundle
@@ -78,7 +77,8 @@ class CreateCustom : Fragment() {
                 uri = it,
                 bitmap = ""
             )
-            openEditor(image)
+            viewModel.selectedImage = image
+            openEditor()
         }
     }
 
@@ -97,7 +97,8 @@ class CreateCustom : Fragment() {
                         uri = u ,
                         bitmap =""
                     )
-                    openEditor(image)
+                    viewModel.selectedImage = image
+                    openEditor()
                 } 
             }
         }
@@ -234,7 +235,7 @@ class CreateCustom : Fragment() {
                                 Product(
                                     productId = 0,
                                     name = nameEdittext.text.toString(),
-                                    categoryId = navArgs.selectedCategory?.category?.categoryId!!,
+                                    categoryId = navArgs.selectedCategory?.categoryId!!,
                                     imageId = imageId,
                                     false
                                 )
@@ -267,15 +268,16 @@ class CreateCustom : Fragment() {
         return bind.root
     }
 
-    private fun openEditor(image : Image){
+    private fun openEditor(){
         val fileDescriptor: AssetFileDescriptor? =
-            requireContext().contentResolver.openAssetFileDescriptor(image.uri, "r")
+            requireContext().contentResolver.openAssetFileDescriptor(viewModel.selectedImage!!.uri, "r")
         val fileSize = fileDescriptor?.length
+        fileDescriptor?.close()
         fileSize?.let {
-            if(it < 6145728) {
-                Navigation.findNavController(requireView()).navigate(CreateCustomDirections.actionCreateCustomToImageEditor(image))
+            if(it < 4145728) {
+                Navigation.findNavController(requireView()).navigate(CreateCustomDirections.actionCreateCustomToImageEditor())
             }else{
-                Toast.makeText(requireContext(),"File larger then 6 mb not supported", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Image larger then 4 mb not supported", Toast.LENGTH_SHORT).show()
             }
         }
     }

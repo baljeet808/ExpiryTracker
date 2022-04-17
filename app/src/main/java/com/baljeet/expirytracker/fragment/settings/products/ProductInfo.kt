@@ -1,6 +1,7 @@
 package com.baljeet.expirytracker.fragment.settings.products
 
 import android.app.AlertDialog
+import android.content.res.AssetFileDescriptor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -11,6 +12,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
@@ -77,7 +79,8 @@ class ProductInfo : Fragment() {
                 uri = it,
                 bitmap = ""
             )
-            openEditor(image)
+            customViewModel.selectedImage = image
+            openEditor()
         }
     }
 
@@ -96,7 +99,8 @@ class ProductInfo : Fragment() {
                         uri = u ,
                         bitmap =""
                     )
-                    openEditor(image)
+                    customViewModel.selectedImage = image
+                    openEditor()
                 }
             }
         }
@@ -128,7 +132,8 @@ class ProductInfo : Fragment() {
         bind = FragmentProductInfoBinding.inflate(inflater, container, false)
         bind.apply {
             closeBtn.setOnClickListener { activity?.onBackPressed() }
-            val product = navArgs.productAndImage
+            val product = navArgs.product
+            val image = imageViewModel.getImageById(product.imageId)
 
             iconViewModel.selectedIcon?.let {
                 imageView.setPadding(60)
@@ -164,14 +169,14 @@ class ProductInfo : Fragment() {
                         }
                     }
                 }?: kotlin.run {
-                    when (product.image.mimeType) {
+                    when (image.mimeType) {
                         "asset" -> {
                             imageView.setPadding(60)
                             imageView.setImageDrawable(
                                 AppCompatResources.getDrawable(
                                     requireContext(),
                                     resources.getIdentifier(
-                                        product.image.imageUrl,
+                                        image.imageUrl,
                                         "drawable",
                                         requireContext().packageName
                                     )
@@ -180,13 +185,13 @@ class ProductInfo : Fragment() {
                         }
                         else -> {
                             imageView.setPadding(0)
-                            imageView.setImageBitmap(ImageConvertor.stringToBitmap(product.image.bitmap))
+                            imageView.setImageBitmap(ImageConvertor.stringToBitmap(image.bitmap))
                         }
                     }
                 }
             }
 
-            nameEdittext.setText(product.product.name)
+            nameEdittext.setText(product.name)
 
             nameEdittext.doOnTextChanged { _, _, _, _ ->
                 nameChanged.value = true
@@ -203,16 +208,16 @@ class ProductInfo : Fragment() {
                         imageViewModel.addImage(it)
                         imageViewModel.getImageByName(it.imageName).imageId
                     }  ?: kotlin.run {
-                        product.image.imageId
+                        image.imageId
                     }
                 }
 
                 viewModel.updateProduct(
                     Product(
-                        categoryId = product.product.categoryId,
+                        categoryId = product.categoryId,
                         name = nameEdittext.text.toString(),
                         imageId = imageId,
-                        productId = product.product.productId,
+                        productId = product.productId,
                         isDeleted = false
                     )
                 )
@@ -231,8 +236,18 @@ class ProductInfo : Fragment() {
     }
 
 
-    private fun openEditor(image : Image){
-        Navigation.findNavController(requireView()).navigate(ProductInfoDirections.actionProductInfoToImageEditor(image))
+    private fun openEditor(){
+        val fileDescriptor: AssetFileDescriptor? =
+            requireContext().contentResolver.openAssetFileDescriptor(customViewModel.selectedImage?.uri!!, "r")
+        val fileSize = fileDescriptor?.length
+        fileDescriptor?.close()
+        fileSize?.let {
+            if(it < 4145728) {
+                Navigation.findNavController(requireView()).navigate(ProductInfoDirections.actionProductInfoToImageEditor())
+            }else{
+                Toast.makeText(requireContext(),"Image larger then 4 mb not supported", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 
@@ -304,7 +319,7 @@ class ProductInfo : Fragment() {
                 doNotShowAgainCheckbox.visibility = View.GONE
                 deleteButton.visibility = View.GONE
 
-                viewModel.deleteProduct(navArgs.productAndImage.product)
+                viewModel.deleteProduct(navArgs.product)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     if(deleteDialog.isShowing){
@@ -322,7 +337,7 @@ class ProductInfo : Fragment() {
         if(SharedPref.doNotAskBeforeDeletingCategory){
             Handler(Looper.getMainLooper()).postDelayed({
                 if(deleteDialog.isShowing){
-                    viewModel.deleteProduct(navArgs.productAndImage.product)
+                    viewModel.deleteProduct(navArgs.product)
                     deleteDialog.dismiss()
                     activity?.onBackPressed()
                 }
@@ -338,7 +353,7 @@ class ProductInfo : Fragment() {
                 bind.nameBox.isErrorEnabled = true
                 false
             } else {
-                if (text != navArgs.productAndImage.product.name) {
+                if (text != navArgs.product.name) {
                     val possibleResults = viewModel.readProductByName(text)
                     if (possibleResults.isNotEmpty()) {
                         nameBox.isErrorEnabled = true

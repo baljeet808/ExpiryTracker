@@ -8,6 +8,7 @@ import com.baljeet.expirytracker.data.Image
 class CustomViewModel(app : Application) : AndroidViewModel(app) {
     val context  = getApplication<CustomApplication>()
 
+    var selectedImage : Image? = null
     var croppedImage : Image? = null
     var once = 1
 }

@@ -16,8 +16,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     private val readAllData : LiveData<List<Product>>
     private val repository : ProductRepository
-    var productsByCategoryWithImage : MutableLiveData<List<ProductAndImage>> = MutableLiveData()
-
 
     init {
         val productsDao = AppDatabase.getDatabase(application).productDao()
@@ -33,16 +31,11 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
 
 
-    fun readProductByName(name : String): List<ProductAndImage>{
+    fun readProductByName(name : String): List<Product>{
       return repository.readProductByName(name)
     }
-    fun readProductWithImageById(id : Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            productsByCategoryWithImage.postValue(repository.readProductWithImagesById(id))
-        }
-    }
 
-    val searchResults  = MutableLiveData<List<ProductAndImage>>(ArrayList())
+    val searchResults  = MutableLiveData<List<Product>>(ArrayList())
 
     fun searchByText(text : String ){
         searchResults.value =  repository.searchProductByText(text)

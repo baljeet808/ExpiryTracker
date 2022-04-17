@@ -11,21 +11,20 @@ import io.reactivex.Flowable
 class CategoryRepository(private val categoryDao : CategoryDao){
 
     val readAllData : LiveData<List<Category>> = categoryDao.readAllCategories()
-    val readAllCategoriesWithImages : LiveData<List<CategoryAndImage>> = categoryDao.readAllCategoriesWithImages()
 
     suspend fun addCategory(c : Category){
         categoryDao.addCategory(c)
     }
 
-    fun readCategoriesByName(name : String): List<CategoryAndImage> {
+    fun readCategoriesByName(name : String): List<Category> {
         return categoryDao.readCategoryByName(name)
     }
 
-    fun searchCategoryByWord(text: String): List<CategoryAndImage> {
+    fun searchCategoryByWord(text: String): List<Category> {
             return categoryDao.searchCategoryByWord(text)
     }
 
-    fun getAllCategories(): List<CategoryAndImage>{
+    fun getAllCategories(): List<Category>{
         return categoryDao.getAllCategories()
     }
 
