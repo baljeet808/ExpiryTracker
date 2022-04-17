@@ -126,8 +126,8 @@
         />
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/monthly_card"
-        android:layout_width="180dp"
-        android:layout_height="200dp"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
         app:strokeWidth="0dp"
         android:visibility="visible"
         app:strokeColor="@color/text_color"
@@ -170,16 +170,16 @@
                 />
 
 
-            <Button
+            <TextView
                 android:id="@+id/upgrade_button"
-                android:layout_width="85dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/monthly_price"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="visible"
                 android:textSize="11sp"
                 app:textAllCaps="false"
-                android:textColor="@color/main_background"
+                android:textColor="@color/text_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/upgrade"
@@ -205,8 +205,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/yearly_card"
-        android:layout_width="180dp"
-        android:layout_height="200dp"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintTop_toTopOf="@id/guideline_top"
         app:layout_constraintStart_toEndOf="@id/monthly_card"
@@ -247,20 +247,19 @@
                 />
 
 
-            <Button
+            <TextView
                 android:id="@+id/upgrade_button1"
-                android:layout_width="85dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/yearly_price"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="visible"
                 android:textSize="11sp"
                 app:textAllCaps="false"
-                android:textColor="@color/main_background"
+                android:textColor="@color/text_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/upgrade"
-                tools:ignore="RtlHardcoded" />
+                android:text="@string/upgrade" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -278,33 +277,31 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-
     <Button
         android:id="@+id/settings_button"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/monthly_card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="10dp"
-        android:visibility="visible"
+        android:layout_marginTop="15dp"
         android:drawableLeft="@drawable/ic_arrow_left_32"
         android:drawableTint="@color/main_background"
-        android:textColor="@color/main_background"
-        app:layout_constraintStart_toStartOf="@id/monthly_card"
-        app:layout_constraintEnd_toEndOf="@id/yearly_card"
         android:text="@string/settings"
+        android:textColor="@color/main_background"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/yearly_card"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@id/monthly_card"
+        app:layout_constraintTop_toBottomOf="@id/monthly_card"
+        app:layout_constraintVertical_bias="0.526"
         tools:ignore="RtlHardcoded" />
-
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintTop_toBottomOf="@id/illustrations"
+        app:layout_constraintTop_toBottomOf="@id/settings_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintStart_toEndOf="@id/illustrations"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         >
         <TextView
