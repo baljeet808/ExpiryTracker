@@ -211,7 +211,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                 youtubeBtn.isGone = true
                 playStoreBtn.isGone = true
                 facebookBtn.isGone = true
-                adLoader = AdLoader.Builder(requireContext(), Constants.TRACKER_DETAIL_NATIVE_INLINE_AD_ID)
+                adLoader = AdLoader.Builder(requireContext(), Constants.TEST_NATIVE_INLINE_AD_ID)
                     .forNativeAd { ad : NativeAd ->
                         // Show the ad.
                         val adView =  layoutInflater.inflate(R.layout.native_ad_view_layout,container, false) as NativeAdView

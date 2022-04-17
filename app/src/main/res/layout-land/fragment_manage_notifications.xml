@@ -11,12 +11,12 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/ic_arrow_left_32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="20dp"
         />
 
@@ -37,7 +37,7 @@
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toTopOf="@id/back_button" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -45,6 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textSize="13sp"
         android:text="@string/manage_notification_note"
         app:layout_constraintEnd_toStartOf="@id/guideline_mid"
         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -84,17 +85,52 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/daily_notification_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/all_notification_card"
+        app:layout_constraintStart_toEndOf="@id/guideline_mid"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:strokeColor="@color/text_color"
+        app:strokeWidth="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="50dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/daily_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?card_background">
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/daily_notification_toggle"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"
+                android:text="@string/daily_reminder_is_off"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reminder_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/manage_notification_message"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/daily_notification_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
     />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -106,6 +142,7 @@
         android:text="@string/you_are_not_tracking"
         android:drawablePadding="10dp"
         android:visibility="gone"
+        android:textSize="12sp"
         tools:visibility="visible"
         android:drawableTint="?attr/text_dialog_color"
         app:layout_constraintTop_toBottomOf="@id/manage_notification_message"

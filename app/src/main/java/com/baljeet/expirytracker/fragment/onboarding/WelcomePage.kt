@@ -19,43 +19,35 @@ class WelcomePage : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bind = FragmentWelcomePageBinding.inflate(inflater, container, false)
-
-        return bind.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         bind.apply {
-            bind.apply {
-                val fragmentList = arrayListOf(
-                    ImpressiveTrackers(),
-                    UseWidgets(),
-                    WatchReports(),
-                    SaveMoney()
-                )
+            val fragmentList = arrayListOf(
+                ImpressiveTrackers(),
+                UseWidgets(),
+                WatchReports(),
+                SaveMoney()
+            )
 
-                val mAdapter = ViewPagerAdapter(
-                    fragmentList,
-                    childFragmentManager,
-                    lifecycle
-                )
-                bind.tabDots.apply {
-                    addTab(newTab())
-                    addTab(newTab())
-                    addTab(newTab())
-                    addTab(newTab())
-                }
-                bind.fragmentContainer.apply {
-                    adapter = mAdapter
-                    isUserInputEnabled = true
-                    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                        override fun onPageSelected(position: Int) {
-                            tabDots.selectTab(bind.tabDots.getTabAt(position))
-                        }
-                    })
-                }
+            val mAdapter = ViewPagerAdapter(
+                fragmentList,
+                childFragmentManager,
+                lifecycle
+            )
+            bind.tabDots.apply {
+                addTab(newTab())
+                addTab(newTab())
+                addTab(newTab())
+                addTab(newTab())
+            }
+            bind.fragmentContainer.apply {
+                adapter = mAdapter
+                isUserInputEnabled = true
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        tabDots.selectTab(bind.tabDots.getTabAt(position))
+                    }
+                })
             }
         }
+        return bind.root
     }
-
 }

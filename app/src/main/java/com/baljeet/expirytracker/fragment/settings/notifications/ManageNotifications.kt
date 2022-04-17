@@ -60,6 +60,12 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
             } else {
                 getString(R.string.notifications_off)
             }
+            dailyNotificationToggle.isChecked = SharedPref.isDailyAlertEnabled
+            allNotificationToggle.text = if (SharedPref.isDailyAlertEnabled) {
+                getString(R.string.daily_reminder_is_on)
+            } else {
+            getString(R.string.daily_reminder_is_off)
+        }
             allNotificationToggle.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
                     buttonView.text = getString(R.string.notifications_on)
@@ -72,6 +78,22 @@ class ManageNotifications : Fragment(), OnEditReminderTime, OnReminderCheckedCha
                     Toast.makeText(
                         requireContext(),
                         "Notifications are off now",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            dailyNotificationToggle.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    buttonView.text = getString(R.string.daily_reminder_is_on)
+                    SharedPref.isDailyAlertEnabled = true
+                    Toast.makeText(requireContext(), "Daily reminders are on now", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    buttonView.text = getString(R.string.daily_reminder_is_off)
+                    SharedPref.isDailyAlertEnabled = false
+                    Toast.makeText(
+                        requireContext(),
+                        "Daily reminders are off now",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

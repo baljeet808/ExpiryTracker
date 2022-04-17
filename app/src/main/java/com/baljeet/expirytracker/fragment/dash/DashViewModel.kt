@@ -38,7 +38,7 @@ class DashViewModel(app: Application): AndroidViewModel(app) {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
             context,
-            Constants.DASH_INTERSTITIAL_AD_ID,
+            Constants.TEST_INTERSTITIAL_AD_ID,
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(error: LoadAdError) {

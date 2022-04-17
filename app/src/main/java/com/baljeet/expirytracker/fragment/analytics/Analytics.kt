@@ -245,7 +245,7 @@ class Analytics : Fragment(), ShowImagePreview {
              else{
                  val adRequest = AdRequest.Builder().build()
                  RewardedAd.load(requireContext()
-                     ,Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                     ,Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
                      override fun onAdFailedToLoad(adError: LoadAdError) {
                          mRewardedAd = null
                      }
@@ -354,7 +354,6 @@ class Analytics : Fragment(), ShowImagePreview {
 
     private fun prepPDFRequest(){
         viewModel.trackersAfterAllFilters.value?.let {
-            if(it.isNotEmpty()){
                 val request = RequestPDF(
                     trackers =it.toCollection(ArrayList()),
                     periodStartDate =  viewModel.startDate,
@@ -396,9 +395,6 @@ class Analytics : Fragment(), ShowImagePreview {
                     textColor = SelectedTextColor.BLACK
                 )
                 moveToPdfPreview(request)
-            }else{
-                Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
-            }
         }?: kotlin.run {
             Toast.makeText(requireContext(),"Not enough data to generate a report.", Toast.LENGTH_SHORT).show()
         }

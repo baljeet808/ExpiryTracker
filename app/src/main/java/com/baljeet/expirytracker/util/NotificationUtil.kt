@@ -1,13 +1,14 @@
 package com.baljeet.expirytracker.util
 
-import android.app.*
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import kotlinx.datetime.toKotlinLocalDateTime
-import java.time.Instant
+import android.widget.Toast
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.*
 
 const val channelName = "Single Product Updates"
@@ -43,6 +44,27 @@ object NotificationUtil {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)
     }
+
+    private const val HOUR_TO_SHOW_PUSH = 14
+
+    fun setDailyReminder(context : Context){
+        val cal = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, HOUR_TO_SHOW_PUSH)
+            set(Calendar.MINUTE, 40)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+        val intent = Intent(context, NotificationReceiver::class.java)
+        intent.putExtra(titleExtra, 8888)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, 8888, intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.timeInMillis,AlarmManager.INTERVAL_FIFTEEN_MINUTES,pendingIntent)
+        Toast.makeText(context,"daily reminders set", Toast.LENGTH_SHORT).show()
+    }
+
 
     fun createNotificationChannel(context : Context){
         val name = channelName

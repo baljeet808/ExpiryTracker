@@ -17,15 +17,16 @@
         android:id="@+id/message_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@id/product_image"
         android:ellipsize="end"
         android:gravity="center"
         android:lineHeight="20sp"
         android:maxLines="1"
+        android:textColor="@color/text_color"
         android:textAppearance="@style/myTextStyle"
         android:textSize="12sp"
-        android:layout_centerVertical="true"
         tools:text="Green Pineapple will be expired tomorrow" />
 
 

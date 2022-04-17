@@ -320,4 +320,9 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="dark_mode_off">Dark mode off</string>
     <string name="dark_mode_on">Dark mode on</string>
+    <string name="let_s_track_product_expiry_date">Let\'s track product expiry date.</string>
+    <string name="keep_your_products_fresh">Keep your products fresh.</string>
+    <string name="daily_reminder_is_off">Daily reminder is off</string>
+    <string name="daily_reminder_is_on">Daily reminder is on</string>
+    <string name="check_status">Check status</string>
 </resources>

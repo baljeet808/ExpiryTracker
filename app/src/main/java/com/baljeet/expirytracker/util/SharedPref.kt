@@ -24,6 +24,17 @@ object SharedPref {
             it.putBoolean("isAlertEnabled",value)
         }
 
+    var isDailyAlertEnabled: Boolean
+        get() = sharedPref.getBoolean("isDailyAlertEnabled",true)
+        set(value) = sharedPref.edit {
+            it.putBoolean("isDailyAlertEnabled",value)
+        }
+    var isDailyAlertSetup: Boolean
+        get() = sharedPref.getBoolean("isDailyAlertSetup",false)
+        set(value) = sharedPref.edit {
+            it.putBoolean("isDailyAlertSetup",value)
+        }
+
     var hasBeenSeeded: Boolean
         get() = sharedPref.getBoolean("hasBeenSeeded",false)
         set(value) = sharedPref.edit {

@@ -23,9 +23,14 @@ class AddTrackerViewModel(app: Application): AndroidViewModel(app) {
 
 
     var mfgGiven = MutableLiveData(true)
-    var mfgDate: LocalDateTime? = LocalDateTime.now()
+    var mfgDate: LocalDateTime? = null
 
     var reminderGiven = MutableLiveData(false)
     var reminderDate: LocalDateTime? = null
+
+    init {
+        val currentDate = LocalDateTime.now()
+        mfgDate = LocalDateTime.of(currentDate.year,currentDate.month,currentDate.dayOfMonth,0,5,0)
+    }
 
 }

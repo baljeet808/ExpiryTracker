@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_girl_48"
+        android:padding="2dp"/>
+
+    <TextView
+        android:id="@+id/message_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/product_image"
+        android:layout_toStartOf="@id/create_new_product_chip"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lineHeight="20sp"
+        android:maxLines="1"
+        android:textAppearance="@style/myTextStyle"
+        android:textSize="12sp"
+        android:text="@string/let_s_track_product_expiry_date" />
+
+    <TextView
+        android:id="@+id/create_new_product_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/round_line_background"
+        android:padding="4dp"
+        android:textColor="@color/text_color"
+        android:text="@string/create_new"
+        android:textSize="11sp" />
+
+
+</RelativeLayout>

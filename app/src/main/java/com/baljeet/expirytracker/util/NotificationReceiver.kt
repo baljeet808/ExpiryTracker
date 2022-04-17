@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.RemoteViews
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.baljeet.expirytracker.MainActivity
@@ -16,16 +17,126 @@ import com.baljeet.expirytracker.data.repository.TrackerRepository
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlin.random.Random
 
 
 class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         SharedPref.init(context)
+        Toast.makeText(context,"notification got here", Toast.LENGTH_SHORT).show()
+        val trackerId = intent.getIntExtra(titleExtra, 0)
+        if(trackerId == 8888){
+            Toast.makeText(context,"showing daily reminder", Toast.LENGTH_SHORT).show()
+            showDailyNotification(context)
+        }else{
+            Toast.makeText(context,"showing normal reminder", Toast.LENGTH_SHORT).show()
+            showNormalNotification(context, trackerId)
+        }
+    }
+
+    private fun showDailyNotification(context : Context){
+        val repository = TrackerRepository(AppDatabase.getDatabase(context).trackerDao())
+        val trackers = repository.getActiveTrackers()
+        if(trackers.isEmpty()){
+            showAddProductReminder(context)
+        }else{
+             showReportReminder(context)
+        }
+    }
+
+    private fun showReportReminder(context: Context){
+        if(SharedPref.isAlertEnabled && SharedPref.isDailyAlertEnabled){
+            val collapsed =
+                RemoteViews(context.packageName, R.layout.daily_reminder_report)
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.main_nav)
+                .setDestination(R.id.dashFragment)
+                .createPendingIntent()
+
+            val builder = NotificationCompat.Builder(context, channelID)
+                .setSmallIcon(R.drawable.ic_app_icon_svg)
+                .setContentTitle(context.getString(R.string.app_name))
+                .setCustomContentView(collapsed)
+                .setContentIntent(pendingIntent)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+
+            val manager = context.getSystemService(NotificationManager::class.java)
+            manager.notify(8888, builder.build())
+        }
+    }
+
+    private fun showAddProductReminder(context : Context){
+        if(SharedPref.isAlertEnabled && SharedPref.isDailyAlertEnabled){
+            val collapsed =
+                RemoteViews(context.packageName, R.layout.daily_reminder_add_product)
+
+            when((1..3).random()){
+                1 ->{
+                    collapsed.setImageViewResource(
+                        R.id.product_image, context.resources.getIdentifier(
+                            "ic_girl_48",
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                }
+                2->{
+                    collapsed.setImageViewResource(
+                        R.id.product_image, context.resources.getIdentifier(
+                            "ic_peruvian",
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                }
+                3->{
+                    collapsed.setImageViewResource(
+                        R.id.product_image, context.resources.getIdentifier(
+                            "ic_woman",
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                }else->{
+                    collapsed.setImageViewResource(
+                        R.id.product_image, context.resources.getIdentifier(
+                            "ic_peruvian",
+                            "drawable",
+                            context.packageName
+                        )
+                    )
+                }
+            }
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.main_nav)
+                .setDestination(R.id.addTrackerV2)
+                .createPendingIntent()
+
+            val builder = NotificationCompat.Builder(context, channelID)
+                .setSmallIcon(R.drawable.ic_app_icon_svg)
+                .setContentTitle(context.getString(R.string.app_name))
+                .setCustomContentView(collapsed)
+                .setContentIntent(pendingIntent)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+
+            val manager = context.getSystemService(NotificationManager::class.java)
+            manager.notify(8888, builder.build())
+        }
+    }
+
+
+    private fun showNormalNotification(context:Context, trackerId : Int){
         if(SharedPref.isAlertEnabled) {
             try {
                 val repository = TrackerRepository(AppDatabase.getDatabase(context).trackerDao())
-                val trackerId = intent.getIntExtra(titleExtra, 0)
+
                 val tracker = repository.getTrackerByID(trackerId)
 
                 val collapsed =
@@ -138,13 +249,14 @@ class NotificationReceiver : BroadcastReceiver() {
                     .createPendingIntent()
 
                 val builder = NotificationCompat.Builder(context, channelID)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_app_icon_svg)
                     .setCustomContentView(collapsed)
                     .setCustomBigContentView(expanded)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_ALL)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
-
+                    .setAutoCancel(true)
+                
                 val manager = context.getSystemService(NotificationManager::class.java)
                 manager.notify(trackerId, builder.build())
             } catch (e: Exception) {
@@ -153,6 +265,5 @@ class NotificationReceiver : BroadcastReceiver() {
         }else{
             Log.d("Log for - ","Notification received but ignored because of preferences")
         }
-
     }
 }
