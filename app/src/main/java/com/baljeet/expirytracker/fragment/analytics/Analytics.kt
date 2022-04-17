@@ -22,6 +22,7 @@ import com.baljeet.expirytracker.model.*
 import com.baljeet.expirytracker.util.Constants
 import com.baljeet.expirytracker.util.SharedPref
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
@@ -53,25 +54,8 @@ class Analytics : Fragment(), ShowImagePreview {
         bind  = FragmentAnalyticsBinding.inflate(inflater,container,false)
         bind.apply {
 
-             SharedPref.init(requireContext())
-            if(SharedPref.isUserAPro){
-                buyProButton.isGone = true
-                adIcon.isGone = true
-            }
-            else{
-                val adRequest = AdRequest.Builder().build()
-                RewardedAd.load(requireContext(),Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        mRewardedAd = null
-                    }
-
-                    override fun onAdLoaded(rewardedAd: RewardedAd) {
-                        mRewardedAd = rewardedAd
-
-                    }
-                })
-            }
-
+            SharedPref.init(requireContext())
+            loadAd()
             
             downloadPdfButton.setOnClickListener {
                 if(SharedPref.isUserAPro){
@@ -82,7 +66,8 @@ class Analytics : Fragment(), ShowImagePreview {
                             prepPDFRequest()
                         }
                     } else {
-                        Log.d("MainActivity", "The rewarded ad wasn't ready yet.")
+                        prepPDFRequest()
+                        loadAd()
                     }
                 }
             }
@@ -249,6 +234,35 @@ class Analytics : Fragment(), ShowImagePreview {
             }
         }
         return bind.root
+    }
+
+    private fun loadAd(){
+         bind.apply {
+             if(SharedPref.isUserAPro){
+                 buyProButton.isGone = true
+                 adIcon.isGone = true
+             }
+             else{
+                 val adRequest = AdRequest.Builder().build()
+                 RewardedAd.load(requireContext()
+                     ,Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                     override fun onAdFailedToLoad(adError: LoadAdError) {
+                         mRewardedAd = null
+                     }
+
+                     override fun onAdLoaded(rewardedAd: RewardedAd) {
+                         mRewardedAd = rewardedAd
+
+                     }
+                 })
+                 mRewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                     override fun onAdDismissedFullScreenContent() {
+                         mRewardedAd = null
+                     }
+                 }
+             }
+
+         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
