@@ -22,7 +22,7 @@
         android:id="@+id/support_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:drawablePadding="8dp"
         android:ellipsize="end"
         android:fontFamily="@font/montserrat"
@@ -37,8 +37,8 @@
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/back_button" />
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/review_message_text"
@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:drawablePadding="25dp"
+        android:textSize="13sp"
         android:text="@string/review_message"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -53,10 +54,10 @@
 
     <ImageView
         android:id="@+id/expression_face"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/ic_hug_84"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/review_message_text"
         app:layout_constraintBottom_toTopOf="@id/quote_text"
         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -83,37 +84,41 @@
 
     <Button
         android:id="@+id/submit_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
         android:elevation="10dp"
         android:enabled="true"
         android:text="@string/share_with_your_friends"
         android:textSize="14sp"
         app:textAllCaps="false"
+        android:layout_marginTop="10dp"
         app:icon="@drawable/ic_sharing"
         app:iconTint="@null"
+        android:minWidth="260dp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintBottom_toTopOf="@id/review_button"
+        app:layout_constraintTop_toBottomOf="@id/quote_text"
         />
 
 
     <Button
         android:id="@+id/review_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
         android:elevation="10dp"
         android:enabled="true"
         android:text="@string/review_on_play_store"
         android:textSize="14sp"
         app:textAllCaps="false"
+        android:layout_marginTop="10dp"
         app:icon="@drawable/ic_playstore"
         app:iconTint="@null"
+        android:minWidth="260dp"
         app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toEndOf="@id/guideline2"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/submit_button"
         />
 
 
