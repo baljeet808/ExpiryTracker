@@ -22,14 +22,14 @@
         app:fontFamily="@font/montserrat_bold"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/guideline_top"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/analyze_lottie"
         />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/analyze_lottie"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/first_point_text"
@@ -51,7 +51,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:fontFamily="@font/montserrat_bold"
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
@@ -60,8 +60,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/improve_lottie"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/second_point_text"
@@ -84,12 +84,13 @@
         android:gravity="center"
         android:textColor="@color/text_color"
         android:textSize="16sp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         />
     <View
         android:layout_width="200dp"
         android:layout_height="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/text_color"
         app:layout_constraintStart_toStartOf="@id/first_supporting_text"
         app:layout_constraintEnd_toEndOf="@id/first_supporting_text"
