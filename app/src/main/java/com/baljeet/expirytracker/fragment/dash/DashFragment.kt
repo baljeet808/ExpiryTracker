@@ -229,7 +229,9 @@ class DashFragment : Fragment(), UpdateTrackerListener, OnTrackerOpenListener, S
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showAd()
+        if(SharedPref.isUserAPro.not()){
+            showAd()
+        }
     }
 
 

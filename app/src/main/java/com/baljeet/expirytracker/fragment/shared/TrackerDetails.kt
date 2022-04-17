@@ -51,10 +51,6 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
     private val navArgs : TrackerDetailsArgs by navArgs()
     private val trackerViewModel : TrackerViewModel by viewModels()
 
-
-    private var mRewardedAd: RewardedAd? = null
-
-
     private var pickedFor : PickingFor = PickingFor.EXPIRY
     private var tempDateTime :LocalDateTime ? = null
 
@@ -229,6 +225,7 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
                             return@forNativeAd
                         }
                     }.withAdListener(object : AdListener() {
+
                         override fun onAdFailedToLoad(adError: LoadAdError) {
                             // Handle the failure by logging, altering the UI, and so on.
                             bind.adLayout.isGone = true
@@ -551,5 +548,4 @@ class TrackerDetails : Fragment() , DatePickerDialog.OnDateSetListener, TimePick
             )
         }
     }
-
 }
