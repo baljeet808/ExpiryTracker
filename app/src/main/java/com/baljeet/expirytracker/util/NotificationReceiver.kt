@@ -24,13 +24,10 @@ class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         SharedPref.init(context)
-        Toast.makeText(context,"notification got here", Toast.LENGTH_SHORT).show()
         val trackerId = intent.getIntExtra(titleExtra, 0)
         if(trackerId == 8888){
-            Toast.makeText(context,"showing daily reminder", Toast.LENGTH_SHORT).show()
             showDailyNotification(context)
         }else{
-            Toast.makeText(context,"showing normal reminder", Toast.LENGTH_SHORT).show()
             showNormalNotification(context, trackerId)
         }
     }

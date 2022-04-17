@@ -182,7 +182,7 @@ class Personalize : Fragment() {
         if (SharedPref.isUserAPro.not()) {
             val adRequest = AdRequest.Builder().build()
             RewardedAd.load(requireContext(),
-                Constants.TEST_REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
+                Constants.REWARDED_AD_ID, adRequest, object : RewardedAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
                         mRewardedAd = null
                     }
